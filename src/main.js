@@ -7,6 +7,7 @@ import './directives'
 // 导入click事件
 import FastClick from 'fastclick'
 import 'lib-flexible'
+import './common/css/index.scss'
 
 FastClick.attach(document.body)
 

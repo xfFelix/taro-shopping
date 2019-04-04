@@ -1,6 +1,0 @@
-@mixin bg-image($url) {
-  background-image: url('~@/common/images/xf/' + $url + '.png');
-  @media (-webkit-min-device-pixel-radio: 3),(min-device-pixel-radio: 3) {
-    background-image: url('~@/common/images/xf/' + $url + '@2x.png')
-  }
-}
