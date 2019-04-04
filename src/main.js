@@ -7,11 +7,8 @@ import './directives'
 // 导入click事件
 import FastClick from 'fastclick'
 import 'lib-flexible'
-<<<<<<< HEAD
 import './common/css/index.scss'
-=======
 import {toast} from '@/util/toast'
->>>>>>> 97f451246a4d047a363b84cac604cfb628013845
 
 FastClick.attach(document.body)
 
