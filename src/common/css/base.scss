@@ -1,0 +1,128 @@
+body,
+html {
+    // font-family: Microsoft yahei;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
+    -webkit-text-size-adjust: 100% !important;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    color: #4d4d4d;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: #f5f5f5;
+    font-size: 0.36rem;
+    // touch-action: none; 
+}
+
+#app {
+    width: 100%;
+    height: 100%; // max-width: 540Px;
+    margin: 0 auto;
+    -webkit-box-orient: vertical; // background: #fff;
+    position: relative;
+    font-size: 0.36rem;
+    padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.main-prod {
+    width: 100%;
+}
+
+.main-prod {
+    // padding-bottom: 51px;
+}
+
+
+/* 导航栏字体颜色 */
+
+.van-nav-bar .van-nav-bar__title {
+    color: #FFF;
+}
+
+.btn {
+    width: 80%;
+    margin: 20px auto 0;
+    display: block;
+    border-radius: 100px;
+    border: none;
+    font-size: 15px;
+}
+
+.pws-input .van-password-input__security {
+    height: 44px !important;
+}
+
+.van-number-keyboard {
+    z-index: 2100 !important;
+}
+
+
+/*订单列表顶部 Tab 标签页样式*/
+
+.van-tabs {
+    // height: 100%;
+    // overflow: hidden;     // LY 回头来整理2018/06/27
+    padding-top: 35px;
+}
+
+.van-tabs--line .van-tabs__wrap {
+    height: 35px;
+}
+
+.van-tab {
+    line-height: 35px;
+    color: #474747;
+}
+
+// .van-tabs__content {      //LY 回头来整理2018/06/27
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     top: 35px;
+//     bottom: 0;
+//     overflow: auto;
+// }
+
+/*复选框的颜色*/
+
+.van-checkbox__icon {
+    border-color: #439df4;
+    // width: 16px;
+    // height: 16px;
+    line-height: 15px;
+    font-size: 10px;
+}
+
+.van-checkbox--checked {
+    color: #439df4;
+    border-color: #439df4;
+    background-color: #FFF;
+}
+
+
+/*折叠面板组件的下划线样式*/
+
+.van-cell:not(:last-child)::after {
+    left: 0;
+}
+
+
+/*iphone X密码输入框底部适配样式*/
+
+.van-number-keyboard {
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.van-cell__value .van-field__body {
+    height: 100%;
+}
+
+.van-slider__bar{
+    background-color: #6B3400;
+}
