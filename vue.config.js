@@ -11,6 +11,9 @@ function resolve (dir) {
 }
 
 module.exports = {
+  publicPath: './',
+  outputDir: 'dist',
+  assetsDir: 'static',
   // 删除打包后.map文件
   productionSourceMap: false,
   css: {
@@ -39,13 +42,15 @@ module.exports = {
       theme: true
     }
   },
-  lintOnSave: process.env.NODE_ENV !== 'production',
+  lintOnSave: false,
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', resolve('src'))
       .set('common', resolve('src/common'))
       .set('views', resolve('src/views'))
       .set('components', resolve('src/components'))
+      .set('api', resolve('src/api'))
+      .set('util', resolve('src/util'))
       .set('store', resolve('src/store'))
     config.output.filename('[name].[hash].js').end()
     config.module
@@ -81,17 +86,17 @@ module.exports = {
       })
     ]
     // 只有打包生产环境才需要将console删除
-    if (process.env.VUE_APP_build_type == 'production') {
+    if (process.env.NODE_ENV == 'production') {
       config.plugins = [...config.plugins, ...plugins]
     }
   },
   devServer: {// 跨域
-    port: 8081, // 端口号
+    port: 8080, // 端口号
     open: true, // 配置自动启动浏览器
     proxy: {// 配置跨域处理 可以设置多个
-      '/api': {
-        target: 'xxxx',
-        ws: true,
+      '/': {
+        target: 'http://192.168.0.110:9999/',
+        ws: false,
         changeOrigin: true
       }
     }
