@@ -11,7 +11,6 @@ function resolve (dir) {
 }
 
 module.exports = {
-  publicPath: './',
   outputDir: 'dist',
   assetsDir: 'static',
   // 删除打包后.map文件
@@ -93,12 +92,11 @@ module.exports = {
   devServer: {// 跨域
     port: 8080, // 端口号
     open: true, // 配置自动启动浏览器
-    proxy: {// 配置跨域处理 可以设置多个
-      '/': {
-        target: 'http://192.168.0.110:9999/',
-        ws: false,
-        changeOrigin: true
-      }
+    historyApiFallback: true,
+    hot: true,
+    overlay: {
+      warnings: true,
+      errors: true
     }
   }
 }
