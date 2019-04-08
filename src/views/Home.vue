@@ -105,7 +105,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .background-op {
   background: rgba(0, 0, 0, 0.4);
   text-align: center;
