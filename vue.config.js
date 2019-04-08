@@ -17,7 +17,7 @@ module.exports = {
   productionSourceMap: false,
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
-    extract: true,
+    extract: process.env.NODE_ENV === 'production',
     // css预设器配置项
     loaderOptions: {
       postcss: {
@@ -92,6 +92,7 @@ module.exports = {
   devServer: {// 跨域
     port: 8080, // 端口号
     open: true, // 配置自动启动浏览器
+    disableHostCheck: true,
     historyApiFallback: true,
     hot: true,
     overlay: {
