@@ -9,8 +9,8 @@ import FastClick from 'fastclick'
 import 'lib-flexible'
 import './common/css/index.scss'
 import {toast} from '@/util/toast'
-
-FastClick.attach(document.body)
+import 'swiper/dist/css/swiper.css'
+FastClick.attach(document.body);
 
 Vue.config.productionTip = false
 

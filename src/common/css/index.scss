@@ -13,7 +13,9 @@ img{border:none;}
 input{outline:none;border: none;}
 .clear:after{content:'.';display:block;height:0;clear:both;overflow:hidden;visibility:hidden;}
 html{height: 100%;width: 100%;}
-
+body{
+	background: #f3f4f6;
+}
 
 /******************* 1像素 ***********************/
 .one-top-px{

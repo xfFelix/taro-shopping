@@ -15,39 +15,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-chahao:before {
-  content: "\e617";
-}
-
-.icon-shanchuguanbicha2:before {
-  content: "\e80b";
-}
-
-.icon-fanhui:before {
-  content: "\e61e";
-}
-
-.icon-gengduo-copy:before {
-  content: "\e80c";
-}
-
-.icon-fanhui-copy:before {
-  content: "\e80d";
-}
-
-.icon-chahao-copy:before {
-  content: "\e80e";
-}
-
-.icon-chahao-copy1:before {
-  content: "\e80f";
-}
-
-.icon-gengduo-copy-copy:before {
-  content: "\e810";
-}
-
 .icon-huidaodingbu-copy:before {
   content: "\e811";
 }
-
+.icon-gengduo-copy:before {
+  content: "\e80c";
+}
+.icon-fanhui:before {
+  content: "\e61e";
+}
+.icon-chahao-copy:before {
+  content: "\e80e";
+}

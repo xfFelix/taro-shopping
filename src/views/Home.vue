@@ -2,7 +2,7 @@
   <div class="home">
     <header>
       <div>
-        <img src="../common/images/banner.jpg" alt="" />
+        <img src="../common/images/banner.jpg" alt="" style="width:100%;" />
       </div>
 
       <div class="h-searchW">
@@ -49,43 +49,57 @@
     <section class="h-goodsList">
       <ul>
         <li>
-          <div>
-             <img src="../common/images/picture.jpg" alt="" />
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
           </div>
-          <div class="h-goodsInfoW">
-            <p class="h-goodsInfo">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyW">
-              <span class="h-goodsMoney">1944</span>
-              <span>起 </span>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
             </p>
           </div>
         </li>
+
       </ul>
     </section>
 
-    </section>
+     <div>
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">I'm Slide {{ slide }}</swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </div> 
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import {getInfo} from 'api'
-
+import { getInfo } from 'api'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
   name: 'home',
-  components: {
-    HelloWorld
-  },
-  mounted () {
+  data: () => ({
+    swiperOption: {
+      pagination: {
+        el: '.swiper-pagination'
+      }
+    },
+    swiperSlides: [1, 2, 3, 4, 5]
+  }),
+  mounted() {
     console.log(process.env)
     this.getInfo()
   },
-  methods:{
+  methods: {
     async getInfo() {
-      let data = await getInfo({token:'f7512935295b36d9b469e672c531d4c8'})
+      let data = await getInfo({ token: 'f7512935295b36d9b469e672c531d4c8' })
       console.log(data)
     }
+  },
+  components: {
+    swiper,
+    swiperSlide
   }
 }
 </script>
@@ -179,6 +193,7 @@ header {
   font-size: 10px;
   height: 200px;
   display: inline-block;
+  background: #fff;
   .h-goodsImgW {
     position: relative;
     img {
@@ -197,24 +212,73 @@ header {
     }
   }
 }
-  .h-goodsInfoW {
-    text-align: left;
-    margin: 0 16px 0 12px;
-    .h-goodsInfo {
-      color: #000000;
-      font-size: 10px;
-      line-height: 18px;
-      margin: 8px 0 7px 0;
+
+.h-goodsInfoW {
+  text-align: left;
+  margin: 0 16px 0 12px;
+  .h-goodsInfo {
+    color: #000000;
+    font-size: 0.266667rem;
+    line-height: 0.48rem;
+    margin: 0.213333rem 0 0.186667rem 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .h-goodsMoneyW {
+    .h-goodsMoney {
+      color: #30ce84;
+      font-size: 15px;
     }
-    .h-goodsMoneyW {
-      .h-goodsMoney {
-        color: #30ce84;
-        font-size: 15px;
+    span:last-of-type {
+      color: #999999;
+    }
+  }
+}
+
+.h-goodsList {
+  padding: 0 8px 10px 8px;
+  ul {
+    li {
+      display: flex;
+      background: #fff;
+      height: 79px;
+      padding: 10px 0;
+      box-shadow: 2px 4px 10px 0px #e1ebff;
+      .h-goodsimgLiW {
+        width: 120px;
+        height: 80px;
+        margin: 0 7px 0 9px;
+        flex-shrink: 0;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
-      span:last-of-type {
-        color: #999999;
+      .h-goodsInfoLiW {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        text-align: left;
+        .h-goodsInfoLi {
+          margin: 0;
+          line-height: 17px;
+          color: #000;
+        }
+        .h-goodsMoneyLiW {
+          font-size: 10px;
+          color: #999999;
+          .h-goodsMoneyLi {
+            font-size: 15px;
+            color: #30ce84;
+          }
+        }
       }
     }
   }
+}
 </style>
 
