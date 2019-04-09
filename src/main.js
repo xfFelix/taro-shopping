@@ -14,7 +14,7 @@ FastClick.attach(document.body);
 
 Vue.config.productionTip = false
 
-Vue.prototype.$toast = toast
+Vue.prototype.$toast = toast      
 
 new Vue({
   router,
