@@ -10,17 +10,17 @@
         </swiper>
       </div>
       <div class="ab-head" v-if="!headShow">
-        <div class="iconfont background-op h-searchBack"  @click="$router.back()">&#xe61e;</div>
-        <div class="iconfont background-op h-searchBack">&#xe80c;</div>
+        <div class="iconfont background-op h-searchBack" @click="$router.back()">&#xe61e;</div>
+        <div class="iconfont background-op h-searchBack" @click="showDialog =!showDialog">&#xe80c;</div>
       </div>
 
       <div class="ab-headFixed" v-if="headShow">
-        <div class="iconfont  h-searchBack"  @click="$router.back()">&#xe61e;</div>
-        <div class="iconfont  h-searchBack">&#xe80c;</div>
+        <div class="iconfont  h-searchBack" @click="$router.back()">&#xe61e;</div>
+        <div class="iconfont  h-searchBack" @click="showDialog =!showDialog">&#xe80c;</div>
       </div>
     </header>
 
-    <span class="iconfont background-op goTop" @click="goTop()" v-if="headShow" >&#xe811;</span>
+    <span class="iconfont background-op goTop" @click="goTop()" v-if="headShow">&#xe811;</span>
 
     <section class="ab-tkInfoW">
       <div class="ab-circle"></div>
@@ -67,19 +67,38 @@
       </ul>
     </section>
 
-    <ul class="ad-introduceW ont-bottom-px">
-      <li v-for="(item,index) in selectList" :key="index" @click="selectIndex(index)">
-        <span>{{item.name}}</span>
-        <span :class="item.id==selectId?'ad-selectInt':''"></span>
-      </li>
-    </ul>
+    <!-- <ul class="ad-introduceW ont-bottom-px">
+          <li v-for="(item,index) in selectList" :key="index" @click="selectIndex(index)">
+            <span>{{item.name}}</span>
+            <span :class="item.id==selectId?'ad-selectInt':''"></span>
+          </li>
+        </ul> -->
 
 
+    <cube-tab-bar 
+        v-model="selectedLabelDefault" 
+        :data="tabs" 
+        @click="clickHandler" 
+        @change="changeHandler" 
+        show-slider>
+    </cube-tab-bar>
+    
+  
+
+    <head-tab v-if="showDialog"></head-tab>
+    <bg-mask v-model="showDialog" color="transparent"></bg-mask>
+
+    <transition enter-active-class="animated slideInUp" leave-active-class="animated slideOutDown">
+      <sms-confirm @smsShowC="smsShowP" v-if="showSendCode"></sms-confirm>
+    </transition>
+    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <bg-mask v-model="showSendCode"></bg-mask>
+    </transition>
 
   </div>
 </template>
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
 export default {
   name: 'about',
   data: () => ({
@@ -90,31 +109,16 @@ export default {
       }
     },
     swiperSlides: [1, 2, 3, 4, 5],
-    selectList: [
-      {
-        id: 0,
-        name: '景区须知',
-        selectFlag: true
-      },
-      {
-        id: 1,
-        name: '景区简介',
-        selectFlag: false
-      },
-      {
-        id: 2,
-        name: '交通指南',
-        selectFlag: false
-      },
-      {
-        id: 3,
-        name: '旅游主题',
-        selectFlag: false
-      },
-
+    selectedLabelDefault: '景区须知',
+    tabs: [
+        {label: '景区须知'},
+        {label: '景区简介'},
+        {label: '交通指南'},
+        {label: '旅游主题'},
     ],
-    selectId: 0,
-    headShow: false
+    headShow: false,
+    showDialog: false,
+    showSendCode: false
   }),
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -123,8 +127,14 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
-    selectIndex(index) {
-      this.selectId = index;
+    clickHandler(label) {
+      console.log(label)
+    },
+    changeHandler(label) {
+      console.log(label)
+    },
+    smsShowP(val) {
+      this.showSendCode = val;
     },
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -132,23 +142,25 @@ export default {
         this.headShow = true;
       } else {
         this.headShow = false;
-        this.showDialog = false;
       }
     },
-     goTop() {
-            //参数i控制速度
-            document.body.scrollTop -= 500;
-            document.documentElement.scrollTop  -=500;
-            if (document.body.scrollTop > 0 || document.documentElement.scrollTop >0) {
-                var c = setTimeout(() => this.goTop(), 16);
-            } else {
-                clearTimeout(c);
-            }
-        },
+    goTop() {
+      //参数i控制速度
+      document.body.scrollTop -= 500;
+      document.documentElement.scrollTop -= 500;
+      if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+        var c = setTimeout(() => this.goTop(), 16);
+      } else {
+        clearTimeout(c);
+      }
+    },
   },
   components: {
     swiper,
-    swiperSlide
+    swiperSlide,
+    BgMask: () => import("@/components/BgMask"),
+    HeadTab: () => import("@/components/HeadTab"),
+    SmsConfirm: () => import("@/components/SmsConfirm")
   }
 }
 </script>
@@ -311,29 +323,29 @@ export default {
   }
 }
 
-.ad-introduceW {
-  background: #fff;
-  display: flex;
-  justify-content: space-around;
-  padding-top: 22px;
-  li {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 32px;
-    span:first-of-type {
-      color: #000000;
-      font-size: 15px;
-    }
-    .ad-selectInt {
-      width: 28px;
-      height: 3px;
-      background-color: #30ce84;
-      display: block;
-      margin: 0 auto;
-    }
-  }
-}
+// .ad-introduceW {
+//   background: #fff;
+//   display: flex;
+//   justify-content: space-around;
+//   padding-top: 22px;
+//   li {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     height: 32px;
+//     span:first-of-type {
+//       color: #000000;
+//       font-size: 15px;
+//     }
+//     .ad-selectInt {
+//       width: 28px;
+//       height: 3px;
+//       background-color: #30ce84;
+//       display: block;
+//       margin: 0 auto;
+//     }
+//   }
+// }
 
 .swiperBg {
   .swiper-pagination {
@@ -362,4 +374,24 @@ export default {
   position: fixed;
   background: rgba(0, 0, 0, 0.8);
 }
+</style>
+
+<style lang="scss">
+.cube-tab {
+  div {
+    font-size: 14px;
+  }
+}
+
+.cube-tab_active {
+  color: #30ce84;
+}
+
+.cube-tab-bar-slider {
+  background-color: #30ce84;
+}
+.cube-tab-bar{
+  height: 44px;
+  background: #fff;
+  }
 </style>

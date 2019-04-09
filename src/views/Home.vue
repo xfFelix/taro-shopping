@@ -14,8 +14,8 @@
         <div class="iconfont background-op h-searchBack"  @click="$router.back()">&#xe61e;</div>
         <div class="h-searchInpW background-op">
           <span class="h-searchLogo"></span>
-          <span class="h-searchInp"><input type="text" placeholder="shuru" /></span>
-          <span class="iconfont h-searchClose">&#xe80e;</span>
+          <span class="h-searchInp"><input type="text" v-model="inpConent"/></span>
+          <span class="iconfont h-searchClose" @click="inpConent=''">&#xe80e;</span>
         </div>
         <div class="h-searchCli background-op">搜索</div>
       </div>
@@ -24,12 +24,11 @@
         <div class="iconfont h-searchBack"  @click="$router.back()">&#xe61e;</div>
         <div class="h-searchInpW background-op">
           <span class="h-searchLogo"></span>
-          <span class="h-searchInp"><input type="text" placeholder="shuru" /></span>
-          <span class="iconfont h-searchClose">&#xe80e;</span>
+          <span class="h-searchInp"><input type="text" v-model="inpConent"/></span>
+          <span class="iconfont h-searchClose" @click="inpConent=''">&#xe80e;</span>
         </div>
         <div class="h-searchCli">搜索</div>
       </div>
-
     </header>
 
     <section class="h-goodsSection">
@@ -63,110 +62,24 @@
 
     <section class="h-goodsList">
       <ul>
-        <li>
+        <li v-for="(item,index) in ticketList" :key="index">
           <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
+            <img src="" alt="" />
           </div>
           <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsInfoLi">{{item.name}}</p>
             <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
+              <span class="h-goodsMoneyLi">{{item.money}}</span>
               <span>起</span>
             </p>
           </div>
         </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="h-goodsimgLiW">
-            <img src="../common/images/picture.jpg" alt="" />
-          </div>
-          <div class="h-goodsInfoLiW">
-            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
-            <p class="h-goodsMoneyLiW">
-              <span class="h-goodsMoneyLi">1944</span>
-              <span>起</span>
-            </p>
-          </div>
-        </li>
-
       </ul>
     </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import { getInfo } from 'api'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
@@ -179,14 +92,28 @@ export default {
       }
     },
     swiperSlides: [1, 2, 3, 4, 5],
-    headShow: false
+    headShow: false,
+    inpConent:'',
+    ticketList:[
+      {
+        name:"南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射",
+        money:'1944'
+      },
+      {
+        name:"南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射",
+        money:'1944'
+      },
+      {
+        name:"南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射",
+        money:'1944'
+      }
+    ]
   }),
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
     this.getInfo()
   },
   beforeDestroy() {
-
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
@@ -231,6 +158,7 @@ header {
   padding: 25px 6px 8px 6px;
   width: 100%;
   box-sizing: border-box;
+  z-index: 1;
   .h-searchBack {
     width: 30px;
     height: 30px;
