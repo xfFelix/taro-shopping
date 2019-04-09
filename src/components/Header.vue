@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1>{{title}}</h1>
+    <h1><slot></slot></h1>
     <i class="cubeic-back" v-if="showBack" @click="goBack"></i>
   </header>
 </template>
@@ -8,10 +8,6 @@
 <script>
 export default {
   props:{
-    title: {
-      type: String,
-      required: true
-    },
     showBack: {
       type: Boolean,
       default: true

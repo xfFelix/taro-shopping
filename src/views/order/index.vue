@@ -15,5 +15,6 @@ export default {
 <style>
 .order{
   height: 100%;
+  font-size: 14px;
 }
 </style>

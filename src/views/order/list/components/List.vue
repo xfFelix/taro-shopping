@@ -24,7 +24,7 @@
           <span class="total">合计: <em class="price-color">2054.22</em></span>
         </div>
         <div class="des">
-          <button class="order-detail">订单详情</button>
+          <button class="order-detail" @click="$router.push('detail')">订单详情</button>
         </div>
       </div>
     </li>
@@ -116,8 +116,12 @@ ul{
         font-weight: 900;
         color: #000;
         .order-number {
+          font-weight: 700;
           flex: 1;
           text-align: left;
+        }
+        .order-status{
+          font-weight: 700;
         }
       }
       .content{
@@ -127,7 +131,6 @@ ul{
         .good-img{
           flex: 0 0 120px;
           height: 80px;
-          border: 1px solid #ccc;
         }
         .good-detail{
           flex: 1;
@@ -159,7 +162,7 @@ ul{
               margin-right: 10px;
               box-sizing: border-box;
               &::before{
-                font-size: 16px;
+                font-size: 15px;
               }
             }
           }
@@ -175,7 +178,7 @@ ul{
         text-align: right;
         .order-detail{
           background-color: transparent;
-          font-size: 17px;
+          font-size: 15px;
           padding: 5px 15px;
           border: 1px solid #ccc;
           border-radius: 10px; /* no */

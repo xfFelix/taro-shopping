@@ -11,38 +11,38 @@
         </div>
         <div class="good-detail">
           <p class="good-name">商品名称</p>
-          <span class="price price-color">2944.00</span>
+          <price :price="2400.00" class="price"></price>
         </div>
       </div>
     </div>
     <ul>
       <li>
         <div class="item">
-          <span class="label">使用日期</span>
+          <span class="label">使用日期:</span>
           <span class="value">20190305 15:01:24</span>
         </div>
       </li>
       <li>
         <div class="item">
-          <span class="label">使用方式</span>
+          <span class="label">使用方式:</span>
           <span class="value">20190305 15:01:24</span>
         </div>
       </li>
       <li>
         <div class="item">
-          <span class="label">入园时间</span>
+          <span class="label">入园时间:</span>
           <span class="value">20190305 15:01:24</span>
         </div>
       </li>
       <li>
         <div class="item">
-          <span class="label">入园地址</span>
+          <span class="label">入园地址:</span>
           <span class="value">20190305 15:01:24</span>
         </div>
       </li>
       <li>
         <div class="item">
-          <span class="label">入园方式</span>
+          <span class="label">入园方式:</span>
           <span class="value">20190305 15:01:24</span>
         </div>
       </li>
@@ -52,13 +52,14 @@
 
 <script>
 export default {
-
+  components: {
+    Price: ()=> import('components/Price')
+  }
 }
 </script>
 <style lang="scss" scoped>
 .good-containner{
   padding: 10px 15px;
-  font-size: 16px;
   .good-wrapper{
     background: #313340;
     padding: 13px 10px 10px;
@@ -69,7 +70,6 @@ export default {
         height: 90px;
         margin: 10px 0;
         box-sizing: border-box;
-        border: 1px solid #ccc;
       }
       .good-detail{
         flex: 1;
@@ -96,6 +96,25 @@ export default {
         .price{
           position: absolute;
           bottom: 0;
+        }
+      }
+    }
+  }
+  ul{
+    background: #fff;
+    padding: 8px 10px;
+    li{
+      padding: 8px 0;
+      .item{
+        display: flex;
+        align-items: center;
+        .label{
+          flex: 0 0 100px;
+          font-weight: 700;
+        }
+        .value{
+          flex: 1;
+          color: #585858;
         }
       }
     }
