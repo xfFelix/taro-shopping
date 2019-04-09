@@ -1,7 +1,9 @@
 <template>
   <div class="detail">
-    <Header title="订单详情"></Header>
+    <Header>订单详情</Header>
     <good></good>
+    <certificate></certificate>
+    <user></user>
   </div>
 </template>
 
@@ -9,7 +11,9 @@
 export default {
   components:{
     'Header': () => import('components/Header'),
-    Good: ()=> import('./components/Good')
+    Good: ()=> import('./components/Good'),
+    Certificate: ()=> import('./components/Certificate'),
+    User: ()=> import('./components/User')
   }
 }
 </script>

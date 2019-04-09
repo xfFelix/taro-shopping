@@ -1,6 +1,6 @@
 @import "../fonts/iconfont.css";
 
-@charset "utf-8";
+
 /* CSS Document */
 html,body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0;}
 body{font:4.07vw "微软雅黑","Arial Narrow",HELVETICA;height: 100%;}
@@ -69,4 +69,26 @@ body{
       transform: scale(0.5);
       -webkit-transform-origin: left top;
       transform-origin: left top;
-    }
+	}
+img{
+	width: 100%;
+	height: 100%;
+	border: none;
+	display: block;
+	position: relative;
+}
+img:after{
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	content: '';
+	top: 0;
+	left: 0;
+	background-image: url(~common/images/picture.jpg);
+	background-size: cover;
+}
+.price-color{
+	color: #30ce84 !important;
+}

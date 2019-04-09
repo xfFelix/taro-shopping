@@ -3,6 +3,7 @@ import './cube-ui'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import filters from './filter'
 import './directives'
 // 导入click事件
 import FastClick from 'fastclick'
@@ -15,6 +16,10 @@ FastClick.attach(document.body);
 Vue.config.productionTip = false
 
 Vue.prototype.$toast = toast
+
+Object.keys(filters).forEach((key) => {
+  Vue.filter(key, filters[key])
+})
 
 new Vue({
   router,

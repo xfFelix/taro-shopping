@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <Header title="预订记录"></Header>
+    <Header>预订记录</Header>
     <cube-tab-bar
       v-model="selectedLabelDefault"
       :data="tabs"
@@ -60,11 +60,11 @@ export default {
 .cube-tab-bar-slider{
   background-color: #30ce84;
 }
+.cube-tab-bar{
+  background-color: #fff;
+}
 </style>
 
 
 <style lang="scss" scoped>
-.list{
-  height: 100%;
-}
 </style>

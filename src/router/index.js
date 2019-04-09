@@ -54,6 +54,11 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/settlement',
+      name: 'settlement',
+      component: () => import('views/settlement')
     }
   ]
 })
