@@ -5,8 +5,8 @@
         <img src="" alt="">
       </div>
       <div class="good-detail">
-        <p class="good-name">商品名称</p>
-        <price :price="2944.00"></price>
+        <p class="good-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</p>
+        <price :price="2944.00" class="good-price"></price>
       </div>
     </div>
     <div class="swiper-title border-bottom-1px">
@@ -15,23 +15,29 @@
     </div>
     <div class="buy border-bottom-1px">
       <span class="buy-number">购票数量</span>
-      <ul class="old-day">
+      <ul class="old-day clear-fix">
         <li class="item">
-          <p class="day">今天</p>
+          <p class="day">更多日期</p>
           <p class="number">2914</p>
+          <i class="cubeic-arrow"></i>
         </li>
         <li class="item">
           <p class="day">明天</p>
           <p class="number">2914</p>
         </li>
-        <li class="item">
-          <p class="day">更多日期</p>
+        <li class="item active">
+          <p class="day">今天</p>
           <p class="number">2914</p>
         </li>
       </ul>
     </div>
     <div class="use">
       <span class="label">使用日期</span>
+      <div class="count-number">
+        <i class="iconfont icon-reduce"></i>
+        <span class="number">3</span>
+        <i class="iconfont icon-add"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +54,77 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.main{
+  background: #fff;
+  padding: 10px 10px 0;
+  .swiper-title{
+    padding: 10px 0;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    .title{
+      color: #989898;
+    }
+    .hint{
+      color: #000;
+      font-weight: 600;
+    }
+  }
+  .buy{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    .buy-number{
+      color: #000;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .old-day{
+      flex: 1;
+      .item{
+        float: right;
+        border: 1px dashed #30ce84;
+        margin-left: 10px;
+        box-sizing: border-box;
+        width: 80px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 12px;
+        border-radius: 15px; /*no*/
+        position: relative;
+        &.active{
+          background: #30ce84;
+          color: #fff;
+        }
+        .cubeic-arrow{
+          position: absolute;
+          right: 1px;
+          top: 14px;
+        }
+      }
+    }
+  }
+  .use{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    .label{
+      font-size: 15px;
+      color: #000;
+      font-weight: 700;
+    }
+    .count-number{
+      border: 1px solid #ccc;
+      padding: 5px 8px;
+      .number{
+        padding: 0 10px;
+      }
+    }
+  }
+}
 </style>
 

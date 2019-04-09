@@ -92,3 +92,36 @@ img:after{
 .price-color{
 	color: #30ce84 !important;
 }
+
+.good{
+	display: flex;
+	.good-img{
+		flex: 0 0 120px;
+		height: 80px;
+	}
+	.good-detail{
+		margin-left: 10px;
+		box-sizing: border-box;
+		position: relative;
+		.good-name{
+			position:relative;
+			line-height:1.5em;
+			height:3em;
+			overflow:hidden;
+			word-break: break-all;
+			word-wrap: break-word;
+			&::after{
+				content:"";
+				position:absolute;
+				bottom:0;
+				right:0;
+				padding: 0 5px;
+				background-color: #fff;
+			}
+		}
+		.good-price{
+			position: absolute;
+			bottom: 0;
+		}
+	}
+}

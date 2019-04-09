@@ -43,6 +43,7 @@ module.exports = {
   },
   lintOnSave: false,
   chainWebpack: (config) => {
+    config.resolve.symlinks(true)
     config.resolve.alias
       .set('@', resolve('src'))
       .set('common', resolve('src/common'))
@@ -92,12 +93,13 @@ module.exports = {
   devServer: {// 跨域
     port: 8080, // 端口号
     open: true, // 配置自动启动浏览器
-    disableHostCheck: true,
+    // disableHostCheck: true,
     historyApiFallback: true,
-    hot: true,
-    overlay: {
-      warnings: true,
-      errors: true
-    }
+    https: false,
+    hotOnly: false
+    // overlay: {
+    //   warnings: true,
+    //   errors: true
+    // }
   }
 }
