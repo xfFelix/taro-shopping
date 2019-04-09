@@ -12,7 +12,6 @@ import './common/css/index.scss'
 import {toast} from '@/util/toast'
 import 'swiper/dist/css/swiper.css'
 
-import * as filters from './util/filter.js';
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 });
@@ -21,11 +20,7 @@ FastClick.attach(document.body);
 
 Vue.config.productionTip = false
 
-Vue.prototype.$toast = toast      
-
-Object.keys(filters).forEach((key) => {
-  Vue.filter(key, filters[key])
-})
+Vue.prototype.$toast = toast
 
 new Vue({
   router,
