@@ -1,14 +1,26 @@
 <template>
   <div class="about">
     <header>
-      <div>
-        <img src="../common/images/bannerD.jpg" alt="" style="width:100%;" />
+      <div class="swiperBg">
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">
+            <img src="../common/images/bannerD.jpg" alt="" style="width:100%;" />
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
       </div>
-      <div class="ab-head">
-        <div class="iconfont background-op h-searchBack">&#xe61e;</div>
+      <div class="ab-head" v-if="!headShow">
+        <div class="iconfont background-op h-searchBack"  @click="$router.back()">&#xe61e;</div>
         <div class="iconfont background-op h-searchBack">&#xe80c;</div>
       </div>
+
+      <div class="ab-headFixed" v-if="headShow">
+        <div class="iconfont  h-searchBack"  @click="$router.back()">&#xe61e;</div>
+        <div class="iconfont  h-searchBack">&#xe80c;</div>
+      </div>
     </header>
+
+    <span class="iconfont background-op goTop" @click="goTop()" v-if="headShow" >&#xe811;</span>
 
     <section class="ab-tkInfoW">
       <div class="ab-circle"></div>
@@ -56,31 +68,88 @@
     </section>
 
     <ul class="ad-introduceW ont-bottom-px">
-      <li>
-        <span>景区须知</span>
-        <span class="ad-selectInt"></span>
-      </li>
-      <li>
-        <span>景区须知</span>
-        <span></span>
-      </li>
-      <li>
-        <span>景区须知</span>
-        <span></span>
-      </li>
-      <li>
-        <span>景区须知</span>
-        <span></span>
+      <li v-for="(item,index) in selectList" :key="index" @click="selectIndex(index)">
+        <span>{{item.name}}</span>
+        <span :class="item.id==selectId?'ad-selectInt':''"></span>
       </li>
     </ul>
+
+
 
   </div>
 </template>
 <script>
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
+  name: 'about',
   data: () => ({
-    test: ''
-  })
+    swiperOption: {
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'fraction'
+      }
+    },
+    swiperSlides: [1, 2, 3, 4, 5],
+    selectList: [
+      {
+        id: 0,
+        name: '景区须知',
+        selectFlag: true
+      },
+      {
+        id: 1,
+        name: '景区简介',
+        selectFlag: false
+      },
+      {
+        id: 2,
+        name: '交通指南',
+        selectFlag: false
+      },
+      {
+        id: 3,
+        name: '旅游主题',
+        selectFlag: false
+      },
+
+    ],
+    selectId: 0,
+    headShow: false
+  }),
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    selectIndex(index) {
+      this.selectId = index;
+    },
+    handleScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollTop > 0) {
+        this.headShow = true;
+      } else {
+        this.headShow = false;
+        this.showDialog = false;
+      }
+    },
+     goTop() {
+            //参数i控制速度
+            document.body.scrollTop -= 500;
+            document.documentElement.scrollTop  -=500;
+            if (document.body.scrollTop > 0 || document.documentElement.scrollTop >0) {
+                var c = setTimeout(() => this.goTop(), 16);
+            } else {
+                clearTimeout(c);
+            }
+        },
+  },
+  components: {
+    swiper,
+    swiperSlide
+  }
 }
 </script>
 
@@ -90,32 +159,39 @@ export default {
   text-align: center;
 }
 
-.ab-head {
+.ab-head,
+.ab-headFixed {
   display: flex;
   position: fixed;
   top: 0;
   justify-content: space-between;
   width: 100%;
-  padding: 22px 8px 0px 11px;
+  padding: 22px 8px 4px 11px;
   box-sizing: border-box;
+  z-index: 1;
+  .h-searchBack {
+    width: 36px;
+    height: 36px;
+  }
+  .h-searchBack {
+    text-align: center;
+    line-height: 36px;
+    border-radius: 50%;
+    color: #fff;
+  }
 }
 
-.h-searchBack {
-  width: 36px;
-  height: 36px;
+.ab-headFixed {
+  background: #fff;
+  .h-searchBack {
+    color: #000 !important;
+  }
 }
-
-.h-searchBack {
-  text-align: center;
-  line-height: 36px;
-  border-radius: 50%;
-  color: #fff;
-}
-
 
 .ab-tkInfoW {
   background: #fff;
   position: relative;
+
   .ab-circle {
     width: 100%;
     height: 25px;
@@ -141,6 +217,7 @@ export default {
       box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       margin: 0px 0 0 29px;
+      flex-shrink: 0;
       p:first-of-type {
         font-size: 18px;
         line-height: 30px;
@@ -213,6 +290,7 @@ export default {
       }
       .ad-orderMoneyW {
         flex-shrink: 0;
+        text-align: center;
         p:first-of-type {
           font-size: 13px;
           color: #000000;
@@ -252,8 +330,36 @@ export default {
       height: 3px;
       background-color: #30ce84;
       display: block;
-          margin: 0 auto;
+      margin: 0 auto;
     }
   }
+}
+
+.swiperBg {
+  .swiper-pagination {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    width: 14%;
+    right: 7px !important;
+    left: auto;
+    bottom: 28px;
+    border-radius: 15px;
+    padding: 5px 0;
+    font-size: 15px;
+  }
+}
+
+.goTop {
+  width: 35px;
+  height: 36px;
+  color: #fff;
+  display: inline-block;
+  font-size: 25px;
+  line-height: 36px;
+  text-align: center;
+  bottom: 8px;
+  right: 8px;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
 }
 </style>

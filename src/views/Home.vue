@@ -1,18 +1,33 @@
 <template>
   <div class="home">
     <header>
-      <div>
-        <img src="../common/images/banner.jpg" alt="" style="width:100%;" />
+      <div class="swiperBg">
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">
+            <img src="../common/images/banner.jpg" alt="" style="width:100%;" />
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
       </div>
 
-      <div class="h-searchW">
-        <div class="iconfont background-op h-searchBack">&#xe61e;</div>
+      <div class="h-searchW" v-if="!headShow">
+        <div class="iconfont background-op h-searchBack"  @click="$router.back()">&#xe61e;</div>
         <div class="h-searchInpW background-op">
           <span class="h-searchLogo"></span>
-          <span class="h-searchInp"><input type="text" /></span>
+          <span class="h-searchInp"><input type="text" placeholder="shuru" /></span>
           <span class="iconfont h-searchClose">&#xe80e;</span>
         </div>
         <div class="h-searchCli background-op">搜索</div>
+      </div>
+
+      <div class="h-searchWFixed" v-if="headShow">
+        <div class="iconfont h-searchBack"  @click="$router.back()">&#xe61e;</div>
+        <div class="h-searchInpW background-op">
+          <span class="h-searchLogo"></span>
+          <span class="h-searchInp"><input type="text" placeholder="shuru" /></span>
+          <span class="iconfont h-searchClose">&#xe80e;</span>
+        </div>
+        <div class="h-searchCli">搜索</div>
       </div>
 
     </header>
@@ -60,16 +75,93 @@
             </p>
           </div>
         </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="h-goodsimgLiW">
+            <img src="../common/images/picture.jpg" alt="" />
+          </div>
+          <div class="h-goodsInfoLiW">
+            <p class="h-goodsInfoLi">南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射</p>
+            <p class="h-goodsMoneyLiW">
+              <span class="h-goodsMoneyLi">1944</span>
+              <span>起</span>
+            </p>
+          </div>
+        </li>
 
       </ul>
     </section>
-
-     <div> 
-        <swiper :options="swiperOption">
-          <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">I'm Slide {{ slide }}</swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
-      </div> 
   </div>
 </template>
 
@@ -82,20 +174,36 @@ export default {
   data: () => ({
     swiperOption: {
       pagination: {
-        el: '.swiper-pagination'
+        el: '.swiper-pagination',
+        type: 'fraction'
       }
     },
-    swiperSlides: [1, 2, 3, 4, 5]
+    swiperSlides: [1, 2, 3, 4, 5],
+    headShow: false
   }),
   mounted() {
-    console.log(process.env)
+    window.addEventListener('scroll', this.handleScroll);
     this.getInfo()
+  },
+  beforeDestroy() {
+
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     async getInfo() {
       let data = await getInfo({ token: 'f7512935295b36d9b469e672c531d4c8' })
       console.log(data)
-    }
+    },
+    handleScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollTop > 0) {
+        this.headShow = true;
+      } else {
+        this.headShow = false;
+        this.showDialog = false;
+      }
+    },
+   
   },
   components: {
     swiper,
@@ -115,7 +223,8 @@ header {
   height: 168px;
 }
 
-.h-searchW {
+.h-searchW,
+.h-searchWFixed {
   position: fixed;
   top: 0;
   display: flex;
@@ -162,10 +271,12 @@ header {
       width: 72%;
       margin-right: 9px;
       background: transparent;
+      height: 100%;
       input {
         width: 100%;
         background: transparent;
         color: #fff;
+        height: 100%;
       }
     }
   }
@@ -176,6 +287,28 @@ header {
     color: #ffffff;
     border-radius: 40px;
     line-height: 30px;
+  }
+}
+
+.h-searchWFixed {
+  background: #fff;
+  z-index: 1;
+  .h-searchBack,
+  .h-searchCli {
+    color: #000;
+  }
+  .h-searchInpW {
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    .h-searchClose {
+      background: #efefef;
+      color: #000;
+    }
+    .h-searchInp {
+      input {
+        color: #000;
+      }
+    }
   }
 }
 
@@ -278,6 +411,19 @@ header {
         }
       }
     }
+  }
+}
+
+.swiperBg {
+  .swiper-pagination {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    width: 12%;
+    right: 15px !important;
+    left: auto;
+    bottom: 13px;
+    border-radius: 10px;
+    padding: 1px 0;
   }
 }
 </style>
