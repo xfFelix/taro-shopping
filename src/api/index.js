@@ -6,3 +6,10 @@ export const getInfo = (data) => fetch({
   method: 'POST',
   data
 })
+
+// 查询景区列表
+export const getScenicList = (params) => fetch({
+  url: 'ticket/getScenicSpotList',
+  method: 'GET',
+  params
+})

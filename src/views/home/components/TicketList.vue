@@ -17,6 +17,7 @@
     </div>
 </template>
 <script>
+import {getScenicList } from 'api'
 export default {
     data: () => ({
         ticketList: [
@@ -54,6 +55,14 @@ export default {
             }
         ]
     }),
+    methods: {
+        async getScenicList() {
+            let data = await getScenicList({ n: this.offset, m: this.pageSize })
+        },
+    },
+    mounted(){
+        this.getScenicList()
+    }
 }
 </script>
 <style lang="scss" scoped>
