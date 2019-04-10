@@ -2,20 +2,8 @@
   <ul class="main">
     <li class="item border-bottom-1px">
       <span class="label">凭证码:</span>
-      <span class="value">201803051548625</span>
-      <button class="copy" @click="handleCopy('111',$event)">复制</button>
-      <i class="cubeic-arrow"></i>
-    </li>
-    <li class="item border-bottom-1px">
-      <span class="label">凭证码:</span>
-      <span class="value">201803051548625</span>
-      <button class="copy" @click="handleCopy('222',$event)">复制</button>
-      <i class="cubeic-arrow"></i>
-    </li>
-    <li class="item">
-      <span class="label">凭证码:</span>
-      <span class="value">201803051548625</span>
-      <button class="copy" @click="handleCopy('333',$event)">复制</button>
+      <span class="value">{{data.idBackUrl}}</span>
+      <button class="copy" @click="handleCopy(data.idBackUrl,$event)">复制</button>
       <i class="cubeic-arrow"></i>
     </li>
   </ul>
@@ -24,6 +12,12 @@
 <script>
 import clip from 'util/clipboard'
 export default {
+  props:{
+    data:{
+      type: Object,
+      required: true
+    }
+  },
   methods:{
     handleCopy(text, event) {
       clip(text, event)
@@ -56,7 +50,8 @@ ul{
       padding: 1px 10px;
       border: 1px solid #585858;
       border-radius: 25px; /*no*/
-      margin-left: 10px;
+      position: absolute;
+      right: 24px;
     }
     .cubeic-arrow{
       position: absolute;

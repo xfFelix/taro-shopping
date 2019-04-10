@@ -13,7 +13,16 @@
       <p class="title">【网红打卡景点】亚特兰蒂斯失落的空间水...</p>
       <span class="hint">预定须知<i class="cubeic-arrow"></i></span>
     </div>
-    <div class="buy border-bottom-1px">
+    <div class="use border-bottom-1px">
+      <span class="label">使用日期</span>
+      <cube-checker v-model="checkerList" :options="options" type="radio">
+        <cube-checker-item v-for="item in options" :key="item.value" :option="item">
+            <p class="day">{{item.text}}</p>
+            <p class="number">{{item.number}}</p>
+        </cube-checker-item>
+      </cube-checker>
+    </div>
+    <div class="buy">
       <span class="buy-number">购票数量</span>
       <!-- <ul class="old-day clear-fix">
         <li class="item">
@@ -30,21 +39,13 @@
           <p class="number">2914</p>
         </li>
       </ul> -->
-      <cube-checker v-model="checkerList" :options="options" type="radio">
-        <cube-checker-item v-for="item in options" :key="item.value" :option="item">
-            <p class="day">{{item.text}}</p>
-            <p class="number">{{item.number}}</p>
-        </cube-checker-item>
-      </cube-checker>
-    </div>
-    <div class="use">
-      <span class="label">使用日期</span>
       <div class="count-number">
         <i class="iconfont icon-reduce"></i>
         <span class="number">3</span>
         <i class="iconfont icon-add"></i>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -69,7 +70,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .cube-checker-item{
   margin-right: 0;
 }
@@ -77,6 +78,9 @@ export default {
   background: #30ce84;
   color: #fff;
   border: none;
+  &::after{
+    border: none;
+  }
 }
 </style>
 
@@ -110,6 +114,25 @@ export default {
       font-weight: 700;
       font-size: 15px;
     }
+    .label{
+      font-size: 15px;
+      color: #000;
+      font-weight: 700;
+    }
+    .count-number{
+      border: 1px solid #ccc;
+      padding: 5px 8px;
+      .number{
+        padding: 0 10px;
+      }
+    }
+
+  }
+  .use{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
     ul{
       flex: 1;
       display: flex;
@@ -133,24 +156,6 @@ export default {
           right: 1px;
           top: 14px;
         }
-      }
-    }
-  }
-  .use{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 13px 0;
-    .label{
-      font-size: 15px;
-      color: #000;
-      font-weight: 700;
-    }
-    .count-number{
-      border: 1px solid #ccc;
-      padding: 5px 8px;
-      .number{
-        padding: 0 10px;
       }
     }
   }

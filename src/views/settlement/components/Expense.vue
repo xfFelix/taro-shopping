@@ -7,10 +7,6 @@
         <span class="value">2045.32</span>
       </li>
       <li class="item">
-        <span class="label">运费</span>
-        <span class="value">12.05</span>
-      </li>
-      <li class="item">
         <span class="label">服务费</span>
         <span class="value">2045.32</span>
       </li>

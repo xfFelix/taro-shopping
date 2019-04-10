@@ -2,27 +2,27 @@
   <ul class="main">
     <li class="item">
       <span class="label">取票人</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.name}}</span>
     </li>
     <li class="item">
       <span class="label">证件号码</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.idNum}}</span>
     </li>
     <li class="item">
       <span class="label">支付时间</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.addDate}}</span>
     </li>
     <li class="item">
       <span class="label">订单号</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.idUrl}}</span>
     </li>
     <li class="item">
       <span class="label">数量</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.cardBank}}</span>
     </li>
     <li class="item">
       <span class="label">总票价</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.totalAmount | toDecimal2Fp}}.{{data.totalAmount | toDecimal2Ap}}</span>
     </li>
     <li class="item">
       <span class="label">税费</span>
@@ -30,7 +30,7 @@
     </li>
     <li class="item">
       <span class="label">服务费</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.serviceFee | toDecimal2Fp}}.{{data.serviceFee | toDecimal2Ap}}</span>
     </li>
     <li class="item">
       <span class="label">合计</span>
@@ -41,7 +41,12 @@
 
 <script>
 export default {
-
+  props:{
+    data:{
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 
