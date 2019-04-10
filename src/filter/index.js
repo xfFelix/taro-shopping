@@ -31,4 +31,14 @@ const toDecimal2 = x => {
   return s;
 }
 
-export default {toDecimal2Fp, toDecimal2Ap}
+//手机号码加**
+let formatPhone = phone => {
+    if(phone != undefined){
+        return phone.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
+    }
+}
+
+export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone}
+
+
+
