@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import getToken from './hook/getToken'
 
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   // base: 'ticket',
   routes: [
@@ -59,4 +60,8 @@ export default new Router({
     }
   ]
 })
+
+getToken(router)
+
+export default router
 

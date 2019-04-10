@@ -45,13 +45,13 @@ class Storage {
     let value = this.store.getItem(tools_uri.encode(this.prefix + key))
 
     if (value === null) {
-      return {}
+      return undefined
     }
 
     try {
       value = JSON.parse(tools_uri.decode(value))
     } catch (e) {
-      value = {}
+      value = undefined
     }
     return value
   }
