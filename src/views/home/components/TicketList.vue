@@ -17,7 +17,7 @@
     </div>
 </template>
 <script>
-import {getScenicList } from 'api'
+import { getScenicList } from 'api'
 export default {
     data: () => ({
         ticketList: [
@@ -53,14 +53,21 @@ export default {
                 name: "南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射",
                 money: '1944'
             }
-        ]
+        ],
+        pageNum: 1,
+        pageSize: 10
     }),
+    computed: {
+        offset() {
+            return (this.pageNum - 1) * this.pageSize
+        }
+    },
     methods: {
         async getScenicList() {
-            let data = await getScenicList({ n: this.offset, m: this.pageSize })
+            let data = await getScenicList({ n: this.offset, m: this.pageSize})
         },
     },
-    mounted(){
+    mounted() {
         this.getScenicList()
     }
 }
