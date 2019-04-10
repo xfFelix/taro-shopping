@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         async getScenicList() {
-            let data = await getScenicList({ n: this.offset, m: this.pageSize})
+            let data = await getTicketList({ n: this.offset, m: this.pageSize})
         },
     },
     mounted() {

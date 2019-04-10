@@ -13,3 +13,10 @@ export const getScenicList = (params) => fetch({
   method: 'GET',
   params
 })
+
+//门票列表
+export const getTicketList = (params) => fetch({
+  url: 'ticket/getTicketList',
+  method: 'GET',
+  params
+})
