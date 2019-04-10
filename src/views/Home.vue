@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getInfo } from 'api'
+import { getInfo, getScenicList } from 'api'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
   name: 'home',
@@ -107,8 +107,15 @@ export default {
         name:"南湾猴岛【2人起订】猴岛一价全包(猴岛公园+呆呆岛+海鲜火射",
         money:'1944'
       }
-    ]
+    ],
+    pageNum: 1,
+    pageSize: 10
   }),
+  computed: {
+    offset() {
+      return (this.pageNum-1)*this.pageSize
+    }
+  },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
     this.getInfo()
@@ -118,8 +125,7 @@ export default {
   },
   methods: {
     async getInfo() {
-      let data = await getInfo({ token: 'f7512935295b36d9b469e672c531d4c8' })
-      console.log(data)
+      let data = await getScenicList({n:this.offset,m:this.pageSize})
     },
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -130,7 +136,7 @@ export default {
         this.showDialog = false;
       }
     },
-   
+
   },
   components: {
     swiper,

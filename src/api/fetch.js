@@ -3,7 +3,7 @@ import {toast} from 'util/toast'
 
 const instance = axios.create({
   // 设置默认根地址
-  baseURL: process.env.VUE_APP_INFO_URl,
+  baseURL: process.env.VUE_APP_BASE_URL,
   // 设置请求超时设置
   timeout: 10000,
   // 设置请求时的header
