@@ -125,7 +125,8 @@ export default {
   },
   methods: {
     async getInfo() {
-      let data = await getScenicList({n:this.offset,m:this.pageSize})
+      // let data = await getInfo({ token: 'f7512935295b36d9b469e672c531d4c8' })
+      let data = await getScenicList({n:this.offset, m:this.pageSize})
     },
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
