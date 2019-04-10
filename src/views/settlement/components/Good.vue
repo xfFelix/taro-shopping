@@ -15,7 +15,7 @@
     </div>
     <div class="buy border-bottom-1px">
       <span class="buy-number">购票数量</span>
-      <ul class="old-day clear-fix">
+      <!-- <ul class="old-day clear-fix">
         <li class="item">
           <p class="day">更多日期</p>
           <p class="number">2914</p>
@@ -29,7 +29,13 @@
           <p class="day">今天</p>
           <p class="number">2914</p>
         </li>
-      </ul>
+      </ul> -->
+      <cube-checker v-model="checkerList" :options="options" type="radio">
+        <cube-checker-item v-for="item in options" :key="item.value" :option="item">
+            <p class="day">{{item.text}}</p>
+            <p class="number">{{item.number}}</p>
+        </cube-checker-item>
+      </cube-checker>
     </div>
     <div class="use">
       <span class="label">使用日期</span>
@@ -48,10 +54,32 @@ export default {
     Price: () => import('components/Price')
   },
   data: () => ({
-
-  })
+    checkerList: 0,
+    options: [
+      {value: 0, text: '今天', number: 2914},
+      {value: 1, text: '明天', number: 2914},
+      {value: 2, text: '更多日期', number: 2914}
+    ]
+  }),
+  watch:{
+    checkerList(val) {
+      console.log(val)
+    }
+  }
 }
 </script>
+
+<style>
+.cube-checker-item{
+  margin-right: 0;
+}
+.cube-checker-item_active{
+  background: #30ce84;
+  color: #fff;
+  border: none;
+}
+</style>
+
 
 <style lang="scss" scoped>
 .main{
@@ -82,10 +110,11 @@ export default {
       font-weight: 700;
       font-size: 15px;
     }
-    .old-day{
+    ul{
       flex: 1;
-      .item{
-        float: right;
+      display: flex;
+      justify-content: flex-end;
+      li{
         border: 1px dashed #30ce84;
         margin-left: 10px;
         box-sizing: border-box;
