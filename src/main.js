@@ -12,23 +12,15 @@ import './common/css/index.scss'
 import {toast} from '@/util/toast'
 import 'swiper/dist/css/swiper.css'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d1e2394391776b9785c701814bf43655b82882f0
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 });
 
 FastClick.attach(document.body);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-<<<<<<< HEAD
-Vue.prototype.$toast = toast      
-=======
-Vue.prototype.$toast = toast
->>>>>>> d1e2394391776b9785c701814bf43655b82882f0
+Vue.prototype.$toast = toast;
 
 new Vue({
   router,
