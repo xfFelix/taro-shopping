@@ -27,3 +27,17 @@ export const getOrderDetail = (params) => fetch({
   method: 'GET',
   params
 })
+
+// 查询费用详情
+export const getFeeInfo = (params) => fetch({
+  url: 'ticket/getOrderPreview',
+  method: 'GET',
+  params
+})
+
+// 查询日期列表
+export const getDateList = (params) => fetch({
+  url: 'ticket/getRealTimeStorage',
+  method: 'GET',
+  params
+})

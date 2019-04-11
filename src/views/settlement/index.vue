@@ -1,7 +1,7 @@
 <template>
   <div class="settlement">
     <Header>门票预订</Header>
-    <good></good>
+    <good :list="dateList"></good>
     <user></user>
     <expense></expense>
     <div class="footer" v-show="hideShow">
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {getDateList,getFeeInfo} from 'api';
 export default {
   components: {
     'Header' : () => import('components/Header'),
@@ -22,7 +23,8 @@ export default {
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
     showHeight: document.documentElement.clientHeight,   //实时屏幕高度
-    hideShow:true
+    hideShow: true,
+    dateList: []
   }),
   watch:{
     showHeight:function() {
@@ -37,10 +39,18 @@ export default {
       }
     },
   },
+  created () {
+    this.getPreviewOrder()
+  },
   mounted() {
     this.checkResize()
   },
   methods: {
+    async getPreviewOrder() {
+      let dateList = await getDateList({id: this.$route.query.id})
+      if (dateList.code !== '1') return this.$toast(dateList.message)
+      this.dateList = dateList.data
+    },
     checkResize() {
       let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
