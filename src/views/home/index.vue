@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <home-swipe></home-swipe>
+        <home-swipe ref="swipeHight"></home-swipe>
         <search-head :headShowC='headShowP'></search-head>
         <ticket-list></ticket-list>
     </div>
@@ -23,6 +23,7 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
+        
     },
     beforeDestroy() {
         window.removeEventListener('scroll', this.handleScroll);

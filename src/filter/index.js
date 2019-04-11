@@ -38,7 +38,7 @@ let formatPhone = phone => {
     }
 }
 
-export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone}
+export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone,toDecimal2}
 
 
 

@@ -20,3 +20,10 @@ export const getTicketList = (params) => fetch({
   method: 'GET',
   params
 })
+
+//景区详情
+export const getScenicSpotInfo = (params) => fetch({
+  url: 'ticket/getScenicSpotInfo',
+  method: 'GET',
+  params
+})
