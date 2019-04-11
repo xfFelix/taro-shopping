@@ -6,7 +6,7 @@
       </div>
       <div class="good-detail">
         <p class="good-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</p>
-        <price :price="2944.00" class="good-price"></price>
+        <price :price="dateObj.retail_price" class="good-price"></price>
       </div>
     </div>
     <div class="swiper-title border-bottom-1px">
@@ -17,13 +17,13 @@
       <span class="label">使用日期</span>
       <cube-scroll
         ref="scroll"
-        :data="list"
+        :data="dateList"
         direction="horizontal"
         class="horizontal-scroll-list-wrap">
-        <cube-checker v-model="checkerList" :options="list" type="radio">
-          <cube-checker-item v-for="item in list" :key="item.buy_price" :option="item">
-              <p class="day">{{item.buy_price}}</p>
-              <p class="number">{{item.remain}}</p>
+        <cube-checker v-model="data.checkerValue" :options="dateList" type="radio">
+          <cube-checker-item v-for="item in dateList" :key="item.date" :option="item">
+              <p class="day">{{item.value}}</p>
+              <p class="number">{{item.price}}</p>
           </cube-checker-item>
           <!-- <ul class="old-day clear-fix">
             <li class="item">
@@ -48,7 +48,7 @@
 
       <div class="count-number">
         <i class="iconfont icon-reduce"></i>
-        <span class="number">3</span>
+        <span class="number">{{data.number}}</span>
         <i class="iconfont icon-add"></i>
       </div>
     </div>
@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import moment from 'util/moment';
+import { setTimeout } from 'timers';
 export default {
   components: {
     Price: () => import('components/Price')
@@ -68,23 +70,33 @@ export default {
     }
   },
   data: () => ({
-    checkerList: 0,
-    options: [
-      {value: 0, text: '今天', number: 2914},
-      {value: 1, text: '明天', number: 2914},
-      {value: 2, text: '更多日期', number: 2914}
-    ]
-  }),
-  watch:{
-    checkerList(val) {
-      console.log(val)
+    data: {
+      checkerValue: moment().format('YYYY-MM-DD'),
+      number: 1
     },
-    'list': {
-      handler(val) {
-        console.log(val)
-        this.$$refs.scroll.refresh()
-      },
-      immediate: true
+  }),
+  computed: {
+    dateList () {
+      let dateList = []
+      let obj = {}
+      for (let item of this.list) {
+        obj = {
+          value: item.date,
+          price: item.retail_price,
+          total: item.buy_price
+        }
+        dateList.push(obj)
+      }
+      return dateList
+    },
+    dateObj () {
+      for (let item of this.list) {
+        if (this.data.checkerValue === item.date) {
+          this.$parent.getFeeInfo(item.retail_price, this.data.number)
+          return item
+        }
+      }
+      return {}
     }
   }
 }
@@ -172,9 +184,8 @@ export default {
         border: 1px dashed #30ce84;
         margin-left: 10px;
         box-sizing: border-box;
-        flex:0 0 80px;
         text-align: center;
-        padding: 5px 0;
+        padding: 5px 18px;
         font-size: 12px;
         border-radius: 15px; /*no*/
         position: relative;

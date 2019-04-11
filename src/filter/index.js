@@ -13,6 +13,14 @@ const toDecimal2Ap = x => {
   return ap
 }
 
+const toPrice = x => {
+  let toDecimal = toDecimal2(x);
+  let toDecimalSplit = toDecimal.split('.');
+  let fp = toDecimalSplit[0];
+  let ap = toDecimalSplit[1];
+  return fp + '.' + ap
+}
+
 const toDecimal2 = x => {
   var f = parseFloat(x);
   if (isNaN(f)) {
@@ -59,7 +67,7 @@ const orderStatusFilter = status =>{
   return orderStatusOptionsKeyValue[status]
 }
 
-export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone, orderStatusFilter,toDecimal2}
+export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone, orderStatusFilter,toDecimal2, toPrice}
 
 
 
