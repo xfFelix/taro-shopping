@@ -1,10 +1,10 @@
 <template>
-    <div class="headTop">
-        <div class="ab-head" v-if="!headShowC">
+    <div class="headTop" >
+        <div class="ab-head" v-if="!headShowC"  ref="sc">
             <div class="iconfont background-op h-searchBack" @click="$router.back()">&#xe61e;</div>
             <div class="iconfont background-op h-searchBack"  @click="showDialog()">&#xe80c;</div>
         </div>
-        <div class="ab-headFixed" v-if="headShowC">
+        <div class="ab-headFixed" v-if="headShowC"  ref="sc">
             <div class="iconfont  h-searchBack" @click="$router.back()">&#xe61e;</div>
             <div class="iconfont  h-searchBack" @click="showDialog()">&#xe80c;</div>
         </div>
@@ -36,7 +36,8 @@ export default {
         }
     },
     mounted(){
-       
+
+       this.$emit('headHightC',this.$refs.sc.offsetHeight)
     }
 }
 </script>

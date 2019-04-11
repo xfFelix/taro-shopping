@@ -59,7 +59,7 @@ const orderStatusFilter = status =>{
   return orderStatusOptionsKeyValue[status]
 }
 
-export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone, orderStatusFilter}
+export default {toDecimal2Fp, toDecimal2Ap,formatPhone,formatPhone, orderStatusFilter,toDecimal2}
 
 
 

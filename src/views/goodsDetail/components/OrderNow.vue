@@ -2,18 +2,15 @@
   <div class="ad-orderW">
     <p class="ad-orderTitle">门票</p>
     <ul>
-      <li>
-        <div class="ad-orderName">【网红打卡景点】亚特兰蒂斯失落的空间水族馆成人门票</div>
+      <li v-for="(item,index) in ticketListC" :key="index">
+        <div class="ad-orderName">{{item.uutitle}}</div>
         <div class="ad-orderMoneyW">
-          <p>8200.00</p>
-          <p>立即预订</p>
-        </div>
-      </li>
-      <li>
-        <div class="ad-orderName">【网红打卡景点】亚特兰蒂斯失落的空间水族馆成人门票</div>
-        <div class="ad-orderMoneyW">
-          <p>8200.00</p>
-          <p>立即预订</p>
+          <p>{{item.uutprice|toDecimal2}}</p>
+          <p>
+             <router-link :to="{path:'settlement',query:{ticketId:item.uuid}}">
+               立即预订
+              </router-link>            
+          </p>
         </div>
       </li>
     </ul>
@@ -21,10 +18,16 @@
 </template>
 <script>
 export default {
+  props:{
+    ticketListC:Array
+  },
   data: () => ({
-
+      
   }),
   methods: {
+
+  },
+  mounted(){
 
   }
 }
@@ -50,6 +53,7 @@ export default {
       display: flex;
       padding: 17px 10px 8px 10px;
       border-bottom: 1px dashed #999;
+      justify-content: space-between;
       .ad-orderName {
         font-size: 13px;
         color: #333333;
@@ -65,12 +69,15 @@ export default {
           color: #000000;
         }
         p:last-of-type {
-          background-color: #30ce84;
+          a{
+    background-color: #30ce84;
           border-radius: 30px;
           color: #ffffff;
           margin-top: 8px;
           display: inline-block;
           padding: 8px 12px;
+          }
+      
         }
       }
     }

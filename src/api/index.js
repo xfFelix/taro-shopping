@@ -14,6 +14,12 @@ export const getScenicList = (params) => fetch({
   params
 })
 
+//门票列表
+export const getTicketList = (params) => fetch({
+  url: 'ticket/getTicketList',
+  method: 'GET',
+  params
+})
 // 查询订单列表
 export const getOrderList = (params) => fetch({
   url: 'ticket/selectOrders',
@@ -21,6 +27,12 @@ export const getOrderList = (params) => fetch({
   params
 })
 
+//景区详情
+export const getScenicSpotInfo = (params) => fetch({
+  url: 'ticket/getScenicSpotInfo',
+    method: 'GET',
+  params
+})
 // 查询订单详情
 export const getOrderDetail = (params) => fetch({
   url: 'ticket/getOrderInfo',
