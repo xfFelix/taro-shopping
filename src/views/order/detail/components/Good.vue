@@ -3,15 +3,15 @@
     <div class="good-wrapper">
       <div class="header">
         <span></span>
-        <span class="status price-color">已使用</span>
+        <span class="status price-color">{{data.status | orderStatusFilter}}</span>
       </div>
       <div class="good">
         <div class="good-img">
           <img src="" alt="">
         </div>
         <div class="good-detail">
-          <p class="good-name">商品名称</p>
-          <price :price="2400.00" class="price"></price>
+          <p class="good-name">{{data.cardUser}}</p>
+          <price :price="data.repaymentAmount" class="price"></price>
         </div>
       </div>
     </div>
@@ -19,31 +19,13 @@
       <li>
         <div class="item">
           <span class="label">使用日期:</span>
-          <span class="value">20190305 15:01:24</span>
-        </div>
-      </li>
-      <li>
-        <div class="item">
-          <span class="label">使用方式:</span>
-          <span class="value">20190305 15:01:24</span>
-        </div>
-      </li>
-      <li>
-        <div class="item">
-          <span class="label">入园时间:</span>
-          <span class="value">20190305 15:01:24</span>
+          <span class="value">{{data.sendDate}}</span>
         </div>
       </li>
       <li>
         <div class="item">
           <span class="label">入园地址:</span>
-          <span class="value">20190305 15:01:24</span>
-        </div>
-      </li>
-      <li>
-        <div class="item">
-          <span class="label">入园方式:</span>
-          <span class="value">20190305 15:01:24</span>
+          <span class="value">{{data.address}}</span>
         </div>
       </li>
     </ul>
@@ -54,6 +36,12 @@
 export default {
   components: {
     Price: ()=> import('components/Price')
+  },
+  props:{
+    data:{
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

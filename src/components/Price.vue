@@ -1,6 +1,6 @@
 <template>
-  <span>
-    <i :style="{'font-size': fontSize + 'px','color':color}">{{price | toDecimal2Fp}}</i>.<i :style="{'font-size': minFontSize + 'px','color':color}">{{price | toDecimal2Ap}}</i>
+  <span :style="{'color':color}">
+    <i :style="{'font-size': fontSize + 'px'}">{{price | toDecimal2Fp}}</i>.<i :style="{'font-size': minFontSize + 'px'}">{{price | toDecimal2Ap}}</i>
   </span>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   props: {
     fontSize: {
       type: Number,
-      default: 30
+      default: 18
     },
     price: {
       type: String | Number,

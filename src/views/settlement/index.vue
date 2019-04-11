@@ -4,7 +4,7 @@
     <good></good>
     <user></user>
     <expense></expense>
-    <div class="footer">
+    <div class="footer" v-show="hideShow">
       <div class="total">合计: <strong class="price-color">6201.25</strong></div>
       <div class="submit">提交订单</div>
     </div>
@@ -18,6 +18,41 @@ export default {
     Good: () => import('./components/Good'),
     User: () => import('./components/User'),
     Expense: () => import('./components/Expense')
+  },
+  data: () => ({
+    docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
+    showHeight: document.documentElement.clientHeight,   //实时屏幕高度
+    hideShow:true
+  }),
+  watch:{
+    showHeight:function() {
+      let u = navigator.userAgent, app = navigator.appVersion;
+      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+      if (isAndroid) {
+        if(this.docmHeight > this.showHeight){
+          this.hideShow = false
+        }else{
+          this.hideShow = true
+        }
+      }
+    },
+  },
+  mounted() {
+    this.checkResize()
+  },
+  methods: {
+    checkResize() {
+      let u = navigator.userAgent;
+      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+        window.onresize = () => {
+          return (() => {
+            this.showHeight = document.body.clientHeight;
+          })()
+        }
+      }
+    }
   }
 }
 </script>
@@ -38,7 +73,8 @@ export default {
       padding: 30px 0 0 10px;
       font-weight: 600;
       strong{
-        font-size: 19px;
+        font-size: 24px;
+        font-weight: 700;
       }
     }
     .submit{

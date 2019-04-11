@@ -20,10 +20,22 @@ export const getTicketList = (params) => fetch({
   method: 'GET',
   params
 })
+// 查询订单列表
+export const getOrderList = (params) => fetch({
+  url: 'ticket/selectOrders',
+  method: 'GET',
+  params
+})
 
 //景区详情
 export const getScenicSpotInfo = (params) => fetch({
   url: 'ticket/getScenicSpotInfo',
+    method: 'GET',
+  params
+})
+// 查询订单详情
+export const getOrderDetail = (params) => fetch({
+  url: 'ticket/getOrderInfo',
   method: 'GET',
   params
 })

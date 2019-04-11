@@ -1,85 +1,30 @@
 <template>
   <ul>
-    <li>
+    <li v-for="item of list" :key="item.id">
       <div class="content-wrapper">
         <div class="header">
-          <span></span>
-          <p class="order-number">订单号：201803051548941</p>
-          <span class="order-status">未使用</span>
+          <span class="logo">门票</span>
+          <p class="order-number">订单号：{{item.idUrl}}</p>
+          <span class="order-status">{{item.status | orderStatusFilter}}</span>
         </div>
         <div class="content">
           <div class="good-img">
             <img src="" alt="">
           </div>
           <div class="good-detail">
-            <p class="good-name">商品名称</p>
+            <p class="good-name">{{item.cardUser}}</p>
             <div class="good-price">
-              <span class="price">652.00</span>
-              <span class="number cubeic-close">3</span>
+              <span class="price">{{item.repaymentAmount | toDecimal2Fp}}.{{item.repaymentAmount | toDecimal2Ap}}</span>
+              <span class="number cubeic-close" v-if="item.cardBank">{{item.cardBank}}</span>
             </div>
           </div>
         </div>
         <div class="footer border-bottom-1px">
-          <span class="number">共3件商品</span>
-          <span class="total">合计: <em class="price-color">2054.22</em></span>
+          <span class="number" v-if="item.cardBank">共{{item.cardBank}}件商品</span>
+          <span class="total">合计: <em class="price-color">{{item.totalAmount | toDecimal2Fp}}.{{item.totalAmount | toDecimal2Ap}}</em></span>
         </div>
         <div class="des">
-          <button class="order-detail" @click="$router.push('detail')">订单详情</button>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="content-wrapper">
-        <div class="header">
-          <span></span>
-          <p class="order-number">订单号：201803051548941</p>
-          <span class="order-status">未使用</span>
-        </div>
-        <div class="content">
-          <div class="good-img">
-            <img src="" alt="">
-          </div>
-          <div class="good-detail">
-            <p class="good-name">商品名称</p>
-            <div class="good-price">
-              <span class="price">652.00</span>
-              <span class="number cubeic-close">3</span>
-            </div>
-          </div>
-        </div>
-        <div class="footer border-bottom-1px">
-          <span class="number">共3件商品</span>
-          <span class="total">合计: <em class="price-color">2054.22</em></span>
-        </div>
-        <div class="des">
-          <button class="order-detail">订单详情</button>
-        </div>
-      </div>
-    </li><li>
-      <div class="content-wrapper">
-        <div class="header">
-          <span></span>
-          <p class="order-number">订单号：201803051548941</p>
-          <span class="order-status">未使用</span>
-        </div>
-        <div class="content">
-          <div class="good-img">
-            <img src="" alt="">
-          </div>
-          <div class="good-detail">
-            <p class="good-name">商品名称</p>
-            <div class="good-price">
-              <span class="price">652.00</span>
-              <span class="number cubeic-close">3</span>
-            </div>
-          </div>
-        </div>
-        <div class="footer border-bottom-1px">
-          <span class="number">共3件商品</span>
-          <span class="total">合计: <em class="price-color">2054.22</em></span>
-        </div>
-        <div class="des">
-          <button class="order-detail">订单详情</button>
+          <button class="order-detail" @click="goDetail(item)">订单详情</button>
         </div>
       </div>
     </li>
@@ -88,7 +33,22 @@
 
 <script>
 export default {
-
+  props: {
+    list: {
+      type: Array,
+      default: []
+    }
+  },
+  methods: {
+    goDetail(item) {
+      this.$router.push({
+        path: 'detail',
+        query: {
+          id: item.id
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -115,10 +75,25 @@ ul{
         padding: 15px 0;
         font-weight: 900;
         color: #000;
+        .logo{
+          color: #fff;
+          font-size: 12px;
+          background: #000;
+          padding: 1px 5px;
+          word-break: keep-all;
+          white-space: nowrap;
+          height: 15px;
+        }
         .order-number {
+          margin-left: 5px;
           font-weight: 700;
           flex: 1;
           text-align: left;
+          word-break: keep-all;
+          word-wrap: normal;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .order-status{
           font-weight: 700;
