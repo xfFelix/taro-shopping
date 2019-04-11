@@ -16,6 +16,7 @@
         @pulling-down="onPullingDown"
         @pulling-up="onPullingUp">
         <list :list="list"></list>
+        <no-data :data="list"></no-data>
       </cube-scroll>
     </div>
   </div>
@@ -34,7 +35,8 @@ const statusList = [
 export default {
   components: {
     'Header': () => import('components/Header'),
-    List: () => import('./components/List')
+    List: () => import('./components/List'),
+    NoData: () =>import('components/NoData')
   },
   data: () => ({
     selectedLabelDefault: '全部',
@@ -102,7 +104,7 @@ export default {
       let status = this.statusFilter()
       let data = await getOrderList({token: this.getToken,offset: this.offset,rows: this.pageSize, status})
       if (data.code !== '1') {
-        this.$toast(data.message)
+        return this.$toast(data.message)
       }
       this.list.push(...data.data)
       this.pullUpLoad = data.data.length === this.pageSize

@@ -18,6 +18,12 @@ export default {
       let token = getParam().token
       await dispatch('setToken', token)
     }
-    console.log(state.token)
+  },
+  async checkUrlToken({dispatch, commit}) {
+    if (Object.keys(getParam()).length && getParam().token) {
+      return commit('setToken', getParam().token)
+    } else {
+      await dispatch('checkToken')
+    }
   }
 }

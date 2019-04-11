@@ -2,7 +2,7 @@ import store from 'store'
 
 export default router => {
   router.beforeEach((to, from, next) =>{
-    store.dispatch('checkToken')
+    store.dispatch('checkUrlToken')
     next()
   })
 }
