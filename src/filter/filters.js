@@ -26,7 +26,7 @@ const toPrice = x => {
 const toDecimal2 = x => {
   var f = parseFloat(x);
   if (isNaN(f)) {
-      return '****';
+      return '0';
   }
   var f = Math.round(x * 100) / 100;
   var s = f.toString();
