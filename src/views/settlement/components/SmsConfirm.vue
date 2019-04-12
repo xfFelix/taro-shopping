@@ -1,7 +1,7 @@
 <template>
-    <div class="phonePay-bg" id="phonePay-sms">
+    <div class="phonePay-bg" id="phonePay-sms" v-if="showSendCode">
         <p class="phonePay-title">
-            <span class="iconfont phoneChe-backW " @click="SendCodeCli()">&#xe61e;</span>
+            <span class="iconfont phoneChe-backW " @click="showSendCode = false">&#xe61e;</span>
             <span class="phonePay-tName">确认兑换</span>
         </p>
         <p class="phonePay-telW hide" v-show="isSmsCode">短信验证码已发送至手机
@@ -19,13 +19,18 @@
 export default {
     name: 'SmsConfirm',
     data: () => ({
-        showSendCode: false,
         smsCode: undefined,
         validate: "获取验证码",
         validateFlag: 1,
         isSmsCode: true,
         userName: undefined
     }),
+    props:{
+      showSendCode: {
+        type: Boolean,
+        default: false
+      }
+    },
     methods: {
         async sendPhoneSms() {
             if (this.validateFlag == 1) {
@@ -53,10 +58,6 @@ export default {
         },
         sumitOrder() {
 
-        },
-        SendCodeCli(){
-            this.showSendCode = false;
-            this.$emit('smsShowC',this.showSendCode)
         }
     }
 }

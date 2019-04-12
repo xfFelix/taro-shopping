@@ -8,6 +8,12 @@
       <div class="total">合计: <strong class="price-color">{{feeInfo.total|toPrice}}</strong></div>
       <div class="submit" @click="validateUser">提交订单</div>
     </div>
+    <transition name="fade">
+        <bg-mask v-model="showSendCode"></bg-mask>
+    </transition>
+    <transition name="slideUp">
+        <sms-confirm :showSendCode.sync="showSendCode"></sms-confirm>
+    </transition>
   </div>
 </template>
 
@@ -20,12 +26,15 @@ export default {
     'Header' : () => import('components/Header'),
     Good: () => import('./components/Good'),
     User: () => import('./components/User'),
-    Expense: () => import('./components/Expense')
+    Expense: () => import('./components/Expense'),
+    BgMask: () => import('components/BgMask'),
+    SmsConfirm: () => import('./components/SmsConfirm')
   },
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
     showHeight: document.documentElement.clientHeight,   //实时屏幕高度
     hideShow: true,
+    showSendCode: false,
     dateList: [],
     feeInfo: {},
     ticketInfo: {},
@@ -67,11 +76,11 @@ export default {
       checkUrlToken: 'checkUrlToken'
     }),
     validateUser() {
-      if (!this.user.name) return this.$toast('姓名不能为空')
-      if (!IsMobile(this.user.mobile)) return this.$toast('请输入正确的手机号')
-      if (!isIDCard(this.user.IDCardNumber)) return this.$toast('身份证验证失败')
-      if (!this.checkUrlToken()) return this.$toast('请先登录')
-      this.submitOrder()
+      // if (!this.user.name) return this.$toast('姓名不能为空')
+      // if (!IsMobile(this.user.mobile)) return this.$toast('请输入正确的手机号')
+      // if (!isIDCard(this.user.IDCardNumber)) return this.$toast('身份证验证失败')
+      // if (!this.checkUrlToken()) return this.$toast('请先登录')
+      this.showSendCode = true
     },
     async submitOrder() {
       let good = this.$refs.good.data
