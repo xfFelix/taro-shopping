@@ -7,9 +7,9 @@
         <div class="ad-orderMoneyW">
           <p>{{item.uutprice|toDecimal2}}</p>
           <p>
-             <router-link :to="{path:'settlement',query:{ticketId:item.uuid}}">
+             <router-link :to="{path:'settlement',query:{id:item.uuid}}">
                立即预订
-              </router-link>            
+              </router-link>
           </p>
         </div>
       </li>
@@ -22,7 +22,7 @@ export default {
     ticketListC:Array
   },
   data: () => ({
-      
+
   }),
   methods: {
 
@@ -77,7 +77,7 @@ export default {
           display: inline-block;
           padding: 8px 12px;
           }
-      
+
         }
       }
     }
