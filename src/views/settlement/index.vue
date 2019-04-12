@@ -86,7 +86,10 @@ export default {
       }
       let data = await submitOrder(args)
       if (data.code !== '1') return this.$toast(data.message)
-      this.$router.replace('/order')
+      this.$toast('门票提交成功')
+      setTimeout(() => {
+        this.$router.replace('/order')
+      }, 500);
     },
     async getTicketInfo() {
       let data = await getTicketInfo({id: this.$route.query.id})
