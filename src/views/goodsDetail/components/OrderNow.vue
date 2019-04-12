@@ -67,6 +67,7 @@ export default {
         p:first-of-type {
           font-size: 13px;
           color: #000000;
+              text-decoration: line-through;
         }
         p:last-of-type {
           a{

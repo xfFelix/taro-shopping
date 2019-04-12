@@ -1,12 +1,12 @@
 <template>
     <div class="h-goodsList">
         <div class="scroll-list-wrap" ref="scenicListHight">
-            <cube-scroll ref="scroll" :data="ticketList" :options="options" @pulling-up="onPullingUp">
+            <cube-scroll ref="scroll" :data="ticketList" :options="options" @pulling-up="onPullingUp" v-if="showList">
                 <ul>
                     <li v-for="(item,index) in ticketList" :key="index">
                         <router-link :to="{ path: 'goodsDetail', query: { sceneId:item.uuid}}">
                             <div class="h-goodsimgLiW">
-                                <img src="" alt="" />
+                                <img v-lazy="item.uuimgpath" alt="" />
                             </div>
                             <div class="h-goodsInfoLiW">
                                 <p class="h-goodsInfoLi">{{item.uutitle}}</p>
@@ -18,10 +18,11 @@
                         </router-link>
                     </li>
                 </ul>
-                <no-data :data="ticketList"></no-data>
+
             </cube-scroll>
+            <no-data :data="ticketList"></no-data>
         </div>
-        
+
     </div>
 </template>
 <script>
@@ -35,13 +36,16 @@ export default {
         pageNum: 1,
         pageSize: 10,
         headInp: '',
-        listFlag:1
+        listFlag: 1,
+        showList: true,
+        firstFlag: true,  //第一次调且判断是否出现无数据
+
     }),
     computed: {
         offset() {
-            if(this.listFlag==1){
-                return (this.pageNum - 1) * this.pageSize+1;
-            }else{
+            if (this.listFlag == 1) {
+                return (this.pageNum - 1) * this.pageSize + 1;
+            } else {
                 return this.pageSize;
             }
         },
@@ -61,7 +65,7 @@ export default {
         headInpC: {
             handler(newVal) {
                 this.init();
-                this.listFlag=0;
+                this.listFlag = 0;
                 this.headInp = newVal;
                 this.search();
             },
@@ -69,15 +73,21 @@ export default {
     },
     methods: {
         init() {
-            this.pageSize=10;
-            this.pageNum=1;
+            this.pageSize = 10;
+            this.pageNum = 1;
             this.ticketList = [];
+            this.firstFlag = true;
+            this.showList = true;
         },
         listConcat(data) {
+            if (this.firstFlag == true && data.length < 1) {
+                return this.showList = false;
+            }
             this.ticketList = this.ticketList.concat(data);
             if (data.length < 10) {
                 this.$refs.scroll.forceUpdate();
             }
+            this.firstFlag = false;
         },
         async getScenicList() {
             let data = await getScenicList({ n: this.offset, m: this.pageSize });
@@ -85,22 +95,21 @@ export default {
                 this.$toast(data.message);
                 return
             }
-            this.listConcat(data.data)
-
+            this.listConcat(data.data);
         },
         async search() {
-            let data = await search({ keyword: this.headInp, offset:this.pageSize });
+            let data = await search({ keyword: this.headInp, offset: this.pageSize });
             if (data.code != 1) {
                 return this.$toast(data.message);
             }
-            this.listConcat(data.data)
+            this.listConcat(data.data);
         },
         onPullingUp() {
-            if(this.listFlag==1){
-                this.pageNum++
-                this.getScenicList()
-            }else{
-                this.pageSize = this.pageSize +10;
+            if (this.listFlag == 1) {
+                this.pageNum++;
+                this.getScenicList();
+            } else {
+                this.pageSize = this.pageSize + 10;
                 this.search()
             }
         },
@@ -109,9 +118,9 @@ export default {
         this.init();
         this.getScenicList();
     },
-  components: {
-    NoData: () =>import('components/NoData')
-  },
+    components: {
+        NoData: () => import('components/NoData')
+    },
 }
 </script>
 <style lang="scss" scoped>

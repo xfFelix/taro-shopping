@@ -17,7 +17,9 @@ export default {
             pagination: {
                 el: '.swiper-pagination',
                 type: 'fraction'
-            }
+            },
+            autoplay:true,
+            loop : true,
         },
         bannerList: []
     }),
@@ -28,7 +30,9 @@ export default {
                 return this.$toast(data.message);
             }
             this.bannerList = data.data;
-            console.log(this.bannerList)
+            if(data.data.length<2){
+                this.swiperOption.autoplay = false;
+            }
         },
     },
     mounted() {
