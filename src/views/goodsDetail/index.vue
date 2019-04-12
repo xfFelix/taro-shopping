@@ -1,5 +1,5 @@
 <template>
-    <div class="goodsDetail" ref="goodsTop">
+    <div class="goodsDetail">
         <swpie></swpie>
         <head-top :headShowC='headShowP' v-on:showDialogC='showDialogP' v-on:headHightC='headHightP'></head-top>
         <!-- 头部导航栏 -->
@@ -9,7 +9,7 @@
         <ticket-info :sceneInfoC="sceneInfoP"></ticket-info>
         <order-now :ticketListC="ticketListP"></order-now>
         <!-- 门票详情 -->
-        <div ref="detailTop">1</div>
+        <div ref="detailTop"></div>
         <cube-tab-bar 
             v-model="selectedLabelDefault" 
             :data="tabs" 
@@ -17,10 +17,10 @@
             @change="changeHandler" 
             show-slider 
             :class="tabFixed==1?'tabFixed':'tabFixedNo'"
-            :style="{top:tabHight}"
+            :style="tabFixed==1?{top:tabHightPx}:'top:0'"
         >
         </cube-tab-bar>
-        <div :class="tabFixed==1?'fixedIn':'fixedInNo'"></div>
+         <div :style="tabFixed==1?'height:1.17rem':'height:0'"></div> 
         <scene-detail :sceneInfoC="sceneInfoP" :sceneTabNameC="sceneTabNameP"></scene-detail>
 
     </div>
@@ -42,22 +42,22 @@ export default {
         sceneTabNameP: '景区须知',
         ticketListP: [],
         tabFixed: 0,
+        tabHightPx:0,
         tabHight:0
     }),
     methods: {
         clickHandler(label) {
             this.sceneTabNameP = label;
-            switch (label) {
-                case '景区须知':
-                    window.scrollTo(10,937); 
-                case '景区简介':
-                    window.scrollTo(0,1931);  
-                 case '交通指南':
-                    window.scrollTo(0,2400);
-                 case '旅游主题':
-                    window.scrollTo(0,2400);
-            }
-            console.log('changed to:', label)
+            // switch (label) {
+            //     case '景区须知':
+            //         document.body.scrollTop = 0
+            //     case '景区简介':
+            //         document.body.scrollTop = 5000
+            //      case '交通指南':
+            //         window.scrollTo(0,2400);
+            //      case '旅游主题':
+            //         window.scrollTo(0,2400);
+            // }
         },
         changeHandler(label) {
             this.sceneTabNameP = label;
@@ -67,8 +67,7 @@ export default {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             let detailTop = this.$refs.detailTop.offsetTop;
             let detailPosit = detailTop - scrollTop;
-            // console.log(detailPosit)
-            if (detailPosit <=90) {
+            if (detailPosit <= this.tabHight) {
                 this.tabFixed = 1
             } else {
                 this.tabFixed = 0
@@ -84,7 +83,9 @@ export default {
             this.showDialog = val;
         },
         headHightP(val){
-            this.tabHight = val;
+            this.tabHightPx = val+'px';
+            this.tabHight = val
+            console.log(val)
         },
         //景点信息
         async getScenicSpotInfo() {
@@ -109,7 +110,6 @@ export default {
         this.getScenicSpotInfo();
         this.getTicketList();
         window.addEventListener('scroll', this.handleScroll);
-
     },
     beforeDestroy() {
         window.removeEventListener('scroll', this.handleScroll);

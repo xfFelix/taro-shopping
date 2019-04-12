@@ -11,8 +11,8 @@
                             <div class="h-goodsInfoLiW">
                                 <p class="h-goodsInfoLi">{{item.uutitle}}</p>
                                 <p class="h-goodsMoneyLiW">
-                                    <span class="h-goodsMoneyLi">{{item.uuid}}</span>
-                                    <span>id起</span>
+                                    <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
+                                    <span>起</span>
                                 </p>
                             </div>
                         </router-link>
@@ -20,19 +20,44 @@
                 </ul>
             </cube-scroll>
         </div>
+        <no-data :data="ticketList"></no-data>
     </div>
 </template>
 <script>
-import { getScenicList } from 'api'
+
 export default {
+    props: {
+        sceneListC: Array,
+        flagC: Number,
+        firstC: Boolean,
+    },
     data: () => ({
         ticketList: [],
-        pageNum: 2,
-        pageSize: 10
+        pageNum: 1,
+        pageSize: 10,
     }),
+    watch: {
+        sceneListC: {
+            handler(newVal) {
+                if (this.firstC === true) {
+                    this.ticketList = this.sceneListC;
+                    console.log(this.ticketList)
+                }
+            },
+            immediate: true
+        },
+        firstC: {
+            handler(newVal) { },
+            immediate: true
+        },
+    },
     computed: {
         offset() {
-            return (this.pageNum - 1) * this.pageSize;
+            if (this.flagC == 0) {
+                return (this.pageNum - 1) * this.pageSize + 1;
+            } else {
+                return this.pageSize
+            }
         },
         options() {
             return {
@@ -41,34 +66,33 @@ export default {
                     threshold: 0,
                     txt: {
                         more: '上拉加载更多',
-                        noMore: '没有更多数据'
+                        noMore: '没有更多数据了~~'
                     }
                 },
             }
         },
     },
     methods: {
-        async getScenicList() {
-            let data = await getScenicList({ n: this.offset, m: this.pageSize });
-            if(data.code!=1){
-                this.$toast(data.message);
-                return
-            }
-            this.ticketList = this.ticketList.concat(data.data);
-            if (data.data.length < 10) {
-                this.$refs.scroll.forceUpdate();
-            }
-        },
-
-
         onPullingUp() {
-            this.pageNum++
-            this.getScenicList()
+            if (this.flagC == 0) {
+                this.pageNum++;
+            } else {
+                this.pageSize = this.pageSize + 10
+            }
+
+            if (this.sceneListC.length < 10) {
+                this.$refs.scroll.forceUpdate();
+            } else {
+                this.$emit("pullUpC", this.offset);
+            }
+            this.ticketList = this.ticketList.concat(this.sceneListC);
         },
     },
     mounted() {
-        this.getScenicList();
     },
+    components: {
+        NoData: () => import('components/NoData')
+    }
 
 }
 </script>

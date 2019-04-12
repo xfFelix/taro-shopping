@@ -1,5 +1,5 @@
 <template>
-    <div class="swiperBg" ref="swipeHight">
+    <div class="swiperBg">
         <swiper :options="swiperOption">
             <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">
                 <img src="../../../common/images/banner.jpg" alt="" style="width:100%;" />
@@ -24,7 +24,7 @@ export default {
 
     },
     mounted() {
-        console.log(this.$refs.swipeHight.style.height)
+
     },
     components: {
         swiper,

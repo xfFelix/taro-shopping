@@ -16,12 +16,14 @@ export default {
   computed: {
     open () {
       if (this.data && this.data.length) {
+        console.log('11111')
+        console.log(this.data)
         return false
       } else {
         return true
       }
     }
-  }
+  },
 }
 </script>
 

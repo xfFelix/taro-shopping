@@ -7,7 +7,7 @@
                 <span class="h-searchInp"><input type="text" v-model="inpConent" /></span>
                 <span class="iconfont h-searchClose" @click="inpConent=''">&#xe80e;</span>
             </div>
-            <div class="h-searchCli background-op">搜索</div>
+            <div class="h-searchCli background-op" @click="searchKey()">搜索</div>
         </div>
 
         <div class="h-searchWFixed" v-if="headShowC">
@@ -17,7 +17,7 @@
                 <span class="h-searchInp"><input type="text" v-model="inpConent" /></span>
                 <span class="iconfont h-searchClose" @click="inpConent=''">&#xe80e;</span>
             </div>
-            <div class="h-searchCli">搜索</div>
+            <div class="h-searchCli" @click="searchKey()">搜索</div>
         </div>
     </div>
 </template>
@@ -30,7 +30,9 @@ export default {
         inpConent: ''
     }),
     methods: {
-
+        searchKey(){
+            this.$emit('inputC',this.inpConent)
+        }
     }
 }
 </script>

@@ -39,3 +39,10 @@ export const getOrderDetail = (params) => fetch({
   method: 'GET',
   params
 })
+
+//搜索关键字
+export const search = (params) => fetch({
+  url: 'ticket/search',
+  method: 'GET',
+  params
+})

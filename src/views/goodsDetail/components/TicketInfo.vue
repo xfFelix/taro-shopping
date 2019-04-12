@@ -2,24 +2,24 @@
   <div class="ab-tkInfoW">
     <div class="ab-circle"></div>
     <div class="ab-tkInfo">
-      <div class="ab-tkName">{{sceneInfoC.UUtitle}}</div>
+      <div class="ab-tkName">{{sceneInfoC.uutitle}}</div>
       <div class="ab-tkMoneyW">
-        <p>8200</p>
-        <p>兑换价</p>
+        <p>{{sceneInfoC.uutprice}}</p>
+        <p>门市价</p>
       </div>
     </div>
-    <div class="ab-tkMarket one-bottom-px">
+    <!-- <div class="ab-tkMarket one-bottom-px">
       <span>门市价</span>
       <span>900</span>
-    </div>
+    </div> -->
     <div class="ab-tkTimeAd">
       <p class="ab-tkTime">
         <span>营业时间</span>
-        <span>{{sceneInfoC.UUruntime}}</span>
+        <span>{{sceneInfoC.uuruntime}}</span>
       </p>
       <p class="ab-tkAddress">
         <span>详细地址</span>
-        <span>{{sceneInfoC.UUaddress}}</span>
+        <span>{{sceneInfoC.uuaddress}}</span>
       </p>
     </div>
   </div>
@@ -66,6 +66,7 @@ export default {
       line-height: 23px;
     }
     .ab-tkMoneyW {
+      text-align: center;
       padding: 13px;
       background-color: #ffffff;
       box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
