@@ -11,89 +11,107 @@
                             <div class="h-goodsInfoLiW">
                                 <p class="h-goodsInfoLi">{{item.uutitle}}</p>
                                 <p class="h-goodsMoneyLiW">
-                                    <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
-                                    <span>起</span>
+                                    <span class="h-goodsMoneyLi">{{item.uuid}}</span>
+                                    <span>id起</span>
                                 </p>
                             </div>
                         </router-link>
                     </li>
                 </ul>
+                <no-data :data="ticketList"></no-data>
             </cube-scroll>
         </div>
-        <no-data :data="ticketList"></no-data>
+        
     </div>
 </template>
 <script>
-
+import { getScenicList, search } from 'api'
 export default {
     props: {
-        sceneListC: Array,
-        flagC: Number,
-        firstC: Boolean,
+        headInpC: String
     },
     data: () => ({
         ticketList: [],
         pageNum: 1,
         pageSize: 10,
+        headInp: '',
+        listFlag:1
     }),
-    watch: {
-        sceneListC: {
-            handler(newVal) {
-                if (this.firstC === true) {
-                    this.ticketList = this.sceneListC;
-                    console.log(this.ticketList)
-                }
-            },
-            immediate: true
-        },
-        firstC: {
-            handler(newVal) { },
-            immediate: true
-        },
-    },
     computed: {
         offset() {
-            if (this.flagC == 0) {
-                return (this.pageNum - 1) * this.pageSize + 1;
-            } else {
-                return this.pageSize
+            if(this.listFlag==1){
+                return (this.pageNum - 1) * this.pageSize+1;
+            }else{
+                return this.pageSize;
             }
         },
         options() {
             return {
-                pullDownRefresh: this.pullDownRefreshObj,
                 pullUpLoad: {
                     threshold: 0,
                     txt: {
                         more: '上拉加载更多',
-                        noMore: '没有更多数据了~~'
+                        noMore: '没有更多数据'
                     }
                 },
             }
         },
     },
+    watch: {
+        headInpC: {
+            handler(newVal) {
+                this.init();
+                this.listFlag=0;
+                this.headInp = newVal;
+                this.search();
+            },
+        }
+    },
     methods: {
-        onPullingUp() {
-            if (this.flagC == 0) {
-                this.pageNum++;
-            } else {
-                this.pageSize = this.pageSize + 10
-            }
-
-            if (this.sceneListC.length < 10) {
+        init() {
+            this.pageSize=10;
+            this.pageNum=1;
+            this.ticketList = [];
+        },
+        listConcat(data) {
+            this.ticketList = this.ticketList.concat(data);
+            if (data.length < 10) {
                 this.$refs.scroll.forceUpdate();
-            } else {
-                this.$emit("pullUpC", this.offset);
             }
-            this.ticketList = this.ticketList.concat(this.sceneListC);
+        },
+        async getScenicList() {
+            let data = await getScenicList({ n: this.offset, m: this.pageSize });
+            if (data.code != 1) {
+                this.$toast(data.message);
+                return
+            }
+            this.listConcat(data.data)
+
+        },
+        async search() {
+            let data = await search({ keyword: this.headInp, offset:this.pageSize });
+            if (data.code != 1) {
+                return this.$toast(data.message);
+            }
+            this.listConcat(data.data)
+        },
+        onPullingUp() {
+            if(this.listFlag==1){
+                this.pageNum++
+                this.getScenicList()
+            }else{
+                this.pageSize = this.pageSize +10;
+                this.search()
+            }
         },
     },
     mounted() {
+        this.init();
+        this.getScenicList();
     },
-    components: {
-        NoData: () => import('components/NoData')
-    }
-
+  components: {
+    NoData: () =>import('components/NoData')
+  },
 }
 </script>
 <style lang="scss" scoped>

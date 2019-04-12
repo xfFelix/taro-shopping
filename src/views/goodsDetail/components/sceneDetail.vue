@@ -1,12 +1,11 @@
 <template>
-    <div>
-          <ul ref="scencI">
-            <li v-html="sceneInfoC.UUbhjq" style="height:1000px" ref="jqxz">
-            </li>
-            <li v-html="sceneInfoC.UUjqts" style="height:5000px" ref="jqjj"></li>
-            <li v-html="sceneInfoC.UUjtz" style="height:5000px;background:red" ref="jtzn"></li>
-            <li v-html="sceneInfoC.UUtopics" style="height:500px" ref="lyzt"></li> 
-        </ul>  
+    <div class="sceneDetail">
+        <ul>
+            <li v-html="sceneInfoC.uubhjq" v-show="detailShow==1"></li>
+            <li v-html="sceneInfoC.uujqts" v-show="detailShow==2"></li>
+            <li v-html="sceneInfoC.uujtz" v-show="detailShow==3"></li>
+            <li v-html="sceneInfoC.uutopics" v-show="detailShow==4"></li>
+        </ul>
     </div>
 </template>
 
@@ -14,14 +13,36 @@
 export default {
     props: {
         sceneInfoC: Object,
-
-    },
-    watch: {
-      
+        sceneTabNameC: String
     },
     data: () => ({
-
+        detailShow: 1
     }),
+    watch: {
+        sceneTabNameC: {
+            handler(val) {
+                switch (val) {
+                    case "景区须知":
+                        this.detailShow = 1;
+                        break;
+                    case "景区简介":
+                        this.detailShow = 2;
+                        break;
+                    case "交通指南":
+                        this.detailShow = 3;
+                        break;
+                    case "旅游主题":
+                        this.detailShow = 4;
+                        break;
+                    default:
+                        this.detailShow = 1;
+                        break;
+                }
+            },
+            immediate: true,
+            deep:true
+        }
+    },
     methods: {
 
     },
@@ -31,5 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.sceneDetail {
+    background: #fff;
+}
 </style>
