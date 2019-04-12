@@ -4,15 +4,15 @@
     <ul>
       <li class="item">
         <span class="label">门票总额</span>
-        <span class="value">2045.32</span>
+        <span class="value">{{data.amount | toPrice}}</span>
       </li>
       <li class="item">
         <span class="label">服务费</span>
-        <span class="value">2045.32</span>
+        <span class="value">{{data.service_fee| toPrice}}</span>
       </li>
       <li class="item">
         <span class="label">税费</span>
-        <span class="value">2045.32</span>
+        <span class="value">{{data.tax_total | toPrice}}</span>
       </li>
     </ul>
   </div>
@@ -20,7 +20,12 @@
 
 <script>
 export default {
-
+  props:{
+    data: {
+      type: Object,
+      default: {}
+    }
+  }
 }
 </script>
 

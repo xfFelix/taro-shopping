@@ -2,11 +2,11 @@
   <div class="main">
     <div class="good">
       <div class="good-img">
-        <img src="" alt="">
+        <img v-lazy="info.uuimgpath" alt="">
       </div>
       <div class="good-detail">
-        <p class="good-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</p>
-        <price :price="2944.00" class="good-price"></price>
+        <p class="good-name">{{info.uutitle}}</p>
+        <price :price="dateObj.retail_price" class="good-price"></price>
       </div>
     </div>
     <div class="swiper-title border-bottom-1px">
@@ -15,33 +15,40 @@
     </div>
     <div class="use border-bottom-1px">
       <span class="label">使用日期</span>
-      <cube-checker v-model="checkerList" :options="options" type="radio">
-        <cube-checker-item v-for="item in options" :key="item.value" :option="item">
-            <p class="day">{{item.text}}</p>
-            <p class="number">{{item.number}}</p>
-        </cube-checker-item>
-      </cube-checker>
+      <cube-scroll
+        ref="scroll"
+        :data="dateList"
+        direction="horizontal"
+        class="horizontal-scroll-list-wrap">
+        <cube-checker v-model="data.checkerValue" :options="dateList" type="radio">
+          <cube-checker-item v-for="item in dateList" :key="item.date" :option="item">
+              <p class="day">{{item.value}}</p>
+              <p class="number">{{item.price}}</p>
+          </cube-checker-item>
+          <!-- <ul class="old-day clear-fix">
+            <li class="item">
+              <p class="day">更多日期</p>
+              <p class="number">2914</p>
+              <i class="cubeic-arrow"></i>
+            </li>
+            <li class="item">
+              <p class="day">明天</p>
+              <p class="number">2914</p>
+            </li>
+            <li class="item active">
+              <p class="day">今天</p>
+              <p class="number">2914</p>
+            </li>
+          </ul> -->
+        </cube-checker>
+      </cube-scroll>
     </div>
     <div class="buy">
       <span class="buy-number">购票数量</span>
-      <!-- <ul class="old-day clear-fix">
-        <li class="item">
-          <p class="day">更多日期</p>
-          <p class="number">2914</p>
-          <i class="cubeic-arrow"></i>
-        </li>
-        <li class="item">
-          <p class="day">明天</p>
-          <p class="number">2914</p>
-        </li>
-        <li class="item active">
-          <p class="day">今天</p>
-          <p class="number">2914</p>
-        </li>
-      </ul> -->
+
       <div class="count-number">
         <i class="iconfont icon-reduce"></i>
-        <span class="number">3</span>
+        <span class="number">{{data.number}}</span>
         <i class="iconfont icon-add"></i>
       </div>
     </div>
@@ -50,21 +57,50 @@
 </template>
 
 <script>
+import moment from 'util/moment';
+import { setTimeout } from 'timers';
 export default {
   components: {
     Price: () => import('components/Price')
   },
+  props: {
+    list: {
+      type: Array,
+      default: []
+    },
+    info: {
+      type: Object,
+      default: {}
+    }
+  },
   data: () => ({
-    checkerList: 0,
-    options: [
-      {value: 0, text: '今天', number: 2914},
-      {value: 1, text: '明天', number: 2914},
-      {value: 2, text: '更多日期', number: 2914}
-    ]
+    data: {
+      checkerValue: moment().format('YYYY-MM-DD'),
+      number: 1
+    },
   }),
-  watch:{
-    checkerList(val) {
-      console.log(val)
+  computed: {
+    dateList () {
+      let dateList = []
+      let obj = {}
+      for (let item of this.list) {
+        obj = {
+          value: item.date,
+          price: item.retail_price,
+          total: item.buy_price
+        }
+        dateList.push(obj)
+      }
+      return dateList
+    },
+    dateObj () {
+      for (let item of this.list) {
+        if (this.data.checkerValue === item.date) {
+          this.$parent.getFeeInfo(item.retail_price, this.data.number)
+          return item
+        }
+      }
+      return {}
     }
   }
 }
@@ -73,6 +109,7 @@ export default {
 <style lang="scss">
 .cube-checker-item{
   margin-right: 0;
+  box-sizing: border-box;
 }
 .cube-checker-item_active{
   background: #30ce84;
@@ -81,6 +118,15 @@ export default {
   &::after{
     border: none;
   }
+}
+.horizontal-scroll-list-wrap{
+  flex: 1;
+}
+.cube-scroll-content{
+  display: inline-block;
+}
+.cube-checker{
+  white-space: nowrap;
 }
 </style>
 
@@ -114,11 +160,7 @@ export default {
       font-weight: 700;
       font-size: 15px;
     }
-    .label{
-      font-size: 15px;
-      color: #000;
-      font-weight: 700;
-    }
+
     .count-number{
       border: 1px solid #ccc;
       padding: 5px 8px;
@@ -133,17 +175,21 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 13px 0;
+    .label{
+      font-size: 15px;
+      flex: 0 0 70px;
+      color: #000;
+      font-weight: 700;
+    }
     ul{
-      flex: 1;
       display: flex;
-      justify-content: flex-end;
+      // justify-content: flex-end;
       li{
         border: 1px dashed #30ce84;
         margin-left: 10px;
         box-sizing: border-box;
-        width: 80px;
         text-align: center;
-        padding: 5px 0;
+        padding: 5px 18px;
         font-size: 12px;
         border-radius: 15px; /*no*/
         position: relative;

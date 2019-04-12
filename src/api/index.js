@@ -30,7 +30,7 @@ export const getOrderList = (params) => fetch({
 //景区详情
 export const getScenicSpotInfo = (params) => fetch({
   url: 'ticket/getScenicSpotInfo',
-    method: 'GET',
+  method: 'GET',
   params
 })
 // 查询订单详情
@@ -43,6 +43,27 @@ export const getOrderDetail = (params) => fetch({
 //搜索关键字
 export const search = (params) => fetch({
   url: 'ticket/search',
+  method: 'GET',
+  params
+})
+
+// 查询费用详情
+export const getFeeInfo = (params) => fetch({
+  url: 'ticket/getOrderPreview',
+  method: 'GET',
+  params
+})
+
+// 查询日期列表
+export const getDateList = (params) => fetch({
+  url: 'ticket/getRealTimeStorage',
+  method: 'GET',
+  params
+})
+
+// 查询门票详情
+export const getTicketInfo = (params) => fetch({
+  url: 'ticket/getTicketInfo',
   method: 'GET',
   params
 })
