@@ -2,10 +2,10 @@
   <div class="main">
     <div class="good">
       <div class="good-img">
-        <img src="" alt="">
+        <img v-lazy="info.uuimgpath" alt="">
       </div>
       <div class="good-detail">
-        <p class="good-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</p>
+        <p class="good-name">{{info.uutitle}}</p>
         <price :price="dateObj.retail_price" class="good-price"></price>
       </div>
     </div>
@@ -67,6 +67,10 @@ export default {
     list: {
       type: Array,
       default: []
+    },
+    info: {
+      type: Object,
+      default: {}
     }
   },
   data: () => ({

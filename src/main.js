@@ -3,18 +3,15 @@ import './cube-ui'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import filters from './filter'
+import './filter'
 import './directives'
+import './lazyload'
 // 导入click事件
 import FastClick from 'fastclick'
 import 'lib-flexible'
 import './common/css/index.scss'
 import {toast} from '@/util/toast'
 import 'swiper/dist/css/swiper.css'
-
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-});
 
 FastClick.attach(document.body);
 

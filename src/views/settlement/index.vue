@@ -1,7 +1,7 @@
 <template>
   <div class="settlement">
     <Header>门票预订</Header>
-    <good :list="dateList"></good>
+    <good :list="dateList" :info="ticketInfo"></good>
     <user></user>
     <expense :data="feeInfo"></expense>
     <div class="footer" v-show="hideShow">
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {getDateList,getFeeInfo} from 'api'
+import {getDateList,getFeeInfo,getTicketInfo} from 'api'
 import {mapGetters} from 'vuex';
 export default {
   components: {
@@ -26,7 +26,8 @@ export default {
     showHeight: document.documentElement.clientHeight,   //实时屏幕高度
     hideShow: true,
     dateList: [],
-    feeInfo: {}
+    feeInfo: {},
+    ticketInfo: {}
   }),
   watch:{
     showHeight:function() {
@@ -43,6 +44,7 @@ export default {
   },
   created () {
     this.getPreviewOrder()
+    this.getTicketInfo()
   },
   mounted() {
     this.checkResize()
@@ -53,6 +55,11 @@ export default {
     })
   },
   methods: {
+    async getTicketInfo() {
+      let data = await getTicketInfo({id: this.$route.query.id})
+      if (data.code !== '1') return this.$toast(data.message)
+      this.ticketInfo = data.data[0]
+    },
     async getPreviewOrder() {
       let dateList = await getDateList({id: this.$route.query.id})
       if (dateList.code !== '1') return this.$toast(dateList.message)

@@ -53,3 +53,10 @@ export const getDateList = (params) => fetch({
   method: 'GET',
   params
 })
+
+// 查询门票详情
+export const getTicketInfo = (params) => fetch({
+  url: 'ticket/getTicketInfo',
+  method: 'GET',
+  params
+})
