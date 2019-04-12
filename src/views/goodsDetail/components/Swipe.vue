@@ -22,7 +22,6 @@ export default {
                 type: 'fraction'
             }
         },
-        swiperSlides: [1, 2, 3, 4, 5],
     }),
     components: {
         swiper,
