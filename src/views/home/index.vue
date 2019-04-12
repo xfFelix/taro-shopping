@@ -2,16 +2,19 @@
     <div class="home">
         <home-swipe></home-swipe>
         <search-head :headShowC='headShowP' v-on:inputC="inputP"></search-head>
-        <ticket-list :headInpC='headInpP'></ticket-list>
+        <!-- <keep-alive> -->
+            <ticket-list :headInpC='headInpP'></ticket-list>
+        <!-- </keep-alive> -->
+
     </div>
 </template>
 <script>
 export default {
     data: () => ({
-        headShowP:false,
-        headInpP:''
+        headShowP: false,
+        headInpP: ''
     }),
-    methods:{
+    methods: {
         handleScroll() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             if (scrollTop > 0) {
@@ -20,7 +23,7 @@ export default {
                 this.headShowP = false;
             }
         },
-         inputP(val) {
+        inputP(val) {
             this.headInpP = val;
         },
     },

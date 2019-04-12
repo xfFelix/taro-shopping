@@ -1,6 +1,6 @@
 <template>
     <div class="swiperBg">
-        <swiper :options="swiperOption">
+        <swiper :options="swiperOption" style="height:100%;">
             <swiper-slide v-for="(slide, index) in bannerList" :key="index">
                 <img :src="slide.img" alt="" style="width:100%;" />
             </swiper-slide>
@@ -50,12 +50,13 @@ export default {
     .swiper-pagination {
         background: rgba(0, 0, 0, 0.4);
         color: #fff;
-        width: 12%;
+         width: 14%;
         right: 15px !important;
         left: auto;
         bottom: 13px;
-        border-radius: 10px;
-        padding: 1px 0;
+        border-radius: 15px;
+        padding: 5px 0;
+        font-size: 15px;
     }
 }
 </style>

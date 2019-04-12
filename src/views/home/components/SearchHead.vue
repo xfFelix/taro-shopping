@@ -67,7 +67,7 @@ export default {
         display: flex;
         align-items: center;
         width: 78%;
-        background: rgba(0,0,0,0.2);
+        background: rgba(0,0,0,0.4);
         .h-searchLogo {
             width: 19px;
             height: 19px;

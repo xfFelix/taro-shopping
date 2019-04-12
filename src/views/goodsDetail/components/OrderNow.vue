@@ -1,15 +1,15 @@
 <template>
   <div class="ad-orderW">
     <p class="ad-orderTitle">门票</p>
-    <ul>
+    <ul :class="heightFlag==true?'ulHeight':'ulHeighNo'">
       <li v-for="(item,index) in ticketListC" :key="index">
         <div class="ad-orderName">{{item.uutitle}}</div>
         <div class="ad-orderMoneyW">
           <p>{{item.uutprice|toDecimal2}}</p>
           <p>
-             <router-link :to="{path:'settlement',query:{id:item.uuid}}">
-               立即预订
-              </router-link>
+            <router-link :to="{path:'settlement',query:{id:item.uuid}}">
+              立即预订
+            </router-link>
           </p>
         </div>
       </li>
@@ -18,22 +18,44 @@
 </template>
 <script>
 export default {
-  props:{
-    ticketListC:Array
+  props: {
+    ticketListC: Array
   },
   data: () => ({
-
+    heightFlag: false
   }),
   methods: {
 
   },
-  mounted(){
+  watch: {
+    ticketListC: {
+      handler(val) {
+        if (val.length < 4) {
+          this.heightFlag = false;
+        } else {
+          this.heightFlag = true;
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+  mounted() {
 
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.ulHeight {
+  height: 240px;
+  overflow: scroll;
+}
+
+.ulHeighNo {
+  height: auto;
+}
+
 .ad-orderW {
   background: #fff;
   margin: 10px 0;
@@ -67,18 +89,17 @@ export default {
         p:first-of-type {
           font-size: 13px;
           color: #000000;
-              text-decoration: line-through;
+          text-decoration: line-through;
         }
         p:last-of-type {
-          a{
-    background-color: #30ce84;
-          border-radius: 30px;
-          color: #ffffff;
-          margin-top: 8px;
-          display: inline-block;
-          padding: 8px 12px;
+          a {
+            background-color: #30ce84;
+            border-radius: 30px;
+            color: #ffffff;
+            margin-top: 8px;
+            display: inline-block;
+            padding: 8px 12px;
           }
-
         }
       }
     }

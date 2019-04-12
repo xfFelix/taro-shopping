@@ -89,7 +89,7 @@ export default {
         },
         //门票
         async getTicketList() {
-            let data = await getTicketList({ n: 1,m: 10, lid: this.$route.query.sceneId });
+            let data = await getTicketList({ n: 1,m: 100, lid: this.$route.query.sceneId });
             if(data.code!=1){
                 this.$toast(data.message);
                 return
@@ -141,12 +141,14 @@ export default {
 }
 .fixedInNo {
     height: 0;
-}
+}   
 
 .tabFixed{
     position:fixed;width:100%;
+    z-index: 1;
 }
 .tabFixedNo{
-    position:relative
+    position:relative;
+     z-index: 1;
 }
 </style>

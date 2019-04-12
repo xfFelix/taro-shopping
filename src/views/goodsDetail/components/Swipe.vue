@@ -1,11 +1,11 @@
 <template>
     <div class="swiperBg">
-        <swiper :options="swiperOption" style="height:100%">
-            <swiper-slide >
+        <!-- <swiper :options="swiperOption" style="height:100%">
+            <swiper-slide > -->
                 <img :src="sceneInfoC.uuimgpath" alt="" style="width:100%;" />
-            </swiper-slide>
+            <!-- </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+        </swiper> -->
     </div>
 </template>
 

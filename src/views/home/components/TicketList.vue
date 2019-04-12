@@ -39,7 +39,6 @@ export default {
         listFlag: 1,
         showList: true,
         firstFlag: true,  //第一次调且判断是否出现无数据
-
     }),
     computed: {
         offset() {
@@ -55,7 +54,7 @@ export default {
                     threshold: 0,
                     txt: {
                         more: '上拉加载更多',
-                        noMore: '没有更多数据'
+                        noMore: '没有更多数据了~~'
                     }
                 },
             }
@@ -78,6 +77,9 @@ export default {
             this.ticketList = [];
             this.firstFlag = true;
             this.showList = true;
+            let cube = document.getElementsByClassName("cube-scroll-content")[0];
+            // console.log(cube.style.alignContent)
+            cube.style.transform="translate(0px, 0px) scale(1) translateZ(0px)"
         },
         listConcat(data) {
             if (this.firstFlag == true && data.length < 1) {
