@@ -49,10 +49,12 @@ export default {
         },
         sceneInfoC: {
             handler(val) {
-                this.uubhjq = HtmlUtil.htmlDecode(this.sceneInfoC.uubhjq);
-                this.uujqts = HtmlUtil.htmlDecode(this.sceneInfoC.uujqts);
-                this.uujtz = HtmlUtil.htmlDecode(this.sceneInfoC.uujtz);
-                this.uutopics = HtmlUtil.htmlDecode(this.sceneInfoC.uutopics);
+                console.log("景区")
+                console.log(val)
+                this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
+                this.uujqts = HtmlUtil.htmlDecode(val.uujqts);
+                this.uujtz = HtmlUtil.htmlDecode(val.uujtz);
+                this.uutopics = HtmlUtil.htmlDecode(val.uutopics);
             },
             immediate: true,
         }
