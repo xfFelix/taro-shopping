@@ -52,9 +52,9 @@ export default {
                 console.log("景区")
                 console.log(val)
                 this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
-                this.uujqts = HtmlUtil.htmlDecode(val.uujqts);
-                this.uujtz = HtmlUtil.htmlDecode(val.uujtz);
-                this.uutopics = HtmlUtil.htmlDecode(val.uutopics);
+                this.uujqts = val.uujqts
+                this.uujtz = val.uujtz
+                this.uutopics = val.uutopics
             },
             immediate: true,
         }
