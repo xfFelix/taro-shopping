@@ -1,6 +1,6 @@
 <template>
     <div class="swiperBg">
-        <swiper :options="swiperOption">
+        <swiper :options="swiperOption" style="height:100%">
             <swiper-slide >
                 <img :src="sceneInfoC.uuimgpath" alt="" style="width:100%;" />
             </swiper-slide>
@@ -20,7 +20,8 @@ export default {
             pagination: {
                 el: '.swiper-pagination',
                 type: 'fraction'
-            }
+            },
+            loop: true,
         },
     }),
     components: {
@@ -34,6 +35,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .swiperBg {
+    width: 100%;
+    height: 250px;
     .swiper-pagination {
         background: rgba(0, 0, 0, 0.4);
         color: #fff;

@@ -80,7 +80,9 @@ export default {
         async getScenicSpotInfo() {
             let data = await getScenicSpotInfo({ n: this.$route.query.sceneId });
             if(data.code!=1){
-                this.$toast(data.message);
+                return this.$toast(data.message);
+            }
+            if (data.data.length!=1){
                 return
             }
             this.sceneInfoP = data.data[0];
