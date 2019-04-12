@@ -132,20 +132,24 @@ export default {
 </script>
 
 <style lang="scss">
-.cube-tab{
-  div{
-    font-size: 14px;
+.list{
+  .cube-tab-bar{
+    background-color: #fff;
+    .cube-tab{
+      &.cube-tab_active {
+        color: #30ce84;
+      }
+      div{
+        font-size: 14px;
+      }
+    }
+    .cube-tab-bar-slider{
+      background-color: #30ce84;
+    }
   }
 }
-.cube-tab_active {
-    color: #30ce84;
-}
-.cube-tab-bar-slider{
-  background-color: #30ce84;
-}
-.cube-tab-bar{
-  background-color: #fff;
-}
+
+
 </style>
 
 

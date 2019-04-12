@@ -126,26 +126,30 @@ export default {
 </script>
 
 <style lang="scss">
-.cube-checker-item{
-  margin-right: 0;
-  box-sizing: border-box;
-}
-.cube-checker-item_active{
-  background: #30ce84;
-  color: #fff;
-  border: none;
-  &::after{
-    border: none;
+.use{
+  .horizontal-scroll-list-wrap{
+    flex: 1;
+    .cube-scroll-content{
+      display: inline-block;
+      .cube-scroll-list-wrapper{
+        .cube-checker{
+          white-space: nowrap;
+          .cube-checker-item{
+            margin-right: 0;
+            box-sizing: border-box;
+            &.cube-checker-item_active{
+              background: #30ce84;
+              color: #fff;
+              border: none;
+              &::after{
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
   }
-}
-.horizontal-scroll-list-wrap{
-  flex: 1;
-  .cube-scroll-content{
-    display: inline-block;
-  }
-}
-.cube-checker{
-  white-space: nowrap;
 }
 </style>
 
