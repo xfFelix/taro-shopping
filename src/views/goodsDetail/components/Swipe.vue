@@ -1,8 +1,8 @@
 <template>
     <div class="swiperBg">
         <swiper :options="swiperOption">
-            <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">
-                <img src="../../../common/images/bannerD.jpg" alt="" style="width:100%;" />
+            <swiper-slide >
+                <img :src="sceneInfoC.uuimgpath" alt="" style="width:100%;" />
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -12,6 +12,9 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 export default {
+    props: {
+        sceneInfoC: Object
+    },
     data: () => ({
         swiperOption: {
             pagination: {
@@ -24,6 +27,9 @@ export default {
     components: {
         swiper,
         swiperSlide,
+    },
+    mounted(){
+        
     }
 }
 </script>

@@ -16,7 +16,6 @@ export default {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             if (scrollTop > 0) {
                 this.headShowP = true;
-
             } else {
                 this.headShowP = false;
             }

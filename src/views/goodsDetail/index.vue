@@ -1,6 +1,6 @@
 <template>
     <div class="goodsDetail">
-        <swpie></swpie>
+        <swpie :sceneInfoC="sceneInfoP"></swpie>
         <head-top :headShowC='headShowP' v-on:showDialogC='showDialogP' v-on:headHightC='headHightP'></head-top>
         <!-- 头部导航栏 -->
         <head-tab v-if="showDialog"></head-tab>

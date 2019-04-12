@@ -2,9 +2,7 @@
     <div class="swiperBg">
         <swiper :options="swiperOption">
             <swiper-slide v-for="(slide, index) in bannerList" :key="index">
-               
-                    <img :src="slide.img" alt="" style="width:100%;"  />
-         
+                <img :src="slide.img" alt="" style="width:100%;" />
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -21,15 +19,15 @@ export default {
                 type: 'fraction'
             }
         },
-        bannerList:[]
+        bannerList: []
     }),
     methods: {
         async homeBanner() {
-            let data = await homeBanner({"catId":207,"startNum":0,"num":10});
+            let data = await homeBanner({ "catId": 207, "startNum": 0, "num": 10 });
             if (data.resultCode != 0) {
                 return this.$toast(data.message);
             }
-            this.bannerList=data.data;
+            this.bannerList = data.data;
             console.log(this.bannerList)
         },
     },

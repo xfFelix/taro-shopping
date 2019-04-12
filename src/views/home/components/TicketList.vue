@@ -162,6 +162,6 @@ export default {
 }
 
 .scroll-list-wrap {
-    height: calc(100vh - 230px);
+    height: calc(100vh - 228px);
 }
 </style>
