@@ -22,11 +22,11 @@
     </li>
     <li class="item">
       <span class="label">总票价</span>
-      <span class="value">{{data.totalAmount | toDecimal2Fp}}.{{data.totalAmount | toDecimal2Ap}}</span>
+      <span class="value">{{amount | toPrice}}</span>
     </li>
     <li class="item">
       <span class="label">税费</span>
-      <span class="value">李拆分</span>
+      <span class="value">{{data.taxFee| toPrice}}</span>
     </li>
     <li class="item">
       <span class="label">服务费</span>
@@ -34,7 +34,7 @@
     </li>
     <li class="item">
       <span class="label">合计</span>
-      <span class="value price-color">李拆分</span>
+      <span class="value price-color">{{data.totalAmount | toPrice}}</span>
     </li>
   </ul>
 </template>
@@ -45,6 +45,11 @@ export default {
     data:{
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    amount () {
+      return this.data.repaymentAmount * this.data.cardBank
     }
   }
 }

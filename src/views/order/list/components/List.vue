@@ -9,18 +9,18 @@
         </div>
         <div class="content">
           <div class="good-img">
-            <img src="" alt="">
+            <img v-lazy="item.imgpath" alt="">
           </div>
           <div class="good-detail">
             <p class="good-name">{{item.cardUser}}</p>
             <div class="good-price">
               <span class="price">{{item.repaymentAmount | toDecimal2Fp}}.{{item.repaymentAmount | toDecimal2Ap}}</span>
-              <span class="number cubeic-close" v-if="item.cardBank">{{item.cardBank}}</span>
+              <span class="number cubeic-close">{{item.cardBank || 0}}</span>
             </div>
           </div>
         </div>
         <div class="footer border-bottom-1px">
-          <span class="number" v-if="item.cardBank">共{{item.cardBank}}件商品</span>
+          <span class="number">共{{item.cardBank || 0}}件商品</span>
           <span class="total">合计: <em class="price-color">{{item.totalAmount | toDecimal2Fp}}.{{item.totalAmount | toDecimal2Ap}}</em></span>
         </div>
         <div class="des">
