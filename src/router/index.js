@@ -56,7 +56,11 @@ const router = new Router({
     {
       path: '/settlement',
       name: 'settlement',
-      component: () => import('views/settlement')
+      component: () => import('views/settlement'),
+      meta: {
+        title: '结算',
+        requireAuth: true
+      }
     }
   ]
 })
