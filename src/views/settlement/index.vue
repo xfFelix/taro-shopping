@@ -12,7 +12,7 @@
         <bg-mask v-model="showSendCode"></bg-mask>
     </transition>
     <transition name="slideUp">
-        <sms-confirm :showSendCode.sync="showSendCode"></sms-confirm>
+        <sms-confirm :showSendCode.sync="showSendCode" @commitOrder="submitOrder"></sms-confirm>
     </transition>
   </div>
 </template>
@@ -82,7 +82,7 @@ export default {
       // if (!this.checkUrlToken()) return this.$toast('请先登录')
       this.showSendCode = true
     },
-    async submitOrder() {
+    async submitOrder(smsCode) {
       let good = this.$refs.good.data
       let args = {
         tid: this.$route.query.id,
