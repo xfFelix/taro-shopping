@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {HtmlUtil} from 'util/htmlUtil'
+import { HtmlUtil } from 'util/htmlUtil'
 export default {
     props: {
         sceneInfoC: Object,
@@ -18,10 +18,10 @@ export default {
     },
     data: () => ({
         detailShow: 1,
-        uubhjq:'',
-        uujqts:'',
-        uujtz:'',
-        uutopics:''
+        uubhjq: '',
+        uujqts: '',
+        uujtz: '',
+        uutopics: ''
     }),
     watch: {
         sceneTabNameC: {
@@ -45,17 +45,25 @@ export default {
                 }
             },
             immediate: true,
-            deep:true
+            deep: true
+        },
+        sceneInfoC: {
+            handler(val) {
+                console.log("景区")
+                console.log(val)
+                this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
+                this.uujqts = val.uujqts
+                this.uujtz = val.uujtz
+                this.uutopics = val.uutopics
+            },
+            immediate: true,
         }
     },
     methods: {
-        
+
     },
     mounted() {
-        this.uubhjq = HtmlUtil.htmlDecode(this.sceneInfoC.uubhjq);
-        this.uujqts = HtmlUtil.htmlDecode(this.sceneInfoC.uubhjq);
-        this.uujtz = HtmlUtil.htmlDecode(this.sceneInfoC.uubhjq);
-        this.uutopics = HtmlUtil.htmlDecode(this.sceneInfoC.uubhjq);
+
     }
 }
 </script>
