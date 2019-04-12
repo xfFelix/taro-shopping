@@ -1,15 +1,18 @@
 <template>
     <div class="swiperBg">
         <swiper :options="swiperOption">
-            <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">
-                <img src="../../../common/images/banner.jpg" alt="" style="width:100%;" />
+            <swiper-slide v-for="(slide, index) in bannerList" :key="index">
+               
+                    <img :src="slide.img" alt="" style="width:100%;"  />
+         
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
     </div>
 </template>
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import { homeBanner } from 'api';
 export default {
     data: () => ({
         swiperOption: {
@@ -18,13 +21,20 @@ export default {
                 type: 'fraction'
             }
         },
-        swiperSlides: [1, 2, 3, 4, 5],
+        bannerList:[]
     }),
     methods: {
-
+        async homeBanner() {
+            let data = await homeBanner({"catId":207,"startNum":0,"num":10});
+            if (data.resultCode != 0) {
+                return this.$toast(data.message);
+            }
+            this.bannerList=data.data;
+            console.log(this.bannerList)
+        },
     },
     mounted() {
-
+        this.homeBanner()
     },
     components: {
         swiper,
@@ -34,7 +44,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .swiperBg {
-    height: 168px;
+    height: 218px;
     .swiper-pagination {
         background: rgba(0, 0, 0, 0.4);
         color: #fff;

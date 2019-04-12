@@ -11,8 +11,8 @@
                             <div class="h-goodsInfoLiW">
                                 <p class="h-goodsInfoLi">{{item.uutitle}}</p>
                                 <p class="h-goodsMoneyLiW">
-                                    <span class="h-goodsMoneyLi">{{item.uuid}}</span>
-                                    <span>id起</span>
+                                    <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
+                                    <span>起</span>
                                 </p>
                             </div>
                         </router-link>
@@ -162,6 +162,6 @@ export default {
 }
 
 .scroll-list-wrap {
-    height: calc(100vh - 178px);
+    height: calc(100vh - 230px);
 }
 </style>

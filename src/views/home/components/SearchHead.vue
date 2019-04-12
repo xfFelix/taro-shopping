@@ -37,6 +37,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.background-op{
+     background: rgba(0,0,0,0.4);    
+}
 .h-searchW,
 .h-searchWFixed {
     position: fixed;
@@ -64,6 +67,7 @@ export default {
         display: flex;
         align-items: center;
         width: 78%;
+        background: rgba(0,0,0,0.2);
         .h-searchLogo {
             width: 19px;
             height: 19px;

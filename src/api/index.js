@@ -74,3 +74,10 @@ export const submitOrder = (data) => fetch({
   method: 'POST',
   data
 })
+
+// 首页轮播图
+export const homeBanner = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'news/newsList',
+  method: 'POST',
+  data
+})
