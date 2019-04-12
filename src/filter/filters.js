@@ -18,6 +18,8 @@ const toPrice = x => {
   let toDecimalSplit = toDecimal.split('.');
   let fp = toDecimalSplit[0];
   let ap = toDecimalSplit[1];
+  if (!fp) fp = '0'
+  if (!ap) ap = '00'
   return fp + '.' + ap
 }
 

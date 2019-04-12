@@ -14,7 +14,7 @@ export default {
       return state.token
     } else {
       if (!Object.keys(getParam()).length) {
-        return toast('token不存在')
+        return undefined
       }
       let token = getParam().token
       if (token) await dispatch('setToken', token)
