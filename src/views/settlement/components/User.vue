@@ -4,19 +4,19 @@
     <ul>
       <li class="item border-bottom-1px">
         <span class="label">姓名</span>
-        <cube-input v-model="name" placeholder="请输入真实姓名" class="value"></cube-input>
+        <cube-input v-model="data.name" placeholder="请输入真实姓名" class="value"></cube-input>
       </li>
       <li class="item border-bottom-1px">
         <span class="label">手机号</span>
-        <cube-input v-model="mobile" placeholder="请输入手机号码" class="value"></cube-input>
+        <cube-input v-model="data.mobile" placeholder="请输入手机号码" class="value" type="number"></cube-input>
       </li>
       <li class="item border-bottom-1px">
         <span class="label">证件类型</span>
-        <cube-select v-model="IDCardType" :options="options" placeholder="请选择证件类型" class="value"></cube-select>
+        <cube-select v-model="data.IDCardType" :options="data.options" placeholder="请选择证件类型" class="value"></cube-select>
       </li>
       <li class="item border-bottom-1px">
         <span class="label">证件号码</span>
-        <cube-input v-model="IDCardNumber" placeholder="请输入证件号码" class="value"></cube-input>
+        <cube-input v-model="data.IDCardNumber" placeholder="请输入证件号码" class="value" type="number"></cube-input>
       </li>
     </ul>
   </div>
@@ -24,13 +24,18 @@
 
 <script>
 export default {
-  data: () => ({
-    name: '',
-    mobile: undefined,
-    IDCardType: '身份证',
-    IDCardNumber: '',
-    options: ['身份证']
-  })
+  props: {
+    data: {
+      type: Object,
+      default: {
+        name: '',
+        mobile: undefined,
+        IDCardType: '身份证',
+        options: ['身份证'],
+        IDCardNumber: undefined
+      }
+    }
+  }
 }
 </script>
 

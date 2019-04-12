@@ -47,9 +47,9 @@
       <span class="buy-number">购票数量</span>
 
       <div class="count-number">
-        <i class="iconfont icon-reduce"></i>
+        <i class="iconfont icon-reduce" @click="decreaseNum"></i>
         <span class="number">{{data.number}}</span>
-        <i class="iconfont icon-add"></i>
+        <i class="iconfont icon-add" @click="increaseNum"></i>
       </div>
     </div>
 
@@ -85,9 +85,11 @@ export default {
       let obj = {}
       for (let item of this.list) {
         obj = {
-          value: item.date,
-          price: item.retail_price,
-          total: item.buy_price
+          value: item.date, // 日期
+          price: item.retail_price, // 单价
+          total: item.buy_price, // 总价
+          remain: item.remain, // 实时库存
+          storage: item.storage // 总库存
         }
         dateList.push(obj)
       }
@@ -101,6 +103,24 @@ export default {
         }
       }
       return {}
+    }
+  },
+  methods: {
+    decreaseNum() {
+      if (this.data.number === 1) return
+      this.data.number --
+      this.$parent.getFeeInfo(this.dateObj.retail_price, this.data.number)
+    },
+    increaseNum() {
+      if (this.dateObj.remain === '9999999') {
+        this.data.number ++
+      } else {
+        if (this.dateObj.remain <= this.data.number) {
+          return this.$toast('库存不足')
+        } else {
+          this.data.number ++
+        }
+      }
     }
   }
 }

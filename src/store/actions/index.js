@@ -1,5 +1,4 @@
 import {getParam} from 'util/common'
-import {toast} from 'util/toast'
 
 export default {
   // 设置用户信息和登录
@@ -14,16 +13,21 @@ export default {
     if (state.token) {
       return state.token
     } else {
-      if (!Object.keys(getParam()).length) return toast('token不存在')
+      if (!Object.keys(getParam()).length) {
+        return toast('token不存在')
+      }
       let token = getParam().token
-      await dispatch('setToken', token)
+      if (token) await dispatch('setToken', token)
+      return token
     }
   },
   async checkUrlToken({dispatch, commit}) {
     if (Object.keys(getParam()).length && getParam().token) {
-      return commit('setToken', getParam().token)
+      commit('setToken', getParam().token)
+      return getParam().token
     } else {
-      await dispatch('checkToken')
+      let token = await dispatch('checkToken')
+      return token
     }
   }
 }

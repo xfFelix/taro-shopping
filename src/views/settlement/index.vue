@@ -1,19 +1,20 @@
 <template>
   <div class="settlement">
     <Header>门票预订</Header>
-    <good :list="dateList" :info="ticketInfo"></good>
-    <user></user>
+    <good :list="dateList" :info="ticketInfo" ref="good"></good>
+    <user :data.sync="user"></user>
     <expense :data="feeInfo"></expense>
     <div class="footer" v-show="hideShow">
       <div class="total">合计: <strong class="price-color">{{feeInfo.total|toPrice}}</strong></div>
-      <div class="submit">提交订单</div>
+      <div class="submit" @click="validateUser">提交订单</div>
     </div>
   </div>
 </template>
 
 <script>
-import {getDateList,getFeeInfo,getTicketInfo} from 'api'
-import {mapGetters} from 'vuex';
+import {getDateList,getFeeInfo,getTicketInfo,submitOrder} from 'api'
+import {mapGetters,mapActions} from 'vuex';
+import {IsMobile,isIDCard} from 'util/common'
 export default {
   components: {
     'Header' : () => import('components/Header'),
@@ -27,7 +28,14 @@ export default {
     hideShow: true,
     dateList: [],
     feeInfo: {},
-    ticketInfo: {}
+    ticketInfo: {},
+    user:{
+      name: '',
+      mobile: undefined,
+      IDCardType: '身份证',
+      options: ['身份证'],
+      IDCardNumber: ''
+    }
   }),
   watch:{
     showHeight:function() {
@@ -55,6 +63,31 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      checkUrlToken: 'checkUrlToken'
+    }),
+    validateUser() {
+      if (!this.user.name) return this.$toast('姓名不能为空')
+      if (!IsMobile(this.user.mobile)) return this.$toast('请输入正确的手机号')
+      if (!isIDCard(this.user.IDCardNumber)) return this.$toast('身份证验证失败')
+      if (!this.checkUrlToken()) return this.$toast('请先登录')
+      this.submitOrder()
+    },
+    async submitOrder() {
+      let good = this.$refs.good.data
+      let args = {
+        tid: this.$route.query.id,
+        token: this.getToken,
+        playtime:good.checkerValue,
+        tnum: good.number,
+        name: this.user.name,
+        mobile: this.user.mobile,
+        personID: this.user.IDCardNumber
+      }
+      let data = await submitOrder(args)
+      if (data.code !== '1') return this.$toast(data.message)
+      this.$router.replace('/order')
+    },
     async getTicketInfo() {
       let data = await getTicketInfo({id: this.$route.query.id})
       if (data.code !== '1') return this.$toast(data.message)

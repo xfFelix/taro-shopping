@@ -20,6 +20,12 @@ export const IsHKMobile = (mobile) => {
   }
 }
 
+export function isIDCard(IDCard) {
+  let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+  if (reg.test(IDCard)) return true
+  return false
+}
+
 export function getParam () {
   var args = {}
   var end = location.hash.indexOf('?') + 1

@@ -67,3 +67,10 @@ export const getTicketInfo = (params) => fetch({
   method: 'GET',
   params
 })
+
+// 提交订单
+export const submitOrder = (data) => fetch({
+  url: 'ticket/pFTOrderSubmit',
+  method: 'POST',
+  data
+})

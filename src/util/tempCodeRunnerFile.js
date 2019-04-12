@@ -1,0 +1,1 @@
+console.log(this.isIDCard('23425'))
