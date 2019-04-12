@@ -109,7 +109,6 @@ export default {
     decreaseNum() {
       if (this.data.number === 1) return
       this.data.number --
-      this.$parent.getFeeInfo(this.dateObj.retail_price, this.data.number)
     },
     increaseNum() {
       if (this.dateObj.remain === '9999999') {
@@ -141,9 +140,9 @@ export default {
 }
 .horizontal-scroll-list-wrap{
   flex: 1;
-}
-.cube-scroll-content{
-  display: inline-block;
+  .cube-scroll-content{
+    display: inline-block;
+  }
 }
 .cube-checker{
   white-space: nowrap;
