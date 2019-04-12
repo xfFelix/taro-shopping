@@ -48,20 +48,9 @@ export default {
     methods: {
         clickHandler(label) {
             this.sceneTabNameP = label;
-            // switch (label) {
-            //     case '景区须知':
-            //         document.body.scrollTop = 0
-            //     case '景区简介':
-            //         document.body.scrollTop = 5000
-            //      case '交通指南':
-            //         window.scrollTo(0,2400);
-            //      case '旅游主题':
-            //         window.scrollTo(0,2400);
-            // }
         },
         changeHandler(label) {
             this.sceneTabNameP = label;
-            console.log('changed to:', label)
         },
         handleScroll() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -143,6 +132,7 @@ export default {
 .cube-tab-bar {
     height: 44px;
     background: #fff;
+    border-bottom: 1px solid #dfdfdf;
 }
 .fixedIn {
     height: 44px;
