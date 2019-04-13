@@ -106,6 +106,7 @@ export default {
         color: #ffffff;
         border-radius: 40px;
         line-height: 30px;
+        text-align: center;
     }
 }
 
