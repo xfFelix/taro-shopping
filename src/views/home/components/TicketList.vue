@@ -119,7 +119,9 @@ export default {
     mounted() {
         this.init();
         this.getScenicList();
-        this.$refs.scrollUl.scrollTo(0,1000)
+
+        // let cube = document.getElementsByClassName("cube-scroll-content")[0];
+
     },
     components: {
         NoData: () => import('components/NoData')
