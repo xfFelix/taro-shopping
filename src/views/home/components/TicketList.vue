@@ -2,7 +2,7 @@
     <div class="h-goodsList">
         <div class="scroll-list-wrap" ref="scenicListHight">
             <cube-scroll ref="scroll" :data="ticketList" :options="options" @pulling-up="onPullingUp" v-if="showList">
-                <ul>
+                <ul ref="scrollUl">
                     <li v-for="(item,index) in ticketList" :key="index">
                         <router-link :to="{ path: 'goodsDetail', query: { sceneId:item.uuid}}">
                             <div class="h-goodsimgLiW">
@@ -77,9 +77,9 @@ export default {
             this.ticketList = [];
             this.firstFlag = true;
             this.showList = true;
-            let cube = document.getElementsByClassName("cube-scroll-content")[0];
+            // let cube = document.getElementsByClassName("cube-scroll-content")[0];
             // console.log(cube.style.alignContent)
-            cube.style.transform="translate(0px, 0px) scale(1) translateZ(0px)"
+            // cube.style.transform="translate(0px, 0px) scale(1) translateZ(0px)"
         },
         listConcat(data) {
             if (this.firstFlag == true && data.length < 1) {
@@ -119,6 +119,7 @@ export default {
     mounted() {
         this.init();
         this.getScenicList();
+        this.$refs.scrollUl.scrollTo(0,1000)
     },
     components: {
         NoData: () => import('components/NoData')
