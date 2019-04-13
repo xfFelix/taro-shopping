@@ -1,9 +1,9 @@
 <template>
     <div class="sceneDetail">
         <ul>
-            <li v-html="uubhjq" v-show="detailShow==1"></li>
-            <li v-html="uujqts" v-show="detailShow==2"></li>
-            <li v-html="uujtz" v-show="detailShow==3"></li>
+            <li v-html="uujqts" v-show="detailShow==1"></li>
+            <li v-html="uubhjq" v-show="detailShow==2"></li>
+            <li v-html="uujtzn" v-show="detailShow==3"></li>
             <li v-html="uutopics" v-show="detailShow==4"></li>
         </ul>
     </div>
@@ -52,9 +52,9 @@ export default {
                 console.log("景区")
                 console.log(val)
                 this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
-                this.uujqts = val.uujqts
-                this.uujtz = val.uujtz
-                this.uutopics = val.uutopics
+                this.uujqts = val.uujqts;
+                this.uujtzn = val.uujtzn;
+                this.uutopics = val.uutopics;
             },
             immediate: true,
         }
