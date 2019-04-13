@@ -17,7 +17,8 @@ const router = new Router({
       path: '/home',
       name: 'home',
       meta: {
-        title: '首页'
+        title: '首页',
+        keepAlive:true
       },
       component: () => import('views/home')
     },

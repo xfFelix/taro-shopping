@@ -2,9 +2,8 @@
     <div class="home">
         <home-swipe></home-swipe>
         <search-head :headShowC='headShowP' v-on:inputC="inputP"></search-head>
-        <!-- <keep-alive> -->
-            <ticket-list :headInpC='headInpP'></ticket-list>
-        <!-- </keep-alive> -->
+
+        <ticket-list :headInpC='headInpP'></ticket-list>
 
     </div>
 </template>
