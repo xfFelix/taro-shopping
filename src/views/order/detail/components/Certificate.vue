@@ -6,13 +6,13 @@
       <button class="copy" @click.stop="handleCopy(data.idBackUrl,$event)">复制</button>
       <i class="cubeic-arrow"></i>
     </li>
-    <transition name="slideDown">
+    <!-- <transition name="slideDown"> -->
       <li class="item" v-show="showCode">
         <div class="code-img">
           <img v-lazy="data.codeImg" alt="11">
         </div>
       </li>
-    </transition>
+    <!-- </transition> -->
   </ul>
 </template>
 

@@ -14,7 +14,7 @@
           <div class="good-detail">
             <p class="good-name">{{item.cardUser}}</p>
             <div class="good-price">
-              <span class="price">{{item.repaymentAmount | toDecimal2Fp}}.{{item.repaymentAmount | toDecimal2Ap}}</span>
+              <span class="price">{{item.orderNum | toPrice}}</span>
               <span class="number cubeic-close">{{item.cardBank || 0}}</span>
             </div>
           </div>
