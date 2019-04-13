@@ -81,3 +81,10 @@ export const homeBanner = (data) => fetch({
   method: 'POST',
   data
 })
+
+// 发送验证码
+export const sendSmsCode = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/sms',
+  method: 'POST',
+  data
+})

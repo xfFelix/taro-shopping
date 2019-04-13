@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import {sendSmsCode} from 'api'
+import {mapGetters} from 'vuex';
 export default {
     name: 'SmsConfirm',
     data: () => ({
@@ -31,13 +33,18 @@ export default {
         default: false
       }
     },
+    computed: {
+      ...mapGetters({
+        getToken: 'getToken'
+      })
+    },
     methods: {
         async sendPhoneSms() {
             if (this.validateFlag == 1) {
-                // let data = await this.axios(testUrl + api.sendSms, { token: getToken() }, 'post')
-                // if (data.error_code) {
-                //     return this.Toast(data.message)
-                // }
+                let data = await sendSmsCode({token: this.getToken})
+                if (data.error_code) {
+                    return this.Toast(data.message)
+                }
                 this.isSmsCode = true
                 this.validate = "120s 重新获取"
                 let _this = this;
@@ -57,7 +64,7 @@ export default {
             }
         },
         sumitOrder() {
-
+          this.$emit('commitOrder', this.smsCode)
         }
     }
 }
