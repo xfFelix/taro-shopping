@@ -43,7 +43,7 @@ export default {
             if (this.validateFlag == 1) {
                 let data = await sendSmsCode({token: this.getToken})
                 if (data.error_code) {
-                    return this.Toast(data.message)
+                    return this.$toast(data.message)
                 }
                 this.isSmsCode = true
                 this.validate = "120s 重新获取"

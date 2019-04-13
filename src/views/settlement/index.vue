@@ -14,7 +14,7 @@
     <transition name="slideUp">
         <sms-confirm :showSendCode.sync="showSendCode" @commit-order="submitOrder"></sms-confirm>
     </transition>
-    <loading></loading>
+    <exchange-su :price="feeInfo.total" v-if="showSuccess"></exchange-su>
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
     Expense: () => import('./components/Expense'),
     BgMask: () => import('components/BgMask'),
     SmsConfirm: () => import('./components/SmsConfirm'),
-    Loading: ()=>import('@/plugins/loading/Loading')
+    ExchangeSu: () => import('./components/ExchangeSu')
   },
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
@@ -46,7 +46,8 @@ export default {
       IDCardType: '身份证',
       options: ['身份证'],
       IDCardNumber: ''
-    }
+    },
+    showSuccess: false
   }),
   watch:{
     showHeight:function() {
@@ -102,7 +103,7 @@ export default {
       if (data.code !== '1') return this.$toast(data.message)
       this.$toast('门票下单成功')
       setTimeout(() => {
-        this.$router.replace('/order')
+        this.showSuccess = true
       }, 500);
     },
     async getTicketInfo() {

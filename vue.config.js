@@ -13,7 +13,7 @@ function resolve (dir) {
 module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/ticket/' : '/',
   // 删除打包后.map文件
   productionSourceMap: false,
   css: {
