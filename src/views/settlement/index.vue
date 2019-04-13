@@ -12,8 +12,9 @@
         <bg-mask v-model="showSendCode"></bg-mask>
     </transition>
     <transition name="slideUp">
-        <sms-confirm :showSendCode.sync="showSendCode" @commitOrder="submitOrder"></sms-confirm>
+        <sms-confirm :showSendCode.sync="showSendCode" @commit-order="submitOrder"></sms-confirm>
     </transition>
+    <loading></loading>
   </div>
 </template>
 
@@ -28,7 +29,8 @@ export default {
     User: () => import('./components/User'),
     Expense: () => import('./components/Expense'),
     BgMask: () => import('components/BgMask'),
-    SmsConfirm: () => import('./components/SmsConfirm')
+    SmsConfirm: () => import('./components/SmsConfirm'),
+    Loading: ()=>import('@/plugins/loading/Loading')
   },
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
@@ -76,10 +78,10 @@ export default {
       checkUrlToken: 'checkUrlToken'
     }),
     validateUser() {
-      // if (!this.user.name) return this.$toast('姓名不能为空')
-      // if (!IsMobile(this.user.mobile)) return this.$toast('请输入正确的手机号')
-      // if (!isIDCard(this.user.IDCardNumber)) return this.$toast('身份证验证失败')
-      // if (!this.checkUrlToken()) return this.$toast('请先登录')
+      if (!this.user.name) return this.$toast('姓名不能为空')
+      if (!IsMobile(this.user.mobile)) return this.$toast('请输入正确的手机号')
+      if (!isIDCard(this.user.IDCardNumber)) return this.$toast('身份证验证失败')
+      if (!this.checkUrlToken()) return this.$toast('请先登录')
       this.showSendCode = true
     },
     async submitOrder(smsCode) {
@@ -91,11 +93,14 @@ export default {
         tnum: good.number,
         name: this.user.name,
         mobile: this.user.mobile,
+        code: smsCode,
         personID: this.user.IDCardNumber
       }
+      this.$loading()
       let data = await submitOrder(args)
+      this.$loading.hide()
       if (data.code !== '1') return this.$toast(data.message)
-      this.$toast('门票提交成功')
+      this.$toast('门票下单成功')
       setTimeout(() => {
         this.$router.replace('/order')
       }, 500);

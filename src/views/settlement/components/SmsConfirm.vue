@@ -1,7 +1,7 @@
 <template>
     <div class="phonePay-bg" id="phonePay-sms" v-if="showSendCode">
         <p class="phonePay-title">
-            <span class="iconfont phoneChe-backW " @click="showSendCode = false">&#xe61e;</span>
+            <span class="iconfont phoneChe-backW " @click="$emit('update:showSendCode', false)">&#xe61e;</span>
             <span class="phonePay-tName">确认兑换</span>
         </p>
         <p class="phonePay-telW hide" v-show="isSmsCode">短信验证码已发送至手机
@@ -64,7 +64,7 @@ export default {
             }
         },
         sumitOrder() {
-          this.$emit('commitOrder', this.smsCode)
+          this.$emit('commit-order', this.smsCode)
         }
     }
 }

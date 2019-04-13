@@ -7,6 +7,7 @@ import './filter'
 import './directives'
 import './lazyload'
 import './prototype'
+import './plugins'
 // 导入click事件
 import FastClick from 'fastclick'
 import 'lib-flexible'
