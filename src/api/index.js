@@ -34,10 +34,10 @@ export const getScenicSpotInfo = (params) => fetch({
   params
 })
 // 查询订单详情
-export const getOrderDetail = (params) => fetch({
+export const getOrderDetail = (data) => fetch({
   url: 'ticket/getOrderInfo',
-  method: 'GET',
-  params
+  method: 'POST',
+  data
 })
 
 //搜索关键字

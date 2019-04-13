@@ -1,5 +1,4 @@
 <template>
-  <transition name="slideLeft">
     <div class="changeSuccessW">
         <div class="changeSuccess">
             <p class="cs-bgImg">
@@ -12,7 +11,6 @@
             <p class="cs-jumpIndex">{{this.numDown}}秒后自动进入订单列表页</p>
         </div>
     </div>
-  </transition>
 </template>
 <script>
 export default {

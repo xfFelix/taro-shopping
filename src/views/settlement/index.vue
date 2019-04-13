@@ -14,7 +14,9 @@
     <transition name="slideUp">
         <sms-confirm :showSendCode.sync="showSendCode" @commit-order="submitOrder"></sms-confirm>
     </transition>
-    <exchange-su :price="feeInfo.total" v-if="showSuccess"></exchange-su>
+    <transition name="slide-left" mode="out-in">
+      <exchange-su :price="feeInfo.total" v-if="showSuccess"></exchange-su>
+    </transition>
   </div>
 </template>
 
@@ -102,6 +104,7 @@ export default {
       this.$loading.hide()
       if (data.code !== '1') return this.$toast(data.message)
       this.$toast('门票下单成功')
+      this.showSendCode = false
       setTimeout(() => {
         this.showSuccess = true
       }, 500);

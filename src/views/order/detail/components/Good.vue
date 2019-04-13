@@ -19,7 +19,7 @@
       <li>
         <div class="item">
           <span class="label">使用日期:</span>
-          <span class="value">{{data.sendDate}}</span>
+          <span class="value">{{data.useTime}}</span>
         </div>
       </li>
       <li>

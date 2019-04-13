@@ -9,10 +9,10 @@
         <price :price="dateObj.retail_price" class="good-price"></price>
       </div>
     </div>
-    <div class="swiper-title border-bottom-1px">
+    <!-- <div class="swiper-title border-bottom-1px">
       <p class="title">【网红打卡景点】亚特兰蒂斯失落的空间水...</p>
       <span class="hint">预定须知<i class="cubeic-arrow"></i></span>
-    </div>
+    </div> -->
     <div class="use border-bottom-1px">
       <span class="label">使用日期</span>
       <cube-scroll

@@ -1,11 +1,18 @@
 <template>
   <ul class="main">
-    <li class="item border-bottom-1px">
+    <li class="item border-bottom-1px" @click="showCode = !showCode">
       <span class="label">凭证码:</span>
       <span class="value">{{data.idBackUrl}}</span>
-      <button class="copy" @click="handleCopy(data.idBackUrl,$event)">复制</button>
+      <button class="copy" @click.stop="handleCopy(data.idBackUrl,$event)">复制</button>
       <i class="cubeic-arrow"></i>
     </li>
+    <transition name="slideDown">
+      <li class="item" v-show="showCode">
+        <div class="code-img">
+          <img v-lazy="data.codeImg" alt="11">
+        </div>
+      </li>
+    </transition>
   </ul>
 </template>
 
@@ -18,6 +25,9 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    showCode: false
+  }),
   methods:{
     handleCopy(text, event) {
       clip(text, event)
@@ -56,6 +66,12 @@ ul{
     .cubeic-arrow{
       position: absolute;
       right: 0;
+    }
+    .code-img{
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      background: #ccc;
     }
   }
 }

@@ -10,7 +10,7 @@
     </li>
     <li class="item">
       <span class="label">支付时间</span>
-      <span class="value">{{data.addDate}}</span>
+      <span class="value">{{data.orderTime}}</span>
     </li>
     <li class="item">
       <span class="label">订单号</span>
