@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     amount () {
-      return this.data.repaymentAmount * this.data.cardBank
+      return this.data.orderNum * this.data.cardBank
     }
   }
 }
