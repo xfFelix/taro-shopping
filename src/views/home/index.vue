@@ -88,14 +88,13 @@ export default {
             this.search();
         },
         async loadBottom() {
-            console.log(this.bottomStatus)
             if (this.listFlag == 1) {
                 await this.getScenicList();
                 this.pageNum++;
 
             } else {
-                await this.search()
                 this.pageSize = this.pageSize + 10;
+                await this.search()
             }
             this.$refs.loadmore.onBottomLoaded();
         },
@@ -128,6 +127,7 @@ export default {
             this.listConcat(data.data);
         },
         async search() {
+            console.log(this.pageSize)
             let data = await search({ keyword: this.headInpP, offset: this.pageSize });
             if (data.code != 1) {
                 return this.$toast(data.message);
@@ -205,7 +205,7 @@ export default {
 }
 
 .page-loadmore-wrapper {
-    -webkit-overflow-scrolling: touch;
+    // -webkit-overflow-scrolling: touch;
     text-align: center;
 }
 </style>

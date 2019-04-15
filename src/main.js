@@ -14,6 +14,9 @@ import 'lib-flexible'
 import './common/css/index.scss'
 import 'swiper/dist/css/swiper.css'
 
+import Vconsole from 'vconsole';
+new Vconsole();
+
 FastClick.attach(document.body);
 
 Vue.config.productionTip = false;

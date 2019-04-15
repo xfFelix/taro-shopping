@@ -25,5 +25,6 @@ export default {
   token: defaultToken,
   userinfo: defaultUser,
   // 平台区分 1:ios, 2:android, 3:h5; 默认为h5
-  platform: isObject(localStorage.get('platform')) ? localStorage.get('platform') : '3'
+  platform: isObject(localStorage.get('platform')) ? localStorage.get('platform') : '3',
+  goodsList: defaultGoodsList
 }
