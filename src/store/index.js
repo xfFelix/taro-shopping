@@ -19,6 +19,7 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 import state from './states'
+import ticket from './modules/ticket';
 import createLogger from 'vuex/dist/logger' // 每次修改会去控制台打一个状态
 
 Vue.use(Vuex)
@@ -30,6 +31,9 @@ export default new Vuex.Store({
   getters,
   actions,
   mutations,
+  modules: {
+    ticket
+  },
   strict: debug,
   plugins: debug ? [createLogger()] : []
 })
