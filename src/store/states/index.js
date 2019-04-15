@@ -10,6 +10,16 @@ try{
   console.error(e)
 }
 
+let defaultGoodsList = ''
+try{
+  if (localStorage.get('goodsList')) {
+    defaultGoodsList = localStorage.get('goodsList')
+  }
+} catch(e) {
+  console.error(e)
+}
+
+
 export default {
   // 用户信息和是否登录
   token: defaultToken,

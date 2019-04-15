@@ -25,5 +25,14 @@ export default {
     } catch(e) {
       console.error(e)
     }
+  },
+  //滚动位置
+  setGoodsList(state, scroll) {
+    state.goodsList = scroll
+    try {
+      localStorage.set('goodsList',scroll)
+    }catch(e) {
+      console.error(e)
+    }
   }
 }

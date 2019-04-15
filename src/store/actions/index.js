@@ -29,5 +29,8 @@ export default {
       let token = await dispatch('checkToken')
       return token
     }
+  },
+  setGoodsList ({state, commit}, scroll) {
+    commit('setGoodsList', scroll)
   }
 }

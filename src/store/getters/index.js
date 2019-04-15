@@ -6,5 +6,8 @@ export default {
   // 获取配置信息
   getToken: state => {
     return state.token
+  },
+  getGoodsList: state => {
+    return state.goodsList
   }
 }
