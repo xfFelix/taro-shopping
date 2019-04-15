@@ -4,9 +4,9 @@
       <span class="label">凭证码:</span>
       <span class="value">{{data.idBackUrl}}</span>
       <button class="copy" @click.stop="handleCopy(data.idBackUrl,$event)">复制</button>
-      <i class="cubeic-arrow"></i>
+      <i class="cubeic-arrow" :class="{active: showCode}"></i>
     </li>
-    <transition name="slideDown">
+    <transition name="show-height">
       <li class="item" v-show="showCode">
         <div class="code-img">
           <img v-lazy="data.codeImg" alt="11">
@@ -66,6 +66,10 @@ ul{
     .cubeic-arrow{
       position: absolute;
       right: 0;
+      transition: transform .3s;
+      &.active{
+        transform: rotate(90deg);
+      }
     }
     .code-img{
       width: 200px;

@@ -12,7 +12,7 @@
       </li>
       <li class="item border-bottom-1px">
         <span class="label">证件类型</span>
-        <cube-select v-model="data.IDCardType" :options="data.options" placeholder="请选择证件类型" class="value"></cube-select>
+        <cube-select v-model="data.IDCardType" :options="data.options" placeholder="请选择证件类型" class="value" :disabled="true"></cube-select>
       </li>
       <li class="item border-bottom-1px">
         <span class="label">证件号码</span>

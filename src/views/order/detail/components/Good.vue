@@ -7,11 +7,11 @@
       </div>
       <div class="good">
         <div class="good-img">
-          <img src="" alt="">
+          <img v-lazy="data.imgpath" alt="">
         </div>
         <div class="good-detail">
           <p class="good-name">{{data.cardUser}}</p>
-          <price :price="data.repaymentAmount" class="price"></price>
+          <price :price="data.orderNum" class="price"></price>
         </div>
       </div>
     </div>

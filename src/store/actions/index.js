@@ -23,6 +23,9 @@ export default {
   },
   async checkUrlToken({dispatch, commit}) {
     if (Object.keys(getParam()).length && getParam().token) {
+      if (getParam().token === 'null' || getParam().token === 'undefined') {
+        return undefined
+      }
       commit('setToken', getParam().token)
       return getParam().token
     } else {

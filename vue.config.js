@@ -95,9 +95,6 @@ module.exports = {
     port: 8080, // 端口号
     open: true, // 配置自动启动浏览器
     // disableHostCheck: true,
-    historyApiFallback: true,
-    https: false,
-    hotOnly: false
     // overlay: {
     //   warnings: true,
     //   errors: true

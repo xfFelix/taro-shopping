@@ -4,7 +4,7 @@ export default {
   setUserinfo (state, userinfo) {
     state.userinfo = userinfo || {}
     try{
-      if (userinfo === null) {
+      if (!Object.keys(userinfo).length) {
         localStorage.remove('userinfo')
       } else {
         localStorage.set('userinfo', userinfo)
@@ -15,9 +15,9 @@ export default {
   },
   // 配置信息
   setToken (state, data) {
-    state.token = data || {}
+    state.token = data || null
     try {
-      if (data === null) {
+      if (data === null || data === undefined) {
         localStorage.remove('token')
       } else {
         localStorage.set('token', data)

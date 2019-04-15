@@ -5,6 +5,10 @@
       <span class="value">{{data.name}}</span>
     </li>
     <li class="item">
+      <span class="label">手机号</span>
+      <span class="value">{{data.mobile}}</span>
+    </li>
+    <li class="item">
       <span class="label">证件号码</span>
       <span class="value">{{data.idNum}}</span>
     </li>
@@ -49,7 +53,7 @@ export default {
   },
   computed: {
     amount () {
-      return this.data.repaymentAmount * this.data.cardBank
+      return this.data.orderNum * this.data.cardBank
     }
   }
 }
