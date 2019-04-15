@@ -41,7 +41,8 @@ const router = new Router({
           name: 'list',
           component: () => import('views/order/list'),
           meta: {
-            title: '订单列表'
+            title: '订单列表',
+            requireAuth: true
           }
         },
         {
@@ -49,7 +50,8 @@ const router = new Router({
           name: 'detail',
           component: () => import('views/order/detail'),
           meta: {
-            title: '订单详情'
+            title: '订单详情',
+            requireAuth: true
           }
         }
       ]

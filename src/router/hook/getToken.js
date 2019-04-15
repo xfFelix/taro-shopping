@@ -1,5 +1,5 @@
 import store from 'store'
-import { toast } from 'util/toast';
+import {dialog} from 'util/toast';
 
 export default router => {
   router.beforeEach(async(to, from, next) =>{
@@ -7,9 +7,9 @@ export default router => {
     let token = await store.dispatch('checkUrlToken')
     if (!token) {
       if (to.meta.requireAuth) {
-        setTimeout(() => {
+        dialog({type: 'confirm', content: '请先登录'}, () => {
           return window.location.href = process.env.VUE_APP_INFO_URl + '#!/login'
-        }, 1000);
+        })
         next(false)
       }
     }
