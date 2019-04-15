@@ -24,6 +24,7 @@
 import {getDateList,getFeeInfo,getTicketInfo,submitOrder,getInfo} from 'api'
 import {mapGetters,mapActions} from 'vuex';
 import {IsMobile,isIDCard} from 'util/common'
+import {tools_uri} from 'common/tools'
 export default {
   components: {
     'Header' : () => import('components/Header'),
@@ -79,18 +80,17 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      checkUrlToken: 'checkUrlToken'
-    }),
     async checkInfo() {
-      if (!this.checkUrlToken()) return this.$toast('请先登录')
+      if (!this.getToken) return this.$dialog({type: 'confirm', content: '请先登录'}, () => {
+        window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
+      })
       let info = await getInfo({token: this.getToken})
       if (info.error_code) return this.$toast(info.message)
       this.userinfo = info.data
       if (this.feeInfo.monthTotal > 30000) {
         if (!this.userinfo.isRealCert) {
           return this.$dialog({type: 'confirm', content: '请先实名认证'}, () => {
-            return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=pay'
+            return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location)
           })
         }
       }

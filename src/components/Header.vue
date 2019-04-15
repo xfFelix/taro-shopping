@@ -15,6 +15,10 @@ export default {
   },
   methods: {
     goBack() {
+      let route = this.$route
+      if (route.path === '/order/list') {
+        return this.$router.push('/')
+      }
       this.$router.back()
     }
   }
