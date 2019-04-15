@@ -24,13 +24,13 @@ export function dialog(options, cb) {
     icon: '',
     confirmBtn: {
       text: "确定",
-      active: false,
+      active: true,
       disabled: false,
       href: "javascript:;"
     },
     cancelBtn: {
       text: "取消",
-      active: true,
+      active: false,
       disabled: false,
       href: "javascript:;"
     },
