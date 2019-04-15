@@ -6,8 +6,8 @@ import {getInfo} from 'api';
 export default router => {
   router.beforeEach(async(to, from, next) =>{
     // 验证并保存token
+    let token = await store.dispatch('checkUrlToken')
     if (to.meta.requireAuth) {
-      let token = await store.dispatch('checkUrlToken')
       if (!token) {
         dialog({type: 'confirm', content: '请先登录'}, () => {
           window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
