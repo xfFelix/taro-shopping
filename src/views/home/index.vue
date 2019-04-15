@@ -88,10 +88,10 @@ export default {
             this.search();
         },
         async loadBottom() {
+            console.log(this.pageNum)
             if (this.listFlag == 1) {
                 await this.getScenicList();
                 this.pageNum++;
-
             } else {
                 this.pageSize = this.pageSize + 10;
                 await this.search()

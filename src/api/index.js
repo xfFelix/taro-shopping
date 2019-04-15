@@ -9,8 +9,8 @@ export const getInfo = (data) => fetch({
 
 // 查询景区列表
 export const getScenicList = (params) => fetch({
-  url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/6b144eb5c12eeaca1af9.json",
-  // url: 'ticket/getScenicSpotList',
+  // url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/6b144eb5c12eeaca1af9.json",
+  url: 'ticket/getScenicSpotList',
   method: 'GET',
   params
 })
@@ -43,8 +43,8 @@ export const getOrderDetail = (data) => fetch({
 
 //搜索关键字
 export const search = (params) => fetch({
-  url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/6b144eb5c12eeaca1af9.json",
-  // url: 'ticket/search',
+  // url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/6b144eb5c12eeaca1af9.json",
+  url: 'ticket/search',
   method: 'GET',
   params
 })
