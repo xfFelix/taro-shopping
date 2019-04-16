@@ -156,7 +156,6 @@ export default {
     components: {
         HomeSwipe: () => import('./components/HomeSwipe'),
         SearchHead: () => import('./components/SearchHead'),
-        TicketList: () => import('./components/TicketList'),
         NoData: () => import('components/NoData')
     }
 }
