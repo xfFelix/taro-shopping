@@ -68,6 +68,10 @@ export default {
     },
   },
   created () {
+    // 提取取票人信息
+    if (this.getTicketUser) {
+      this.user = this.getTicketUser
+    }
     this.getPreviewOrder()
     this.getTicketInfo()
   },
@@ -76,10 +80,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getToken: 'getToken'
+      getToken: 'getToken',
+      getTicketUser: 'ticket/getUser'
     })
   },
   methods: {
+    ...mapActions({
+      setTicketUser: 'ticket/setUser'
+    }),
     async checkInfo() {
       if (!this.getToken) return this.$dialog({type: 'confirm', content: '请先登录'}, () => {
         window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
@@ -119,6 +127,7 @@ export default {
       this.$loading.hide()
       if (data.code !== '1') return this.$toast(data.message)
       this.$toast('门票下单成功')
+      this.setTicketUser(this.user) // 保存取票人信息
       this.showSendCode = false
       setTimeout(() => {
         this.showSuccess = true

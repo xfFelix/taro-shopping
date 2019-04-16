@@ -56,7 +56,7 @@ export default {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             let detailTop = this.$refs.detailTop.offsetTop;
             let detailPosit = detailTop - scrollTop;
-            if (detailPosit <= this.tabHight) {
+            if (detailPosit < this.tabHight) {
                 this.tabFixed = 1
             } else {
                 this.tabFixed = 0

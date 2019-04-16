@@ -7,7 +7,4 @@ export default {
   getToken: state => {
     return state.token
   },
-  getGoodsList: state => {
-    return state.goodsList
-  }
 }

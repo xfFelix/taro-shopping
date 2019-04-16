@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            setScrollto: 'setGoodsList'
+            setScrollto: 'scrollTo/setGoodsList'
         }),
         goTop() {
             //参数i控制速度

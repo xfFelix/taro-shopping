@@ -33,7 +33,4 @@ export default {
       return token
     }
   },
-  setGoodsList ({state, commit}, scroll) {
-    commit('setGoodsList', scroll)
-  }
 }
