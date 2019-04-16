@@ -21,8 +21,6 @@ FastClick.attach(document.body);
 
 Vue.config.productionTip = false;
 
-import { Loadmore } from 'mint-ui';
-Vue.component(Loadmore.name, Loadmore);
 
 new Vue({
   router,
