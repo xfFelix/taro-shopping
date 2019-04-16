@@ -1,3 +1,4 @@
+
 export const IsMobile = mobile => {
   return IsChinaMobile(mobile) || IsHKMobile(mobile);
 }
@@ -19,6 +20,9 @@ export const IsHKMobile = (mobile) => {
     return false;
   }
 }
+
+// 判断对象和数组是否为空
+export const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 
 export function isIDCard(IDCard) {
   let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/

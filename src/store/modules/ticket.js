@@ -1,4 +1,5 @@
 import { localStorage } from 'common/storage'
+import {isEmpty} from 'util/common';
 
 let defaultUser = undefined
 try{
@@ -14,6 +15,7 @@ const state = {
 // getters
 const getters = {
   getUser: state => {
+    if (!state.user || isEmpty(state.user)) return undefined
     return state.user
   }
 }
