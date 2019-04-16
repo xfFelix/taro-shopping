@@ -73,8 +73,7 @@ export default {
         },
         headHightP(val){
             this.tabHightPx = val+'px';
-            this.tabHight = val
-            console.log(val)
+            this.tabHight = val;
         },
         //景点信息
         async getScenicSpotInfo() {

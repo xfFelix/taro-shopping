@@ -49,8 +49,6 @@ export default {
         },
         sceneInfoC: {
             handler(val) {
-                console.log("景区")
-                console.log(val)
                 this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
                 this.uujqts = val.uujqts;
                 this.uujtzn = val.uujtzn;
