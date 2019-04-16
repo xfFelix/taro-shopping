@@ -121,6 +121,7 @@ export default {
             }
             if (data.length < 10) { //加载完了
                 this.allLoaded = true;
+                 this.tenFlag = false;
                 console.log("加载完了")
             }
             if(data.length == 10){

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="h-searchW" v-if="!headShowC">
-            <div class="iconfont background-op h-searchBack" @click="$router.back()">&#xe61e;</div>
+            <div class="iconfont background-op h-searchBack" @click="backHome()">&#xe61e;</div>
             <div class="h-searchInpW background-op">
                 <span class="h-searchLogo"></span>
                 <span class="h-searchInp"><input type="text" v-model="inpConent" /></span>
@@ -11,7 +11,7 @@
         </div>
 
         <div class="h-searchWFixed" v-if="headShowC">
-            <div class="iconfont h-searchBack" @click="$router.back()">&#xe61e;</div>
+            <div class="iconfont h-searchBack" @click="backHome()">&#xe61e;</div>
             <div class="h-searchInpW background-op">
                 <span class="h-searchLogo"></span>
                 <span class="h-searchInp"><input type="text" v-model="inpConent" /></span>
@@ -22,6 +22,7 @@
     </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
     props: {
         headShowC: Boolean
@@ -29,17 +30,30 @@ export default {
     data: () => ({
         inpConent: ''
     }),
+    computed: {
+        ...mapGetters({
+            getToken: 'getToken'
+        })
+    },
     methods: {
-        searchKey(){
-            this.$emit('inputC',this.inpConent)
+        searchKey() {
+            this.$emit('inputC', this.inpConent)
+        },
+        backHome() {
+            if (this.getToken) {
+                window.location.href = process.env.VUE_APP_BASE_URL + '#/layout/home?token=' + this.getToken;
+            } else {
+                window.location.href = process.env.VUE_APP_BASE_URL + '#/layout/home';
+            }
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-.background-op{
-     background: rgba(0,0,0,0.4);    
+.background-op {
+    background: rgba(0, 0, 0, 0.4);
 }
+
 .h-searchW,
 .h-searchWFixed {
     position: fixed;
@@ -67,7 +81,7 @@ export default {
         display: flex;
         align-items: center;
         width: 78%;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         .h-searchLogo {
             width: 19px;
             height: 19px;
