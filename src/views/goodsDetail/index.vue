@@ -7,7 +7,7 @@
         <bg-mask v-model="showDialog" color="transparent"></bg-mask>
         <!-- 票价信息 -->
         <ticket-info :sceneInfoC="sceneInfoP"></ticket-info>
-        <order-now :ticketListC="ticketListP"></order-now>
+        <order-now :ticketListC="ticketListP"></order-now>      
         <!-- 门票详情 -->
         <div ref="detailTop"></div>
         <cube-tab-bar 

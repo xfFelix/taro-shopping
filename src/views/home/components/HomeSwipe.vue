@@ -1,6 +1,6 @@
 <template>
     <div class="swiperBg">
-        <swiper :options="swiperOption" style="height:100%;">
+        <swiper :options="swiperOption" style="height:100%;" ref="mySwiper"  v-if="bannerList.length>0">
             <swiper-slide v-for="(slide, index) in bannerList" :key="index">
                 <img :src="slide.img" alt="" style="width:100%;" />
             </swiper-slide>
@@ -18,11 +18,22 @@ export default {
                 el: '.swiper-pagination',
                 type: 'fraction'
             },
-            autoplay:true,
+           autoplay: {
+                    delay: 3000,
+                    stopOnLastSlide: false,
+                    disableOnInteraction: false,
+                },
             loop : true,
+            observer:true,
+            observeParents:true,
         },
         bannerList: []
     }),
+     computed: {
+            swiper() {
+                return this.$refs.mySwiper.swiper
+            }
+        },
     methods: {
         async homeBanner() {
             let data = await homeBanner({ "catId": 207, "startNum": 0, "num": 10 });
