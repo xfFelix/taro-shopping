@@ -32,9 +32,8 @@
 </template>
 <script>
 
-
 import { getScenicList, search } from 'api';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     data: () => ({
@@ -121,7 +120,7 @@ export default {
             }
             if (data.length < 10) { //加载完了
                 this.allLoaded = true;
-                 this.tenFlag = false;
+                this.tenFlag = false;
                 console.log("加载完了")
             }
             if(data.length == 10){
@@ -134,8 +133,7 @@ export default {
         async getScenicList() {
             let data = await getScenicList({ n: this.offset, m: this.pageSize });
             if (data.code != 1) {
-                this.$toast(data.message);
-                return
+                return this.$toast(data.message);
             }
             this.listConcat(data.data);
         },

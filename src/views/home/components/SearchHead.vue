@@ -41,9 +41,9 @@ export default {
         },
         backHome() {
             if (this.getToken) {
-                window.location.href = process.env.VUE_APP_BASE_URL + '#/layout/home?token=' + this.getToken;
+                window.location.href = process.env.VUE_APP_BASE_HOME_URL + '#/layout/home?token=' + this.getToken;
             } else {
-                window.location.href = process.env.VUE_APP_BASE_URL + '#/layout/home';
+                window.location.href = process.env.VUE_APP_BASE_HOME_URL + '#/layout/home';
             }
         }
     }
