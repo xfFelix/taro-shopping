@@ -57,7 +57,7 @@ export default {
             handler(val) {
                 let str = val.uubhjq;
                 if (str) {
-                    if ((str.indexOf("&lt;") != -1) || (str.indexOf("&gt;") != -1) || (str.indexOf("&nbsp;") != -1) || (str.indexOf("&#39;") != -1) || (str.indexOf("&quot;") != -1) || (str.indexOf("&quot;") != -1)) {
+                    if ((str.indexOf("&lt;") != -1) || (str.indexOf("&gt;") != -1)) {
                         this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
                     } else {
                         this.uubhjq = val.uubhjq;
@@ -91,10 +91,12 @@ textarea {
     min-height: 550px;
     padding: 10px;
     box-sizing: border-box;
+    font-size: 13px;
 }
 </style>
 <style>
 .sceneDetail li p {
     padding: 5px;
+    font-size: 13px;
 }
 </style>
