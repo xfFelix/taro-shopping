@@ -50,7 +50,7 @@ export default {
     computed: {
         offset() {
             if (this.listFlag == 1) {
-                return (this.pageNum - 1) * this.pageSize + 1;
+                return this.pageNum
             } else {
                 return this.pageSize;
             }
@@ -107,7 +107,7 @@ export default {
             }
         },
         initData() {
-            this.pageSize = 10;
+            this.pageSize = 0;
             this.pageNum = 1;
             this.ticketList = [];
             this.firstFlag = true;
