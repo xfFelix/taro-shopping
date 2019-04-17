@@ -145,6 +145,7 @@ export default {
     },
     async getFeeInfo(price, num) {
       let feeInfo = await getFeeInfo({token: this.getToken, price,num})
+      if (feeInfo.code === '3') return
       if (feeInfo.code !== '1') return this.$toast(feeInfo.message)
       this.feeInfo = feeInfo.data[0]
     },
