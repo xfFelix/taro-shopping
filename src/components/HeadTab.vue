@@ -1,42 +1,38 @@
 <template>
   <div class="dialog-container">
-      <div class="dialog-conInner">
-        <div class="arrow-top"></div>
-        <div class="dialog-content">
-          <router-link :to="{path: '/layout/home'}">
-            <div class="link">
-              <span class="iconfont">&#xe61a;</span>
-              <span>首页</span>
-            </div>
-          </router-link>
-          <router-link :to="{path: '/layout/shopMall'}">
-            <div class="link">
-              <span class="iconfont">&#xe62b;</span>
-              <span>商城</span>
-            </div>
-          </router-link>
-          <router-link :to="{path: '/layout/classify'}">
-            <div class="link">
-              <span class="iconfont">&#xe606;</span>
-              <span>分类</span>
-            </div>
-          </router-link>
-          <router-link :to="{path: '/layout/shopCart'}">
-            <div class="link">
-              <span class="iconfont">&#xe625;</span>
-              <span>购物车</span>
-            </div>
-          </router-link>
-          <router-link :to="{path: '/layout/account'}">
-            <div class="link">
-              <span class="iconfont">&#xe615;</span>
-              <span>我的</span>
-            </div>
-          </router-link>
-        </div>
+    <div class="dialog-conInner">
+      <div class="arrow-top"></div>
+      <div class="dialog-content">
+        <a :href="getToken?(process+item.linkTo+'?token=' + getToken):(process+item.linkTo)" v-for="(item,index) in dialogList" :key="index">
+          <div class="link">
+            <span class="iconfont" :class="item.icon"></span>
+            <span>{{item.name}}</span>
+          </div>
+        </a>
       </div>
     </div>
+  </div>
 </template>
+<script>
+import { mapGetters } from 'vuex';
+export default {
+  data: () => ({
+    dialogList: [
+      { name: '首页', icon: 'icon-xiazai45', linkTo: '#/layout/home'},
+      { name: '商城', icon: 'icon-shangcheng', linkTo:'#/layout/shopMall'},
+      { name: '分类', icon: 'icon-fenlei', linkTo:'#/layout/classify' },
+      { name: '购物车', icon: 'icon-gouwuche', linkTo:'#/layout/shopCart'},
+      { name: '我的', icon: 'icon-My', linkTo:'#/layout/account'},
+    ],
+    process:process.env.VUE_APP_BASE_HOME_URL
+  }),
+  computed: {
+    ...mapGetters({
+      getToken: 'getToken'
+    })
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .dialog-container {
@@ -70,9 +66,9 @@
         display: flex; // justify-content: center;
         align-items: center;
         font-size: 14px;
-        span:first-of-type{
-            margin: 0 12px;
-            font-size: 18px;
+        span:first-of-type {
+          margin: 0 12px;
+          font-size: 18px;
         }
       }
       a:first-of-type {
