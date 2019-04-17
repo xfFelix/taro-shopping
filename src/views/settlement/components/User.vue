@@ -16,7 +16,7 @@
       </li>
       <li class="item border-bottom-1px">
         <span class="label">证件号码</span>
-        <cube-input v-model="data.IDCardNumber" placeholder="请输入证件号码" class="value" type="number"></cube-input>
+        <cube-input v-model="data.IDCardNumber" placeholder="请输入证件号码" class="value" type="text"></cube-input>
       </li>
     </ul>
   </div>
