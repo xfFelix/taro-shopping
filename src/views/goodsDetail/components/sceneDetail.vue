@@ -2,14 +2,14 @@
     <div class="sceneDetail">
         <ul>
             <li v-show="detailShow==1">
-                <textarea v-html="uujqts" contenteditable="true" ref="textJqts" disabled></textarea>
+                <textarea v-html="uujqts" contenteditable="true"  disabled></textarea>
             </li>
             <li v-html="uubhjq" v-show="detailShow==2"></li>
             <li v-show="detailShow==3">
-                <textarea v-html="uujtzn" contenteditable="true" ref="textJtzn" disabled></textarea>
+                <textarea v-html="uujtzn" contenteditable="true"  disabled></textarea>
             </li>
             <li v-show="detailShow==4">
-                <textarea v-html="uutopics" contenteditable="true" ref="textTopics" disabled></textarea>
+                <textarea v-html="uutopics" contenteditable="true"  disabled></textarea>
             </li>
         </ul>
     </div>
