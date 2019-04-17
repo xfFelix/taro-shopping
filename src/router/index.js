@@ -64,6 +64,27 @@ const router = new Router({
         title: '结算',
         requireAuth: true
       }
+    },
+    {
+      path: '/oil',
+      name: 'oil',
+      component: () => import('views/oil'),
+      meta: {
+        title: '加油卡',
+        requireAuth: true
+      },
+      redirect: '/oil/home',
+      children: [
+        {
+          path: 'home',
+          name: 'oilHome',
+          component: () => import('views/oil/home'),
+          meta: {
+            title: '加油卡首页',
+            requireAuth: true
+          }
+        }
+      ]
     }
   ]
 })

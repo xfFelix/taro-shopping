@@ -45,6 +45,7 @@ export default {
                 if (data.error_code) {
                     return this.$toast(data.message)
                 }
+                this.validateFlag = 0
                 this.isSmsCode = true
                 this.validate = "120s 重新获取"
                 let _this = this;

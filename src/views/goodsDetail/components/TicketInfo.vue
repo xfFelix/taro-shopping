@@ -4,7 +4,7 @@
     <div class="ab-tkInfo">
       <div class="ab-tkName">{{sceneInfoC.uutitle}}</div>
       <div class="ab-tkMoneyW">
-        <p>{{sceneInfoC.uutprice|toDecimal2}}起</p>
+        <p>{{sceneInfoC.uutprice|toDecimal2}}</p>
         <p>门市价</p>
       </div>
     </div>
@@ -77,6 +77,7 @@ export default {
         font-size: 18px;
         line-height: 30px;
         color: #fe5a4c;
+        text-decoration: line-through;
       }
       p:last-of-type {
         border: solid 1px #000000;

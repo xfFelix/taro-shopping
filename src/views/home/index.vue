@@ -15,7 +15,7 @@
                                     <p class="h-goodsInfoLi">{{item.uutitle}}</p>
                                     <p class="h-goodsMoneyLiW">
                                         <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
-                                        <span>起</span>
+                                        <!-- <span>起</span> -->
                                     </p>
                                 </div>
                             </div>
@@ -197,6 +197,7 @@ export default {
                         font-size: 10px;
                         color: #999999;
                         .h-goodsMoneyLi {
+                            text-decoration: line-through;
                             font-size: 15px;
                             color: #30ce84;
                         }

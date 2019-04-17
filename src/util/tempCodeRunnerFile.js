@@ -1,1 +1,1 @@
-console.log(this.isIDCard('23425'))
+console.log(this.isIDCard('41150319850104001X'))
