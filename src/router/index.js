@@ -64,6 +64,33 @@ const router = new Router({
         title: '结算',
         requireAuth: true
       }
+    },
+    {
+      path: '/oilRecovery',
+      name: 'oilRecovery',
+      component: () => import('views/oilRecovery'),
+      meta: {
+        title: '加油卡回收',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/oilRecord',
+      name: 'oilRecord',
+      component: () => import('views/oilRecord'),
+      meta: {
+        title: '加油卡充值',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/oilChangeS',
+      name: 'oilChangeS',
+      component: () => import('views/oilChangeS'),
+      meta: {
+        title: '兑换成功',
+        // requireAuth: true
+      }
     }
   ]
 })
