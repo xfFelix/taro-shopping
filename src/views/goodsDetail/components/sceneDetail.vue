@@ -89,7 +89,8 @@ textarea {
     background: #fff;
     resize: none;
     min-height: 550px;
-    padding-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 </style>
 <style>
