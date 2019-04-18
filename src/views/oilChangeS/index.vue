@@ -46,7 +46,7 @@
   </transition>
 </template>
 <script>
-import {getOrderDetail} from 'api';
+import {getOilOrderDetail} from 'api';
 import { mapGetters } from 'vuex';
 import {isEmpty} from 'util/common';
 export default {
@@ -64,7 +64,7 @@ export default {
     methods: {
       async getDetail() {
         if (isEmpty(this.$route.query)) return this.$toast('id is null')
-        let res = await getOrderDetail({token: this.token, id: this.$route.query.id})
+        let res = await getOilOrderDetail({token: this.token, id: this.$route.query.id})
         if (res.code !== '1') return this.$toast(res.message)
         this.data = res.data
       }

@@ -107,3 +107,9 @@ export const oilOrderList = (data) => fetch({
   method: 'POST',
   data
 })
+
+export const getOilOrderDetail= (data) => fetch({
+  url: 'oilcard/getOrderInfo',
+  method: 'POST',
+  data
+})
