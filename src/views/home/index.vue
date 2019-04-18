@@ -12,10 +12,10 @@
                                     <img v-lazy="item.uuimgpath" alt="" />
                                 </div>
                                 <div class="h-goodsInfoLiW">
-                                    <div class="h-goodsInfoLi h-address">【{{item.uup_type}}级景区】{{item.uutitle}}</div>
+                                    <div class="h-goodsInfoLi h-address">【{{item.uujtype}}级景区】{{item.uutitle}}</div>
                                     <div class="h-goodsMoneyLiW">
                                         <div class="h-uuinfo">
-                                            <p class="h-address">{{item.uuaddress}}</p>
+                                            <p class="h-address">地点：{{item.uuaddress}}</p>
                                             <p v-if="item.uuruntime!=0" class="h-time">开放时间：{{item.uuruntime}}</p>
                                         </div>
                                         <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
