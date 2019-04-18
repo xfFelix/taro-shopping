@@ -88,3 +88,15 @@ export const sendSmsCode = (data) => fetch({
   method: 'POST',
   data
 })
+
+export const getCostInfo = (data) => fetch({
+  url: 'oilcard/getCostInfo',
+  method: 'POST',
+  data
+})
+
+export const submitOilOrder = (data) => fetch({
+  url: 'oilcard/submit',
+  method: 'POST',
+  data
+})

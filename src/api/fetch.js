@@ -39,11 +39,11 @@ instance.interceptors.response.use((res) => {
   }
 
   if (err.response) {
-    toast('接口错误：',err.response)
+    toast('接口错误：' + err.response)
   }
   if (err && err.response) {
-    toast('接口错误：',err)
-    toast('接口错误：',err.config)
+    toast('接口错误：' + err)
+    toast('接口错误：' + err.config)
   }
 
   return Promise.reject(err)

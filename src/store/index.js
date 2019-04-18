@@ -21,6 +21,7 @@ import mutations from './mutations'
 import state from './states'
 import ticket from './modules/ticket';
 import scrollTo from './modules/scrollTo';
+import oil from './modules/oil';
 import createLogger from 'vuex/dist/logger' // 每次修改会去控制台打一个状态
 
 Vue.use(Vuex)
@@ -34,7 +35,8 @@ export default new Vuex.Store({
   mutations,
   modules: {
     ticket,
-    scrollTo
+    scrollTo,
+    oil
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

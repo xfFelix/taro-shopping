@@ -1,15 +1,14 @@
 <template>
   <div class="content">
-    <cube-checker v-model="checkValue" :options="list" type="radio" class="list clear-fix">
-      <cube-checker-item v-for="item in list" :key="item.value" :option="item" class="item">
+    <cube-checker v-model="faceValue" :options="list" type="radio" class="list clear-fix">
+      <cube-checker-item v-for="item in list" :key="item.value" :option="item" class="item" @click.native="handlerClick">
           <p class="price">{{item.value}}<i>元</i></p>
+          <span class="circle"></span>
       </cube-checker-item>
     </cube-checker>
     <div class="desc">
       <h1>温馨提示:</h1>
-      <p class="long" v-html="descFilter(rechargeType)">
-
-      </p>
+      <p class="long" v-html="descFilter(rechargeType)"></p>
     </div>
   </div>
 </template>
@@ -26,7 +25,7 @@ const descList = [
        `1. 本卡密可为中石油/中石化加油卡充值使用，如无加油卡，须办理加油卡并进行首次充值后，方可进行本业务的充值活动（提示：新开卡用户需24小时后才可办理自助充值）；<br/>
         2. 1个工作日内以短信卡密形式发放到手机；<br/>
         3. 卡密有效期为自发放之日起一年；<br/>
-        4. 此卡密可在中石油/中石化所属售卡充值网点 充值，也可登陆中国石化加油卡网站在线充值www.sinopecsales.com以及登陆中国石油加油卡网站在线充值www.95504.net或www.card.petrochina.com.cn<br/>
+        4. 此卡密可在中石油/中石化所属售卡充值网点 充值，也可登陆中国石化加油卡网站在线充值<span class="price-color">www.sinopecsales.com</span>以及登陆中国石油加油卡网站在线充值<span class="price-color">www.95504.net</span>或<span class="price-color">www.card.petrochina.com.cn</span><br/>
         5.  提示：根据中石油/中石化规定，为确保账户资金安全，充值后金额自动存储在“待圈存金额中”，使用时只需到任意中石油/中石化售卡充值网点或自助终端设备上进行加油卡圈存操作，即可充值成功；<br/>
         6. 根据中石油/中石化规定，同一张实名加油卡每天仅支持在一个或多个平台累计充值8次，例如：在中石油充值1次，在某东充值2次，在椰子分充值3次，那么您当日的充值次数仅剩余2次；<br/>
         7. 本业务不支持7天无理由退货退款，请知晓。<br/>`}
@@ -51,7 +50,20 @@ export default {
     ],
     checkValue: 100
   }),
+  computed: {
+    faceValue: {
+      get() {
+        return this.$store.state.oil.config.faceValue
+      },
+      set(val) {
+        this.$store.dispatch('oil/setConfig', {faceValue: val})
+      }
+    }
+  },
   methods: {
+    handlerClick() {
+      this.$emit('handler-click')
+    },
     descFilter(type) {
       return descListOption[type]
     }
@@ -114,13 +126,13 @@ export default {
       &::before{
         content: '';
         display: block;
-        width: 20px;
+        width: 10px;
         height: 20px;
-        border-right: 1px solid #30CE84;
-        border-top-right-radius: 50%;
-        border-bottom-right-radius: 50%;
+        border: 1px solid #30CE84;
+        border-left: none;
+        border-radius: 0 20px 20px 0;
         position: absolute;
-        left: -11px;
+        left: -2px;
         z-index: 10;
         background: #fff;
       }
@@ -129,6 +141,18 @@ export default {
         i{
           font-size: 13px;
         }
+      }
+      .circle{
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        border: 1px solid #30ce84;
+        border-right: none;
+        position: absolute;
+        right: -2px;
+        border-radius: 20px 0 0 20px;
+        z-index: 10;
+        background: #fff;
       }
     }
   }
@@ -145,6 +169,7 @@ export default {
       font-size: 12px;
       color: #4E4D4D;
       line-height: 24px;
+      word-break: break-all;
     }
   }
 }

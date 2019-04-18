@@ -1,12 +1,12 @@
 <template>
   <div class="content">
     <header>
-      <i class="cubeic-back"></i>
+      <i class="cubeic-back" @click="goHome"></i>
       加油卡充值
     </header>
     <div class="type">
-      <div class="item" :class="{active: rechargeType === 1}" @click="$emit('update:rechargeType', 1)">直充</div>
-      <div class="item" :class="{active: rechargeType === 2}" @click="$emit('update:rechargeType', 2)">充值卡</div>
+      <div class="item" :class="{active: rechargeType === 1}" @click="changeRechargeType(1)">直充</div>
+      <div class="item" :class="{active: rechargeType === 2}" @click="changeRechargeType(2)">充值卡</div>
     </div>
     <div class="footer">
       <span class="score price-color">椰子分余额: <i>{{userinfo.score | toPrice}}</i></span>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   components: {
     'Header': () => import('components/Header')
@@ -31,6 +31,18 @@ export default {
     ...mapGetters({
       userinfo: 'getUserinfo'
     })
+  },
+  methods: {
+    ...mapActions({
+      initConfig: 'oil/initConfig'
+    }),
+    changeRechargeType(val) {
+      this.initConfig()
+      this.$emit('update:rechargeType', val)
+    },
+    goHome() {
+      window.location.href = process.env.VUE_APP_BASE_HOME_URL
+    }
   }
 }
 </script>

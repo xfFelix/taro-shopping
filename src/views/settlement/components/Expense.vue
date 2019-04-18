@@ -14,17 +14,27 @@
         <span class="label">税费</span>
         <span class="value">{{data.tax_total | toPrice}}</span>
       </li>
+      <li class="item">
+        <span class="label">余额</span>
+        <span class="value">{{userinfo.score | toPrice}}</span>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   props:{
     data: {
       type: Object,
       default: {}
     }
+  },
+  computed: {
+    ...mapGetters({
+      userinfo: 'getUserinfo'
+    })
   }
 }
 </script>
