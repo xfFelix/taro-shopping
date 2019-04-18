@@ -12,10 +12,11 @@
                                     <img v-lazy="item.uuimgpath" alt="" />
                                 </div>
                                 <div class="h-goodsInfoLiW">
-                                    <p class="h-goodsInfoLi">{{item.uutitle}}</p>
+                                    <p class="h-goodsInfoLi h-address">【{{item.uup_type}}级景区】{{item.uutitle}}</p>
+                                    <p class="h-address">{{item.uuaddress}}</p>
                                     <p class="h-goodsMoneyLiW">
+                                        <span>开放时间：{{item.uuruntime}}</span>
                                         <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
-                                        <!-- <span>起</span> -->
                                     </p>
                                 </div>
                             </div>
@@ -123,7 +124,7 @@ export default {
                 this.tenFlag = false;
                 console.log("加载完了")
             }
-            if(data.length == 10){
+            if (data.length == 10) {
                 this.tenFlag = true;
                 console.log("还能加载更多")
             }
@@ -188,6 +189,7 @@ export default {
                     justify-content: space-between;
                     margin: 0;
                     text-align: left;
+                    width: 58%;
                     .h-goodsInfoLi {
                         margin: 0;
                         line-height: 17px;
@@ -195,7 +197,8 @@ export default {
                     }
                     .h-goodsMoneyLiW {
                         font-size: 10px;
-                        color: #999999;
+                        display: flex;
+                        justify-content: space-between;
                         .h-goodsMoneyLi {
                             text-decoration: line-through;
                             font-size: 15px;
@@ -232,5 +235,15 @@ export default {
     position: fixed;
     background: rgba(0, 0, 0, 0.8);
     z-index: 100;
+}
+
+.h-address {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 </style>

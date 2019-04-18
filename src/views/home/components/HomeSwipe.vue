@@ -1,8 +1,10 @@
 <template>
     <div class="swiperBg">
-        <swiper :options="swiperOption" style="height:100%;" ref="mySwiper"  v-if="bannerList.length>0">
+        <swiper :options="swiperOption" style="height:100%;" ref="mySwiper" v-if="bannerList.length>0">
             <swiper-slide v-for="(slide, index) in bannerList" :key="index">
-                <img :src="slide.img" alt="" style="width:100%;" />
+                <a :href="slide.url" v-if="slide.status==0">
+                    <img :src="slide.img" alt="" style="width:100%;" />
+                </a>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -18,22 +20,22 @@ export default {
                 el: '.swiper-pagination',
                 type: 'fraction'
             },
-           autoplay: {
-                    delay: 3000,
-                    stopOnLastSlide: false,
-                    disableOnInteraction: false,
-                },
-            loop : true,
-            observer:true,
-            observeParents:true,
+            autoplay: {
+                delay: 3000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false,
+            },
+            loop: true,
+            observer: true,
+            observeParents: true,
         },
         bannerList: []
     }),
-     computed: {
-            swiper() {
-                return this.$refs.mySwiper.swiper
-            }
-        },
+    computed: {
+        swiper() {
+            return this.$refs.mySwiper.swiper
+        }
+    },
     methods: {
         async homeBanner() {
             let data = await homeBanner({ "catId": 207, "startNum": 0, "num": 10 });
@@ -41,7 +43,7 @@ export default {
                 return this.$toast(data.message);
             }
             this.bannerList = data.data;
-            if(data.data.length<2){
+            if (data.data.length < 2) {
                 this.swiperOption.autoplay = false;
             }
         },
@@ -61,7 +63,7 @@ export default {
     .swiper-pagination {
         background: rgba(0, 0, 0, 0.4);
         color: #fff;
-         width: 14%;
+        width: 14%;
         right: 15px !important;
         left: auto;
         bottom: 13px;
