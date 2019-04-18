@@ -12,12 +12,14 @@
                                     <img v-lazy="item.uuimgpath" alt="" />
                                 </div>
                                 <div class="h-goodsInfoLiW">
-                                    <p class="h-goodsInfoLi h-address">【{{item.uup_type}}级景区】{{item.uutitle}}</p>
-                                    <p class="h-address">{{item.uuaddress}}</p>
-                                    <p class="h-goodsMoneyLiW">
-                                        <span>开放时间：{{item.uuruntime}}</span>
+                                    <div class="h-goodsInfoLi h-address">【{{item.uup_type}}级景区】{{item.uutitle}}</div>
+                                    <div class="h-goodsMoneyLiW">
+                                        <div class="h-uuinfo">
+                                            <p class="h-address">{{item.uuaddress}}</p>
+                                            <p v-if="item.uuruntime!=0" class="h-time">开放时间：{{item.uuruntime}}</p>
+                                        </div>
                                         <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -185,8 +187,8 @@ export default {
                 }
                 .h-goodsInfoLiW {
                     display: flex;
-                    flex-direction: column;
                     justify-content: space-between;
+                    flex-direction: column;
                     margin: 0;
                     text-align: left;
                     width: 58%;
@@ -201,8 +203,10 @@ export default {
                         justify-content: space-between;
                         .h-goodsMoneyLi {
                             text-decoration: line-through;
-                            font-size: 15px;
+                            font-size: 16px;
                             color: #30ce84;
+                            display: flex;
+                            align-items: center;
                         }
                     }
                 }
@@ -245,5 +249,16 @@ export default {
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+.h-uuinfo {
+    width: 70%;
+    font-size: 9px;
+}
+
+.h-time {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
