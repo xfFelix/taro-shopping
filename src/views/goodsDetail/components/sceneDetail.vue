@@ -2,14 +2,14 @@
     <div class="sceneDetail">
         <ul>
             <li v-show="detailShow==1">
-                <textarea v-html="uujqts" contenteditable="true" ref="textJqts" disabled></textarea>
+                <textarea v-html="uujqts" contenteditable="true"  disabled></textarea>
             </li>
             <li v-html="uubhjq" v-show="detailShow==2"></li>
             <li v-show="detailShow==3">
-                <textarea v-html="uujtzn" contenteditable="true" ref="textJtzn" disabled></textarea>
+                <textarea v-html="uujtzn" contenteditable="true"  disabled></textarea>
             </li>
             <li v-show="detailShow==4">
-                <textarea v-html="uutopics" contenteditable="true" ref="textTopics" disabled></textarea>
+                <textarea v-html="uutopics" contenteditable="true"  disabled></textarea>
             </li>
         </ul>
     </div>
@@ -57,7 +57,7 @@ export default {
             handler(val) {
                 let str = val.uubhjq;
                 if (str) {
-                    if ((str.indexOf("&lt;") != -1) || (str.indexOf("&gt;") != -1) || (str.indexOf("&nbsp;") != -1) || (str.indexOf("&#39;") != -1) || (str.indexOf("&quot;") != -1) || (str.indexOf("&quot;") != -1)) {
+                    if ((str.indexOf("&lt;") != -1) || (str.indexOf("&gt;") != -1)) {
                         this.uubhjq = HtmlUtil.htmlDecode(val.uubhjq);
                     } else {
                         this.uubhjq = val.uubhjq;
@@ -91,10 +91,13 @@ textarea {
     min-height: 550px;
     padding: 10px;
     box-sizing: border-box;
+    font-size: 13px;
+    color: #000;
 }
 </style>
 <style>
 .sceneDetail li p {
     padding: 5px;
+    font-size: 13px;
 }
 </style>

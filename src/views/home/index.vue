@@ -12,11 +12,14 @@
                                     <img v-lazy="item.uuimgpath" alt="" />
                                 </div>
                                 <div class="h-goodsInfoLiW">
-                                    <p class="h-goodsInfoLi">{{item.uutitle}}</p>
-                                    <p class="h-goodsMoneyLiW">
+                                    <div class="h-goodsInfoLi h-address">【{{item.uujtype}}级景区】{{item.uutitle}}</div>
+                                    <div class="h-goodsMoneyLiW">
+                                        <div class="h-uuinfo">
+                                            <p class="h-address">详细地址：{{item.uuaddress}}</p>
+                                            <p v-if="item.uuruntime!=0" class="h-time">开放时间：{{item.uuruntime}}</p>
+                                        </div>
                                         <span class="h-goodsMoneyLi">{{item.uutprice|toDecimal2}}</span>
-                                        <!-- <span>起</span> -->
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -123,7 +126,7 @@ export default {
                 this.tenFlag = false;
                 console.log("加载完了")
             }
-            if(data.length == 10){
+            if (data.length == 10) {
                 this.tenFlag = true;
                 console.log("还能加载更多")
             }
@@ -184,10 +187,11 @@ export default {
                 }
                 .h-goodsInfoLiW {
                     display: flex;
-                    flex-direction: column;
                     justify-content: space-between;
+                    flex-direction: column;
                     margin: 0;
                     text-align: left;
+                    width: 58%;
                     .h-goodsInfoLi {
                         margin: 0;
                         line-height: 17px;
@@ -195,11 +199,14 @@ export default {
                     }
                     .h-goodsMoneyLiW {
                         font-size: 10px;
-                        color: #999999;
+                        display: flex;
+                        justify-content: space-between;
                         .h-goodsMoneyLi {
                             text-decoration: line-through;
-                            font-size: 15px;
+                            font-size: 16px;
                             color: #30ce84;
+                            display: flex;
+                            align-items: center;
                         }
                     }
                 }
@@ -232,5 +239,26 @@ export default {
     position: fixed;
     background: rgba(0, 0, 0, 0.8);
     z-index: 100;
+}
+
+.h-address {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.h-uuinfo {
+    width: 70%;
+    font-size: 9px;
+}
+
+.h-time {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>

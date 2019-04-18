@@ -66,6 +66,42 @@ const router = new Router({
       }
     },
     {
+      path: '/oil/oilRecovery',
+      name: 'oilRecovery',
+      component: () => import('views/oilRecovery'),
+      meta: {
+        title: '加油卡回收',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/oil/oilRecord',
+      name: 'oilRecord',
+      component: () => import('views/oilRecord'),
+      meta: {
+        title: '加油卡充值',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/oil/oilChangeS',
+      name: 'oilChangeS',
+      component: () => import('views/oilChangeS'),
+      meta: {
+        title: '兑换成功',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/oil/oilRecoveryS',
+      name: 'oilRecoveryS',
+      component: () => import('views/oilRecoveryS'),
+      meta: {
+        title: '回购成功',
+        // requireAuth: true
+      }
+    },
+    {
       path: '/oil',
       name: 'oil',
       component: () => import('views/oil'),
