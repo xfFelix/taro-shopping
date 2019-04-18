@@ -61,6 +61,13 @@ export default {
       let config = {faceValue, code, cardNum, token, rechargeType: this.rechargeType, oilCardType: type}
       let res = await submitOilOrder(config)
       if (res.code !== '1') return this.$toast(res.message)
+      this.initShow()
+      this.$router.push({
+        path: '/oil/oilChangeS',
+        query: {
+          id : res.data
+        }
+      })
     },
     handlerClick() {
       if (this.rechargeType === 1) {

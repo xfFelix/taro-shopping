@@ -1,52 +1,74 @@
 <template>
+  <transition name="slide-left" mode="out-in">
     <div class="oilChanges">
         <div class="changeIconW">
             <span class="changeIcon iconfont">&#xe631;</span>
         </div>
         <p class="changeWord">兑换成功</p>
-        <p class="changeMoney">105.00</p>
+        <p class="changeMoney">{{data.totalAmount|toPrice}}</p>
         <ul class="changeInfo">
             <li>
                 <span>商品名</span>
-                <span>100加油卡直充（中石油）</span>
+                <span>{{data.cardUser}}</span>
             </li>
             <li>
                 <span>卡号</span>
-                <span>1234567890123456</span>
+                <span v-if="data.cardId === 1">{{data.cardNum}}</span>
+                <span v-else-if="data.cardId === 2">{{data.idBackUrl}}</span>
             </li>
-            <li>
+            <li v-if="data.cardId === 2">
                 <span>卡密</span>
-                <span>1234567890123456</span>
+                <span>{{data.memo}}</span>
             </li>
             <li>
                 <span>售价</span>
-                <span>101.00</span>
+                <span>{{data.repaymentAmount|toPrice}}</span>
             </li>
             <li>
                 <span>服务费</span>
-                <span>101.00</span>
+                <span>{{data.serviceFee|toPrice}}</span>
             </li>
             <li>
                 <span>税费</span>
-                <span>101.00</span>
+                <span>{{data.taxFee|toPrice}}</span>
             </li>
             <li>
                 <span>应付合计</span>
-                <span>101.00</span>
+                <span>{{data.totalAmount|toPrice}}</span>
             </li>
         </ul>
-        <!-- <router-link :to="{path:'/oilRecovery'}" class="changeConfim">完成</router-link> -->
-        <div class="changeGo">
-            <router-link :to="{path:'/oilRecovery'}" class="cRecove">回收</router-link>
-            <router-link :to="{path:'/oilRecovery'}" class="cConfim">完成</router-link>
+        <router-link :to="{path:'/oil'}" class="changeConfim" v-if="data.cardId === 1">完成</router-link>
+        <div class="changeGo" v-else-if="data.cardId === 2">
+            <router-link :to="{path:'/oil/oilRecovery'}" class="cRecove">回收</router-link>
+            <router-link :to="{path:'/oil'}" class="cConfim">完成</router-link>
         </div>
     </div>
+  </transition>
 </template>
 <script>
+import {getOrderDetail} from 'api';
+import { mapGetters } from 'vuex';
+import {isEmpty} from 'util/common';
 export default {
     data: () => ({
-
-    })
+      data: {}
+    }),
+    created() {
+      this.getDetail()
+    },
+    computed: {
+      ...mapGetters({
+        token: 'getToken'
+      })
+    },
+    methods: {
+      async getDetail() {
+        if (isEmpty(this.$route.query)) return this.$toast('id is null')
+        let res = await getOrderDetail({token: this.token, id: this.$route.query.id})
+        if (res.code !== '1') return this.$toast(res.message)
+        this.data = res.data
+      }
+    }
 }
 </script>
 <style lang="scss" scoped>

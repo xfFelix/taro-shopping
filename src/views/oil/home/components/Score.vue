@@ -10,7 +10,7 @@
     </div>
     <div class="footer">
       <span class="score price-color">椰子分余额: <i>{{userinfo.score | toPrice}}</i></span>
-      <span class="history">兑换记录 ></span>
+      <span class="history" @click="$router.push('/oil/oilRecord')">兑换记录 ></span>
     </div>
   </div>
 </template>
