@@ -34,18 +34,18 @@
                 <li>
                     <div class="reFirst">身份证号码</div>
                     <div class="reLast" v-if="selfFlag">654121199411180011</div>
-                    <input type="text" placeholder="填写收款人身份证号码" v-if="!selfFlag">
+                    <input type="text" placeholder="填写收款人身份证号码" v-if="!selfFlag" v-model="identCode">
                 </li>
                 <li>
                     <div class="reFirst">开户行</div>
                     <div @click="showPicker">
-                        <input type="text" placeholder="请选择开户行" readonly="readonly">
+                        <input type="text" placeholder="请选择开户行" readonly="readonly" v-model="openBank">
                         <span class="iconfont bankSelect">&#xe61e;</span>
                     </div>
                 </li>
                 <li>
                     <div class="reFirst">银行卡号</div>
-                    <div><input type="" name="" value="" placeholder="请填写收款银行卡号码"></div>
+                    <div><input type="" name="" value="" placeholder="请填写收款银行卡号码" v-model="bankNum"></div>
                 </li>
             </ul>
         </div>
@@ -56,16 +56,21 @@
             </div>
         </cube-checkbox>
 
-        <div class="commit">提交申请表</div>
+        <div class="commitApply" @click="commitApply">提交申请表</div>
     </div>
 </template>
 <script>
 const column1 = [{ text: '剧毒', value: '剧毒' }, { text: '蚂蚁', value: '蚂蚁' },
 { text: '幽鬼', value: '幽鬼' }]
+import {IdentityCodeValid,luhnCheck,isEmpty} from 'util/common';
+import {toast} from '@/util/toast'
 export default {
     data: () => ({
         checked: false,
-        selfFlag: 1
+        selfFlag: 1,
+        identCode:undefined,
+        openBank:undefined,
+        bankNum:undefined
     }),
     components: {
         'Header': () => import('components/Header'),
@@ -83,24 +88,29 @@ export default {
             this.picker.show()
         },
         selectHandle(selectedVal, selectedIndex, selectedText) {
+            this.openBank = selectedText;
             this.$createDialog({
                 type: 'warn',
                 content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
                 icon: 'cubeic-alert'
-            }).show()
-        },
-        cancelHandle() {
-            this.$createToast({
-                type: 'correct',
-                txt: 'Picker canceled',
-                time: 1000
-            }).show()
+            }).show();
+
         },
         self() {
             this.selfFlag = 1;
         },
         noSelf() {
             this.selfFlag = 0;
+        },
+        commitApply(){
+            if(IdentityCodeValid(this.identCode)){
+                return toast("请输入你的有效身份证号码")
+            }
+            this.bankNum = "3301040160000852007"
+            if(!isEmpty(this.bankNum) || luhnCheck(this.bankNum)){
+                return toast("请输入有效的银行账号")
+            }
+           
         }
     }
 }
@@ -198,7 +208,7 @@ export default {
     }
 }
 
-.commit {
+.commitApply {
     height: 50px;
     background: #30CE84;
     text-align: center;

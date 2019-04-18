@@ -66,7 +66,7 @@ const router = new Router({
       }
     },
     {
-      path: '/oilRecovery',
+      path: '/oil/oilRecovery',
       name: 'oilRecovery',
       component: () => import('views/oilRecovery'),
       meta: {
@@ -75,7 +75,7 @@ const router = new Router({
       }
     },
     {
-      path: '/oilRecord',
+      path: '/oil/oilRecord',
       name: 'oilRecord',
       component: () => import('views/oilRecord'),
       meta: {
@@ -84,11 +84,20 @@ const router = new Router({
       }
     },
     {
-      path: '/oilChangeS',
+      path: '/oil/oilChangeS',
       name: 'oilChangeS',
       component: () => import('views/oilChangeS'),
       meta: {
         title: '兑换成功',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/oil/oilRecoveryS',
+      name: 'oilRecoveryS',
+      component: () => import('views/oilRecoveryS'),
+      meta: {
+        title: '回购成功',
         // requireAuth: true
       }
     },

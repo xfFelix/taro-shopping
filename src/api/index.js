@@ -88,3 +88,11 @@ export const sendSmsCode = (data) => fetch({
   method: 'POST',
   data
 })
+
+
+// 订单列表
+export const oilOrderList = (data) => fetch({
+  url: 'oilcard/getOrderList',
+  method: 'POST',
+  data
+})

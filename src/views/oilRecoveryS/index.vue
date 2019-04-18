@@ -3,8 +3,7 @@
         <div class="changeIconW">
             <span class="changeIcon iconfont">&#xe631;</span>
         </div>
-        <p class="changeWord">兑换成功</p>
-        <p class="changeMoney">105.00</p>
+        <p class="changeWord">提交成功</p>
         <ul class="changeInfo">
             <li>
                 <span>商品名</span>
@@ -19,33 +18,28 @@
                 <span>1234567890123456</span>
             </li>
             <li>
-                <span>售价</span>
+                <span>回收价</span>
                 <span>101.00</span>
             </li>
             <li>
-                <span>服务费</span>
+                <span>收款人</span>
                 <span>101.00</span>
             </li>
             <li>
-                <span>税费</span>
+                <span>开户行</span>
                 <span>101.00</span>
             </li>
             <li>
-                <span>应付合计</span>
+                <span>银行卡号</span>
                 <span>101.00</span>
             </li>
         </ul>
-        <!-- <router-link :to="{path:'/oilRecovery'}" class="changeConfim">完成</router-link> -->
-        <div class="changeGo">
-            <router-link :to="{path:'/oilRecovery'}" class="cRecove">回收</router-link>
-            <router-link :to="{path:'/oilRecovery'}" class="cConfim">完成</router-link>
-        </div>
+         <router-link :to="{path:'/oilRecovery'}" class="changeConfim">完成</router-link> 
     </div>
 </template>
 <script>
 export default {
     data: () => ({
-
     })
 }
 </script>
@@ -72,14 +66,9 @@ export default {
     .changeWord {
         font-size: 18px;
         color: #000000;
-    }
-    .changeMoney {
-        font-size: 30px;
-        font-weight: bold;
-        color: #000000;
         padding: 10px 0 20px 0;
-        margin: 0 17px;
         border-bottom: 1px solid #DEDEDE;
+         margin: 0 17px;
     }
     .changeInfo {
         padding: 20px 0;
@@ -97,36 +86,17 @@ export default {
             }
         }
     }
-    .changeConfim,
-    .changeGo {
-        line-height: 40px;
-        font-size: 18px;
-        width: 340px;
-        margin: 0 auto;
-    }
+
     .changeConfim {
         background: #30CE84;
         color: #fff;
         display: inline-block;
         border-radius: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        width: 340px;
+        margin: 0 auto;
     }
-    .changeGo {
-        display: flex;
-        justify-content: space-between;
-        a {
-            width: 150px;
-            display: inline-block;
-            border-radius: 40px;
-        }
-        .cRecove {
-            background: #fff;
-            color: #30CE84;
-            border: 1px solid #30CE84;
-        }
-        .cConfim {
-            background: #30CE84;
-            color: #fff;
-        }
-    }
+
 }
 </style>

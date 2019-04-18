@@ -122,7 +122,6 @@ export default {
         font-size: 14px;
     }
 }
-
 .cube-tab_active {
     color: #30ce84;
 }
