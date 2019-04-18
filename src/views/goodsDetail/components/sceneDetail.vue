@@ -92,6 +92,7 @@ textarea {
     padding: 10px;
     box-sizing: border-box;
     font-size: 13px;
+    color: #000;
 }
 </style>
 <style>
