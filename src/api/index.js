@@ -9,68 +9,68 @@ export const getInfo = (data) => fetch({
 
 // 查询景区列表
 export const getScenicList = (params) => fetch({
-  url: 'ticket/getScenicSpotList',
+  url: '/getScenicSpotList',
   method: 'GET',
   params
 })
 
 //门票列表
 export const getTicketList = (params) => fetch({
-  url: 'ticket/getTicketList',
+  url: '/getTicketList',
   method: 'GET',
   params
 })
 // 查询订单列表
 export const getOrderList = (data) => fetch({
-  url: 'ticket/selectOrders',
+  url: '/selectOrders',
   method: 'POST',
   data
 })
 
 //景区详情
 export const getScenicSpotInfo = (params) => fetch({
-  url: 'ticket/getScenicSpotInfo',
+  url: '/getScenicSpotInfo',
   method: 'GET',
   params
 })
 // 查询订单详情
 export const getOrderDetail = (data) => fetch({
-  url: 'ticket/getOrderInfo',
+  url: '/getOrderInfo',
   method: 'POST',
   data
 })
 
 //搜索关键字
 export const search = (params) => fetch({
-  url: 'ticket/search',
+  url: '/search',
   method: 'GET',
   params
 })
 
 // 查询费用详情
 export const getFeeInfo = (params) => fetch({
-  url: 'ticket/getOrderPreview',
+  url: '/getOrderPreview',
   method: 'GET',
   params
 })
 
 // 查询日期列表
 export const getDateList = (params) => fetch({
-  url: 'ticket/getRealTimeStorage',
+  url: '/getRealTimeStorage',
   method: 'GET',
   params
 })
 
 // 查询门票详情
 export const getTicketInfo = (params) => fetch({
-  url: 'ticket/getTicketInfo',
+  url: '/getTicketInfo',
   method: 'GET',
   params
 })
 
 // 提交订单
 export const submitOrder = (data) => fetch({
-  url: 'ticket/pFTOrderSubmit',
+  url: '/pFTOrderSubmit',
   method: 'POST',
   data
 })
@@ -90,27 +90,27 @@ export const sendSmsCode = (data) => fetch({
 })
 
 export const getCostInfo = (data) => fetch({
-  url: 'oilcard/getCostInfo',
+  url: '/oilcard/getCostInfo',
   method: 'POST',
   data
 })
 
 export const submitOilOrder = (data) => fetch({
-  url: 'oilcard/submit',
+  url: '/oilcard/submit',
   method: 'POST',
   data
 })
 
 // 订单列表
 export const oilOrderList = (data) => fetch({
-  url: 'oilcard/getOrderList',
+  url: '/oilcard/getOrderList',
   method: 'POST',
   data
 })
 
 //回收价格
 export const priceQuery = (params) => fetch({
-  url: 'oilcard/priceQuery',
+  url: '/oilcard/priceQuery',
   method: 'GET',
   params
 })
@@ -118,14 +118,14 @@ export const priceQuery = (params) => fetch({
 
 //详情信息
 export const getOilOrderDetail= (data) => fetch({
-  url: 'oilcard/getOrderInfo',
+  url: '/oilcard/getOrderInfo',
   method: 'POST',
   data
 })
 
 //回收成功
 export const buyBackCommitOrder= (data) => fetch({
-  url: 'buyBackCommitOrder',
+  url: '/oilcard/buyBackCommitOrder',
   method: 'POST',
   data
 })
