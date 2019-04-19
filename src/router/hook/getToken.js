@@ -17,6 +17,7 @@ export default router => {
           let info = await getInfo({token})
           if (info.error_code) {
             store.dispatch('setToken', undefined)
+            store.dispatch('setUserinfo', undefined)
             dialog({type: 'confirm', content: '请先登录'}, () => {
               window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
             })

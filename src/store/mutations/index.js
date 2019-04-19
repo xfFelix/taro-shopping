@@ -1,10 +1,11 @@
 import { localStorage } from 'common/storage'
+import {isEmpty} from 'util/common';
 export default {
   // 设置用户信息和是否登录
   setUserinfo (state, userinfo) {
     state.userinfo = userinfo || {}
     try{
-      if (!Object.keys(userinfo).length) {
+      if (isEmpty(userinfo) || !userinfo) {
         localStorage.remove('userinfo')
       } else {
         localStorage.set('userinfo', userinfo)
