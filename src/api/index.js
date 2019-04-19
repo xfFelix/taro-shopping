@@ -90,20 +90,20 @@ export const sendSmsCode = (data) => fetch({
 })
 
 export const getCostInfo = (data) => fetch({
-  url: 'ticket/oilcard/getCostInfo',
+  url: 'oilcard/getCostInfo',
   method: 'POST',
   data
 })
 
 export const submitOilOrder = (data) => fetch({
-  url: 'ticket/oilcard/submit',
+  url: 'oilcard/submit',
   method: 'POST',
   data
 })
 
 // 订单列表
 export const oilOrderList = (data) => fetch({
-  url: 'ticket/oilcard/getOrderList',
+  url: 'oilcard/getOrderList',
   method: 'POST',
   data
 })
@@ -118,14 +118,14 @@ export const priceQuery = (params) => fetch({
 
 //详情信息
 export const getOilOrderDetail= (data) => fetch({
-  url: 'ticket/oilcard/getOrderInfo',
+  url: 'oilcard/getOrderInfo',
   method: 'POST',
   data
 })
 
 //回收成功
 export const buyBackCommitOrder= (data) => fetch({
-  url: 'oilcard/buyBackCommitOrder',
+  url: 'buyBackCommitOrder',
   method: 'POST',
   data
 })
