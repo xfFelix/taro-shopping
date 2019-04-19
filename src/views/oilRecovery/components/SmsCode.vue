@@ -49,15 +49,13 @@ export default {
     validateCode() {
       if (!this.code) return this.$toast('请输入验证码');
       this.buyBackCommitOrder();
-     
     },
     async sendCode() {
       let res = await sendSmsCode({ token: this.getToken })
       if (res.error_code) {
-        // this.$emit('go-back-init');
+        this.$emit('go-back-init');
         return this.$toast(res.message);
       }
-      
     },
     async buyBackCommitOrder() {
       let res = await buyBackCommitOrder({
@@ -74,6 +72,7 @@ export default {
         orderNo: this.recoveryListC.orderId
       })
       if (res.code != 1) {
+        this.$emit('go-back-init');
         return this.$toast(res.message)
       } else {
         this.$router.push({

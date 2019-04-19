@@ -1,7 +1,10 @@
 <template>
     <div class="oilRecord">
         <div class="headFixed">
-            <Header>加油卡充值</Header>
+            <header>
+                <i class="cubeic-back" @click="$router.back()"></i>
+                加油卡充值
+            </header>
             <div class="whoSelectW">
                 <p :class="changeFlag?'whoSelectLogo':''" @click="directCharge()">
                     <span>直充</span>
@@ -97,7 +100,6 @@ export default {
         pageNum: 1
     }),
     components: {
-        "Header": () => import("components/Header"),
         NoData: () => import('components/NoData')
     },
     computed: {
@@ -151,20 +153,17 @@ export default {
                 return this.$toast(data.message);
             }
             this.recodeList.push(...data.data);
-            if (data.data.length<10) {
+            if (data.data.length < 10) {
                 this.tenFlag = false;
-                // if (this.recodeList.length > 0) {
-                //     return this.$refs.scroll.forceUpdate();
-                // }
             }
             this.pageNum++
         },
         onPullingUp() {
             if (this.tenFlag === true) {
                 this.getScenicList();
-            } 
+            }
 
-            if(!this.tenFlag && this.recodeList.length>0){
+            if (!this.tenFlag && this.recodeList.length > 0) {
                 this.$refs.scroll.forceUpdate();
             }
         },
@@ -306,9 +305,21 @@ export default {
 }
 
 .scroll-list-wrap {
-    padding-top: 74px;
-    height: calc(100vh - 74px);
+    padding-top: 100px;
+    height: calc(100vh - 100px);
     transform: rotate(0deg); // fix 子元素超出边框圆角部分不隐藏的问题
     overflow: hidden
+}
+
+header {
+    position: relative;
+    line-height: 70px;
+    text-align: center;
+    background: #fff;
+    font-size: 18px;
+    .cubeic-back {
+        position: absolute;
+        left: 18px;
+    }
 }
 </style>

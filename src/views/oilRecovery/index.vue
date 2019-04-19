@@ -1,6 +1,9 @@
 <template>
   <div class="oilRecovery">
-    <Header>加油卡回收</Header>
+    <header>
+      <i class="cubeic-back" @click="$router.back()"></i>
+      加油卡回收
+    </header>
 
     <div class="whoSelectW">
       <p :class="selfFlag?'whoSelectLogo':''" @click="self()">
@@ -57,7 +60,7 @@
       <cube-checkbox v-model="checked" position="left" shape="square" :hollow-style="true">
         <span>我已阅读并同意</span>
       </cube-checkbox>
-      <span class="file"  @click="show.file=true">《加油卡回收协议》</span>
+      <span class="file" @click="show.file=true">《加油卡回收协议》</span>
     </div>
 
     <div class="commitApply" @click="commitApply">提交申请表</div>
@@ -109,8 +112,8 @@ export default {
       payeeName: "",
       cardUser: "",
       orderId: "",
-      disPrice:'',
-      faceValue:''
+      disPrice: '',
+      faceValue: ''
     },
     noself: {
       idBackUrl: "",
@@ -121,8 +124,8 @@ export default {
       openBank: "",
       cardUser: "",
       orderId: "",
-      disPrice:'',
-      faceValue:''
+      disPrice: '',
+      faceValue: ''
     },
     show: {
       mask: false,
@@ -138,7 +141,6 @@ export default {
     })
   },
   components: {
-    Header: () => import("components/Header"),
     RecoveryInfo: () => import("./components/RecoveryInfo"),
     BgMask: () => import("components/BgMask"),
     SmsCode: () => import("./components/SmsCode"),
@@ -231,11 +233,11 @@ export default {
       }
       this.selfa.idNum = data.data.idNum;
       this.selfa.payeeName = data.data.name;
-      this.selfa.idBackUrl =this.noself.idBackUrl = data.data.idBackUrl;
-      this.selfa.cardMemo =this.noself.cardMemo = data.data.memo;
+      this.selfa.idBackUrl = this.noself.idBackUrl = data.data.idBackUrl;
+      this.selfa.cardMemo = this.noself.cardMemo = data.data.memo;
       this.selfa.cardUser = this.noself.cardUser = data.data.cardUser;
       this.selfa.orderId = this.noself.orderId = data.data.idUrl;
-      this.selfa.faceValue = this.noself.faceValue =data.data.orderNum;
+      this.selfa.faceValue = this.noself.faceValue = data.data.orderNum;
       this.priceQuery(data.data.orderNum);
     }
   },
@@ -331,6 +333,7 @@ export default {
 .agreement {
   display: flex;
   align-items: center;
+  padding-bottom: 50px;
   .file {
     color: #30ce84;
     margin-top: 1px;
@@ -351,5 +354,17 @@ export default {
 
 .cube-checkbox {
   padding: 0 0 0 18px;
+}
+
+header {
+  position: relative;
+  line-height: 70px;
+  text-align: center;
+  background: #fff;
+  font-size: 18px;
+  .cubeic-back {
+    position: absolute;
+    left: 18px;
+  }
 }
 </style>
