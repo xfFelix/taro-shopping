@@ -20,8 +20,14 @@
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
                             <span>商品名：{{item.cardUser}}</span>
-                            <span v-if="item.status==2">兑换成功</span>
-                            <span v-else>兑换中</span>
+                            <div v-if="changeFlag">
+                                <span v-if="item.status==2">兑换成功</span>
+                                <span v-else>兑换中</span>
+                            </div>
+                            <div v-else>
+                                <span v-if="item.status==3">已回收</span>
+                                <span v-else>未回收</span>
+                            </div>
                         </div>
                         <div class="reTM flex">
                             <p class="reBuyTime flex">
@@ -29,7 +35,7 @@
                             </p>
                             <p class="reAllMoney">
                                 <span>合计：</span>
-                                <span>{{item.totalAmount}}</span>
+                                <span>{{item.totalAmount|toPrice}}</span>
                             </p>
                         </div>
                         <div class="reInfoW">
@@ -48,24 +54,24 @@
                                 </p>
                                 <p class="cardNum" v-if="!changeFlag">
                                     <span>面值：</span>
-                                    <span>{{item.orderNum}}</span>
+                                    <span>{{item.orderNum|toPrice}}</span>
                                 </p>
                                 <p v-if="changeFlag">
                                     <span>售价：</span>
-                                    <span>{{item.repaymentAmount}}</span>
+                                    <span>{{item.repaymentAmount|toPrice}}</span>
                                 </p>
                                 <p>
                                     <span>服务费：</span>
-                                    <span>{{item.serviceFee}}</span>
+                                    <span>{{item.serviceFee|toPrice}}</span>
                                 </p>
                                 <p>
                                     <span>税费：</span>
-                                    <span>{{item.taxFee}}</span>
+                                    <span>{{item.taxFee|toPrice}}</span>
                                 </p>
                             </div>
-                            <router-link :to="{path:'/oil/oilRecovery',query:{id:item.id}}" class="recoverCon" v-if="!changeFlag">
+                            <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==1?'recoverCan':'recoverNo'">
                                 回收
-                            </router-link>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -135,9 +141,8 @@ export default {
             this.getScenicList();
         },
         async getScenicList() {
-            this.token = "6142811501a036f94990439505d9c346";
             let data = await oilOrderList({
-                token: this.token,
+                token: this.getToken,
                 type: this.typeFlag,
                 offset: this.offset,
                 rows: this.pageSize
@@ -157,8 +162,15 @@ export default {
         onPullingUp() {
             if (this.tenFlag === true) {
                 this.getScenicList();
+            } else {
+                this.$refs.scroll.forceUpdate();
             }
         },
+        recovery(id, status) {
+            if (status == 1) {
+                this.$router.push({ path: '/oil/oilRecovery', query: { id: id } })
+            }
+        }
     },
     mounted() {
         this.getScenicList()
@@ -264,17 +276,22 @@ export default {
                 border-radius: 50%;
                 margin-right: 3px;
             }
-            .recoverCon {
+            .recover {
                 position: absolute;
                 width: 100px;
                 height: 30px;
                 line-height: 30px;
-                background: #30CE84;
-                color: #fff;
                 text-align: center;
                 border-radius: 30px;
                 bottom: 0;
                 right: 0;
+                color: #fff;
+            }
+            .recoverCan {
+                background: #30CE84;
+            }
+            .recoverNo {
+                background: #C3C3C3;
             }
         }
     }

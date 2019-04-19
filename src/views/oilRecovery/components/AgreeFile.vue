@@ -73,7 +73,7 @@ h1 {
     margin: 0 20px;
     .agreeContent {
         font-size: 13px;
-        line-height: 30px;
+        line-height: 28px;
         padding-bottom: 150px;
     }
 }

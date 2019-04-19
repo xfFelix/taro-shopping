@@ -20,7 +20,7 @@
       <ul>
         <li>
           <div class="reFirst">卡号</div>
-          <div class="reLast">{{selfa.cardNum}}</div>
+          <div class="reLast">{{selfa.idBackUrl}}</div>
         </li>
         <li>
           <div class="reFirst">卡密</div>
@@ -101,7 +101,7 @@ export default {
     checked: false,
     selfFlag: 1,
     selfa: {
-      cardNum: "",
+      idBackUrl: "",
       cardMemo: "",
       idNum: "",
       openBank: "",
@@ -113,7 +113,7 @@ export default {
       faceValue:''
     },
     noself: {
-      cardNum: "",
+      idBackUrl: "",
       cardMemo: "",
       idNum: "",
       payeeName: "",
@@ -134,7 +134,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      token: "getToken"
+      getToken: "getToken"
     })
   },
   components: {
@@ -224,19 +224,19 @@ export default {
     async getOilOrderDetail(id) {
       let data = await getOilOrderDetail({
         id: id,
-        token: "6142811501a036f94990439505d9c346"
+        token: this.getToken
       });
       if (data.code != 1) {
         return toast(data.message);
       }
       this.selfa.idNum = data.data.idNum;
       this.selfa.payeeName = data.data.name;
-      this.selfa.cardNum =this.noself.cardNum = data.data.cardNum;
+      this.selfa.idBackUrl =this.noself.idBackUrl = data.data.idBackUrl;
       this.selfa.cardMemo =this.noself.cardMemo = data.data.memo;
       this.selfa.cardUser = this.noself.cardUser = data.data.cardUser;
-      this.selfa.orderId = this.noself.orderId = data.data.id;
+      this.selfa.orderId = this.noself.orderId = data.data.idUrl;
       this.selfa.faceValue = this.noself.faceValue =data.data.orderNum;
-      this.priceQuery(data.data.orderNum)
+      this.priceQuery(data.data.orderNum);
     }
   },
   mounted() {

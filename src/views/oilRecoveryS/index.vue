@@ -11,7 +11,7 @@
             </li>
             <li>
                 <span>卡号</span>
-                <span>{{cardNum}}</span>
+                <span>{{idBackUrl}}</span>
             </li>
             <li>
                 <span>卡密</span>
@@ -19,7 +19,7 @@
             </li>
             <li>
                 <span>回收价</span>
-                <span>101.00</span>
+                <span>{{disPrice}}</span>
             </li>
             <li>
                 <span>收款人</span>
@@ -44,16 +44,17 @@ export default {
         name: '',
         bankNum: '',
         openBank: '',
-        cardNum: '',
+        idBackUrl: '',
         memo: ''
     }),
     mounted() {
-        this.cardNum = this.$router.query.cardNum;
-        this.memo = this.$router.query.memo;
-        this.cardUser = this.$router.query.cardUser;
-        this.name = this.$router.query.name;
-        this.bankNum = this.$router.query.bankNum;
-        this.openBank = this.$router.query.openBank;
+        this.idBackUrl = this.$route.query.idBackUrl;
+        this.memo = this.$route.query.memo;
+        this.cardUser = this.$route.query.cardUser;
+        this.name = this.$route.query.name;
+        this.bankNum = this.$route.query.bankNum;
+        this.openBank = this.$route.query.openBank;
+        this.disPrice = this.$route.query.disPrice;
     }
 }
 </script>

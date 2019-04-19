@@ -18,11 +18,15 @@
 <script>
 import { mapGetters } from 'vuex'
 import { sendSmsCode,buyBackCommitOrder } from 'api'
+import {toDecimal2} from 'util/filter'
 export default {
   props: {
     show: {
       type: Boolean,
       default: false
+    },
+    recoveryListC:{
+       type: Object,
     }
   },
   data: () => ({
@@ -40,9 +44,6 @@ export default {
         this.sendCode()
       }
     },
-    recoveryListC(val) {
-      console.log(val)
-    }
   },
   methods: {
     validateCode() {
@@ -53,36 +54,38 @@ export default {
     async sendCode() {
       let res = await sendSmsCode({ token: this.getToken })
       if (res.error_code) {
-        this.$emit('go-back-init');
+        // this.$emit('go-back-init');
         return this.$toast(res.message);
       }
       
     },
     async buyBackCommitOrder() {
+      
       let res = await buyBackCommitOrder({
         token: this.getToken,
         code: this.code,
-        cardNum: this.recoveryListC.cardNum,
+        cardNum: this.recoveryListC.idBackUrl,
         cardPwd: this.recoveryListC.cardMemo,
         userBankNo: this.recoveryListC.bankNum,
         userBankName: this.recoveryListC.openBank[0],
         userIdCard: this.recoveryListC.idNum,
         name: this.recoveryListC.payeeName,
         faceValue: this.recoveryListC.faceValue,
-        salePrice: this.recoveryListC.disPrice,
+        salePrice: toDecimal2(this.recoveryListC.disPrice),
         orderNo: this.recoveryListC.orderId
       })
-      if (data.code != 1) {
+      if (res.code != 1) {
         return this.$toast(res.message)
       } else {
         this.$router.push({
-          path: 'oil/oilRecoveryS', query: {
-            cardNum: this.recoveryListC.cardNum,
-            memo: this.recoveryListC.memom,
+          path: '/oil/oilRecoveryS', query: {
+            idBackUrl: this.recoveryListC.idBackUrl,
+            memo: this.recoveryListC.memo,
             cardUser: this.recoveryListC.cardUser,
             name: this.recoveryListC.payeeName,
             bankNum: this.recoveryListC.bankNum,
-            openBank: this.recoveryListC.openBank[0]
+            openBank: this.recoveryListC.openBank[0],
+            disPrice:this.recoveryListC.disPrice
           }
         })
       }
