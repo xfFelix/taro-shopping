@@ -90,26 +90,26 @@ export const sendSmsCode = (data) => fetch({
 })
 
 export const getCostInfo = (data) => fetch({
-  url: 'oilcard/getCostInfo',
+  url: 'ticket/oilcard/getCostInfo',
   method: 'POST',
   data
 })
 
 export const submitOilOrder = (data) => fetch({
-  url: 'oilcard/submit',
+  url: 'ticket/oilcard/submit',
   method: 'POST',
   data
 })
 
 // 订单列表
 export const oilOrderList = (data) => fetch({
-  url: 'oilcard/getOrderList',
+  url: 'ticket/oilcard/getOrderList',
   method: 'POST',
   data
 })
 
 export const getOilOrderDetail= (data) => fetch({
-  url: 'oilcard/getOrderInfo',
+  url: 'ticket/oilcard/getOrderInfo',
   method: 'POST',
   data
 })
