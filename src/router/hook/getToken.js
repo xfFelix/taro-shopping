@@ -14,15 +14,15 @@ export default router => {
         })
       } else {
         try {
-          // let info = await getInfo({token})
-          // if (info.error_code) {
-          //   store.dispatch('setToken', undefined)
-          //   dialog({type: 'confirm', content: '请先登录'}, () => {
-          //     window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
-          //   })
-          // } else {
-          //   store.dispatch('setUserinfo', info.data)
-          // }
+          let info = await getInfo({token})
+          if (info.error_code) {
+            store.dispatch('setToken', undefined)
+            dialog({type: 'confirm', content: '请先登录'}, () => {
+              window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
+            })
+          } else {
+            store.dispatch('setUserinfo', info.data)
+          }
         } catch (e) {
           console.error(e)
         }
