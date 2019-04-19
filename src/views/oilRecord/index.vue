@@ -15,18 +15,17 @@
             </div>
         </div>
         <div class="scroll-list-wrap">
-            <cube-scroll ref="scroll" :data="recodeList" :options="options" @pulling-up="onPullingUp">
+            <cube-scroll ref="scroll" :data="recodeList" :options="options" @pulling-up="onPullingUp" v-if="recodeList.length!=0">
                 <ul class="recordW">
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
                             <span>商品名：{{item.cardUser}}</span>
                             <span v-if="item.status==2">兑换成功</span>
                             <span v-else>兑换中</span>
-                            
                         </div>
                         <div class="reTM flex">
                             <p class="reBuyTime flex">
-                                <span>2019-06-02 20:45:06</span>
+                                <span>{{item.orderTime}}</span>
                             </p>
                             <p class="reAllMoney">
                                 <span>合计：</span>
@@ -35,19 +34,23 @@
                         </div>
                         <div class="reInfoW">
                             <div class="reInfo">
-                                <p class="cardNum">
+                                <p class="cardNum" v-if="changeFlag">
                                     <span>卡号：</span>
                                     <span>{{item.cardNum}}</span>
                                 </p>
-                                 <p class="cardNum">
+                                <p class="cardNum" v-if="!changeFlag">
+                                    <span>卡号：</span>
+                                    <span>{{item.idBackUrl}}</span>
+                                </p>
+                                <p class="cardNum" v-if="!changeFlag">
                                     <span>卡密：</span>
-                                    <span>{{item.cardNum}}</span>
+                                    <span>{{item.memo}}</span>
                                 </p>
-                                 <p class="cardNum">
+                                <p class="cardNum" v-if="!changeFlag">
                                     <span>面值：</span>
-                                    <span>{{item.cardNum}}</span>
+                                    <span>{{item.orderNum}}</span>
                                 </p>
-                                <p>
+                                <p v-if="changeFlag">
                                     <span>售价：</span>
                                     <span>{{item.repaymentAmount}}</span>
                                 </p>
@@ -60,30 +63,36 @@
                                     <span>{{item.taxFee}}</span>
                                 </p>
                             </div>
-                            <router-link :to="{path:'/oil/oilRecovery',query:{recoverId:'1111'}}" class="recoverCon" v-if="!changeFlag">
+                            <router-link :to="{path:'/oil/oilRecovery',query:{id:item.id}}" class="recoverCon" v-if="!changeFlag">
                                 回收
                             </router-link>
                         </div>
                     </li>
                 </ul>
-
             </cube-scroll>
+            <no-data :data="recodeList"></no-data>
         </div>
     </div>
 </template>
 <script>
 import { oilOrderList } from 'api';
+import { mapGetters } from 'vuex';
 export default {
     data: () => ({
         changeFlag: 1,
+        typeFlag: 1,
         recodeList: [],
         pullUpLoad: true,
         pullUpLoadThreshold: 0,
-        pullUpLoadMoreTxt: 'Load more',
-        pullUpLoadNoMoreTxt: 'No more data',
+        pullUpLoadMoreTxt: '上拉加载更多...',
+        pullUpLoadNoMoreTxt: '没有更多数据了~~',
+        pageSize: 10,
+        tenFlag: true,
+        pageNum: 1
     }),
     components: {
-        "Header": () => import("components/Header")
+        "Header": () => import("components/Header"),
+        NoData: () => import('components/NoData')
     },
     computed: {
         options() {
@@ -91,7 +100,6 @@ export default {
                 pullUpLoad: this.pullUpLoadObj,
             }
         },
-
         pullUpLoadObj: function() {
             return this.pullUpLoad ? {
                 threshold: parseInt(this.pullUpLoadThreshold),
@@ -100,40 +108,56 @@ export default {
                     noMore: this.pullUpLoadNoMoreTxt
                 }
             } : false
-        }
+        },
+        offset() {
+            return (this.pageNum - 1) * this.pageSize + 1;
+        },
+        ...mapGetters({
+            getToken: 'getToken',
+        }),
     },
     methods: {
+        initData() {
+            this.pageNum = 1;
+            this.recodeList = [];
+            this.tenFlag === true
+        },
         directCharge() {
             this.changeFlag = 1;
+            this.typeFlag = 1
+            this.initData();
+            this.getScenicList();
         },
         cardCharge() {
             this.changeFlag = 0;
+            this.typeFlag = 2;
+            this.initData();
+            this.getScenicList();
         },
         async getScenicList() {
+            this.token = "6142811501a036f94990439505d9c346";
             let data = await oilOrderList({
-                token: "6142811501a036f94990439505d9c346",
-                type: "1",
-                offset: "1",
-                rows: "10"
+                token: this.token,
+                type: this.typeFlag,
+                offset: this.offset,
+                rows: this.pageSize
             });
             if (data.code != 1) {
                 return this.$toast(data.message);
             }
-            this.recodeList=data.data;
+            this.recodeList.push(...data.data)
+            if (!data.data.length) {
+                this.tenFlag = false;
+                if (this.recodeList.length > 0) {
+                    return this.$refs.scroll.forceUpdate();
+                }
+            }
+            this.pageNum++
         },
         onPullingUp() {
-            console.log("111")
-            // 更新数据
-            setTimeout(() => {
-                if (Math.random() > 0.5) {
-                    // 如果有新数据
-                    let newPage = _foods.slice(0, 5)
-                    this.items = this.items.concat(newPage)
-                } else {
-                    // 如果没有新数据
-                    this.$refs.scroll.forceUpdate()
-                }
-            }, 1000)
+            if (this.tenFlag === true) {
+                this.getScenicList();
+            }
         },
     },
     mounted() {

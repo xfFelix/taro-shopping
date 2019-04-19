@@ -7,15 +7,15 @@
         <ul class="changeInfo">
             <li>
                 <span>商品名</span>
-                <span>100加油卡直充（中石油）</span>
+                <span>{{cardUser}}</span>
             </li>
             <li>
                 <span>卡号</span>
-                <span>1234567890123456</span>
+                <span>{{cardNum}}</span>
             </li>
             <li>
                 <span>卡密</span>
-                <span>1234567890123456</span>
+                <span>{{memo}}</span>
             </li>
             <li>
                 <span>回收价</span>
@@ -23,24 +23,38 @@
             </li>
             <li>
                 <span>收款人</span>
-                <span>101.00</span>
+                <span>{{name}}</span>
             </li>
             <li>
                 <span>开户行</span>
-                <span>101.00</span>
+                <span>{{openBank}}</span>
             </li>
             <li>
                 <span>银行卡号</span>
-                <span>101.00</span>
+                <span>{{bankNum}}</span>
             </li>
         </ul>
-         <router-link :to="{path:'/oilRecovery'}" class="changeConfim">完成</router-link> 
+        <router-link :to="{path:'/oil'}" class="changeConfim">完成</router-link>
     </div>
 </template>
 <script>
 export default {
     data: () => ({
-    })
+        cardUser: '',
+        name: '',
+        bankNum: '',
+        openBank: '',
+        cardNum: '',
+        memo: ''
+    }),
+    mounted() {
+        this.cardNum = this.$router.query.cardNum;
+        this.memo = this.$router.query.memo;
+        this.cardUser = this.$router.query.cardUser;
+        this.name = this.$router.query.name;
+        this.bankNum = this.$router.query.bankNum;
+        this.openBank = this.$router.query.openBank;
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -68,7 +82,7 @@ export default {
         color: #000000;
         padding: 10px 0 20px 0;
         border-bottom: 1px solid #DEDEDE;
-         margin: 0 17px;
+        margin: 0 17px;
     }
     .changeInfo {
         padding: 20px 0;
@@ -97,6 +111,5 @@ export default {
         width: 340px;
         margin: 0 auto;
     }
-
 }
 </style>

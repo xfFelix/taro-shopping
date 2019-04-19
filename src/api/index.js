@@ -108,8 +108,25 @@ export const oilOrderList = (data) => fetch({
   data
 })
 
+//回收价格
+export const priceQuery = (params) => fetch({
+  url: 'oilcard/priceQuery',
+  method: 'GET',
+  params
+})
+
+
+//详情信息
 export const getOilOrderDetail= (data) => fetch({
   url: 'oilcard/getOrderInfo',
   method: 'POST',
   data
 })
+
+//回收成功
+export const buyBackCommitOrder= (data) => fetch({
+  url: 'oilcard/buyBackCommitOrder',
+  method: 'POST',
+  data
+})
+
