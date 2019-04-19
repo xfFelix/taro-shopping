@@ -39,7 +39,7 @@
         </ul>
         <router-link :to="{path:'/oil'}" class="changeConfim" v-if="data.cardId === 1">完成</router-link>
         <div class="changeGo" v-else-if="data.cardId === 2">
-            <router-link :to="{path:'/oil/oilRecovery'}" class="cRecove">回收</router-link>
+            <router-link :to="{path:'/oil/oilRecovery', query: {id: $route.query.id}}" class="cRecove">回收</router-link>
             <router-link :to="{path:'/oil'}" class="cConfim">完成</router-link>
         </div>
     </div>
