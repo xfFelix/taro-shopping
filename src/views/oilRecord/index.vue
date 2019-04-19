@@ -150,19 +150,21 @@ export default {
             if (data.code != 1) {
                 return this.$toast(data.message);
             }
-            this.recodeList.push(...data.data)
-            if (!data.data.length) {
+            this.recodeList.push(...data.data);
+            if (data.data.length<10) {
                 this.tenFlag = false;
-                if (this.recodeList.length > 0) {
-                    return this.$refs.scroll.forceUpdate();
-                }
+                // if (this.recodeList.length > 0) {
+                //     return this.$refs.scroll.forceUpdate();
+                // }
             }
             this.pageNum++
         },
         onPullingUp() {
             if (this.tenFlag === true) {
                 this.getScenicList();
-            } else {
+            } 
+
+            if(!this.tenFlag && this.recodeList.length>0){
                 this.$refs.scroll.forceUpdate();
             }
         },

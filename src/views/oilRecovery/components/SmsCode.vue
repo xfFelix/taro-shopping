@@ -60,7 +60,6 @@ export default {
       
     },
     async buyBackCommitOrder() {
-      
       let res = await buyBackCommitOrder({
         token: this.getToken,
         code: this.code,
