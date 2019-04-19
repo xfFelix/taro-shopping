@@ -11,7 +11,7 @@
             <input class="phonePay-msg" type="number" placeholder="请输入短信验证码" v-model="smsCode" />
             <span class="sendPhoneSms" :style="validateFlag==1?'background: #30ce84':'background: #999999'" @click="sendPhoneSms()">{{validate}}</span>
         </p>
-        <p class="phonePay-confirm phonePay-conA" :class="smsCode?'light': ''" @click="sumitOrder">确认提交</p>
+        <button class="phonePay-confirm phonePay-conA" :class="smsCode?'light': ''" :disabled="btnDisabled" @click="sumitOrder">确认提交</button>
     </div>
 </template>
 
@@ -25,12 +25,22 @@ export default {
         validate: "获取验证码",
         validateFlag: 1,
         isSmsCode: true,
-        userName: undefined
+        userName: undefined,
+        btnDisabled: false
     }),
     props:{
       showSendCode: {
         type: Boolean,
         default: false
+      }
+    },
+    watch: {
+      btnDisabled(val) {
+        if (val) {
+          setTimeout(() => {
+            this.btnDisabled = false
+          }, 3000);
+        }
       }
     },
     computed: {
@@ -65,6 +75,7 @@ export default {
             }
         },
         sumitOrder() {
+          this.btnDisabled = true
           this.$emit('commit-order', this.smsCode)
         }
     }
@@ -144,6 +155,8 @@ export default {
         background: #91efb1;
         width: 90%;
         margin-bottom: 1rem;
+        display: block;
+        border: none;
     }
     .light {
         background-color: #27bd5a;
