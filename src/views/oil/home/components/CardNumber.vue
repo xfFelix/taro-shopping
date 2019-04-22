@@ -93,7 +93,7 @@ export default {
         position: relative;
         z-index: 9;
         &:last-of-type{
-          margin-left: -18px;
+          margin-left: -22px;
         }
         &.active{
           background: #30CE84;

@@ -6,7 +6,7 @@
         <span class="title">确认申请表</span>
       </div>
       <!-- <h1>短信验证码已发送至手机</h1> -->
-       <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1> 
+       <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>
       <div class="input-code">
         <cube-input v-model="code" type="number" placeholder="请输入短信验证码"></cube-input>
       </div>
@@ -78,7 +78,7 @@ export default {
         this.$router.push({
           path: '/oil/oilRecoveryS', query: {
             idBackUrl: this.recoveryListC.idBackUrl,
-            memo: this.recoveryListC.memo,
+            memo: this.recoveryListC.cardMemo,
             cardUser: this.recoveryListC.cardUser,
             name: this.recoveryListC.payeeName,
             bankNum: this.recoveryListC.bankNum,

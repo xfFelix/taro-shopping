@@ -73,7 +73,7 @@
                                     <span>{{item.taxFee|toPrice}}</span>
                                 </p>
                             </div>
-                            <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==1?'recoverCan':'recoverNo'">
+                            <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==0?'recoverCan':'recoverNo'">
                                 回收
                             </div>
                         </div>
@@ -169,7 +169,7 @@ export default {
             }
         },
         recovery(id, status) {
-            if (status == 1) {
+            if (status == 0) {
                 this.$router.push({ path: '/oil/oilRecovery', query: { id: id } })
             }
         }

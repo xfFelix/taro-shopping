@@ -5,7 +5,7 @@
       加油卡回收
     </header>
 
-    <div class="whoSelectW">
+    <!-- <div class="whoSelectW">
       <p :class="selfFlag?'whoSelectLogo':''" @click="self()">
         <span>本人</span>
         <span></span>
@@ -15,7 +15,7 @@
         <span @click="noSelf()">非本人</span>
         <span></span>
       </p>
-    </div>
+    </div> -->
 
     <div class="recoveryInfoW">
       <p class="rMoneyTtiel">回收价</p>
@@ -31,12 +31,14 @@
         </li>
         <li>
           <div class="reFirst">姓名</div>
-          <div class="reLast" v-if="selfFlag">{{selfa.payeeName}}</div>
+          <!-- <div class="reLast" v-if="selfFlag">{{selfa.payeeName}}</div> -->
+          <input type="text" placeholder="填写收款人姓名" v-if="selfFlag" v-model="selfa.payeeName">
           <input type="text" placeholder="填写收款人姓名" v-if="!selfFlag" v-model="noself.payeeName">
         </li>
         <li>
           <div class="reFirst">身份证号码</div>
-          <div class="reLast" v-if="selfFlag">{{selfa.idNum}}</div>
+          <!-- <div class="reLast" v-if="selfFlag">{{selfa.idNum}}</div> -->
+          <input type="text" placeholder="填写收款人身份证号码" v-if="selfFlag" v-model="selfa.idNum">
           <input type="text" placeholder="填写收款人身份证号码" v-if="!selfFlag" v-model="noself.idNum">
         </li>
         <li>
@@ -190,14 +192,20 @@ export default {
         if (!this.noself.openBank) {
           return toast("请选择开户行");
         }
-        if (isEmpty(this.noself.bankNum) || !luhnCheck(this.noself.bankNum)) {
+        if (isEmpty(this.noself.bankNum)) {
           return toast("请输入有效的银行账号");
         }
       } else {
+        if (!this.selfa.payeeName) {
+          return toast("请输入收款人姓名");
+        }
+        if (!IdentityCodeValid(this.selfa.idNum)) {
+          return toast("请输入你的有效身份证号码");
+        }
         if (!this.selfa.openBank) {
           return toast("请选择开户行");
         }
-        if (isEmpty(this.selfa.bankNum) || !luhnCheck(this.selfa.bankNum)) {
+        if (!this.selfa.bankNum) {
           return toast("请输入有效的银行账号");
         }
       }
