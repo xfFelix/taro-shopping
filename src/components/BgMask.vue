@@ -30,6 +30,6 @@ export default {
   right: 0;
   bottom: 0;
   /* background-color: rgba(0,0,0,0.6); */
-  z-index: 100;
+  z-index: 10;
 }
 </style>

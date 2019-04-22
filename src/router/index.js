@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import getToken from './hook/getToken'
+import changeTitle from './hook/changeTitle';
 
 
 Vue.use(Router)
@@ -126,6 +127,6 @@ const router = new Router({
 })
 
 getToken(router)
-
+changeTitle(router)
 export default router
 

@@ -67,7 +67,7 @@ export default {
   width: 100%;
   padding: 21px 18px;
   box-sizing: border-box;
-  z-index: 101;
+  z-index: 11;
   .header{
     position: relative;
     text-align: center;

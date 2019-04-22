@@ -103,7 +103,7 @@ import { priceQuery, getOilOrderDetail } from "api";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
-    checked: false,
+    checked: true,
     selfFlag: 1,
     selfa: {
       idBackUrl: "",

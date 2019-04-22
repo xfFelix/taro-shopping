@@ -8,7 +8,7 @@
         <span class="cancel" @click="closeDialog">取消</span>
       </div>
       <div class="input-card">
-        <cube-input v-model="cardNum" placeholder="请输入您的加油卡号" class="input">
+        <cube-input v-model.trim="cardNum" placeholder="请输入您的加油卡号" class="input">
           <span class="prepend" slot="prepend">卡号</span>
         </cube-input>
       </div>
@@ -69,7 +69,7 @@ export default {
 <style lang="scss" scoped>
 .card{
   position: fixed;
-  z-index: 101;
+  z-index: 11;
   bottom: 0;
   left: 0;
   width: 100%;

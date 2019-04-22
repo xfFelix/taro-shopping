@@ -23,15 +23,16 @@
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
                             <span>商品名：{{item.cardUser}}</span>
-                            <div v-if="changeFlag">
-                                <span v-if="item.status==0">充值中</span>
-                                <span v-else-if="item.status==1">充值成功</span>
-                                <span v-else-if="item.status==2">充值失败</span>
+                            <div>
+                                <span v-if="item.status==0">已售出</span>
+                                <span v-else-if="item.status==1">成功</span>
+                                <span v-else-if="item.status==2">失败</span>
+                                <span v-else-if="item.status==3">回购中</span>
                             </div>
-                            <div v-else>
+                            <!-- <div v-else>
                                 <span v-if="item.status==0">已售出</span>
                                 <span v-else-if="item.status == 1">已回购</span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="reTM flex">
                             <p class="reBuyTime flex">

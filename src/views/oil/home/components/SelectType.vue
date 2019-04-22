@@ -43,7 +43,7 @@ export default {
 <style lang="scss" scoped>
 .type{
   position: fixed;
-  z-index: 101;
+  z-index: 11;
   background: #fff;
   padding: 0 18px;
   box-sizing: border-box;
