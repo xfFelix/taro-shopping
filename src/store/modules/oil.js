@@ -7,7 +7,7 @@ const state = {
   ],
   config: {
     cardNum: undefined,
-    faceValue: 100,
+    faceValue: undefined,
     type: 1,
     token: undefined,
     code: undefined
@@ -61,7 +61,7 @@ const mutations = {
   initConfig(state) {
     state.config = {
       cardNum: undefined,
-      faceValue: 100,
+      faceValue: undefined,
       type: 1,
       token: undefined,
       code: undefined

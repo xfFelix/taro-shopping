@@ -6,12 +6,14 @@
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
-    <!-- 直充dialog -->
-    <card-number :show="show.card" @close-dialog="initShow" @handler-show-code="handlerShowCode"></card-number>
-    <sms-code :show="show.code" @go-back="goBack" @submit-order="submitOrder"></sms-code>
-    <!-- 充值卡dialog -->
+    <!-- 加油卡号dialog -->
+    <card-number :show="show.card" @close-dialog="initShow" @handler-show-info="handlerShowInfo"></card-number>
+    <!-- 短信dialog -->
+    <sms-code :show="show.code" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
+    <!-- 选择类型dialog 中石化1，中石油2 -->
     <select-type :show="show.type" @handler-show-info="handlerShowInfo" @init-show="initShow"></select-type>
-    <recharge-info :show="show.info" @handler-show-code="handlerShowCode" @handler-show-type="handlerShowType"></recharge-info>
+    <!-- 详情dialog -->
+    <recharge-info :show="show.info" @handler-show-code="handlerShowCode" @go-back="goBack"></recharge-info>
   </div>
 </template>
 
@@ -95,7 +97,7 @@ export default {
       if (this.rechargeType === 1) {
         this.handlerShowCard()
       } else if (this.rechargeType === 2) {
-        this.handlerShowInfo()
+        this.handlerShowType()
       }
     },
     ...mapActions({

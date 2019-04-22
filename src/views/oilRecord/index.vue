@@ -21,12 +21,13 @@
                         <div class="reName flex">
                             <span>商品名：{{item.cardUser}}</span>
                             <div v-if="changeFlag">
-                                <span v-if="item.status==2">兑换成功</span>
-                                <span v-else>兑换中</span>
+                                <span v-if="item.status==0">充值中</span>
+                                <span v-else-if="item.status==1">充值成功</span>
+                                <span v-else-if="item.status==2">充值失败</span>
                             </div>
                             <div v-else>
-                                <span v-if="item.status==3">已回收</span>
-                                <span v-else>未回收</span>
+                                <span v-if="item.status==0">已售出</span>
+                                <span v-else-if="item.status == 1">已回购</span>
                             </div>
                         </div>
                         <div class="reTM flex">
@@ -52,14 +53,14 @@
                                     <span>卡密：</span>
                                     <span>{{item.memo}}</span>
                                 </p>
-                                <p class="cardNum" v-if="!changeFlag">
+                                <p class="cardNum">
                                     <span>面值：</span>
                                     <span>{{item.orderNum|toPrice}}</span>
                                 </p>
-                                <p v-if="changeFlag">
+                                <!-- <p v-if="changeFlag">
                                     <span>售价：</span>
                                     <span>{{item.repaymentAmount|toPrice}}</span>
-                                </p>
+                                </p> -->
                                 <p>
                                     <span>服务费：</span>
                                     <span>{{item.serviceFee|toPrice}}</span>
@@ -162,7 +163,7 @@ export default {
         onPullingUp() {
             if (this.tenFlag === true) {
                 this.getScenicList();
-            } 
+            }
 
             if(!this.tenFlag && this.recodeList.length>0){
                 this.$refs.scroll.forceUpdate();

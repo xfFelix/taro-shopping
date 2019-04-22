@@ -2,7 +2,7 @@
   <transition name="slideUp" mode="out-in">
     <ul class="info" v-if="show">
       <li class="header">
-        <i class="cubeic-back" @click="$emit('handler-show-type')"></i>
+        <i class="cubeic-back" @click="$emit('go-back')"></i>
         <span class="title">确认兑换</span>
       </li>
       <li class="price">

@@ -21,8 +21,8 @@
                 <span>{{data.memo}}</span>
             </li>
             <li>
-                <span>售价</span>
-                <span>{{data.repaymentAmount|toPrice}}</span>
+                <span>面值</span>
+                <span>{{data.orderNum|toPrice}}</span>
             </li>
             <li>
                 <span>服务费</span>

@@ -2,7 +2,7 @@
   <transition name="slideUp" mode="out-in">
     <div class="code" v-if="show">
       <div class="header">
-        <i class="cubeic-back" @click="$emit('go-back')"></i>
+        <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
         <span class="title">确认兑换</span>
       </div>
       <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>

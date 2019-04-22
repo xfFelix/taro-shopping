@@ -12,7 +12,7 @@
           <span class="prepend" slot="prepend">卡号</span>
         </cube-input>
       </div>
-      <button class="confirm" @click="handlerShowCode">确认</button>
+      <button class="confirm" @click="handlerShowInfo">确认</button>
     </div>
   </transition>
 </template>
@@ -58,9 +58,9 @@ export default {
     closeDialog() {
       this.$emit('close-dialog')
     },
-    handlerShowCode() {
+    handlerShowInfo() {
       if (!this.cardNum) return this.$toast('请输入充值卡号')
-      this.$emit('handler-show-code')
+      this.$emit('handler-show-info')
     }
   }
 }
