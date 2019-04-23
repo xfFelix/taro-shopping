@@ -30,6 +30,9 @@ export default {
   },
   methods: {
     handerShowInfo(val) {
+      if (val === 2) {
+        return this.$toast('中石油未开通')
+      }
       this.$store.dispatch('oil/setConfig', {type: val})
       this.$emit('handler-show-info')
     }
