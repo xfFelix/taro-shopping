@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     changeType(val) {
-      if (val === 2) return this.$toast('中石油暂未开通')
       this.type = val
     },
     closeDialog() {
