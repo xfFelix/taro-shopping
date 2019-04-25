@@ -148,7 +148,10 @@ export default {
 </style>
 <style>
 @media screen and (min-width: 600px){
-  .h-searchW{
+  .h-searchW,.h-searchWFixed{
+    box-sizing: border-box;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     max-width: 384px;
   }
 }
