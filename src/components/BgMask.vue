@@ -33,3 +33,12 @@ export default {
   z-index: 10;
 }
 </style>
+<style>
+@media screen and (min-width: 600px){
+  .mask{
+    max-width: 384px;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+</style>

@@ -140,3 +140,12 @@ export default {
   }
 }
 </style>
+<style scoped>
+@media screen and (min-width: 600px){
+  .code{
+    max-width: 384px;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+</style>

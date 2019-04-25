@@ -10,7 +10,7 @@ import './prototype'
 import './plugins'
 // 导入click事件
 import FastClick from 'fastclick'
-import 'lib-flexible'
+import 'common/js/rem'
 import './common/css/index.scss'
 import 'swiper/dist/css/swiper.css'
 

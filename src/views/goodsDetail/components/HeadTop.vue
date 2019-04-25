@@ -86,3 +86,10 @@ export default {
     z-index: 100;
 }
 </style>
+<style>
+@media screen and (min-width: 600px) {
+  .ab-headFixed{
+    max-width: 384px;
+  }
+}
+</style>

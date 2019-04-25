@@ -7,20 +7,20 @@
         <bg-mask v-model="showDialog" color="transparent"></bg-mask>
         <!-- 票价信息 -->
         <ticket-info :sceneInfoC="sceneInfoP"></ticket-info>
-        <order-now :ticketListC="ticketListP"></order-now>      
+        <order-now :ticketListC="ticketListP"></order-now>
         <!-- 门票详情 -->
         <div ref="detailTop"></div>
-        <cube-tab-bar 
-            v-model="selectedLabelDefault" 
-            :data="tabs" 
-            @click="clickHandler" 
-            @change="changeHandler" 
-            show-slider 
+        <cube-tab-bar
+            v-model="selectedLabelDefault"
+            :data="tabs"
+            @click="clickHandler"
+            @change="changeHandler"
+            show-slider
             :class="tabFixed==1?'tabFixed':'tabFixedNo'"
             :style="tabFixed==1?{top:tabHightPx}:'top:0'"
         >
         </cube-tab-bar>
-         <div :style="tabFixed==1?'height:1.17rem':'height:0'"></div> 
+         <div :style="tabFixed==1?'height:1.17rem':'height:0'"></div>
         <scene-detail :sceneInfoC="sceneInfoP" :sceneTabNameC="sceneTabNameP"></scene-detail>
 
     </div>
@@ -140,7 +140,7 @@ export default {
 }
 .fixedInNo {
     height: 0;
-}   
+}
 
 .tabFixed{
     position:fixed;width:100%;
@@ -149,5 +149,12 @@ export default {
 .tabFixedNo{
     position:relative;
      z-index: 1;
+}
+</style>
+<style>
+@media screen and (min-width: 600px) {
+  .tabFixed{
+    max-width: 384px;
+  }
 }
 </style>

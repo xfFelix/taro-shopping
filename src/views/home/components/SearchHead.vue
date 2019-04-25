@@ -146,3 +146,10 @@ export default {
     }
 }
 </style>
+<style>
+@media screen and (min-width: 600px){
+  .h-searchW{
+    max-width: 384px;
+  }
+}
+</style>

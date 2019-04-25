@@ -126,3 +126,10 @@ img:after{
 		}
 	}
 }
+
+@media screen and (min-width: 600px) {
+	html{
+		max-width: 900px;
+		margin: 0 auto;
+	}
+}

@@ -94,3 +94,13 @@ export default {
     }
 }
 </style>
+<style>
+@media screen and (min-width: 600px){
+  .changeSuccessW{
+    margin: 0 !important;
+    max-width: 384px;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+</style>

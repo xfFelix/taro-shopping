@@ -79,3 +79,12 @@ h1 {
     }
 }
 </style>
+<style scoped>
+@media screen and (min-width: 600px){
+  .agreeFixed{
+    max-width: 384px;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+</style>
