@@ -152,7 +152,7 @@ export default {
     box-sizing: border-box;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    max-width: 384px;
+    max-width: 384px; /*no*/
   }
 }
 </style>

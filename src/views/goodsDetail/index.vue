@@ -154,7 +154,7 @@ export default {
 <style>
 @media screen and (min-width: 600px) {
   .tabFixed{
-    max-width: 384px;
+    max-width: 384px; /*no*/
   }
 }
 </style>

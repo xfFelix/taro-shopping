@@ -196,7 +196,7 @@ export default {
 <style>
 @media screen and (min-width: 600px){
   .footer{
-    max-width: 384px;
+    max-width: 384px; /*no*/
     left: 50% !important;
     transform: translateX(-50%);
   }

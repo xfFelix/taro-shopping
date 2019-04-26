@@ -129,7 +129,8 @@ img:after{
 
 @media screen and (min-width: 600px) {
 	html{
-		max-width: 900px;
+		max-width: 384px; /*no*/
+		box-sizing: border-box;
 		margin: 0 auto;
 	}
 }

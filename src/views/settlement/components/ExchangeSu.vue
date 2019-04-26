@@ -98,7 +98,7 @@ export default {
 @media screen and (min-width: 600px){
   .changeSuccessW{
     margin: 0 !important;
-    max-width: 384px;
+    max-width: 384px; /*no*/
     left: 50% !important;
     transform: translateX(-50%);
   }

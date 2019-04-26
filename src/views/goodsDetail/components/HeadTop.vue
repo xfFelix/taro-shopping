@@ -89,7 +89,7 @@ export default {
 <style>
 @media screen and (min-width: 600px) {
   .ab-headFixed{
-    max-width: 384px;
+    max-width: 384px; /*no*/
   }
 }
 </style>
