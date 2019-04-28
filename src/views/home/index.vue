@@ -49,6 +49,7 @@ export default {
         listFlag: 1,
         tenFlag: false,
         firstFlag: true,  //第一次调且判断是否出现无数据
+        scrollFlag: 0
     }),
     computed: {
         offset() {
@@ -78,19 +79,23 @@ export default {
             this.$router.push({ path: 'goodsDetail', query: { sceneId: id } })
         },
         handleScroll() {
-            //变量scrollTop是滚动条滚动时，距离顶部的距离
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            if (scrollTop > 0) {
-                this.headShowP = true;
-            } else {
-                this.headShowP = false;
-            }
-            //变量windowHeight是可视区的高度
-            let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-            //变量scrollHeight是滚动条的总高度
-            let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-            if (scrollHeight - scrollTop - windowHeight < 50) {
-                this.loadBottom()
+            if (this.$route.name == "home") {
+                //变量scrollTop是滚动条滚动时，距离顶部的距离
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+                if (scrollTop > 0) {
+                    this.headShowP = true;
+                } else {
+                    this.headShowP = false;
+                }
+                //变量windowHeight是可视区的高度
+                let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                //变量scrollHeight是滚动条的总高度
+                let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+                if (scrollHeight - scrollTop - windowHeight < 50) {
+                    if (this.scrollFlag == 1) {
+                        this.loadBottom()
+                    }
+                }
             }
         },
         inputP(val) {
@@ -116,6 +121,7 @@ export default {
             this.firstFlag = true;
             this.allLoaded = false;
             this.tenFlag = false;
+            this.scrollFlag = 0;
         },
         listConcat(data) {
             if (this.firstFlag == true && data.length < 1) { //第一次且没数据
@@ -134,17 +140,21 @@ export default {
             this.firstFlag = false;
         },
         async getScenicList() {
+            this.scrollFlag = 0;
             let data = await getScenicList({ n: this.offset, m: this.pageSize });
             if (data.code != 1) {
                 return this.$toast(data.message);
             }
+            this.scrollFlag = 1;
             this.listConcat(data.data);
         },
         async search() {
+            this.scrollFlag = 0;
             let data = await search({ keyword: this.headInpP, offset: this.pageSize });
             if (data.code != 1) {
                 return this.$toast(data.message);
             }
+            this.scrollFlag = 1;
             this.listConcat(data.data);
         },
     },
