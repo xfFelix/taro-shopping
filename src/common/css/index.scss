@@ -6,7 +6,7 @@
 html,body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0;}
 body{font:4.07vw "微软雅黑","Arial Narrow",HELVETICA;height: 100%;}
 a{text-decoration:none; color:#000000;}
-a:hover{text-decoration:none;color: #FF4400;}
+a:hover{text-decoration:none;color: #30ce84;}
 i,em{font-style:normal;}
 b,strong{font-weight:100;}
 ul,ol{list-style:none;}
@@ -132,5 +132,18 @@ img:after{
 		max-width: 384px; /*no*/
 		box-sizing: border-box;
 		margin: 0 auto;
+	}
+}
+.fixOut {
+    max-width: 384px;
+    width: 100%;
+    position: fixed;
+    height: 1px;
+	z-index: 200;
+		.relOut {
+		max-width: 384px;
+		width: 100%;
+		position: relative;
+		height: 1px;
 	}
 }

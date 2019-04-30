@@ -3,7 +3,11 @@
         <swpie :sceneInfoC="sceneInfoP"></swpie>
         <head-top :headShowC='headShowP' v-on:showDialogC='showDialogP' v-on:headHightC='headHightP'></head-top>
         <!-- 头部导航栏 -->
-        <head-tab v-if="showDialog"></head-tab>
+        <div class="fixOut" style="top:0px;">
+            <div class="relOut">
+                <head-tab v-if="showDialog"></head-tab>
+            </div>
+        </div>
         <bg-mask v-model="showDialog" color="transparent"></bg-mask>
         <!-- 票价信息 -->
         <ticket-info :sceneInfoC="sceneInfoP"></ticket-info>

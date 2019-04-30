@@ -2,13 +2,17 @@
     <div class="headTop" >
         <div class="ab-head" v-if="!headShowC"  ref="sc">
             <div class="iconfont background-op h-searchBack" @click="$router.back()">&#xe61e;</div>
-            <!-- <div class="iconfont background-op h-searchBack"  @click="showDialog()">&#xe80c;</div> -->
+            <div class="iconfont background-op h-searchBack"  @click="showDialog()">&#xe80c;</div> 
         </div>
         <div class="ab-headFixed" v-if="headShowC"  ref="sc">
             <div class="iconfont  h-searchBack" @click="$router.back()">&#xe61e;</div>
-            <!-- <div class="iconfont  h-searchBack" @click="showDialog()">&#xe80c;</div> -->
+            <div class="iconfont  h-searchBack" @click="showDialog()">&#xe80c;</div> 
         </div>
-        <span class="iconfont background-op goTop" @click="goTop()" v-if="headShowC">&#xe811;</span>
+        <div class="fixOut" style="bottom:0px;">
+            <div class="relOut">
+                <span class="iconfont background-op goTop" @click="goTop()" v-if="headShowC">&#xe811;</span>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -51,7 +55,7 @@ export default {
     width: 100%;
     padding: 22px 8px 4px 11px;
     box-sizing: border-box;
-    z-index: 1;
+    z-index: 5;
     .h-searchBack {
         width: 36px;
         height: 36px;
@@ -79,16 +83,17 @@ export default {
     font-size: 25px;
     line-height: 36px;
     text-align: center;
-    bottom: 8px;
+    bottom: 30px;
     right: 8px;
-    position: fixed;
+    position: absolute;
     background: rgba(0, 0, 0, 0.8);
     z-index: 100;
 }
+
 </style>
 <style>
 @media screen and (min-width: 600px) {
-  .ab-headFixed{
+  .ab-headFixed,.ab-head{
     max-width: 384px; /*no*/
   }
 }
