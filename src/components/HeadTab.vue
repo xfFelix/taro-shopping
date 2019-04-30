@@ -19,7 +19,7 @@ export default {
   data: () => ({
     dialogList: [
       { name: '首页', icon: 'icon-xiazai45', linkTo: '#/layout/home'},
-      { name: '商城', icon: 'icon-shangcheng', linkTo:'#/layout/shopMall'},
+      // { name: '商城', icon: 'icon-shangcheng', linkTo:'#/layout/shopMall'},
       { name: '分类', icon: 'icon-fenlei', linkTo:'#/layout/classify' },
       { name: '购物车', icon: 'icon-gouwuche', linkTo:'#/layout/shopCart'},
       { name: '我的', icon: 'icon-My', linkTo:'#/layout/account'},
@@ -37,8 +37,8 @@ export default {
 <style lang="scss" scoped>
 .dialog-container {
   position: absolute;
-  top: 20px;
-  right: -5px;
+  top: 26px;
+  right: -11px;
   z-index: 102;
   .dialog-conInner {
     position: relative;
@@ -50,19 +50,19 @@ export default {
       background: #fff;
       display: inline-block;
       position: absolute;
-      right: 9px;
+      right: 14px;
       top: -5px;
       border-top: 1px solid #dfdfdf;
       border-left: 1px solid #dfdfdf;
     }
     .dialog-content {
       border: 1px solid #dfdfdf;
-      border-radius: 5px;
+      border-radius: 7px;
       .link {
         background: #fff;
         padding: 8px 0;
         border-bottom: 1px solid #dfdfdf;
-        width: 100px;
+        width: 120px;
         display: flex; // justify-content: center;
         align-items: center;
         font-size: 14px;
