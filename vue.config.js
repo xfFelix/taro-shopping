@@ -1,6 +1,7 @@
 const px2rem = require('postcss-px2rem')
 const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 const postcss = px2rem({
   remUnit: 37.5 // 基准大小 baseSize，需要和rem.js中相同
@@ -87,8 +88,17 @@ module.exports = {
       })
     ]
     // 只有打包生产环境才需要将console删除
-    if (process.env.NODE_ENV == 'production') {
+    if (process.env.NODE_ENV === 'production') {
       config.plugins = [...config.plugins, ...plugins]
+    }
+    if (process.env.NODE_ENV === 'production') {
+      return {
+        plugins: [new CompressionPlugin({
+          test: /\.js$|\.html$|\.css/,
+          threshold: 10240,
+          deleteOriginalAssets: false
+        })]
+      }
     }
   },
   devServer: {// 跨域
