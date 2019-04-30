@@ -36,9 +36,9 @@ export default {
 
 <style lang="scss" scoped>
 .dialog-container {
-  position: fixed;
-  top: 50px;
-  right: 10px;
+  position: absolute;
+  top: 20px;
+  right: -5px;
   z-index: 102;
   .dialog-conInner {
     position: relative;
