@@ -18,11 +18,11 @@ import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     dialogList: [
-      { name: '首页', icon: 'icon-xiazai45', linkTo: '#/layout/home'},
+      { name: '首页', icon: 'icon-xiazai45', linkTo: '/#/layout/home'},
       // { name: '商城', icon: 'icon-shangcheng', linkTo:'#/layout/shopMall'},
-      { name: '分类', icon: 'icon-fenlei', linkTo:'#/layout/classify' },
-      { name: '购物车', icon: 'icon-gouwuche', linkTo:'#/layout/shopCart'},
-      { name: '我的', icon: 'icon-My', linkTo:'#/layout/account'},
+      { name: '分类', icon: 'icon-fenlei', linkTo:'/#/layout/classify' },
+      { name: '购物车', icon: 'icon-gouwuche', linkTo:'/#/layout/shopCart'},
+      { name: '我的', icon: 'icon-My', linkTo:'/#/layout/account'},
     ],
     process:process.env.VUE_APP_BASE_HOME_URL
   }),
