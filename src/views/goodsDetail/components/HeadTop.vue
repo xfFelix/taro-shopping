@@ -46,6 +46,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.background-op {
+    background: rgba(0, 0, 0, 0.4);
+}
 .ab-head,
 .ab-headFixed {
     display: flex;
