@@ -1,7 +1,7 @@
 <template>
   <div class="cardSelect">
     <ul class="cardChange">
-      <li v-for="(item,index) in cardList" :key="index">
+      <li v-for="(item,index) in cardList" :key="index" @click="goSelect(item.takeParam)">
         <div class="cardLogo" :class="item.cardLogo"></div>
         <p>{{item.title}}</p>
       </li>
@@ -45,7 +45,15 @@ export default {
       { title: '话费充值', changeLogo: 'changeList03' },
       { title: '信用卡还款', changeLogo: 'changeList04' },
     ]
-  })
+  }),
+  methods:{
+    goSelect(typeId){
+      this.$router.push({name:'cardType',query:{take:typeId}})
+    }
+  },
+  mounted(){
+
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -135,7 +135,7 @@ const router = new Router({
       children: [
         {
           path: 'home',
-          name: 'home',
+          name: 'memberHome',
           component: () => import('views/memberCard/home'),
           meta: {
             title: '会员卡券首页',
