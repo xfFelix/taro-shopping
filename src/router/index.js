@@ -122,7 +122,55 @@ const router = new Router({
           }
         }
       ]
-    }
+    },
+    {
+      path: '/memberCard',
+      name: 'memberCard',
+      component: () => import('views/memberCard'),
+      meta: {
+        title: '会员卡券',
+        // requireAuth: true
+      },
+      redirect: '/memberCard/home',
+      children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: () => import('views/memberCard/home'),
+          meta: {
+            title: '会员卡券首页',
+            // requireAuth: true
+          }
+        }
+      ]
+    },
+    {
+      path: '/memberCard/cardType',
+      name: 'cardType',
+      component: () => import('views/memberCard/cardType'),
+      meta: {
+        title: '充值类型',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/memberCard/cardRecord',
+      name: 'cardRecord',
+      component: () => import('views/memberCard/cardRecord'),
+      meta: {
+        title: '充值记录',
+        // requireAuth: true
+      }
+    },
+    {
+      path: '/memberCard/cardChangeS',
+      name: 'cardChangeS',
+      component: () => import('views/memberCard/cardChangeS'),
+      meta: {
+        title: '充值成功',
+        // requireAuth: true
+      }
+    },
   ]
 })
 
