@@ -3,42 +3,52 @@
         <div class="typeHeader">
             <div class="headerTitle">
                 <i class="cubeic-back" @click="$router.back()"></i>
-                会员卡券
+                {{$route.query.title}}
             </div>
             <div class="cardNumber">
-                <input type="number" placeholder="请输入账号" />
+                <input type="number" placeholder="请输入账号" v-model="infoContent.cardNumber" />
             </div>
         </div>
 
         <div class="typeContent">
             <div class="surplus">
                 <span>剩余可用余额：</span>
-                 <!-- <span>{{userinfo.score | toPrice}} </span>  -->
+                <!-- <span>{{userinfo.score | toPrice}} </span>  -->
             </div>
-            <div class="faceVal">
-                <p class="faceValTitle">面值：</p>
+            <div class="typeVal">
+                <p class="typeValTitle">类型：</p>
                 <ul>
-                    <li v-for="(item,index) in timeCard" :key="index" @click="timeCli(index)" :class="index==timeFlag?'timeSelect':''">
-                        <div class="saleW">
-                            <p>{{item.time}}</p>
-                            <p>
-                                <span>售价：</span>
-                                <span>{{item.sale}}</span>
-                            </p>
-                        </div>
-                        <div class="realW">
-                            <span>刊例价:</span>
-                            <span>{{item.realMoney}}</span>
-                        </div>
+                    <li v-if="cardList.ordinary && cardList.ordinary.length>0" @click="typeCli('ordinary')" :class="typeFlag=='ordinary'?'typeSelect':''">
+                        <div>黄金会员</div>
+                    </li>
+                    <li v-if="cardList.super && cardList.super.length>0" @click="typeCli('super')" :class="typeFlag=='super'?'typeSelect':''">
+                        <div>钻石会员</div>
                     </li>
                 </ul>
             </div>
 
-            <div class="typeVal">
-                <p class="typeValTitle">类型：</p>
+            <div class="faceVal">
+                <p class="faceValTitle">面值：</p>
                 <ul>
-                    <li v-for="(item,index) in typeList" :key="index" @click="typeCli(index)" :class="index==typeFlag?'typeSelect':''">
-                        <div>{{item.title}}</div>
+                    <li v-for="(item,index) in timeCard" :key="index" @click="timeCli(index,item.productId)" :class="index==timeFlag?'timeSelect':''">
+                        <div class="saleW">
+                            <div>
+                                <p v-if="item.timeType==='1'">周卡</p>
+                                <p v-else-if="item.timeType==='2'">月卡</p>
+                                <p v-else-if="item.timeType==='3'">季卡</p>
+                                <p v-else-if="item.timeType==='4'">半年卡</p>
+                                <p v-else>年卡</p>
+                            </div>
+
+                            <p>
+                                <span>售价：</span>
+                                <span>{{item.sellingPrice|toPrice}}</span>
+                            </p>
+                        </div>
+                        <div class="realW">
+                            <span>刊例价:</span>
+                            <span>{{item.marketPrice|toPrice}}</span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -56,21 +66,17 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import { getVipList } from 'api'
 export default {
     data: () => ({
-        timeCard: [
-            { time: "周卡", sale: "8.00", realMoney: "10.00" },
-            { time: "月卡", sale: "8.00", realMoney: "10.00" },
-            { time: "季卡", sale: "8.00", realMoney: "10.00" },
-            { time: "半年卡", sale: "8.00", realMoney: "10.00" },
-            { time: "年卡", sale: "8.00", realMoney: "10.00" },
-        ],
-        typeList: [
-            { title: "黄金会员" },
-            { title: "钻石会员" },
-        ],
-        timeFlag: 0,
-        typeFlag: 0,
+        timeCard: [],
+        cardList: {},
+        typeFlag:'ordinary',
+        timeFlag:0,
+        infoContent:{
+            productId:undefined,
+            cardNumber: undefined,
+        }
     }),
     computed: {
         ...mapGetters({
@@ -78,15 +84,41 @@ export default {
         })
     },
     methods: {
-        timeCli(index) {
-            this.timeFlag = index;
+        initData(){
+             this.timeFlag = 0;
+             this.infoContent.productId = this.timeCard[0].productId;
         },
-        typeCli(index) {
-            this.typeFlag = index;
+        timeCli(index,productId) {
+            this.timeFlag = index;
+            this.infoContent.productId = productId;
+        },
+        typeCli(cardType) {
+            if (cardType === "ordinary") {
+                this.typeFlag = 'ordinary'
+                this.timeCard = this.cardList.ordinary;
+            } else {
+                this.typeFlag = 'super'
+                this.timeCard = this.cardList.super;
+            }
+            this.initData()
         },
         changeC() {
-            this.$emit("show-info");
-        }
+            if (!this.infoContent.cardNumber) {
+                return this.$toast("账号不能为空")
+            }
+            this.$emit('info-content',this.infoContent)
+        },
+        //卡面值及类型
+        async getVipList() {
+            let data = await getVipList({ productType: this.$route.query.id });
+            if (data.code != 1) return this.$toast(data.message);
+            this.cardList = data.data;
+            this.cardList.ordinary?this.timeCard = this.cardList.ordinary:this.timeCard = this.cardList.super;
+            this.initData();
+        },
+    },
+    mounted() {
+        this.getVipList()
     }
 }
 </script>

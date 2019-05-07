@@ -16,7 +16,7 @@
                 <div class="code-input-main-item">{{code[1]}}</div>
                 <div class="code-input-main-item">{{code[2]}}</div>
                 <div class="code-input-main-item">{{code[3]}}</div>
-                <input class="code-input-input" v-model="code" maxlength="4" type="number" />
+                <input class="code-input-input" v-model="code" maxlength="4" type="number"  v-focus/>
             </div>
         </div>
     </transition>
@@ -24,24 +24,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { sendSmsCode } from 'api'
 export default {
     props: {
         show: {
             type: Boolean,
             default: false
-        }
-    },
-    watch: {
-        show(val) {
-            if (val) {
-                this.timer = setInterval(() => {
-                    this.countDown--
-                }, 1000)
-            } else {
-                this.countDown = 120
-                clearInterval(this.timer);
-            }
         }
     },
     data() {
@@ -51,10 +38,31 @@ export default {
             timer: null
         }
     },
-    methods: {
-        getCode() {
-            return this.code;
+    watch: {
+        show(val) {
+            if (val) {
+                this.timer = setInterval(() => {
+                    this.countDown--
+                    if (this.countDown == 0) {
+                        clearInterval(this.timer);
+                        this.$emit('go-back');
+                        this.$toast("订单提交失败")
+                    }
+                }, 1000)
+            } else {
+                this.countDown = 120;
+                this.code = ''
+                clearInterval(this.timer);
+            }
+        },
+        code(val) {
+            if (val.length == 4) {
+                this.$emit('code-info', val)
+            }
         }
+    },
+    methods: {
+
     },
     mounted() {
 

@@ -130,3 +130,35 @@ export const buyBackCommitOrder= (data) => fetch({
   data
 })
 
+//会员卡券类型
+export const getVipList= (params) => fetch({
+   url: '/mbscard/getProductList',
+  method: 'GET',
+  params
+})
+
+//会员卡券价格详情
+export const vipCostInfo= (data) => fetch({
+  url: '/mbscard/getCostInfo',
+  method: 'POST',
+  data
+})
+
+//会员卡券提交订单
+export const vipSubmit= (data) => fetch({
+  url: '/mbscard/submit',
+  method: 'POST',
+  data
+})
+
+
+//会员卡券订单列表
+export const vipOrderList= (data) => fetch({
+  url: '/mbscard/getOrderList',
+  method: 'POST',
+  data
+})
+
+
+
+

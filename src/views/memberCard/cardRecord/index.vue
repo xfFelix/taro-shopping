@@ -6,9 +6,9 @@
     </header>
     <div class="content">
       <ul class="item">
-        <li class="title">
+        <li class="title" v-for="(item,index) in orderList" :key="index" >
           <span class="order-number">
-            订单编号:&nbsp;20190422111111
+            订单编号:&nbsp;{{item.IdUrl}}
           </span>
           <span class="status">兑换中</span>
         </li>
@@ -26,16 +26,33 @@
 </template>
 
 <script>
+import { vipOrderList } from 'api';
+import { mapGetters } from 'vuex';
 export default {
-
+  data: () => ({
+      orderList:[]
+  }),
+  computed: {
+    ...mapGetters({
+      getToken: 'getToken',
+    })
+  },
+  methods: {
+    async vipOrderList() {
+      let data = await vipOrderList({ token: this.getToken, offset: '1', rows: '10'});
+    },
+  },
+  mounted() {
+    this.vipOrderList()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.record-wrapper{
+.record-wrapper {
   background: #FFF;
   min-height: 100%;
-  header{
+  header {
     height: 44px;
     line-height: 44px;
     text-align: center;
@@ -43,17 +60,17 @@ export default {
     background: #373C48;
     font-size: 18px;
     color: #fff;
-    .back{
+    .back {
       position: absolute;
       left: 15px;
       font-size: 20px;
     }
   }
-  .content{
+  .content {
     padding: 0 15px 20px;
     box-sizing: border-box;
-    .item{
-      border:1px solid rgba(222,222,222,1);
+    .item {
+      border: 1px solid rgba(222, 222, 222, 1);
       border-radius: 5px;
       margin-top: 20px;
       li {
@@ -61,7 +78,7 @@ export default {
         color: #4A4A4A;
         font-size: 15px;
         background: #F4F4F4;
-        &.title{
+        &.title {
           height: 43px;
           line-height: 43px;
           padding-top: 0;
@@ -69,7 +86,7 @@ export default {
           justify-content: space-between;
           background: #fff;
         }
-        &:last-of-type{
+        &:last-of-type {
           padding-bottom: 15px;
           display: flex;
           justify-content: space-between;

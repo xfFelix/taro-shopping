@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div @click="goRecord" class="goRecode">
+        <div  class="goRecode" @click="$router.push({name:'cardRecord'})">
             兑换记录
             <span class="iconfont">&#xe61e;</span>
         </div>
@@ -26,9 +26,6 @@ export default {
         goHome() {
             window.location.href = process.env.VUE_APP_BASE_HOME_URL
         },
-        goRecord() {
-
-        }
     },
     components: {
         HeadTab: () => import('@/components/HeadTab'),

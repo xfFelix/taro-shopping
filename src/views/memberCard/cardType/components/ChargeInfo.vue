@@ -7,34 +7,38 @@
         <i @click="$emit('go-back')">取消</i>
       </li>
       <li class="price">
-        <!-- {{data.total|toPrice}}  -->
+          {{info.total|toPrice}}   
+      </li>
+       <li class="item">
+        <span class="label">产品名称</span>
+        <span class="value">
+           {{info.productName}} 
+        </span>
       </li>
       <li class="item">
         <span class="label">账号</span>
         <span class="value">
-          <!-- {{typeListFilter(data.type)}} -->
+          {{info.cardNumber}} 
         </span>
       </li>
       <li class="item">
         <span class="label">售价</span>
         <span class="value">
-          <!-- {{data.faceValue}} -->
+          {{info.sellingPrice|toPrice}} 
         </span>
       </li>
       <li class="item">
         <span class="label">税费</span>
         <span class="value">
-          <!-- {{data.service_fee | toPrice}} -->
+          {{info.tax_total|toPrice}} 
         </span>
       </li>
       <li class="item itemLast">
         <span class="label">应付合计</span>
         <span class="value">
-          <!-- {{data.tax_total | toPrice}} -->
-
+          {{info.total|toPrice}} 
         </span>
       </li>
-
       <li class="footer" @click="handlerShowCode">
         确认
       </li>
@@ -49,6 +53,9 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    info:{
+      type: Object,
     }
   },
   data: () => ({
@@ -62,7 +69,7 @@ export default {
   },
   methods: {
     handlerShowCode(){
-      this.$emit("show-sms")
+      this.$emit("send-sms")
     }
   },
   mounted(){

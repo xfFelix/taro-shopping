@@ -38,3 +38,10 @@ Vue.directive('enter-number-2', {
     })
   }
 })
+
+Vue.directive('focus', {
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})

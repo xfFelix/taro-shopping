@@ -1,7 +1,7 @@
 <template>
   <div class="cardSelect">
     <ul class="cardChange">
-      <li v-for="(item,index) in cardList" :key="index" @click="goSelect(item.takeParam)">
+      <li v-for="(item,index) in cardList" :key="index" @click="goSelect(item)">
         <div class="cardLogo" :class="item.cardLogo"></div>
         <p>{{item.title}}</p>
       </li>
@@ -23,21 +23,23 @@
 export default {
   data: () => ({
     cardList: [
-      { title: '优酷', takeParam: 'a', cardLogo: 'cardLogo01' },
-      { title: '爱奇艺', takeParam: 'a', cardLogo: 'cardLogo02' },
-      { title: '腾讯视频', takeParam: 'a', cardLogo: 'cardLogo03' },
-      { title: '芒果TV', takeParam: 'a', cardLogo: 'cardLogo04' },
-      { title: '搜狐视频', takeParam: 'a', cardLogo: 'cardLogo05' },
-      { title: '乐视', takeParam: 'a', cardLogo: 'cardLogo06' },
-      { title: '网易云音乐', takeParam: 'a', cardLogo: 'cardLogo07' },
-      { title: '酷狗音乐', takeParam: 'a', cardLogo: 'cardLogo08' },
-      { title: 'QQ音乐', takeParam: 'a', cardLogo: 'cardLogo09' },
-      { title: '喜马拉雅', takeParam: 'a', cardLogo: 'cardLogo10' },
-      { title: '掌阅', takeParam: 'a', cardLogo: 'cardLogo11' },
-      { title: 'QQ阅读', takeParam: 'a', cardLogo: 'cardLogo12' },
-      { title: '懒人听书', takeParam: 'a', cardLogo: 'cardLogo13' },
-      { title: '新浪微博', takeParam: 'a', cardLogo: 'cardLogo14' },
-      { title: '爱阅读', takeParam: 'a', cardLogo: 'cardLogo15' },
+      { title: '优 酷', id: 1, cardLogo: 'cardLogo01' },
+      { title: '爱奇艺', id: 2, cardLogo: 'cardLogo02' },
+      { title: '腾讯视频', id: 3, cardLogo: 'cardLogo03' },
+      { title: '腾讯体育', id: 4, cardLogo: 'cardLogo03' },
+      { title: '芒果TV', id: 5, cardLogo: 'cardLogo04' },
+      { title: '搜狐视频', id: 6, cardLogo: 'cardLogo05' },
+      { title: '乐视', id: 7, cardLogo: 'cardLogo06' },
+      { title: '网易云音乐', id: 8, cardLogo: 'cardLogo07' },
+      { title: '酷狗音乐', id: 9, cardLogo: 'cardLogo08' },
+      { title: 'QQ音乐', id: 10, cardLogo: 'cardLogo09' },
+      { title: '喜马拉雅', id: 11, cardLogo: 'cardLogo10' },
+      { title: '掌阅', id: 12, cardLogo: 'cardLogo11' },
+      { title: '腾讯阅读', id: 13, cardLogo: 'cardLogo12' },
+      { title: '新浪微博', id: 14, cardLogo: 'cardLogo14' },
+      // { title: 'QQ阅读', id: 13, cardLogo: 'cardLogo12' },
+      // { title: '懒人听书', id: 14, cardLogo: 'cardLogo13' },
+      // { title: '爱阅读', id: 16, cardLogo: 'cardLogo15' },
     ],
     changeList: [
       { title: '黄金兑换', changeLogo: 'changeList01' },
@@ -47,8 +49,8 @@ export default {
     ]
   }),
   methods:{
-    goSelect(typeId){
-      this.$router.push({name:'cardType',query:{take:typeId}})
+    goSelect(item){
+      this.$router.push({name:'cardType',query:{id:item.id,title:item.title}})
     }
   },
   mounted(){
