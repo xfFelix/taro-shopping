@@ -7,36 +7,44 @@
         <i @click="$emit('go-back')">取消</i>
       </li>
       <li class="price">
-          {{info.total|toPrice}}   
+        {{info.total|toPrice}}
       </li>
-       <li class="item">
+      <li class="item">
         <span class="label">产品名称</span>
         <span class="value">
-           {{info.productName}} 
+          {{info.productName}}
         </span>
+      </li>
+      <li class="item">
+        <span class="label">类型</span>
+        <span class="value" v-if="info.productType==1">周卡</span>
+        <span class="value" v-if="info.productType==2">月卡</span>
+        <span class="value" v-if="info.productType==3">季卡</span>
+        <span class="value" v-if="info.productType==4">半年卡</span>
+        <span class="value" v-else>年卡</span>
       </li>
       <li class="item">
         <span class="label">账号</span>
         <span class="value">
-          {{info.cardNumber}} 
+          {{info.cardNumber}}
         </span>
       </li>
       <li class="item">
         <span class="label">售价</span>
         <span class="value">
-          {{info.sellingPrice|toPrice}} 
+          {{info.sellingPrice|toPrice}}
         </span>
       </li>
       <li class="item">
         <span class="label">税费</span>
         <span class="value">
-          {{info.tax_total|toPrice}} 
+          {{info.tax_total|toPrice}}
         </span>
       </li>
       <li class="item itemLast">
         <span class="label">应付合计</span>
         <span class="value">
-          {{info.total|toPrice}} 
+          {{info.total|toPrice}}
         </span>
       </li>
       <li class="footer" @click="handlerShowCode">
@@ -47,33 +55,26 @@
 </template>
 
 <script>
-
 export default {
   props: {
     show: {
       type: Boolean,
       default: false
     },
-    info:{
+    info: {
       type: Object,
     }
   },
   data: () => ({
 
   }),
-  computed: {
-
-  },
-  watch: {
-
-  },
   methods: {
-    handlerShowCode(){
+    handlerShowCode() {
       this.$emit("send-sms")
     }
   },
-  mounted(){
-    
+  mounted() {
+
   }
 }
 </script>
@@ -121,13 +122,13 @@ export default {
     }
   }
   .item {
-    margin-top: 35px;
+    margin-top: 25px;
     display: flex;
     justify-content: space-between;
     padding: 0 10px 0 12px;
     font-weight: 400;
   }
-  .itemLast{
+  .itemLast {
     padding-bottom: 44px;
   }
   .footer {

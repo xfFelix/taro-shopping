@@ -9,6 +9,13 @@
     </div>
     <ul>
       <li>产品名称：{{infoList.productName}}</li>
+      <li>类型：
+        <span v-if="infoList.timeType==='1'">周卡</span>
+        <span v-else-if="infoList.timeType==='2'">月卡</span>
+        <span v-else-if="infoList.timeType==='3'">季卡</span>
+        <span v-else-if="infoList.timeType==='4'">半年卡</span>
+        <span v-else>年卡</span>
+      </li>
       <li>充值账号：{{$route.query.num|formatPhone}}</li>
       <li>售价：{{infoList.sellingPrice|toPrice}}</li>
       <li>税费：{{infoList.tax_total|toPrice}}</li>
@@ -105,14 +112,14 @@ export default {
     li {
       font-size: 15px;
       /*no*/
-      margin-top: 35px;
+      margin-top: 25px;
       &:first-of-type {
         margin-top: 0;
       }
     }
   }
   .confirm {
-    margin-top: 38px;
+    margin: 38px 0 10px 0;
     border: none;
     width: 100%;
     height: 44px;
@@ -123,7 +130,7 @@ export default {
   .time {
     font-size: 12px;
     /*no*/
-    margin-top: 15px;
+    padding: 15px 0 10px 0;
     display: block;
     text-align: center;
     color: #999999;

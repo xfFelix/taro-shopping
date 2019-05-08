@@ -10,7 +10,7 @@
     <div class="moreChange">
       <p class="moreChangeTitle">更多兑换</p>
       <ul>
-        <li v-for="(item,index) in changeList" :key="index">
+        <li v-for="(item,index) in changeList" :key="index" @click="goLink(item.path)">
           <div class="changeList" :class="item.changeLogo"></div>
           <p>{{item.title}}</p>
         </li>
@@ -20,13 +20,14 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     cardList: [
       { title: '优 酷', id: 1, cardLogo: 'cardLogo01' },
       { title: '爱奇艺', id: 2, cardLogo: 'cardLogo02' },
       { title: '腾讯视频', id: 3, cardLogo: 'cardLogo03' },
-      { title: '腾讯体育', id: 4, cardLogo: 'cardLogo03' },
+      { title: '腾讯体育', id: 4, cardLogo: 'cardLogo16' },
       { title: '芒果TV', id: 5, cardLogo: 'cardLogo04' },
       { title: '搜狐视频', id: 6, cardLogo: 'cardLogo05' },
       { title: '乐视', id: 7, cardLogo: 'cardLogo06' },
@@ -35,26 +36,30 @@ export default {
       { title: 'QQ音乐', id: 10, cardLogo: 'cardLogo09' },
       { title: '喜马拉雅', id: 11, cardLogo: 'cardLogo10' },
       { title: '掌阅', id: 12, cardLogo: 'cardLogo11' },
-      { title: '腾讯阅读', id: 13, cardLogo: 'cardLogo12' },
+      { title: 'QQ阅读', id: 13, cardLogo: 'cardLogo12' },
       { title: '新浪微博', id: 14, cardLogo: 'cardLogo14' },
-      // { title: 'QQ阅读', id: 13, cardLogo: 'cardLogo12' },
-      // { title: '懒人听书', id: 14, cardLogo: 'cardLogo13' },
-      // { title: '爱阅读', id: 16, cardLogo: 'cardLogo15' },
     ],
     changeList: [
-      { title: '黄金兑换', changeLogo: 'changeList01' },
-      { title: '加油卡充值', changeLogo: 'changeList02' },
-      { title: '话费充值', changeLogo: 'changeList03' },
-      { title: '信用卡还款', changeLogo: 'changeList04' },
+      { title: '黄金兑换', changeLogo: 'changeList01', path: process.env.VUE_APP_INFO_URl + '#!/goldChange?token='},
+      { title: '加油卡充值', changeLogo: 'changeList02', path: process.env.VUE_APP_BASE_HOME_URL + 'ticket/oil/?token='},
+      { title: '话费充值', changeLogo: 'changeList03', path:process.env.VUE_APP_INFO_URl + '#!/phoneBill?token='},
+      // { title: '信用卡还款', changeLogo: 'changeList04', path: process.env.VUE_APP_INFO_URl + '#!/goldChange?token='},
     ]
   }),
-  methods:{
-    goSelect(item){
-      this.$router.push({name:'cardType',query:{id:item.id,title:item.title}})
+  computed: {
+    ...mapGetters({
+      getToken: 'getToken',
+    }),
+  },
+  methods: {
+    goSelect(item) {
+      this.$router.push({ name: 'cardType', query: { id: item.id, title: item.title } })
+    },
+    goLink(path){
+       window.location = path + this.getToken;
     }
   },
-  mounted(){
-
+  mounted() {
   }
 }
 </script>
@@ -128,6 +133,9 @@ export default {
     .cardLogo15 {
       background-position: -98px -145px;
     }
+    .cardLogo16 {
+      background-position: -150px -149px;
+    }
     p {
       color: #4A4A4A;
     }
@@ -152,12 +160,12 @@ export default {
   .changeList04 {
     background-position: -139px -3px;
   }
-  .moreChange{
-    .moreChangeTitle{
+  .moreChange {
+    .moreChangeTitle {
       margin: 25px 0 0 15px;
       font-size: 15px;
     }
-    p{
+    p {
       color: #999;
     }
   }
