@@ -10,10 +10,10 @@
     <ul>
       <li>产品名称：{{infoList.productName}}</li>
       <li>类型：
-        <span v-if="infoList.timeType==='1'">周卡</span>
-        <span v-else-if="infoList.timeType==='2'">月卡</span>
-        <span v-else-if="infoList.timeType==='3'">季卡</span>
-        <span v-else-if="infoList.timeType==='4'">半年卡</span>
+        <span v-if="infoList.productType==='1'">周卡</span>
+        <span v-else-if="infoList.productType==='2'">月卡</span>
+        <span v-else-if="infoList.productType==='3'">季卡</span>
+        <span v-else-if="infoList.productType==='4'">半年卡</span>
         <span v-else>年卡</span>
       </li>
       <li>充值账号：{{$route.query.num}}</li>

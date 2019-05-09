@@ -30,7 +30,8 @@ export default {
       sellingPrice: undefined,
       tax_total: undefined,
       total: undefined,
-      cardNumber: undefined
+      cardNumber: undefined,
+      productType:undefined
     },
   }),
   computed: {
@@ -75,6 +76,7 @@ export default {
       this.chargeInfo.sellingPrice = data.data.sellingPrice;
       this.chargeInfo.tax_total = data.data.tax_total;
       this.chargeInfo.total = data.data.total;
+      this.chargeInfo.productType = data.data.productType;
       this.showInfo();
     },
     //发送短信
