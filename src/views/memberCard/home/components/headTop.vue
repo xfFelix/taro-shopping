@@ -1,21 +1,21 @@
 <template>
-    <div class="headTop">
-        <div class="header">
-            <i class="cubeic-back" @click="goHome"></i>
-            会员卡券
-            <div class="iconMoreW">
-                <div class="iconMore">
-                    <span class="iconfont" @click="showDialog=!showDialog">&#xe80c;</span>
-                    <Head-tab v-if="showDialog"></Head-tab>
-                </div>
-            </div>
+  <div class="headTop">
+    <div class="header">
+      <i class="cubeic-back" @click="goHome"></i>
+      会员卡券
+      <div class="iconMoreW">
+        <div class="iconMore">
+          <span class="iconfont" @click="showDialog=!showDialog">&#xe80c;</span>
+          <Head-tab v-if="showDialog"></Head-tab>
         </div>
-        <div @click="goRecord" class="goRecode">
-            兑换记录
-            <span class="iconfont">&#xe61e;</span>
-        </div>
-        <bg-mask v-model="showDialog" color="transparent"></bg-mask>
+      </div>
     </div>
+    <div  class="goRecode" @click="$router.push({name:'cardRecord'})">
+        兑换记录
+        <span class="iconfont">&#xe61e;</span>
+    </div>
+    <bg-mask v-model="showDialog" color="transparent"></bg-mask>
+  </div>
 </template>
 <script>
 export default {
@@ -26,9 +26,6 @@ export default {
         goHome() {
             window.location.href = process.env.VUE_APP_BASE_HOME_URL
         },
-        goRecord() {
-
-        }
     },
     components: {
         HeadTab: () => import('@/components/HeadTab'),

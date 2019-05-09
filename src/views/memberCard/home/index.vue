@@ -7,8 +7,8 @@
 <script>
 export default {
   components: {
-    cardSelect: () => import('./components/cardSelect'),
-    headTop:() => import('./components/headTop'),
+    CardSelect: () => import('./components/CardSelect'),
+    HeadTop:() => import('./components/HeadTop'),
   },
 
 }

@@ -1,115 +1,125 @@
 <template>
-    <div class="cardType">
-        <div class="typeHeader">
-            <div class="headerTitle">
-                <i class="cubeic-back" @click="goHome"></i>
-                会员卡券
-            </div>
-            <div class="cardNumber">
-                <input type="number" placeholder="请输入账号" />
-            </div>
-        </div>
+  <div class="cardType">
+    <!-- 选择卡券 -->
+    <card-select @info-content="infoContent"></card-select>
+    <!-- 兑换信息 -->
+    <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
+    <!-- 短信 -->
+    <sms-code :show="show.sms" @go-back="initShow" @code-info="codeInfo"></sms-code>
+    <!-- 遮罩层 -->
+    <transition name="fade">
+      <bg-mask v-model="show.mask"></bg-mask>
+    </transition>
 
-        <div class="typeContent">
-            <div class="surplus">
-                <span>剩余可用余额：</span>
-                <span>111111.00 </span>
-            </div>
-            <div class="faceVal">
-                <ul>
-                    <li>
-                        <div>
-                            <p>周卡</p>
-                            <p><span>售价</span><span>8.00</span></p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
+  </div>
 </template>
 <script>
+import { vipCostInfo, sendSmsCode, vipSubmit } from 'api';
+import { mapGetters } from 'vuex';
+import { tools_uri } from 'common/tools';
 export default {
+  data: () => ({
+    show: {
+      mask: false,
+      info: false,
+      sms: false
+    },
+    productId: undefined,
+    chargeInfo: {
+      productName: undefined,
+      sellingPrice: undefined,
+      tax_total: undefined,
+      total: undefined,
+      cardNumber: undefined
+    },
+  }),
+  computed: {
+    ...mapGetters({
+      getToken: 'getToken',
+    })
+  },
+  watch: {
+    'show.mask': {
+      handler(val) {
+        if (!val) {
+          this.initShow()
+        }
+      }
+    }
+  },
+  methods: {
+    initShow() {
+      this.show = { mask: false, info: false, sms: false };
+    },
+    showInfo() {
+      this.show = { mask: true, info: true, sms: false };
+    },
+    showSms() {
+      this.show = { mask: true, info: false, sms: true };
+    },
+    infoContent(item) {
+      this.productId = item.productId;
+      this.chargeInfo.cardNumber = item.cardNumber;
+      this.vipCostInfo();
+    },
+    //兑换信息
+    async vipCostInfo() {
+      let data = await vipCostInfo({ token: this.getToken, productId: this.productId });
+      if (data.code != 1) return this.$toast(data.message);
+      this.chargeInfo.productName = data.data.productName;
+      this.chargeInfo.sellingPrice = data.data.sellingPrice;
+      this.chargeInfo.tax_total = data.data.tax_total;
+      this.chargeInfo.total = data.data.total;
+      if (data.code === '6') {
+        return this.$dialog({ content: '请先实名认证' }, () => {
+          return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken;
+        })
+      }
+      this.showInfo();
+    },
+    //发送短信
+    async sendSmsCode() {
+      let res = await sendSmsCode({ token: this.getToken })
+      if (res.error_code) {
+        this.initShow();
+        return this.$toast(res.message);
+      };
+      this.showSms()
+    },
+    sendCode() {
+      this.sendSmsCode();
+    },
+    codeInfo(val) {
+      this.initShow();
+      this.vipSubmit(val)
+    },
+    //提交订单
+    async vipSubmit(code) {
+      let res = await vipSubmit({ code: code, token: this.getToken, productId: this.productId, accountNo: this.chargeInfo.cardNumber })
+      if (res.code != 1) {
+        this.initShow();
+        return this.$toast(res.message);
+      }
+      this.$router.push({ name: 'cardChangeS', query: { num: this.chargeInfo.cardNumber, productId: this.productId } })
+    },
+  },
+  components: {
+    ChargeInfo: () => import('./components/ChargeInfo'),
+    BgMask: () => import('components/BgMask'),
+    SmsCode: () => import('./components/SmsCode'),
+    CardSelect: () => import('./components/CardSelect'),
+  },
+  mounted() {
 
+
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .cardType {
-    background: #fff;
-}
-
-.typeHeader {
-    background: #373C48;
-    color: #fff;
-    height: 83px;
-    position: relative;
-    .headerTitle {
-        padding: 10px 0 0 0;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center; // 
-        font-size: 18px;
-        .cubeic-back {
-            position: absolute;
-            left: 18px;
-        }
-    }
-    .cardNumber {
-        width: 90%;
-        height: 1.6rem;
-        position: absolute;
-        right: 0;
-        left: 0;
-        bottom: -30px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 5px;
-        box-shadow: 0px 2px 20px 0px rgba(55, 60, 72, 0.25);
-        input {
-            width: 100%;
-            height: 100%;
-            padding: 0 10px;
-            box-sizing: border-box;
-            border-radius: 5px;
-            font-size: 15px;
-        }
-    }
-}
-
-.typeContent {
-    margin: 0 15px;
-    .surplus {
-        margin-top: 50px;
-        font-size: 12px;
-        span:first-of-type {
-            color: #4A4A4A;
-        }
-        span:last-of-type {
-            color: #30CE84;
-        }
-    }
-}
-
-
-input::-webkit-input-placeholder {
-    color: #999999;
-}
-
-input::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
-    color: #999999;
-}
-
-input:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
-    color: #999999;
-}
-
-input:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #999999;
+  background: #fff;
+  width: 100%;
+  height: 100%;
 }
 </style>
