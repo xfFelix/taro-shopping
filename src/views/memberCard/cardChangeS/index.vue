@@ -16,7 +16,7 @@
         <span v-else-if="infoList.timeType==='4'">半年卡</span>
         <span v-else>年卡</span>
       </li>
-      <li>充值账号：{{$route.query.num|formatPhone}}</li>
+      <li>充值账号：{{$route.query.num}}</li>
       <li>售价：{{infoList.sellingPrice|toPrice}}</li>
       <li>税费：{{infoList.tax_total|toPrice}}</li>
       <li>合计：{{infoList.total|toPrice}}</li>
@@ -33,7 +33,7 @@ import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     timer: null,
-    countDown: 3,
+    countDown: 5,
     infoList: {}
   }),
   methods: {

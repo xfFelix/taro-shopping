@@ -6,7 +6,7 @@
         {{$route.query.title}}
       </div>
       <div class="cardNumber">
-        <input type="number" placeholder="请输入账号" v-model="infoContent.cardNumber" />
+        <input type="text" placeholder="请输入账号" v-model="infoContent.cardNumber" />
       </div>
     </div>
 

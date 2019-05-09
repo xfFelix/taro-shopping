@@ -11,7 +11,7 @@
       </div>
     </div>
     <div  class="goRecode" @click="$router.push({name:'cardRecord'})">
-        兑换记录
+        充值记录
         <span class="iconfont">&#xe61e;</span>
     </div>
     <bg-mask v-model="showDialog" color="transparent"></bg-mask>

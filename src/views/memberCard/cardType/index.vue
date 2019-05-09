@@ -65,16 +65,17 @@ export default {
     //兑换信息
     async vipCostInfo() {
       let data = await vipCostInfo({ token: this.getToken, productId: this.productId });
-      if (data.code != 1) return this.$toast(data.message);
-      this.chargeInfo.productName = data.data.productName;
-      this.chargeInfo.sellingPrice = data.data.sellingPrice;
-      this.chargeInfo.tax_total = data.data.tax_total;
-      this.chargeInfo.total = data.data.total;
+      if (res.code !== '1' && res.code !== '6') return this.$toast(data.message);
       if (data.code === '6') {
         return this.$dialog({ content: '请先实名认证' }, () => {
           return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken;
         })
       }
+      this.chargeInfo.productName = data.data.productName;
+      this.chargeInfo.sellingPrice = data.data.sellingPrice;
+      this.chargeInfo.tax_total = data.data.tax_total;
+      this.chargeInfo.total = data.data.total;
+
       this.showInfo();
     },
     //发送短信

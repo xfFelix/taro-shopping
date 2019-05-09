@@ -18,9 +18,9 @@
       <li class="item">
         <span class="label">类型</span>
         <span class="value" v-if="info.productType==1">周卡</span>
-        <span class="value" v-if="info.productType==2">月卡</span>
-        <span class="value" v-if="info.productType==3">季卡</span>
-        <span class="value" v-if="info.productType==4">半年卡</span>
+        <span class="value" v-else-if="info.productType==2">月卡</span>
+        <span class="value" v-else-if="info.productType==3">季卡</span>
+        <span class="value" v-else-if="info.productType==4">半年卡</span>
         <span class="value" v-else>年卡</span>
       </li>
       <li class="item">
