@@ -104,6 +104,8 @@ module.exports = {
   devServer: {// 跨域
     port: 8080, // 端口号
     open: true, // 配置自动启动浏览器
+    hot: true,
+    hotOnly: true
     // disableHostCheck: true,
     // overlay: {
     //   warnings: true,

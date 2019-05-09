@@ -35,6 +35,7 @@ export default {
 .record-wrapper{
   background: #FFF;
   min-height: 100%;
+  letter-spacing: 1px;
   header{
     height: 44px;
     line-height: 44px;
