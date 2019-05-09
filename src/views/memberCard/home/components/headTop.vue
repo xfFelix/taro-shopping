@@ -24,7 +24,7 @@ export default {
     }),
     methods: {
         goHome() {
-            window.location.href = process.env.VUE_APP_BASE_HOME_URL
+          window.location.href = process.env.VUE_APP_BASE_HOME_URL
         },
     },
     components: {
