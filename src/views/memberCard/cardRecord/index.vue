@@ -106,7 +106,6 @@ export default {
 .record-wrapper {
   background: #FFF;
   min-height: 100%;
-  letter-spacing: 1px;
   header{
     height: 44px;
     line-height: 44px;
@@ -131,7 +130,7 @@ export default {
       li {
         padding: 15px 15px 0;
         color: #4A4A4A;
-        font-size: 13px;
+        font-size: 12px;
         background: #F4F4F4;
         &.title {
           height: 43px;
@@ -140,7 +139,7 @@ export default {
           display: flex;
           justify-content: space-between;
           background: #fff;
-          font-size: 14px;
+          font-size: 13px;
         }
         &:last-of-type {
           padding-bottom: 15px;
