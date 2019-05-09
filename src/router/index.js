@@ -129,7 +129,7 @@ const router = new Router({
       component: () => import('views/memberCard'),
       meta: {
         title: '会员卡券',
-        // requireAuth: true
+        requireAuth: true
       },
       redirect: '/memberCard/home',
       children: [
@@ -139,7 +139,7 @@ const router = new Router({
           component: () => import('views/memberCard/home'),
           meta: {
             title: '会员卡券首页',
-            // requireAuth: true
+            requireAuth: true
           }
         }
       ]
@@ -150,7 +150,7 @@ const router = new Router({
       component: () => import('views/memberCard/cardType'),
       meta: {
         title: '充值类型',
-        // requireAuth: true
+        requireAuth: true
       }
     },
     {
@@ -159,7 +159,7 @@ const router = new Router({
       component: () => import('views/memberCard/cardRecord'),
       meta: {
         title: '充值记录',
-        // requireAuth: true
+        requireAuth: true
       }
     },
     {
@@ -168,7 +168,7 @@ const router = new Router({
       component: () => import('views/memberCard/cardChangeS'),
       meta: {
         title: '充值成功',
-        // requireAuth: true
+        requireAuth: true
       }
     },
   ]
