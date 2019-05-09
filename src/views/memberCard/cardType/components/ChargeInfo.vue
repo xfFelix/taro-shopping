@@ -24,7 +24,7 @@
         <span class="value" v-else>年卡</span>
       </li>
       <li class="item">
-        <span class="label">账号</span>
+        <span class="label">充值账号</span>
         <span class="value">
           {{info.cardNumber}}
         </span>

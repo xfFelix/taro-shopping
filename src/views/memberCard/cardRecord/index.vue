@@ -25,7 +25,7 @@
               <span v-else-if="item.cardBank==4">半年卡</span>
               <span v-else>年卡</span>
             </li>
-            <li>充值卡号：{{item.cardNum}}</li>
+            <li>充值账号：{{item.cardNum}}</li>
             <li>售价：{{item.repaymentAmount|toPrice}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>
