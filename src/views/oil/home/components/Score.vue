@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <header>
-      <i class="cubeic-back" @click="goHome"></i>
+      <i class="cubeic-back" @click="$router.back()"></i>
       加油卡充值
       <div class="iconMoreW">
         <div class="iconMore">
@@ -9,14 +9,14 @@
             <Head-tab v-if="showDialog"></Head-tab>
         </div>
       </div>
-      
+
     </header>
     <div class="type">
       <div class="item" :class="{active: rechargeType === 1}" @click="changeRechargeType(1)">直充</div>
       <div class="item" :class="{active: rechargeType === 2}" @click="changeRechargeType(2)">充值卡</div>
     </div>
     <div class="footer">
-       <span class="score price-color">椰子分余额: <i>{{userinfo.score | toPrice}}</i></span> 
+       <span class="score price-color">椰子分余额: <i>{{userinfo.score | toPrice}}</i></span>
       <span class="history" @click="$router.push('/oil/oilRecord')">兑换记录 ></span>
     </div>
 
@@ -54,9 +54,9 @@ export default {
       this.initConfig()
       this.$emit('update:rechargeType', val)
     },
-    goHome() {
-      window.location.href = process.env.VUE_APP_BASE_HOME_URL
-    }
+    // goHome() {
+    //   window.location.href = process.env.VUE_APP_BASE_HOME_URL
+    // }
   }
 }
 </script>

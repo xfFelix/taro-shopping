@@ -23,7 +23,7 @@
     </ul>
     <button class="confirm" @click="$router.push({name:'memberHome'})">确定</button>
     <span class="time">
-      <em>{{countDown}}s</em>后自动跳转</span>
+      <em>{{countDown}}s</em>后自动跳转至首页</span>
   </div>
 </template>
 

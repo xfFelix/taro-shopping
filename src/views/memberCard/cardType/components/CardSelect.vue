@@ -6,7 +6,7 @@
         {{$route.query.title}}
       </div>
       <div class="cardNumber">
-        <input type="text" placeholder="请输入账号" v-model="infoContent.cardNumber" />
+        <input type="text" placeholder="请输入账号" v-model.trim="infoContent.cardNumber" />
       </div>
     </div>
 
@@ -56,8 +56,7 @@
         </div>
       </div>
     </div>
-
-    <div class="changeC" @click="changeC">点击兑换</div>
+    <div class="changeC" :class="infoContent.cardNumber?'changeCliNo':'changeCli'" @click="changeC">点击兑换</div>
   </div>
 </template>
 <script>
@@ -95,7 +94,7 @@ export default {
     },
     changeC() {
       if (!this.infoContent.cardNumber) {
-        return this.$toast("账号不能为空")
+        return false;
       }
       this.$emit('info-content', this.infoContent)
     },
@@ -134,7 +133,7 @@ export default {
   }
   .cardNumber {
     width: 90%;
-    height: 1.6rem;
+    height: 60px;
     position: absolute;
     right: 0;
     left: 0;
@@ -149,7 +148,7 @@ export default {
       padding: 0 10px;
       box-sizing: border-box;
       border-radius: 5px;
-      font-size: 15px;
+      font-size: 18px;
     }
   }
 }
@@ -182,6 +181,7 @@ export default {
         }
         .realW {
           color: #999999;
+          background: #fff;
         }
       }
       li {
@@ -192,21 +192,24 @@ export default {
         border: 1px solid #30CE84;
         margin-bottom: 15px;
         color: #30CE84;
-
+        border-radius: 5px;
         .saleW {
           border-bottom: 1px solid #30CE84;
-          p:first-of-type {
-            padding: 4px 0;
-            font-size: 15px;
+          div {
+            p {
+              padding: 4px 0;
+              font-size: 15px;
+            }
           }
-          p:last-of-type {
+          p{
             padding-bottom: 7px;
             font-size: 12px;
           }
         }
         .realW {
           font-size: 9px;
-          line-height: 20px;
+          line-height: 22px;
+          background: #F4F4F4;
         }
       }
       li:nth-of-type(3n) {
@@ -236,6 +239,7 @@ export default {
         font-size: 15px;
         line-height: 49px;
         color: #30CE84;
+        border-radius: 5px;
       }
     }
   }
@@ -247,6 +251,7 @@ export default {
       color: #4A4A4A;
       margin: 16px 0 15px 0;
       line-height: 21px;
+      font-size: 15px;
     }
   }
 }
@@ -254,7 +259,6 @@ export default {
 
 .changeC {
   height: 44px;
-  background: #30CE84;
   color: #fff;
   position: fixed;
   width: 100%;
@@ -263,6 +267,13 @@ export default {
   text-align: center;
   font-size: 15px;
   max-width: 378px;
+}
+
+.changeCliNo{
+  background: #30CE84;
+}
+.changeCli{
+  background: #98E7C2;
 }
 
 

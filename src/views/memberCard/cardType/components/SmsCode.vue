@@ -16,9 +16,8 @@
         <div class="code-input-main-item">{{code[1]}}</div>
         <div class="code-input-main-item">{{code[2]}}</div>
         <div class="code-input-main-item">{{code[3]}}</div>
-        <input class="code-input-input" v-model="code" maxlength="4" type="number" v-focus/>
+        <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" maxlength="4" v-focus>
       </div>
-
       <div class="reInput" v-if="tipError">验证码输入错误，请重新输入</div>
     </div>
   </transition>
@@ -61,9 +60,10 @@ export default {
       }
     },
     code(val) {
-      if (val.length == 4 && this.countDown!=0) {
+      if (val.length == 4) {
         this.$emit('code-info', val);
       }
+
     },
     codeError(val) {
       if (val == true) {
@@ -74,11 +74,14 @@ export default {
     }
   },
   methods: {
+    numberNo(e) {
+      this.code = e.target.value.replace(/[^\d]/g, '');
+    },
     initData() {
       this.countDown = 120;
       this.getSmgFlag = false;
       this.code = "";
-      this.tipError=false;
+      this.tipError = false;
       clearInterval(this.timer);
     },
     reGetSms() {
@@ -91,7 +94,6 @@ export default {
         this.countDown--;
         if (this.countDown == 0) {
           this.getSmgFlag = true;
-          this.code = "";
           clearInterval(this.timer);
         }
       }, 1000)
@@ -178,8 +180,10 @@ export default {
     outline: none;
     color: transparent;
     background: transparent;
-    width: 100%;
-    height: 90px;
+    width: 91%;
+    height: 44px;
+    letter-spacing: 90px;
+    padding: 0 0 80px 0;
   }
 }
 </style>
