@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       code: '',
-      countDown: 10,
+      countDown: 120,
       timer: null,
       getSmgFlag: false,
       tipError:false
@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     initData() {
-      this.countDown = 10;
+      this.countDown = 120;
       this.getSmgFlag = false;
       this.code = "";
       this.tipError=false;
