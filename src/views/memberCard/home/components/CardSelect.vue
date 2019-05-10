@@ -41,7 +41,7 @@ export default {
     ],
     changeList: [
       { title: '黄金兑换', changeLogo: 'changeList01', path: process.env.VUE_APP_INFO_URl + '#!/goldChange?token='},
-      { title: '加油卡充值', changeLogo: 'changeList02', path: process.env.VUE_APP_BASE_HOME_URL + 'ticket/oil/?token='},
+      { title: '加油卡充值', changeLogo: 'changeList02', path: process.env.VUE_APP_BASE_HOME_URL + '/ticket/oil/?token='},
       { title: '话费充值', changeLogo: 'changeList03', path:process.env.VUE_APP_INFO_URl + '#!/phoneBill?token='},
       // { title: '信用卡还款', changeLogo: 'changeList04', path: process.env.VUE_APP_INFO_URl + '#!/goldChange?token='},
     ]

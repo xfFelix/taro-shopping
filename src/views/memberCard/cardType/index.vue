@@ -5,7 +5,7 @@
     <!-- 兑换信息 -->
     <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
     <!-- 短信 -->
-    <sms-code :show="show.sms" @go-back="initShow" @code-info="codeInfo"></sms-code>
+    <sms-code :show="show.sms" @go-back="initShow" @code-info="codeInfo" :codeError.sync="codeErrFlag" @send-sms="sendCode"></sms-code>
     <!-- 遮罩层 -->
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
@@ -25,13 +25,14 @@ export default {
       sms: false
     },
     productId: undefined,
+    codeErrFlag: false,
     chargeInfo: {
       productName: undefined,
       sellingPrice: undefined,
       tax_total: undefined,
       total: undefined,
       cardNumber: undefined,
-      productType:undefined
+      productType: undefined
     },
   }),
   computed: {
@@ -92,13 +93,15 @@ export default {
       this.sendSmsCode();
     },
     codeInfo(val) {
-      this.initShow();
       this.vipSubmit(val)
     },
     //提交订单
     async vipSubmit(code) {
-      let res = await vipSubmit({ code: code, token: this.getToken, productId: this.productId, accountNo: this.chargeInfo.cardNumber })
-      if (res.code != 1) {
+      let res = await vipSubmit({ code: code, token: this.getToken, productId: this.productId, accountNo: this.chargeInfo.cardNumber });
+      if (res.code == 4) {
+        return this.codeErrFlag = true;
+      }
+      if (res.code != 1 && res.code != 4) {
         this.initShow();
         return this.$toast(res.message);
       }

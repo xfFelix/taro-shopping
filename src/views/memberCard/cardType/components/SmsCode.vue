@@ -7,7 +7,8 @@
       </div>
       <h1>
         短信验证码已发送至手机 {{userinfo.userName | formatPhone}}
-        <span>{{countDown}}s</span>
+        <span v-if="!getSmgFlag">{{countDown}}s</span>
+        <span class="reGetSms" @click="reGetSms()" v-if="getSmgFlag">重新获取</span>
       </h1>
 
       <div class="code-input-main">
@@ -17,6 +18,8 @@
         <div class="code-input-main-item">{{code[3]}}</div>
         <input class="code-input-input" v-model="code" maxlength="4" type="number" v-focus/>
       </div>
+
+      <div class="reInput" v-if="tipError">验证码输入错误，请重新输入</div>
     </div>
   </transition>
 </template>
@@ -25,53 +28,78 @@
 import { mapGetters } from 'vuex'
 export default {
 
-props: {
-  show: {
-    type: Boolean,
+  props: {
+    show: {
+      type: Boolean,
       default: false
-  }
-},
-computed: {
-    ...mapGetters({
-    userinfo: 'getUserinfo',
-  }),
+    },
+    codeError: {
+      type: Boolean,
+      default: false
+    }
   },
-data() {
-  return {
-    code: '',
-    countDown: 120,
-    timer: null
-  }
-},
-watch: {
-  show(val) {
-    if (val) {
+  computed: {
+    ...mapGetters({
+      userinfo: 'getUserinfo',
+    }),
+  },
+  data() {
+    return {
+      code: '',
+      countDown: 10,
+      timer: null,
+      getSmgFlag: false,
+      tipError:false
+    }
+  },
+  watch: {
+    show(val) {
+      if (val) {
+        this.timeDown();
+      } else {
+        this.initData();
+      }
+    },
+    code(val) {
+      if (val.length == 4 && this.countDown!=0) {
+        this.$emit('code-info', val);
+      }
+    },
+    codeError(val) {
+      if (val == true) {
+        this.code = "";
+        this.tipError = true;
+        this.$emit('update:codeError', false)
+      }
+    }
+  },
+  methods: {
+    initData() {
+      this.countDown = 10;
+      this.getSmgFlag = false;
+      this.code = "";
+      this.tipError=false;
+      clearInterval(this.timer);
+    },
+    reGetSms() {
+      this.$emit("send-sms");
+      this.timeDown();
+    },
+    timeDown() {
+      this.initData();
       this.timer = setInterval(() => {
-        this.countDown--
+        this.countDown--;
         if (this.countDown == 0) {
+          this.getSmgFlag = true;
+          this.code = "";
           clearInterval(this.timer);
-          this.$emit('go-back');
-          this.$toast("订单提交失败")
         }
       }, 1000)
-    } else {
-      this.countDown = 120;
-      this.code = ''
-      clearInterval(this.timer);
     }
   },
-  code(val) {
-    if (val.length == 4) {
-      this.$emit('code-info', val)
-    }
-  }
-},
-methods: {
+  mounted() {
 
-},
-mounted() {
-
-},
+  },
 }
 </script>
 
@@ -82,9 +110,10 @@ mounted() {
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 0 18px;
+  padding: 0 18px 105px 18px;
   box-sizing: border-box;
   z-index: 11;
+
   .header {
     line-height: 44px;
     text-align: center;
@@ -106,6 +135,9 @@ mounted() {
     span {
       color: #4A4A4A;
     }
+    .reGetSms {
+      color: #30CE84;
+    }
   }
 
   .confirm {
@@ -118,18 +150,20 @@ mounted() {
     border-radius: 25px;
     padding: 11px 0;
   }
+  .reInput {
+    margin: 24px 0 0 15px;
+    font-size: 12px;
+    color: #4A4A4A;
+    position: absolute;
+  }
 }
-
-
-
 
 .code-input-main {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-  height: 44px;
-  margin-bottom: 105px;
+  height: 44px; // margin-bottom: 105px;
   position: relative;
   .code-input-main-item {
     opacity: 0.8;
@@ -145,7 +179,7 @@ mounted() {
     color: transparent;
     background: transparent;
     width: 100%;
-    height: 100%;
+    height: 90px;
   }
 }
 </style>
