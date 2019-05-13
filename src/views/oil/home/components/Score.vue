@@ -75,10 +75,12 @@ export default {
     .cubeic-back {
       position: absolute;
       left: 18px;
+      top: 32px;
     }
     .iconMoreW{
       position: absolute;
       right: 18px;
+      top: 32px;
       .iconMore{
           position: relative;
       }

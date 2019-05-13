@@ -6,7 +6,8 @@
         {{$route.query.title}}
       </div>
       <div class="cardNumber">
-        <input type="text" placeholder="请输入账号" v-model.trim="infoContent.cardNumber" />
+        <span class="logoPng"></span>
+        <input type="text" placeholder="请输入账号" v-model="infoContent.cardNumber" @keyup="trim()" />
       </div>
     </div>
 
@@ -79,6 +80,9 @@ export default {
     })
   },
   methods: {
+    trim(){
+        this.infoContent.cardNumber = this.infoContent.cardNumber.replace(/[^\w]/g,'')
+    },
     initData() {
       this.timeFlag = 0;
       this.infoContent.productId = this.valCard[0].productId;
@@ -142,6 +146,9 @@ export default {
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 0px 2px 20px 0px rgba(55, 60, 72, 0.25);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
     input {
       width: 100%;
       height: 100%;
@@ -149,6 +156,13 @@ export default {
       box-sizing: border-box;
       border-radius: 5px;
       font-size: 18px;
+    }
+    .logoPng{
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        background: url("../../../../common/images/logo.png") no-repeat;
+        background-size:100% 100%;
     }
   }
 }
@@ -210,6 +224,7 @@ export default {
           font-size: 9px;
           line-height: 22px;
           background: #F4F4F4;
+          border-radius: 0 0 5px 5px;
         }
       }
       li:nth-of-type(3n) {
