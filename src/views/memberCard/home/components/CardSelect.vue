@@ -7,7 +7,7 @@
       </li>
     </ul>
 
-    <div class="moreChange">
+    <!-- <div class="moreChange">
       <p class="moreChangeTitle">更多兑换</p>
       <ul>
         <li v-for="(item,index) in changeList" :key="index" @click="goLink(item.path)">
@@ -15,7 +15,7 @@
           <p>{{item.title}}</p>
         </li>
       </ul>
-    </div>
+    </div> -->
 
   </div>
 </template>

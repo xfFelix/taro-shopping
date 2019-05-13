@@ -10,65 +10,89 @@
         </div>
       </div>
     </div>
-    <div  class="goRecode" @click="$router.push({name:'cardRecord'})">
+
+    <div class="surRecW">
+      <div class="surplus">
+        <span>剩余可用余额：</span>
+         <span>{{userinfo.score | toPrice}} </span>
+      </div>
+
+      <div class="goRecode" @click="$router.push({name:'cardRecord'})">
         充值记录
         <span class="iconfont">&#xe61e;</span>
+      </div>
     </div>
+
     <bg-mask v-model="showDialog" color="transparent"></bg-mask>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
-    data: () => ({
-        showDialog: false
-    }),
-    methods: {
-        goHome() {
-            window.location.href = process.env.VUE_APP_BASE_HOME_URL
-
-        },
+  data: () => ({
+    showDialog: false
+  }),
+  computed: {
+    ...mapGetters({
+      userinfo: 'getUserinfo'
+    })
+  },
+  methods: {
+    goHome() {
+      window.location.href = process.env.VUE_APP_BASE_HOME_URL;
     },
-    components: {
-        HeadTab: () => import('@/components/HeadTab'),
-        BgMask: () => import("@/components/BgMask"),
-    }
+  },
+  components: {
+    HeadTab: () => import('@/components/HeadTab'),
+    BgMask: () => import("@/components/BgMask"),
+  }
 }
 </script>
 <style lang="scss" scoped>
 .headTop {
-    background: #373C48;
-    color: #fff;
-    .header {
+  background: #373C48;
+  color: #fff;
+  .header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 31px 0;
+    font-size: 18px;
+    .cubeic-back {
+      position: absolute;
+      left: 18px;
+      top: 12px;
+    }
+    .iconMoreW {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      .iconMore {
         position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 0 31px 0;
-        font-size: 18px;
-        .cubeic-back {
-            position: absolute;
-            left: 18px;
-            top: 12px;
-        }
-        .iconMoreW {
-            position: absolute;
-            right: 18px;
-            top: 12px;
-            .iconMore {
-                position: relative;
-            }
-        }
+      }
+    }
+  }
+  .surRecW {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 15px 20px;
+    .surplus {
+      span:last-of-type {
+        color: #30CE84;
+      }
     }
     .goRecode {
-        span {
-            transform: rotate(180deg);
-            font-size: 6px;
-            display: inline-block;
-        }
-        display: flex;
-        justify-content: flex-end;
-        padding: 0 20px 15px 0;
-        align-items: center;
+      span {
+        transform: rotate(180deg);
+        font-size: 6px;
+        display: inline-block;
+      }
+      display: flex;
+      justify-content: flex-end;
+
+      align-items: center;
     }
+  }
 }
 </style>

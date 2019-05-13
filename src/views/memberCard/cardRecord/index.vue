@@ -1,7 +1,7 @@
 <template>
   <div class="record-wrapper">
     <header>
-      <i class="iconfont back" @click="$router.back()">&#xe61e;</i>
+      <i class="cubeic-back back" @click="$router.back()"></i>
       充值记录
     </header>
     <div class="content">
@@ -117,7 +117,7 @@ export default {
     .back {
       position: absolute;
       left: 15px;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
   .content {
@@ -145,6 +145,9 @@ export default {
           padding-bottom: 15px;
           display: flex;
           justify-content: space-between;
+        }
+        .total{
+          font-size: 15px;
         }
       }
     }
