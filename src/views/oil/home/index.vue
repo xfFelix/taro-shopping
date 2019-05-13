@@ -19,16 +19,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import {submitOilOrder} from 'api';
 export default {
   components: {
     Score: () => import('./components/Score'),
     PriceList: () => import('./components/PriceList'),
-    CardNumber: () => import('./components/CardNumber'),
-    BgMask: () => import('components/BgMask'),
-    SmsCode: () => import('./components/SmsCode'),
-    SelectType: () => import('./components/SelectType'),
-    RechargeInfo: ()=> import('./components/RechargeInfo')
+    CardNumber: () => import(/* webpackPrefetch: true */ './components/CardNumber'),
+    BgMask: () => import(/* webpackPrefetch: true */ 'components/BgMask'),
+    SmsCode: () => import(/* webpackPrefetch: true */ './components/SmsCode'),
+    SelectType: () => import(/* webpackPrefetch: true */ './components/SelectType'),
+    RechargeInfo: ()=> import(/* webpackPrefetch: true */ './components/RechargeInfo')
   },
   data: () => ({
     rechargeType: 1, // 充值方式： 1 直充 2 加油卡充值
@@ -61,6 +60,7 @@ export default {
     async submitOrder () {
       const {faceValue, code, cardNum, token, type} = this.config
       let config = {faceValue, code, cardNum, token, rechargeType: this.rechargeType, oilCardType: type}
+      const {submitOilOrder} = await import(/* webpackPrefetch: true */ 'api')
       let res = await submitOilOrder(config)
       if (res.code !== '1') return this.$toast(res.message)
       this.initShow()
