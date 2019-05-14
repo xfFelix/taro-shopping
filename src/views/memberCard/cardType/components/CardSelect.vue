@@ -91,6 +91,9 @@ export default {
       this.infoContent.productId = productId;
     },
     typeCli(typeId) {
+      if(this.typeFlag==typeId){
+        return
+      }
       this.typeFlag = typeId;
       this.valCard = this.cardList[typeId][1];
       this.warmTip = this.cardList[typeId][2];
