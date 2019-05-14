@@ -52,9 +52,7 @@
 
       <div class="reminder">
         <p class="reminderTitle">温馨提示：</p>
-        <div>
-          我不知道我这里该写什么，所以就随便写一个就好啦，嗯 就不知道了，其他的以后再说
-        </div>
+        <div v-html="warmTip" class="reminderFont"></div>
       </div>
     </div>
     <div class="changeC" :class="infoContent.cardNumber?'changeCliNo':'changeCli'" @click="changeC">点击兑换</div>
@@ -67,6 +65,7 @@ export default {
   data: () => ({
     valCard: [],
     cardList: [],
+    warmTip:'',
     typeFlag: 0,
     timeFlag: 0,
     infoContent: {
@@ -80,8 +79,8 @@ export default {
     })
   },
   methods: {
-    trim(){
-        this.infoContent.cardNumber = this.infoContent.cardNumber.replace(/[^\w]/g,'')
+    trim() {
+      this.infoContent.cardNumber = this.infoContent.cardNumber.replace(/^\s+|\s+$/g, '')
     },
     initData() {
       this.timeFlag = 0;
@@ -94,6 +93,7 @@ export default {
     typeCli(typeId) {
       this.typeFlag = typeId;
       this.valCard = this.cardList[typeId][1];
+      this.warmTip = this.cardList[typeId][2];
       this.initData()
     },
     changeC() {
@@ -108,6 +108,7 @@ export default {
       if (data.code != 1) return this.$toast(data.message);
       this.cardList = data.data;
       this.valCard = this.cardList[0][1];
+      this.warmTip = this.cardList[0][2];
       this.initData();
     },
   },
@@ -157,12 +158,12 @@ export default {
       border-radius: 5px;
       font-size: 18px;
     }
-    .logoPng{
-        width: 22px;
-        height: 22px;
-        display: inline-block;
-        background: url("../../../../common/images/logo.png") no-repeat;
-        background-size:100% 100%;
+    .logoPng {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      background: url("../../../../common/images/logo.png") no-repeat;
+      background-size: 100% 100%;
     }
   }
 }
@@ -215,7 +216,7 @@ export default {
               font-size: 15px;
             }
           }
-          p{
+          p {
             padding-bottom: 7px;
             font-size: 12px;
           }
@@ -261,12 +262,15 @@ export default {
 
   .reminder {
     color: #999999;
-    padding-bottom: 50px;
+    padding-bottom: 80px;
     .reminderTitle {
       color: #4A4A4A;
       margin: 16px 0 15px 0;
       line-height: 21px;
       font-size: 15px;
+    }
+    .reminderFont{
+        line-height: 22px;
     }
   }
 }
@@ -284,10 +288,11 @@ export default {
   max-width: 378px;
 }
 
-.changeCliNo{
+.changeCliNo {
   background: #30CE84;
 }
-.changeCli{
+
+.changeCli {
   background: #98E7C2;
 }
 

@@ -145,6 +145,7 @@ export default {
           padding-bottom: 15px;
           display: flex;
           justify-content: space-between;
+          align-items: center;
         }
         .total{
           font-size: 15px;

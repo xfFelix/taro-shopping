@@ -18,7 +18,7 @@
       </div>
 
       <div class="goRecode" @click="$router.push({name:'cardRecord'})">
-        充值记录
+        兑换记录
         <span class="iconfont">&#xe61e;</span>
       </div>
     </div>
