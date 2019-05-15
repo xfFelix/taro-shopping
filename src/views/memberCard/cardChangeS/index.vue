@@ -39,7 +39,7 @@ export default {
   methods: {
     async vipCostInfo() {
       let data = await vipCostInfo({ token: this.getToken, productId: this.$route.query.productId });
-      if (data.code != 1 && data.code != 4) return this.$toast(data.message);
+      if (data.code != 1 && data.code != 4 && data.code != 6) return this.$toast(data.message);
       this.infoList = data.data;
     },
   },
