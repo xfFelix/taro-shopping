@@ -4,10 +4,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>海南旅游</title>
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1126106_ah7hai1tsp.css">
   <style>
     html,body {
       margin: 0 auto;
       padding: 0;
+      max-width: 450px;
     }
     .main-wrapper{
       position: relative;
@@ -17,6 +19,19 @@
       background-size: 100% 100%;
       background-position: center center;
       background-repeat: no-repeat;
+    }
+    .main-wrapper>.back{
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 20px;
+      background: rgba(0, 0, 0, .4);
+      border-radius: 50%;
+      position: absolute;
+      top: 15px;
+      left: 10px;
+      color: #fff;
     }
     .item{
       position: absolute;
@@ -60,25 +75,45 @@
 </head>
 <body>
   <div class="main-wrapper">
-    <a href="https://mall.cocogc.cn/ticket/home" class="more wanghong"></a>
+    <div class="back iconfont" onclick="goBack()">&#xe61e;</div>
+    <a onclick="goHome()" class="more wanghong"></a>
     <div class="item first">
-      <a href="https://mall.cocogc.cn/ticket/goodsDetail?sceneId=101969"></a>
-      <a href="https://mall.cocogc.cn/ticket/goodsDetail?sceneId=111939"></a>
+      <a onclick="goDetail('101969')" id="101969"></a>
+      <a onclick="goDetail('111939')" id="111939"></a>
     </div>
-    <a href="https://mall.cocogc.cn/ticket/home" class="more qinzi"></a>
+    <a onclick="goHome()" class="more qinzi"></a>
     <div class="item second">
-        <a href="https://mall.cocogc.cn/ticket/goodsDetail?sceneId=114408"></a>
-        <a href="https://mall.cocogc.cn/ticket/goodsDetail?sceneId=111598"></a>
+        <a onclick="goDetail('114408')" id="114408"></a>
+        <a onclick="goDetail('111598')" id="111598"></a>
     </div>
-    <a href="https://mall.cocogc.cn/ticket/home" class="more sea"></a>
+    <a onclick="goHome()" class="more sea"></a>
     <div class="item third">
-        <a href="https://mall.cocogc.cn/ticket/goodsDetail?sceneId=120379"></a>
-        <a href="https://mall.cocogc.cn/ticket/goodsDetail?sceneId=102783"></a>
+        <a onclick="goDetail('120379')" id="120379"></a>
+        <a onclick="goDetail('102783')" id="102783"></a>
     </div>
   </div>
   <script>
   !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
   </script>
-
+  <script>
+    const homeUrl = 'https://mall.cocogc.cn/ticket/home'
+    const detailUrl = 'https://mall.cocogc.cn/ticket/goodsDetail'
+    function getQueryString(name) { 
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+      var r = window.location.search.substr(1).match(reg); 
+      if (r != null) return unescape(r[2]); 
+      return null; 
+    }
+    let token = getQueryString('token');
+    function goHome () {
+      window.location = token ? `${homeUrl}?token=${token}` : homeUrl
+    }
+    function goDetail (id) {
+      window.location = token ? `${detailUrl}?sceneId=${id}&token=${token}` : `${detailUrl}?sceneId=${id}`
+    }
+    function goBack() {
+      window.history.back(-1);
+    }
+  </script>
 </body>
 </html>
