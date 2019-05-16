@@ -55,7 +55,7 @@
         <div v-html="warmTip" class="reminderFont"></div>
       </div>
     </div>
-    <div class="changeC" :class="infoContent.cardNumber?'changeCliNo':'changeCli'" @click="changeC">点击兑换</div>
+    <div class="changeC" :class="infoContent.cardNumber?'changeCliNo':'changeCli'" @click="changeC">立即兑换</div>
   </div>
 </template>
 <script>
@@ -227,8 +227,10 @@ export default {
         .realW {
           font-size: 9px;
           line-height: 22px;
-          background: #F4F4F4;
+          // background: #F4F4F4;
           border-radius: 0 0 5px 5px;
+          color: #999999;
+          text-decoration: line-through;
         }
       }
       li:nth-of-type(3n) {
