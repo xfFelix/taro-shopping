@@ -18,6 +18,7 @@
             </li>
             <li>订单编号:&nbsp;{{item.idUrl}}</li>
             <li>时间：{{item.orderTime}}</li>
+            <li>充值账号：{{item.cardNum}}</li>
             <li>类型：
               <span v-if="item.cardBank==1">周卡</span>
               <span v-else-if="item.cardBank==2">月卡</span>
@@ -25,7 +26,6 @@
               <span v-else-if="item.cardBank==4">半年卡</span>
               <span v-else>年卡</span>
             </li>
-            <li>充值账号：{{item.cardNum}}</li>
             <li>售价：{{item.repaymentAmount|toPrice}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>

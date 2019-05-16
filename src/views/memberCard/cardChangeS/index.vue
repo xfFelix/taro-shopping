@@ -9,6 +9,7 @@
     </div>
     <ul>
       <li>产品名称：{{infoList.productName}}</li>
+      <li>充值账号：{{$route.query.num}}</li>
       <li>类型：
         <span v-if="infoList.productType==='1'">周卡</span>
         <span v-else-if="infoList.productType==='2'">月卡</span>
@@ -16,7 +17,6 @@
         <span v-else-if="infoList.productType==='4'">半年卡</span>
         <span v-else>年卡</span>
       </li>
-      <li>充值账号：{{$route.query.num}}</li>
       <li>售价：{{infoList.sellingPrice|toPrice}}</li>
       <li>税费：{{infoList.tax_total|toPrice}}</li>
       <li>合计：{{infoList.total|toPrice}}</li>
