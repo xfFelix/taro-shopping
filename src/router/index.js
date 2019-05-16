@@ -158,7 +158,7 @@ const router = new Router({
       name: 'cardRecord',
       component: () => import('views/memberCard/cardRecord'),
       meta: {
-        title: '充值记录',
+        title: '兑换记录',
         requireAuth: true
       }
     },

@@ -2,7 +2,7 @@
   <div class="record-wrapper">
     <header>
       <i class="cubeic-back back" @click="$router.back()"></i>
-      充值记录
+      兑换记录
     </header>
     <div class="content">
       <div class="scroll-list-wrap">
