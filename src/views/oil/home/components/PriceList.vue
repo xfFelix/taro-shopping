@@ -1,19 +1,20 @@
 <template>
   <div class="content">
     <cube-checker v-model="faceValue" :options="list" type="radio" class="list clear-fix">
-      <cube-checker-item v-for="item in list" :key="item.value" :option="item" class="item" @click.native="handlerClick">
+      <cube-checker-item v-for="item in list" :key="item.value" :option="item" class="item">
           <p class="price">{{item.value}}<i>元</i></p>
-          <span class="circle"></span>
+          <!-- <span class="circle"></span> -->
       </cube-checker-item>
     </cube-checker>
     <div class="desc">
       <h1>温馨提示:</h1>
-      <p class="long" v-html="descFilter(rechargeType)"></p>
+      <p class="long" v-html="descFilter(config.rechargeType)"></p>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 const descList = [
   {type: 1, value:
        `1. 本业务仅支持有实名加油卡的情况，如无加油卡，须办理加油卡并进行首次充值后，方可进行本业务的充值活动（提示：新开卡用户需24小时后才可办理自助充值）；<br/>
@@ -34,12 +35,6 @@ const descListOption = descList.reduce((acc, item) => {
   return acc
 },{})
 export default {
-  props: {
-    rechargeType: {
-      type: Number,
-      default: 1
-    }
-  },
   data: () => ({
     list: [
       {value: 100, sell: 101},
@@ -50,6 +45,9 @@ export default {
     checkValue: 100
   }),
   computed: {
+    ...mapGetters({
+      config: 'oil/getConfig'
+    }),
     faceValue: {
       get() {
         return this.$store.state.oil.config.faceValue
@@ -60,9 +58,6 @@ export default {
     }
   },
   methods: {
-    handlerClick() {
-      this.$emit('handler-click')
-    },
     descFilter(type) {
       return descListOption[type]
     }
@@ -111,10 +106,12 @@ export default {
   .list{
     .item{
       border-radius: 0;
-      width: 102px;
+      width: 104px;
       float: left;
-      margin: 20px 0 0 18px;
-      padding: 21px 0;
+      margin: 20px 0 0 15px;
+      padding: 0;
+      height: 60px;
+      line-height: 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -122,7 +119,8 @@ export default {
       border: 1px solid #30CE84;
       position: relative;
       z-index: 9;
-      &::before{
+      border-radius: 5px;
+      /* &::before{
         content: '';
         display: block;
         width: 10px;
@@ -134,11 +132,11 @@ export default {
         left: -2px;
         z-index: 10;
         background: #fff;
-      }
+      } */
       .price{
-        font-size: 20px;
+        font-size: 24px;
         i{
-          font-size: 13px;
+          font-size: 12px;
         }
       }
       .circle{

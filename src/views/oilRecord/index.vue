@@ -3,7 +3,7 @@
         <div class="headFixed">
             <header>
                 <i class="cubeic-back" @click="$router.back()"></i>
-                加油卡充值
+                充值记录
             </header>
             <div class="whoSelectW">
                 <p :class="changeFlag?'whoSelectLogo':''" @click="directCharge()">
@@ -22,7 +22,7 @@
                 <ul class="recordW">
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
-                            <span>商品名：{{item.cardUser}}</span>
+                            <span>产品名称:{{item.cardUser}}</span>
                             <div>
                                 <span v-if="item.status==0">已售出</span>
                                 <span v-else-if="item.status==1">成功</span>
@@ -34,45 +34,46 @@
                                 <span v-else-if="item.status == 1">已回购</span>
                             </div> -->
                         </div>
-                        <div class="reTM flex">
-                            <p class="reBuyTime flex">
-                                <span>{{item.orderTime}}</span>
-                            </p>
-                            <p class="reAllMoney">
-                                <span>合计：</span>
-                                <span>{{item.totalAmount|toPrice}}</span>
-                            </p>
-                        </div>
+
                         <div class="reInfoW">
                             <div class="reInfo">
-                                <p class="cardNum" v-if="changeFlag">
-                                    <span>卡号：</span>
+                                <p>
+                                    <span>订单编号：</span>
+                                    <span>{{item.idUrl}}</span>
+                                </p>
+                                <p>
+                                    <span>时间：</span>
+                                    <span>{{item.orderTime}}</span>
+                                </p>
+                                <p v-if="changeFlag">
+                                    <span>充值账号：</span>
                                     <span>{{item.cardNum}}</span>
                                 </p>
-                                <p class="cardNum" v-if="!changeFlag">
+                                <p v-if="!changeFlag">
                                     <span>卡号：</span>
                                     <span>{{item.idBackUrl}}</span>
                                 </p>
-                                <p class="cardNum" v-if="!changeFlag">
+                                <p v-if="!changeFlag">
                                     <span>卡密：</span>
                                     <span>{{item.memo}}</span>
                                 </p>
-                                <p class="cardNum">
-                                    <span>面值：</span>
+                                <p>
+                                    <span>售价：</span>
                                     <span>{{item.orderNum|toPrice}}</span>
                                 </p>
-                                <!-- <p v-if="changeFlag">
-                                    <span>售价：</span>
-                                    <span>{{item.repaymentAmount|toPrice}}</span>
-                                </p> -->
                                 <p>
                                     <span>服务费：</span>
                                     <span>{{item.serviceFee|toPrice}}</span>
+                                </p>
+                                <p class="total">
+                                    <span>合计：</span>
+                                    <span>{{item.totalAmount|toPrice}}</span>
                                 </p>
                                 <p>
                                     <span>税费：</span>
                                     <span>{{item.taxFee|toPrice}}</span>
                                 </p>
+
                             </div>
                             <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==0?'recoverCan':'recoverNo'">
                                 回收
@@ -192,22 +193,22 @@ export default {
     justify-content: space-around;
     height: 30px;
     align-items: center;
-    background: #fff;
+    background: #373C48;
     P {
         width: 90px;
         text-align: center;
-        color: #000000;
+        color: #fff;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         height: 100%;
+        font-size: 15px;
         span:first-of-type {
             margin-bottom: 5px;
         }
         span:last-of-type {
             width: 100%;
             height: 2px;
-            background: #fff;
             display: block;
         }
     }
@@ -228,73 +229,53 @@ export default {
         border: 1px solid #DEDEDE;
         background: #fff;
         border-radius: 5px;
-        margin: 15px 17px;
+        margin: 20px 15px;
         font-size: 13px;
-        padding: 20px 25px 20px 15px;
+        box-sizing: border-box;
         .reName {
-            span:first-of-type {
-                color: #070707;
-            }
-            span:last-of-type {
-                color: #8B8B8B;
-            }
-        }
-        .reTM {
-            .reBuyTime {
-                color: #8B8B8B;
-                line-height: 30px;
-                &:before {
-                    content: '';
-                    width: 7px;
-                    height: 7px;
-                    background: #8B8B8B;
-                    display: inline-block;
-                    border-radius: 50%;
-                    margin-right: 3px;
-                }
-            }
-            .reAllMoney {
-                color: #30CE84;
-            }
+          background: transparent;
+          line-height: 44px;
+          font-size: 15px;
+          color: rgb(74, 74, 74);
+          padding: 0 10px;
         }
         .reInfoW {
-            color: #8B8B8B;
-            display: flex;
-            align-items: baseline;
-            position: relative;
+            background: #F4F4F4;
+            color: rgb(74, 74, 74);
             .reInfo {
+              padding: 0 10px;
+              position: relative;
                 p {
-                    line-height: 21px;
-                    span:first-of-type {}
-                    span:last-of-type {}
+                    font-size: 12px;
+                    padding-top: 15px;
+                    &:last-of-type{
+                      padding-bottom: 15px;
+                    }
+                    span{
+                      &:last-of-type{
+                        margin-left: 5px;
+                      }
+                    }
                 }
-                .cardNum {}
+                .total{
+                  position: absolute;
+                  bottom: 15px;
+                  right: 10px;
+                  font-size: 15px;
+                }
             }
-            &:before {
-                content: '';
-                width: 7px;
-                height: 7px;
-                background: #0DC971;
-                display: inline-block;
-                border-radius: 50%;
-                margin-right: 3px;
-            }
-            .recover {
-                position: absolute;
-                width: 100px;
-                height: 30px;
-                line-height: 30px;
-                text-align: center;
-                border-radius: 30px;
-                bottom: 0;
-                right: 0;
-                color: #fff;
-            }
-            .recoverCan {
-                background: #30CE84;
-            }
-            .recoverNo {
-                background: #C3C3C3;
+            .recover{
+              width: 100%;
+              background: #30CE84;
+              color: #fff;
+              text-align: center;
+              line-height: 44px;
+              border-radius:0px 0px 5px 5px; /*no*/
+              font-size: 15px;
+              &.recoverNo{
+                background: #DEDEDE;
+                color: #4A4A4A;
+              }
             }
         }
     }
@@ -304,25 +285,32 @@ export default {
     position: fixed;
     width: 100%;
     z-index: 2;
+    background: #373C48;
 }
 
 .scroll-list-wrap {
-    padding-top: 100px;
-    height: calc(100vh - 100px);
+    padding-top: 80px;
+    height: calc(100vh - 80px);
     transform: rotate(0deg); // fix 子元素超出边框圆角部分不隐藏的问题
     overflow: hidden
 }
 
 header {
     position: relative;
-    line-height: 70px;
+    background: #373C48;
+    line-height: 50px;
     text-align: center;
-    background: #fff;
     font-size: 18px;
+    color: #fff;
+    padding-bottom: 5px;
     .cubeic-back {
         position: absolute;
+        font-size: 28px;
         left: 18px;
     }
+}
+.oilRecord{
+  background: #fff;
 }
 </style>
 <style scoped>

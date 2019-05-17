@@ -12,11 +12,11 @@
 
     </header>
     <div class="type">
-      <div class="item" :class="{active: rechargeType === 1}" @click="changeRechargeType(1)">直充</div>
-      <div class="item" :class="{active: rechargeType === 2}" @click="changeRechargeType(2)">充值卡</div>
+      <div class="item" :class="{active: config.rechargeType === 1}" @click="changeRechargeType(1)">直充</div>
+      <div class="item" :class="{active: config.rechargeType === 2}" @click="changeRechargeType(2)">充值卡</div>
     </div>
     <div class="footer">
-       <span class="score price-color">椰子分余额: <i>{{userinfo.score | toPrice}}</i></span>
+       <span class="score">椰子分余额: <i class="price-color">{{userinfo.score | toPrice}}</i></span>
       <span class="history" @click="$router.push('/oil/oilRecord')">兑换记录 ></span>
     </div>
 
@@ -32,31 +32,24 @@ export default {
     HeadTab: () => import('components/HeadTab'),
     BgMask: () => import("@/components/BgMask"),
   },
-  props: {
-    rechargeType: {
-      type: Number,
-      default: 1
-    }
-  },
   data:()=>({
     showDialog:false
   }),
   computed: {
     ...mapGetters({
-      userinfo: 'getUserinfo'
+      userinfo: 'getUserinfo',
+      config: 'oil/getConfig'
     })
   },
   methods: {
     ...mapActions({
-      initConfig: 'oil/initConfig'
+      initConfig: 'oil/initConfig',
+      setConfig: 'oil/setConfig'
     }),
     changeRechargeType(val) {
       this.initConfig()
-      this.$emit('update:rechargeType', val)
-    },
-    // goHome() {
-    //   window.location.href = process.env.VUE_APP_BASE_HOME_URL
-    // }
+      this.setConfig({rechargeType: val})
+    }
   }
 }
 </script>
@@ -121,6 +114,7 @@ export default {
     .score {
       i {
         color: #fff;
+        margin-left: 5px;
       }
     }
   }

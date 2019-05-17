@@ -120,6 +120,15 @@ const router = new Router({
             title: '加油卡首页',
             requireAuth: true
           }
+        },
+        {
+          path: 'recovery',
+          name: 'recoveryList',
+          component: () => import(/* webpackPrefetch */ 'views/oil/recovery'),
+          meta: {
+            title: '加油卡回收列表',
+            requireAuth: true
+          }
         }
       ]
     },

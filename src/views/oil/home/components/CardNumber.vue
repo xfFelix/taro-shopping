@@ -1,11 +1,9 @@
 <template>
   <transition name="slideUp" mode="out-in">
     <div class="card" v-if="show">
-      <div class="header">
-        <ul class="clear-fix">
-          <li class="item" :class="{active: type === item.value}" @click="changeType(item.value)" v-for="item of typeList" :key="item.value">{{item.label}}</li>
-        </ul>
-        <span class="cancel" @click="closeDialog">取消</span>
+      <div class="header border-bottom-1px">
+        <i class="cubeic-back back" @click="handlerShowType"></i>
+        输入加油卡卡号
       </div>
       <div class="input-card">
         <cube-input v-model.trim="cardNum" placeholder="请输入您的加油卡号" class="input">
@@ -60,6 +58,9 @@ export default {
     handlerShowInfo() {
       if (!this.cardNum) return this.$toast('请输入充值卡号')
       this.$emit('handler-show-info')
+    },
+    handlerShowType() {
+      this.$emit('handler-show-type')
     }
   }
 }
@@ -73,42 +74,28 @@ export default {
   left: 0;
   width: 100%;
   background: #fff;
-  padding: 20px 18px 21px;
+  padding-top: 20px;
   box-sizing: border-box;
   font-size: 13px;
   .header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    ul{
-      .item{
-        float: left;
-        width: 80px;
-        padding: 9px 0;
-        text-align: center;
-        background: #EEEEEE;
-        border-radius: 25px; /*no*/
-        color: #8B8B8B;
-        position: relative;
-        z-index: 9;
-        &:last-of-type{
-          margin-left: -22px;
-        }
-        &.active{
-          background: #30CE84;
-          color: #fff;
-          z-index: 10;
-        }
-      }
-    }
-    .cancel{
-      color: #8B8B8B;
+    position: relative;
+    text-align: center;
+    font-size: 15px;
+    color: #4A4A4A;
+    margin: 0 18px 15px;
+    .back{
+      position: absolute;
+      color: #4A4A4A;
+      font-size: 15px;
+      left: 0;
     }
   }
   .input-card{
-    margin-top: 20px;
+    margin: 54px 18px 0;
+    box-sizing: border-box;
     border: 1px solid #DEDEDE;
     .input {
+      height: 44px;
       .cube-input-prepend{
         .prepend{
           margin: 10px 0;
@@ -121,11 +108,10 @@ export default {
     }
   }
   .confirm{
-    margin-top: 20px;
+    margin-top: 54px;
     border: none;
     background: #30CE84;
     width: 100%;
-    border-radius: 25px; /*no*/
     color: #fff;
     font-size: 18px;
     padding: 11px 0;

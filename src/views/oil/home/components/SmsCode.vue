@@ -5,18 +5,17 @@
         <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
         <span class="title">确认兑换</span>
       </div>
-      <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>
-      <div class="input-code">
-        <cube-input v-model="code" type="number" placeholder="请输入短信验证码"></cube-input>
-      </div>
-      <button class="confirm" @click="validateCode">确认</button>
+      <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}} <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button></h1>
+      <Code @confirm="validateCode"></Code>
     </div>
   </transition>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import {sendSmsCode} from 'api'
+import Code from 'components/Code'
+import { setInterval } from 'timers';
 export default {
   props: {
     show: {
@@ -24,35 +23,48 @@ export default {
       default: false
     }
   },
+  data: () => ({
+    btnDisabled: false,
+    time: 0
+  }),
+  components: {
+    Code
+  },
   computed: {
     ...mapGetters({
       userinfo: 'getUserinfo',
       token: 'getToken',
-    }),
-    code: {
-      get() {
-        return this.$store.state.oil.config.code
-      },
-      set(val) {
-        this.$store.dispatch('oil/setConfig', {code: val})
-      }
-    }
+    })
   },
   watch: {
     show(val){
       if (val) {
         this.sendCode()
+      } else {
+        this.initConfig()
       }
     }
   },
   methods: {
+    ...mapActions({
+      initConfig: 'oil/initConfig'
+    }),
     validateCode() {
-      if (!this.code) return this.$toast('请输入验证码')
       this.$emit('submit-order')
     },
     async sendCode(){
       let res = await sendSmsCode({token: this.token})
       if (res.error_code) return this.$toast(res.message)
+      this.time = 120
+      const timeout = setInterval(() => {
+        if (this.time > 0) {
+          this.time--
+          this.btnDisabled = true
+        } else {
+          this.btnDisabled = false
+          window.clearInterval(timeout)
+        }
+      }, 1000)
     }
   }
 }
@@ -65,25 +77,32 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 21px 18px;
+  padding: 16px 15px 105px;
   box-sizing: border-box;
   z-index: 11;
   .header{
     position: relative;
     text-align: center;
-    font-size: 18px;
-    color: #111010;
+    font-size: 15px;
+    color: #4A4A4A;
     i{
       position: absolute;
       left: 0;
     }
   }
   h1{
-    margin-top: 21px;
-    padding: 16px 0;
-    font-size: 13px;
+    margin-top: 14px;
+    padding: 20px 0;
+    font-size: 12px;
     color: #C3C3C3;
     border-top: 1px solid rgba(222,222,222,0.9);
+    .sms-code{
+      background: transparent;
+      color: #30CE84;
+      font-size: 12px;
+      border: none;
+      margin-left: 15px;
+    }
   }
   .input-code{
     border: 1px solid #DEDEDE;

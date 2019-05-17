@@ -7,11 +7,18 @@ const state = {
   ],
   config: {
     cardNum: undefined,
-    faceValue: undefined,
+    faceValue: 100,
     type: 1,
     token: undefined,
-    code: undefined
-  }
+    code: '',
+    rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值
+  },
+  statusList: [
+    { label: '已售出', value: 0 },
+    { label: '成功', value: 1 },
+    { label: '失败', value: 2 },
+    { label: '回购中', value: 3 }
+  ]
 }
 
 // getters
@@ -23,6 +30,9 @@ const getters = {
   getConfig (state) {
     if (!state.config || isEmpty(state.config)) return undefined
     return state.config
+  },
+  getStatusList: state => {
+    return state.statusList
   }
 }
 
@@ -44,7 +54,7 @@ const actions = {
 
 // mutations
 const mutations = {
-  setUser(state, typeList) {
+  setTypeList(state, typeList) {
     if (!typeList || isEmpty(typeList)) {
       state.typeList = undefined
     } else {
@@ -61,10 +71,11 @@ const mutations = {
   initConfig(state) {
     state.config = {
       cardNum: undefined,
-      faceValue: undefined,
+      faceValue: 100,
       type: 1,
       token: undefined,
-      code: undefined
+      code: '',
+      rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值
     }
   }
 }

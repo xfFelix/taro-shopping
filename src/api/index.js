@@ -123,6 +123,12 @@ export const getOilOrderDetail= (data) => fetch({
   data
 })
 
+export const getRecoveryList = (data) => fetch({
+  url: 'oilcard/getBuyBackList',
+  method: 'POST',
+  data
+})
+
 //回收成功
 export const buyBackCommitOrder= (data) => fetch({
   url: '/oilcard/buyBackCommitOrder',

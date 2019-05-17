@@ -2,7 +2,7 @@
   <div class="oilRecovery">
     <header>
       <i class="cubeic-back" @click="$router.back()"></i>
-      加油卡回收
+      回收申请
     </header>
 
     <!-- <div class="whoSelectW">
@@ -18,7 +18,7 @@
     </div> -->
 
     <div class="recoveryInfoW">
-      <p class="rMoneyTtiel">回收价</p>
+      <p class="rMoneyTtiel">回收价格：</p>
       <p class="rMoney">{{selfa.disPrice|toPrice}}</p>
       <ul>
         <li>
@@ -64,7 +64,7 @@
       </cube-checkbox>
       <span class="file" @click="show.file=true">《加油卡回收协议》</span>
     </div>
-
+    <span class="hint">1个工作日内到账，请耐心等待</span>
     <div class="commitApply" @click="commitApply">提交申请表</div>
 
     <transition name="fade">
@@ -290,19 +290,24 @@ export default {
     font-size: 18px;
   }
 }
+.oilRecovery{
+  min-height: 100%;
+  background: #fff;
+  padding-bottom: 44px;
+}
 
 .recoveryInfoW {
-  text-align: center;
   padding: 0 18px;
   .rMoneyTtiel {
+    text-align: left;
     font-size: 12px;
-    color: #8b8b8b;
-    margin: 35px 0 13px 0;
+    color: #4A4A4A;
+    margin: 20px 0 13px 0;
   }
   .rMoney {
-    font-size: 30px;
+    text-align: center;
+    font-size: 36px;
     color: #30ce84;
-    font-weight: bold;
     margin-bottom: 17px;
   }
   ul {
@@ -316,6 +321,9 @@ export default {
       height: 53px;
       padding-top: 18px;
       box-sizing: border-box;
+      input{
+        background: transparent;
+      }
       .reFirst {
         color: #000;
       }
@@ -348,6 +356,13 @@ export default {
   }
 }
 
+.hint{
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}
+
 .commitApply {
   height: 50px;
   background: #30ce84;
@@ -366,10 +381,11 @@ export default {
 
 header {
   position: relative;
-  line-height: 70px;
+  line-height: 44px;
   text-align: center;
-  background: #fff;
+  background: #373C48;
   font-size: 18px;
+  color: #fff;
   .cubeic-back {
     position: absolute;
     left: 18px;
