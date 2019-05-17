@@ -82,7 +82,6 @@ export default {
     }
   },
   created() {
-    console.log(this)
     this.getList()
   },
   methods: {
@@ -93,9 +92,8 @@ export default {
       const { code, data, message } = await getRecoveryList(args)
       if (code !== '1') this.$toast(message)
       this.list = [...this.list, ...data]
-      if (data.length < this.limit) {
-        return this.pullUpLoad = false
-      }
+      this.pullUpLoad = !(data.length < this.limit)
+      if (this.pullUpLoad) this.page++
     },
     initData() {
       this.list = []

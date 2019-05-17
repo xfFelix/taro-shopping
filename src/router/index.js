@@ -124,7 +124,7 @@ const router = new Router({
         {
           path: 'recovery',
           name: 'recoveryList',
-          component: () => import(/* webpackPrefetch */ 'views/oil/recovery'),
+          component: () => import(/* webpackPrefetch: true */ 'views/oil/recovery'),
           meta: {
             title: '加油卡回收列表',
             requireAuth: true
