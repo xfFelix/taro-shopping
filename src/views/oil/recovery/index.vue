@@ -4,7 +4,7 @@
       <i class="cubeic-back back" @click="$router.go(-1)"></i>
       加油卡回收
     </header>
-    <div class="scroll-list-wrap">
+    <div class="scroll-list-wrap" v-if="list.length > 0">
       <cube-scroll
         ref="scroll"
         :data="list"
@@ -31,12 +31,16 @@
         </div>
       </cube-scroll>
     </div>
+    <no-data :data="list"></no-data>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 export default {
+  components: {
+    NoData: () => import(/* webpackPrefetch: true */ 'components/NoData')
+  },
   data: () => ({
     page: 1,
     limit: 10,

@@ -25,13 +25,14 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      typeList: 'oil/getTypeList'
+      typeList: 'oil/getTypeList',
+      config: 'oil/getConfig'
     })
   },
   methods: {
     handerShowInfo(val) {
-      if (val === 2) {
-        return this.$toast('中石油未开通')
+      if (this.config.rechargeType === 2 && val === 2) {
+        return this.$toast('中石油暂未开通充值卡')
       }
       this.$store.dispatch('oil/setConfig', {type: val})
       this.$emit('handler-show-info')
