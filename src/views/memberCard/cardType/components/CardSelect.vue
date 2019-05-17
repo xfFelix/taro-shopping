@@ -230,7 +230,7 @@ export default {
           // background: #F4F4F4;
           border-radius: 0 0 5px 5px;
           color: #999999;
-          text-decoration: line-through;
+          // text-decoration: line-through;
         }
       }
       li:nth-of-type(3n) {

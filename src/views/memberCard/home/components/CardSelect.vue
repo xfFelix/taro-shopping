@@ -30,14 +30,14 @@ export default {
       { title: '优 酷', id: 1, cardLogo: 'cardLogo01' },
       { title: '芒果TV', id: 5, cardLogo: 'cardLogo04' },
       { title: '搜狐视频', id: 6, cardLogo: 'cardLogo05' },
-      // { title: '乐视', id: 7, cardLogo: 'cardLogo06' },
-      { title: '新浪微博', id: 14, cardLogo: 'cardLogo14' },
-      { title: '网易云音乐', id: 8, cardLogo: 'cardLogo07' },
+      { title: 'QQ阅读', id: 13, cardLogo: 'cardLogo12' },
+      { title: '掌阅', id: 12, cardLogo: 'cardLogo11' },
       { title: '酷狗音乐', id: 9, cardLogo: 'cardLogo08' },
+      { title: '网易云音乐', id: 8, cardLogo: 'cardLogo07' },
       { title: 'QQ音乐', id: 10, cardLogo: 'cardLogo09' },
       { title: '喜马拉雅', id: 11, cardLogo: 'cardLogo10' },
-      { title: '掌阅', id: 12, cardLogo: 'cardLogo11' },
-      { title: 'QQ阅读', id: 13, cardLogo: 'cardLogo12' },
+      { title: '新浪微博', id: 14, cardLogo: 'cardLogo14' },
+      // { title: '乐视', id: 7, cardLogo: 'cardLogo06' },
     ],
     changeList: [
       { title: '黄金兑换', changeLogo: 'changeList01', path: process.env.VUE_APP_INFO_URl + '#!/goldChange?token=' },
@@ -73,7 +73,7 @@ export default {
     margin: 20px 0;
     .cardLogo {
       display: inline-block;
-      background-image: url(../../../../common/images/cardTicket.png);
+      background-image: url(../../../../common/images/cardTicket.png?v=1);
       background-repeat: no-repeat;
       width: 40px;
       height: 40px;
@@ -134,7 +134,7 @@ export default {
       background-position: -98px -145px;
     }
     .cardLogo16 {
-      background-position: -150px -149px;
+      background-position: -146px -145px;
     }
     p {
       color: #4A4A4A;
