@@ -65,15 +65,15 @@
       <span class="file" @click="show.file=true">《加油卡回收协议》</span>
     </div>
     <span class="hint">1个工作日内到账，请耐心等待</span>
-    <div class="commitApply" @click="commitApply">提交申请表</div>
+    <div class="commitApply" @click="commitApply">提交</div>
 
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
 
     <recovery-Info :show="show.info" @handler-show-code="handlerShowCode" @go-back-init="goBackInit" :recoveryListC="recoveryListP" v-if="show.mask"></recovery-Info>
-    <sms-code :show="show.code" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit"></sms-code>
-
+    <sms-code :show="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit"></sms-code>
+    <success :show="show.success"></success>
     <agree-file :show="show.file" @handle-show-file="goBackInit"></agree-file>
   </div>
 </template>
@@ -133,7 +133,8 @@ export default {
       mask: false,
       code: false,
       info: false,
-      file: false
+      file: false,
+      success: false
     },
     recoveryListP: {}
   }),
@@ -142,21 +143,35 @@ export default {
       getToken: "getToken"
     })
   },
+  watch: {
+    'show.mask': {
+      handler(val) {
+        if (!val) {
+          this.goBackInit()
+        }
+      },
+      immediate: true
+    }
+  },
   components: {
     RecoveryInfo: () => import("./components/RecoveryInfo"),
     BgMask: () => import("components/BgMask"),
     SmsCode: () => import("./components/SmsCode"),
-    AgreeFile: () => import("./components/AgreeFile")
+    AgreeFile: () => import("./components/AgreeFile"),
+    Success: () => import(/* webpackPrefetch: true */ './components/Success')
   },
   methods: {
     handlerShowCode() {
-      this.show = { mask: true, code: true, info: false, file: false };
+      this.show = { mask: true, code: true, info: false, file: false, success: false }
     },
     goBackInfo() {
-      this.show = { mask: true, code: false, info: true, file: false };
+      this.show = { mask: true, code: false, info: true, file: false, success: false }
     },
     goBackInit() {
-      this.show = { mask: false, code: false, info: false, file: false };
+      this.show = { mask: false, code: false, info: false, file: false, success: false }
+    },
+    handlerShowSuccess() {
+      this.show = { mask: true, code: false, info: false, file: false, success: true }
     },
     showPicker() {
       if (!this.picker) {
@@ -181,6 +196,7 @@ export default {
       this.selfFlag = 0;
     },
     commitApply() {
+      return this.handlerShowSuccess(0)
       if (!this.selfFlag) {
         console.log("非本人");
         if (!this.noself.payeeName) {
@@ -368,7 +384,7 @@ export default {
   background: #30ce84;
   text-align: center;
   color: #fff;
-  font-size: 0.48rem;
+  font-size: 15px;
   line-height: 1.333333rem;
   position: fixed;
   bottom: 0;

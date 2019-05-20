@@ -37,7 +37,7 @@
                 <span>{{data.totalAmount|toPrice}}</span>
             </li>
         </ul>
-        <router-link :to="{path:'/oil'}" class="changeConfim">确定</router-link>
+        <div class="changeConfim" @click="goHome">确定</div>
         <span class="time"><em class="price-color">{{this.time}}s</em>后自动跳转至首页</span>
     </div>
   </transition>
@@ -72,14 +72,18 @@ export default {
       },
       countdown () {
         this.time = 5
-        const timeout = setInterval(() => {
+        this.timeout = setInterval(() => {
           if (this.time > 0) {
             this.time--
           } else {
-            window.clearInterval(timeout)
+            window.clearInterval(this.timeout)
             this.$router.push('/oil')
           }
         }, 1000);
+      },
+      goHome() {
+        window.clearInterval(this.timeout)
+        this.$router.push('/oil')
       }
     }
 }

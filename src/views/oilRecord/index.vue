@@ -305,7 +305,6 @@ header {
     padding-bottom: 5px;
     .cubeic-back {
         position: absolute;
-        font-size: 28px;
         left: 18px;
     }
 }

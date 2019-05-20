@@ -141,7 +141,6 @@ export default {
     .back{
       position: absolute;
       left: 15px;
-      font-size: 29px;
     }
   }
   .scroll-list-wrap{

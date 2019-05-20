@@ -75,17 +75,18 @@ export default {
         this.$emit('go-back-init');
         return this.$toast(res.message)
       } else {
-        this.$router.push({
-          path: '/oil/oilRecoveryS', query: {
-            idBackUrl: this.recoveryListC.idBackUrl,
-            memo: this.recoveryListC.cardMemo,
-            cardUser: this.recoveryListC.cardUser,
-            name: this.recoveryListC.payeeName,
-            bankNum: this.recoveryListC.bankNum,
-            openBank: this.recoveryListC.openBank[0],
-            disPrice:this.recoveryListC.disPrice
-          }
-        })
+        this.$emit('handler-show-success')
+        // this.$router.push({
+        //   path: '/oil/oilRecoveryS', query: {
+        //     idBackUrl: this.recoveryListC.idBackUrl,
+        //     memo: this.recoveryListC.cardMemo,
+        //     cardUser: this.recoveryListC.cardUser,
+        //     name: this.recoveryListC.payeeName,
+        //     bankNum: this.recoveryListC.bankNum,
+        //     openBank: this.recoveryListC.openBank[0],
+        //     disPrice:this.recoveryListC.disPrice
+        //   }
+        // })
       }
 
     }

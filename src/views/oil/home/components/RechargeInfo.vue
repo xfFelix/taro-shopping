@@ -10,11 +10,15 @@
           {{data.total|toPrice}}
         </li>
         <li class="item">
-          <span class="label">类型</span>
-          <span class="value">{{typeListFilter(data.type)}}</span>
+          <span class="label">产品名称</span>
+          <span class="value">{{data.productName}}</span>
+        </li>
+        <li class="item" v-if="config.cardNum">
+          <span class="label">充值账号</span>
+          <span class="value">{{config.cardNum}}</span>
         </li>
         <li class="item">
-          <span class="label">面值</span>
+          <span class="label">售价</span>
           <span class="value">{{data.faceValue}}</span>
         </li>
         <li class="item">
