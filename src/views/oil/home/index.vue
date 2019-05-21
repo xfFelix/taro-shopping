@@ -139,9 +139,10 @@ export default {
     .back{
       flex: 1;
       font-size: 15px;
-      color: #30CE84;
+      color: #4a4a4a;
       line-height: 44px;
       height: 100%;
+      border: 1px solid #dedede;
     }
   }
   @media screen and (min-width: 600px){

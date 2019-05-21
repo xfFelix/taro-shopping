@@ -82,7 +82,8 @@ export default {
     text-align: center;
     font-size: 15px;
     color: #4A4A4A;
-    margin: 0 18px 15px;
+    margin: 0 18px 0;
+    padding-bottom: 15px;
     .back{
       position: absolute;
       color: #4A4A4A;

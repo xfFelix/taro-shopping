@@ -137,7 +137,7 @@ export default {
         content: '';
         width: 100%;
         height: 1px;
-        background: #DEDEDE;
+        background: #d3d3d3;
         top: 0;
       }
     }
@@ -147,6 +147,12 @@ export default {
       justify-content: space-between;
       padding: 0 10px 0 12px;
       font-weight: 400;
+      .label{
+        color: #999;
+      }
+      .value{
+        color: #4a4a4a;
+      }
     }
   }
   .footer{
@@ -157,7 +163,7 @@ export default {
       width: 100%;
       padding: 11px 0;
       color: #fff;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 400;
     }
   }
