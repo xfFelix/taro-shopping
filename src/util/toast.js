@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import {Toast, Dialog} from 'cube-ui'
-import { resolve } from 'path';
-import { reject } from 'q';
 
 Vue.use(Toast)
 Vue.use(Dialog)
@@ -21,6 +19,7 @@ export function dialog(options, cb) {
   let args = {
     type: 'alert',
     title: '提示',
+    content: '',
     icon: '',
     confirmBtn: {
       text: "确定",

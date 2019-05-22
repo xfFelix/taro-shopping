@@ -129,6 +129,13 @@ export const getRecoveryList = (data) => fetch({
   data
 })
 
+// 查看密码接口
+export const getPayPassword = (data) => fetch({
+  url: 'oilcard/getCardPwd',
+  method: 'POST',
+  data
+})
+
 //回收成功
 export const buyBackCommitOrder= (data) => fetch({
   url: '/oilcard/buyBackCommitOrder',

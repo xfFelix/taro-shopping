@@ -55,7 +55,7 @@
                                 </p>
                                 <p v-if="!changeFlag">
                                     <span>卡密：</span>
-                                    <span>{{item.memo}}</span>
+                                    <span>{{item.memo}} <em class="see" @click="dialogPwd(item.idUrl)">查看</em></span>
                                 </p>
                                 <p>
                                     <span>售价：</span>
@@ -100,7 +100,9 @@ export default {
         pullUpLoadNoMoreTxt: '没有更多数据了~~',
         pageSize: 10,
         tenFlag: true,
-        pageNum: 1
+        pageNum: 1,
+        btnDisabledCode: false,
+        time: 0
     }),
     components: {
         NoData: () => import('components/NoData')
@@ -125,6 +127,7 @@ export default {
         },
         ...mapGetters({
             getToken: 'getToken',
+            userinfo: 'getUserinfo'
         }),
     },
     methods: {
@@ -147,19 +150,74 @@ export default {
         },
         async getScenicList() {
             let data = await oilOrderList({
-                token: this.getToken,
-                type: this.typeFlag,
-                offset: this.offset,
-                rows: this.pageSize
+              token: this.getToken,
+              type: this.typeFlag,
+              offset: this.offset,
+              rows: this.pageSize
             });
             if (data.code != 1) {
-                return this.$toast(data.message);
+              return this.$toast(data.message);
             }
             this.recodeList.push(...data.data);
             if (data.data.length < 10) {
                 this.tenFlag = false;
             }
             this.pageNum++
+        },
+        dialogPwd(id) {
+          this.$createDialog({
+            type: 'alert',
+            confirmBtn: {
+              text: '提交',
+              active: true
+            },
+            onConfirm: () => { this.handerConfirm(id) },
+            showClose: true,
+            onClose: () => {}
+          }, (h) => {
+            if (this.userinfo.payValidType === 1) {
+              return [
+                h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入支付密码')]),
+                h('div', { class: { 'content-wrapper': true }, slot: 'content' }, [h('cube-input', { class: { 'input-code': true }, attrs: {type: 'password', eye: {open: true, reverse: true} , autofocus: true, maxlength: 6, placeholder: '请输入验证码' , pattern: '[0-9]*'},
+                  on: { input: (val) => { this.code = val.trim() }}
+                })])
+              ]
+            } else {
+              return [
+                h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入验证码')]),
+                h('div', { class: { 'content-wrapper': true }, slot: 'content' },
+                [
+                  h('cube-input', { class: { 'input-code': true }, attrs: {type: 'tel', autofocus: true, maxlength: 4, placeholder: '请输入验证码' , pattern: '[0-9]*'},
+                    on: { input: (val) => { this.code = val.trim() }}
+                  }),
+                  h('button', { class:{ 'sms-code': true }, on: { click: this.handlerSendCode }, attrs: { disabled: this.btnDisabledCode } }, this.time > 0? this.time + 's': '发送验证码')
+                ])
+              ]
+            }
+          }).show()
+        },
+        async handlerSendCode() {
+          const { sendSmsCode } = await import(/* webpackPrefetch: true */ 'api')
+          const { error_code, data, message } = await sendSmsCode({token: this.getToken})
+          if (error_code) return this.$toast(message)
+          this.$toast('验证码已发送')
+          this.btnDisabledCode = true
+          this.time = 60
+          this.interval = window.setInterval(() => {
+            if (this.time > 0) {
+              this.time--
+            } else {
+              this.btnDisabledCode = false
+              window.clearInterval(this.interval)
+            }
+          }, 1000)
+        },
+        async handerConfirm(id) {
+          if (!this.code) return this.$toast('请输入数字')
+          const { getPayPassword } = await import(/* webpackPrefetch: true */ 'api')
+          const { code, data, message } = await getPayPassword({ token: this.getToken, code: this.code, orderNo: id})
+          if (code) return this.$toast(message)
+          this.$dialog({content: `卡密:${data}`},() => {})
         },
         onPullingUp() {
             if (this.tenFlag === true) {
@@ -181,6 +239,35 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.cube-dialog-main{
+  .cube-dialog-alert{
+    .cube-dialog-title{
+      .title-wrapper{
+        .text{
+          padding: 15px 0;
+        }
+      }
+    }
+    .cube-dialog-content{
+      .content-wrapper{
+        padding: 0 15px;
+        position: relative;
+        .sms-code{
+          position: absolute;
+          right: 17px;
+          top: 0;
+          background: transparent;
+          border: none;
+          font-size: 12px;
+          color: #30CE84;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+</style>
 <style lang="scss" scoped>
 .flex {
     display: flex;
@@ -254,6 +341,11 @@ export default {
                     span{
                       &:last-of-type{
                         margin-left: 5px;
+                      }
+                      .see{
+                        color: #30CE84;
+                        text-decoration: underline;
+                        margin-left: 10px;
                       }
                     }
                 }
