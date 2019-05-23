@@ -5,7 +5,8 @@
         <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
         <span class="title">确认兑换</span>
       </div>
-      <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}} <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button></h1>
+      <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
+      <h1 v-else>短信验证码已发送至手机 {{userinfo.userName | formatPhone}} <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button></h1>
       <Code @confirm="validateCode"></Code>
     </div>
   </transition>

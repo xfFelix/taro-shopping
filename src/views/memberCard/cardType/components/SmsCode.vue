@@ -5,18 +5,21 @@
         <span class="title">请输入短信验证码</span>
         <i @click="$emit('go-back')">取消</i>
       </div>
-      <h1>
+      <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
+      <h1 v-else>
         短信验证码已发送至手机 {{userinfo.userName | formatPhone}}
         <span v-if="!getSmgFlag">{{countDown}}s</span>
         <span class="reGetSms" @click="reGetSms()" v-if="getSmgFlag">重新获取</span>
       </h1>
 
       <div class="code-input-main">
-        <div class="code-input-main-item">{{code[0]}}</div>
-        <div class="code-input-main-item">{{code[1]}}</div>
-        <div class="code-input-main-item">{{code[2]}}</div>
-        <div class="code-input-main-item">{{code[3]}}</div>
-        <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" maxlength="4" v-focus>
+        <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[0]}}</div>
+        <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[1]}}</div>
+        <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[2]}}</div>
+        <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[3]}}</div>
+        <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[4]}}</div>
+        <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[5]}}</div>
+        <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" :maxlength="userinfo.payValidType === 1 ? 6: 4" v-focus>
       </div>
       <div class="reInput" v-if="tipError">验证码输入错误，请重新输入</div>
     </div>
@@ -60,10 +63,15 @@ export default {
       }
     },
     code(val) {
-      if (val.length == 4) {
-        this.$emit('code-info', val);
+      if (this.userinfo.payValidType === 1) {
+        if (val.length == 6) {
+          this.$emit('code-info', val);
+        }
+      } else {
+        if (val.length == 4) {
+          this.$emit('code-info', val);
+        }
       }
-
     },
     codeError(val) {
       if (val == true) {
@@ -174,6 +182,10 @@ export default {
     text-align: center;
     font-size: 30px;
     color: #000;
+    &.text-security{
+      -webkit-text-security: disc;
+      text-security: disc;
+    }
   }
   .code-input-input {
     position: absolute;
