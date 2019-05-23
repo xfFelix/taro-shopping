@@ -21,7 +21,7 @@
               <li>订单编号：{{item.idUrl}}</li>
               <li>时间：{{item.orderTime}}</li>
               <li>卡号：{{item.idBackUrl}}</li>
-              <li>卡密：{{item.memo}}</li>
+              <li>卡密：{{item.memo}} <em class="see" @click="dialogPwd(item.idUrl)">查看</em></li>
               <li>售价：{{item.orderNum|toPrice}}</li>
               <li>服务费：{{item.serviceFee|toPrice}}</li>
               <li><span>税费：{{item.taxFee|toPrice}}</span><span class="total">合计：{{item.totalAmount|toPrice}}</span></li>
@@ -53,11 +53,15 @@ export default {
     pullUpLoadThreshold: 0,
     pullUpLoadMoreTxt: 'Load more',
     pullUpLoadNoMoreTxt: 'No more data',
+    btnDisabledCode: false,
+    time: 0,
+    code: ''
   }),
   computed: {
     ...mapGetters({
       token: 'getToken',
-      statusList: 'oil/getStatusList'
+      statusList: 'oil/getStatusList',
+      userinfo: 'getUserinfo'
     }),
     offset () {
       return (this.page - 1) * this.limit + 1
@@ -98,6 +102,62 @@ export default {
       this.list = [...this.list, ...data]
       this.pullUpLoad = !(data.length < this.limit)
       if (this.pullUpLoad) this.page++
+    },
+    dialogPwd(id) {
+      this.$createDialog({
+        type: 'alert',
+        confirmBtn: {
+          text: '提交',
+          active: true
+        },
+        onConfirm: () => { this.handerConfirm(id) },
+        showClose: true,
+        onClose: () => {}
+      }, (h) => {
+        if (this.userinfo.payValidType === 1) {
+          return [
+            h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入支付密码')]),
+            h('div', { class: { 'content-wrapper': true }, slot: 'content' }, [h('cube-input', { class: { 'input-code': true }, attrs: {type: 'password', eye: {open: true, reverse: true} , autofocus: true, maxlength: 6, placeholder: '请输入验证码' , pattern: '[0-9]*'},
+              on: { input: (val) => { this.code = val.trim() }}
+            })])
+          ]
+        } else {
+          return [
+            h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入验证码')]),
+            h('div', { class: { 'content-wrapper': true }, slot: 'content' },
+            [
+              h('cube-input', { class: { 'input-code': true }, attrs: {type: 'tel', autofocus: true, maxlength: 4, placeholder: '请输入验证码' , pattern: '[0-9]*', value: this.code},
+                on: { input: (val) => { this.code = val.trim() }}
+              }),
+              h('button', { class:{ 'sms-code': true }, on: { click: this.handlerSendCode }, attrs: { disabled: this.btnDisabledCode } }, this.time > 0? this.time + 's': '发送验证码')
+            ])
+          ]
+        }
+      }).show()
+    },
+    async handlerSendCode() {
+      const { sendSmsCode } = await import(/* webpackPrefetch: true */ 'api')
+      const { error_code, data, message } = await sendSmsCode({token: this.token})
+      if (error_code) return this.$toast(message)
+      this.$toast('验证码已发送')
+      this.btnDisabledCode = true
+      this.time = 60
+      this.interval = window.setInterval(() => {
+        if (this.time > 0) {
+          this.time--
+        } else {
+          this.btnDisabledCode = false
+          window.clearInterval(this.interval)
+        }
+      }, 1000)
+    },
+    async handerConfirm(id) {
+      if (!this.code) return this.$toast('请输入数字')
+      const { getPayPassword } = await import(/* webpackPrefetch: true */ 'api')
+      const { code, data, message } = await getPayPassword({ token: this.token, code: this.code, orderNo: id})
+      this.code = ''
+      if (code !== '1') return this.$toast(message)
+      this.$dialog({content: `卡密:${data}`},() => {})
     },
     initData() {
       this.list = []
@@ -168,6 +228,11 @@ export default {
                 margin-top: 15px;
                 color: #4A4A4A;
                 position: relative;
+                .see{
+                  color: #30CE84;
+                  text-decoration: underline;
+                  margin-left: 10px;
+                }
                 .total{
                   position: absolute;
                   right: 0;
@@ -188,6 +253,35 @@ export default {
               border: none;
             }
           }
+        }
+      }
+    }
+  }
+}
+</style>
+<style lang="scss">
+.cube-dialog-main{
+  .cube-dialog-alert{
+    .cube-dialog-title{
+      .title-wrapper{
+        .text{
+          padding: 15px 0;
+        }
+      }
+    }
+    .cube-dialog-content{
+      .content-wrapper{
+        padding: 0 15px;
+        position: relative;
+        .sms-code{
+          position: absolute;
+          right: 17px;
+          top: 0;
+          background: transparent;
+          border: none;
+          font-size: 12px;
+          color: #30CE84;
+          height: 100%;
         }
       }
     }

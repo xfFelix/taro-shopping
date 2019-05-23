@@ -102,7 +102,8 @@ export default {
         tenFlag: true,
         pageNum: 1,
         btnDisabledCode: false,
-        time: 0
+        time: 0,
+        code: ''
     }),
     components: {
         NoData: () => import('components/NoData')
@@ -187,7 +188,7 @@ export default {
                 h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入验证码')]),
                 h('div', { class: { 'content-wrapper': true }, slot: 'content' },
                 [
-                  h('cube-input', { class: { 'input-code': true }, attrs: {type: 'tel', autofocus: true, maxlength: 4, placeholder: '请输入验证码' , pattern: '[0-9]*'},
+                  h('cube-input', { class: { 'input-code': true }, attrs: {type: 'tel', autofocus: true, maxlength: 4, placeholder: '请输入验证码' , pattern: '[0-9]*', value: this.code},
                     on: { input: (val) => { this.code = val.trim() }}
                   }),
                   h('button', { class:{ 'sms-code': true }, on: { click: this.handlerSendCode }, attrs: { disabled: this.btnDisabledCode } }, this.time > 0? this.time + 's': '发送验证码')
@@ -216,7 +217,8 @@ export default {
           if (!this.code) return this.$toast('请输入数字')
           const { getPayPassword } = await import(/* webpackPrefetch: true */ 'api')
           const { code, data, message } = await getPayPassword({ token: this.getToken, code: this.code, orderNo: id})
-          if (code) return this.$toast(message)
+          this.code = ''
+          if (code !== '1') return this.$toast(message)
           this.$dialog({content: `卡密:${data}`},() => {})
         },
         onPullingUp() {
