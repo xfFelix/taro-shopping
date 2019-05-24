@@ -19,6 +19,8 @@
     <select-type :show="show.type" @handler-show-info="handlerClick" @init-show="initShow"></select-type>
     <!-- 详情dialog -->
     <recharge-info :show="show.info" @handler-show-code="handlerShowCode" @go-back="goBack"></recharge-info>
+    <!-- 设置支付密码dialog -->
+    <set-password :show.sync="showSetPassword"></set-password>
   </div>
 </template>
 
@@ -32,7 +34,8 @@ export default {
     BgMask: () => import(/* webpackPrefetch: true */ 'components/BgMask'),
     SmsCode: () => import(/* webpackPrefetch: true */ './components/SmsCode'),
     SelectType: () => import(/* webpackPrefetch: true */ './components/SelectType'),
-    RechargeInfo: ()=> import(/* webpackPrefetch: true */ './components/RechargeInfo')
+    RechargeInfo: ()=> import(/* webpackPrefetch: true */ './components/RechargeInfo'),
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword')
   },
   data: () => ({
     show: {
@@ -57,7 +60,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      config: 'oil/getConfig'
+      config: 'oil/getConfig',
+      showSetPassword: 'getShowSetPassword'
     })
   },
   methods: {
@@ -88,7 +92,9 @@ export default {
     handlerShowInfo() {
       this.show = { mask: true, info: true, type: false, card: false, code: false }
     },
-    handlerShowType() {
+    async handlerShowType() {
+      let res = await this.checkPassword()
+      if (!res) return
       this.show = { mask: true, type: true, card: false, code: false, info: false }
     },
     handlerShowCard() {
@@ -108,7 +114,8 @@ export default {
       this.$router.push('recovery')
     },
     ...mapActions({
-      initConfig: 'oil/initConfig'
+      initConfig: 'oil/initConfig',
+      checkPassword: 'checkPassword'
     })
   }
 }

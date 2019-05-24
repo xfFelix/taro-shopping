@@ -33,4 +33,14 @@ export default {
       return token
     }
   },
+  setShowSetPassword ({commit}, value) {
+    commit('setShowSetPassword', value)
+  },
+  checkPassword({state, dispatch}) {
+    if (state.userinfo.payValidType === 1 && !state.userinfo.payPwd) {
+      dispatch('setShowSetPassword', true)
+      return false
+    }
+    return true
+  }
 }

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import getToken from './hook/getToken'
 import changeTitle from './hook/changeTitle';
-import setPassword from './hook/setPassword';
 
 Vue.use(Router)
 
@@ -185,6 +184,5 @@ const router = new Router({
 
 getToken(router)
 changeTitle(router)
-setPassword(router)
 export default router
 

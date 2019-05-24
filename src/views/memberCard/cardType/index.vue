@@ -10,7 +10,8 @@
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
-
+    <!-- 设置支付密码dialog -->
+    <set-password :show.sync="showSetPassword"></set-password>
   </div>
 </template>
 <script>
@@ -38,7 +39,8 @@ export default {
   computed: {
     ...mapGetters({
       getToken: 'getToken',
-      userinfo: 'getUserinfo'
+      userinfo: 'getUserinfo',
+      showSetPassword: 'getShowSetPassword'
     })
   },
   watch: {
@@ -121,6 +123,7 @@ export default {
     BgMask: () => import('components/BgMask'),
     SmsCode: () => import('./components/SmsCode'),
     CardSelect: () => import('./components/CardSelect'),
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword')
   },
   mounted() {
 

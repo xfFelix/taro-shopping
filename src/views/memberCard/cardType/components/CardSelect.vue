@@ -59,7 +59,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { getVipList } from 'api'
 export default {
   data: () => ({
@@ -79,6 +79,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      checkPassword: 'checkPassword'
+    }),
     trim() {
       this.infoContent.cardNumber = this.infoContent.cardNumber.replace(/^\s+|\s+$/g, '')
     },
@@ -99,7 +102,9 @@ export default {
       this.warmTip = this.cardList[typeId][2];
       this.initData()
     },
-    changeC() {
+    async changeC() {
+      let res = await this.checkPassword()
+      if (!res) return
       if (!this.infoContent.cardNumber) {
         return false;
       }

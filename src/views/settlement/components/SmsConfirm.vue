@@ -4,8 +4,7 @@
             <span class="iconfont phoneChe-backW " @click="$emit('update:showSendCode', false)">&#xe61e;</span>
             <span class="phonePay-tName">确认兑换</span>
         </p>
-        <p class="phonePay-telW hide" v-if="userinfo.payValidType === 1">请输入支付密码</p>
-        <p class="phonePay-telW hide" v-else>短信验证码已发送至手机
+        <p class="phonePay-telW hide" v-if="userinfo.payValidType !== 1">短信验证码已发送至手机
             <span class="phonePay-tel">{{userName|formatPhone}}</span>
         </p>
         <p class="phonePay-inpW">

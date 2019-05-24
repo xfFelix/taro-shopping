@@ -173,5 +173,11 @@ export const vipOrderList= (data) => fetch({
 })
 
 
+export const checkPayPwd = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/editPayPwd',
+  method: 'POST',
+  data
+})
+
 
 

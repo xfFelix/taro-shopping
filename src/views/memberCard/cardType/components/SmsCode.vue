@@ -2,7 +2,7 @@
   <transition name="slideUp" mode="out-in">
     <div class="code" v-if="show">
       <div class="header">
-        <span class="title">请输入短信验证码</span>
+        <span class="title">{{userinfo.payValidType === 1 ? '请输入支付密码': '请输入短信验证码'}}</span>
         <i @click="$emit('go-back')">取消</i>
       </div>
       <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
@@ -196,6 +196,7 @@ export default {
     height: 44px;
     letter-spacing: 90px;
     padding: 0 0 80px 0;
+    caret-color: transparent;
   }
 }
 </style>

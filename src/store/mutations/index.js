@@ -27,4 +27,7 @@ export default {
       console.error(e)
     }
   },
+  setShowSetPassword (state, value) {
+    state.showSetPassword = value
+  }
 }

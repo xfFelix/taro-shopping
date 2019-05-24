@@ -17,6 +17,8 @@
     <transition name="slide-left" mode="out-in">
       <exchange-su :price="feeInfo.total" v-if="showSuccess"></exchange-su>
     </transition>
+    <!-- 设置支付密码dialog -->
+    <set-password :show.sync="showSetPassword"></set-password>
   </div>
 </template>
 
@@ -33,7 +35,8 @@ export default {
     Expense: () => import('./components/Expense'),
     BgMask: () => import('components/BgMask'),
     SmsConfirm: () => import('./components/SmsConfirm'),
-    ExchangeSu: () => import('./components/ExchangeSu')
+    ExchangeSu: () => import('./components/ExchangeSu'),
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword')
   },
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
@@ -81,14 +84,18 @@ export default {
   computed: {
     ...mapGetters({
       getToken: 'getToken',
-      getTicketUser: 'ticket/getUser'
+      getTicketUser: 'ticket/getUser',
+      showSetPassword: 'getShowSetPassword'
     })
   },
   methods: {
     ...mapActions({
-      setTicketUser: 'ticket/setUser'
+      setTicketUser: 'ticket/setUser',
+      checkPassword: 'checkPassword'
     }),
     async checkInfo() {
+      let res = await this.checkPassword()
+      if (!res) return
       if (!this.getToken) return this.$dialog({type: 'confirm', content: '请先登录'}, () => {
         window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
       })

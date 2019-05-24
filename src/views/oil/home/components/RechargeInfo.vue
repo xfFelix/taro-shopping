@@ -72,7 +72,7 @@ export default {
   methods: {
     async getCostInfo() {
       const {faceValue, type, token} = this.config
-      let res = await getCostInfo({faceValue, type, token})
+      let res = await getCostInfo({faceValue, type, token: this.getToken})
       if (res.code !== '1' && res.code !== '6' && res.code !== '4') return this.$toast(res.message)
       this.data = res.data[0]
       if (res.code === '6') {
