@@ -38,6 +38,7 @@ export default {
   computed: {
     ...mapGetters({
       getToken: 'getToken',
+      userinfo: 'getUserinfo'
     })
   },
   watch: {
@@ -87,11 +88,13 @@ export default {
     },
     //发送短信
     async sendSmsCode() {
-      let res = await sendSmsCode({ token: this.getToken })
-      if (res.error_code) {
-        this.initShow();
-        return this.$toast(res.message);
-      };
+      if (this.userinfo.payValidType !== 1) {
+        let res = await sendSmsCode({ token: this.getToken })
+        if (res.error_code) {
+          this.initShow();
+          return this.$toast(res.message);
+        };
+      }
       this.showSms()
     },
     sendCode() {
