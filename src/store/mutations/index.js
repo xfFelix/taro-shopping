@@ -29,5 +29,8 @@ export default {
   },
   setShowSetPassword (state, value) {
     state.showSetPassword = value
-  }
+  },
+  setShowSetMobile(state, value) {
+    state.showSetMoblie = value
+  },
 }

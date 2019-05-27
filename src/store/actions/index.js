@@ -1,4 +1,4 @@
-import {getParam} from 'util/common'
+import {getParam, IsMobile} from 'util/common'
 
 export default {
   // 设置用户信息和登录
@@ -36,9 +36,15 @@ export default {
   setShowSetPassword ({commit}, value) {
     commit('setShowSetPassword', value)
   },
+  setShowSetMobile({commit}, value) {
+    commit('setShowSetMobile', value)
+  },
   checkPassword({state, dispatch}) {
     if (state.userinfo.payValidType === 1 && !state.userinfo.payPwd) {
       dispatch('setShowSetPassword', true)
+      return false
+    } else if (state.userinfo.payValidType !== 1 && !IsMobile(state.userinfo.userName)) {
+      dispatch('setShowSetMobile', true)
       return false
     }
     return true

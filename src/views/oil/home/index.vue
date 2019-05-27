@@ -21,6 +21,8 @@
     <recharge-info :show="show.info" @handler-show-code="handlerShowCode" @go-back="goBack"></recharge-info>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
+    <!-- 设置手机号 -->
+    <set-mobile :show.sync="showSetMobile"></set-mobile>
   </div>
 </template>
 
@@ -35,7 +37,8 @@ export default {
     SmsCode: () => import(/* webpackPrefetch: true */ './components/SmsCode'),
     SelectType: () => import(/* webpackPrefetch: true */ './components/SelectType'),
     RechargeInfo: ()=> import(/* webpackPrefetch: true */ './components/RechargeInfo'),
-    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword')
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
+    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
   },
   data: () => ({
     show: {
@@ -60,9 +63,24 @@ export default {
   },
   computed: {
     ...mapGetters({
-      config: 'oil/getConfig',
-      showSetPassword: 'getShowSetPassword'
-    })
+      config: 'oil/getConfig'
+    }),
+    showSetPassword: {
+      get () {
+        return this.$store.getters.getShowSetPassword
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetPassword', val)
+      }
+    },
+    showSetMobile: {
+      get () {
+        return this.$store.getters.getShowSetMobile
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetMobile', val)
+      }
+    }
   },
   methods: {
     async submitOrder () {

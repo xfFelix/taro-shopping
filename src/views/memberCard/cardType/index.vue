@@ -12,6 +12,8 @@
     </transition>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
+    <!-- 设置手机号 -->
+    <set-mobile :show.sync="showSetMobile"></set-mobile>
   </div>
 </template>
 <script>
@@ -39,9 +41,24 @@ export default {
   computed: {
     ...mapGetters({
       getToken: 'getToken',
-      userinfo: 'getUserinfo',
-      showSetPassword: 'getShowSetPassword'
-    })
+      userinfo: 'getUserinfo'
+    }),
+    showSetPassword: {
+      get () {
+        return this.$store.getters.getShowSetPassword
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetPassword', val)
+      }
+    },
+    showSetMobile: {
+      get () {
+        return this.$store.getters.getShowSetMobile
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetMobile', val)
+      }
+    }
   },
   watch: {
     'show.mask': {
@@ -123,7 +140,8 @@ export default {
     BgMask: () => import('components/BgMask'),
     SmsCode: () => import('./components/SmsCode'),
     CardSelect: () => import('./components/CardSelect'),
-    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword')
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
+    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
   },
   mounted() {
 

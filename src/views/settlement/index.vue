@@ -19,6 +19,8 @@
     </transition>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
+    <!-- 设置手机号 -->
+    <set-mobile :show.sync="showSetMobile"></set-mobile>
   </div>
 </template>
 
@@ -36,7 +38,8 @@ export default {
     BgMask: () => import('components/BgMask'),
     SmsConfirm: () => import('./components/SmsConfirm'),
     ExchangeSu: () => import('./components/ExchangeSu'),
-    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword')
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
+    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
   },
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
@@ -84,9 +87,24 @@ export default {
   computed: {
     ...mapGetters({
       getToken: 'getToken',
-      getTicketUser: 'ticket/getUser',
-      showSetPassword: 'getShowSetPassword'
-    })
+      getTicketUser: 'ticket/getUser'
+    }),
+    showSetPassword: {
+      get () {
+        return this.$store.getters.getShowSetPassword
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetPassword', val)
+      }
+    },
+    showSetMobile: {
+      get () {
+        return this.$store.getters.getShowSetMobile
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetMobile', val)
+      }
+    }
   },
   methods: {
     ...mapActions({

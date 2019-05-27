@@ -13,5 +13,8 @@ export default {
   },
   getShowSetPassword: state => {
     return state.showSetPassword
+  },
+  getShowSetMobile: state => {
+    return state.showSetMoblie
   }
 }
