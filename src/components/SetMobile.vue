@@ -94,7 +94,7 @@ export default {
       this.setMobile()
     },
     async setMobile() {
-      const {setMobile} = await import(/* webpackPrefetch: true */ 'api')
+      const {setMobile, getInfo} = await import(/* webpackPrefetch: true */ 'api')
       let data = await setMobile({ token: this.token, mobile: this.data.mobile, code: this.data.code })
       if (data.error_code) {
           return this.$toast(data.message)
@@ -102,7 +102,8 @@ export default {
       this.data.show = false
       this.$toast(data.message)
       this.$emit('update:show', false)
-      this.setUserInfo(data.data)
+      let info = await getInfo({token: this. token})
+      if (!info.error_code) return this.setUserInfo(info.data)
     }
   }
 }
