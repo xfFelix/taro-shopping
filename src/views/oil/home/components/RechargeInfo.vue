@@ -35,7 +35,7 @@
         </li>
       </ul>
       <div class="footer">
-        <button class="confirm" @click="handlerShowCode">确认</button>
+        <button class="confirm" @click="handlerShowCode" :disabled="confirmBtn">确认</button>
       </div>
     </div>
   </transition>
@@ -53,7 +53,8 @@ export default {
     }
   },
   data: () => ({
-    data: {}
+    data: {},
+    confirmBtn: false
   }),
   computed: {
     ...mapGetters({
@@ -80,6 +81,7 @@ export default {
           return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
         })
       } else if (res.code === '4') {
+        this.confirmBtn = true
         return this.$toast(res.message)
       }
     },
