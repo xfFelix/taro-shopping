@@ -40,7 +40,7 @@ export default {
   watch: {
     show(val){
       if (val) {
-        if (userInfo.payValidType !== 1) {
+        if (this.userinfo.payValidType !== 1) {
           this.sendCode()
         }
       } else {

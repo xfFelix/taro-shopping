@@ -196,7 +196,6 @@ export default {
       this.selfFlag = 0;
     },
     commitApply() {
-      return this.handlerShowSuccess(0)
       if (!this.selfFlag) {
         console.log("非本人");
         if (!this.noself.payeeName) {
