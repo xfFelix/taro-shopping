@@ -11,4 +11,10 @@ export default {
     if (!state.token || isEmpty(state.token)) return undefined
     return state.token
   },
+  getShowSetPassword: state => {
+    return state.showSetPassword
+  },
+  getShowSetMobile: state => {
+    return state.showSetMoblie
+  }
 }

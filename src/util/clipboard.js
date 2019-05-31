@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Clipboard from 'clipboard'
 import {toast} from 'util/toast'
 

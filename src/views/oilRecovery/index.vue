@@ -2,7 +2,7 @@
   <div class="oilRecovery">
     <header>
       <i class="cubeic-back" @click="$router.back()"></i>
-      加油卡回收
+      回收申请
     </header>
 
     <!-- <div class="whoSelectW">
@@ -18,7 +18,7 @@
     </div> -->
 
     <div class="recoveryInfoW">
-      <p class="rMoneyTtiel">回收价</p>
+      <p class="rMoneyTtiel">回收价格：</p>
       <p class="rMoney">{{selfa.disPrice|toPrice}}</p>
       <ul>
         <li>
@@ -64,16 +64,16 @@
       </cube-checkbox>
       <span class="file" @click="show.file=true">《加油卡回收协议》</span>
     </div>
-
-    <div class="commitApply" @click="commitApply">提交申请表</div>
+    <span class="hint">1个工作日内到账，请耐心等待</span>
+    <div class="commitApply" @click="commitApply">提交</div>
 
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
 
     <recovery-Info :show="show.info" @handler-show-code="handlerShowCode" @go-back-init="goBackInit" :recoveryListC="recoveryListP" v-if="show.mask"></recovery-Info>
-    <sms-code :show="show.code" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit"></sms-code>
-
+    <sms-code :show="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit"></sms-code>
+    <success :show="show.success"></success>
     <agree-file :show="show.file" @handle-show-file="goBackInit"></agree-file>
   </div>
 </template>
@@ -133,7 +133,8 @@ export default {
       mask: false,
       code: false,
       info: false,
-      file: false
+      file: false,
+      success: false
     },
     recoveryListP: {}
   }),
@@ -142,21 +143,35 @@ export default {
       getToken: "getToken"
     })
   },
+  watch: {
+    'show.mask': {
+      handler(val) {
+        if (!val) {
+          this.goBackInit()
+        }
+      },
+      immediate: true
+    }
+  },
   components: {
     RecoveryInfo: () => import("./components/RecoveryInfo"),
     BgMask: () => import("components/BgMask"),
     SmsCode: () => import("./components/SmsCode"),
-    AgreeFile: () => import("./components/AgreeFile")
+    AgreeFile: () => import("./components/AgreeFile"),
+    Success: () => import(/* webpackPrefetch: true */ './components/Success')
   },
   methods: {
     handlerShowCode() {
-      this.show = { mask: true, code: true, info: false, file: false };
+      this.show = { mask: true, code: true, info: false, file: false, success: false }
     },
     goBackInfo() {
-      this.show = { mask: true, code: false, info: true, file: false };
+      this.show = { mask: true, code: false, info: true, file: false, success: false }
     },
     goBackInit() {
-      this.show = { mask: false, code: false, info: false, file: false };
+      this.show = { mask: false, code: false, info: false, file: false, success: false }
+    },
+    handlerShowSuccess() {
+      this.show = { mask: true, code: false, info: false, file: false, success: true }
     },
     showPicker() {
       if (!this.picker) {
@@ -290,19 +305,24 @@ export default {
     font-size: 18px;
   }
 }
+.oilRecovery{
+  min-height: 100%;
+  background: #fff;
+  padding-bottom: 44px;
+}
 
 .recoveryInfoW {
-  text-align: center;
   padding: 0 18px;
   .rMoneyTtiel {
+    text-align: left;
     font-size: 12px;
-    color: #8b8b8b;
-    margin: 35px 0 13px 0;
+    color: #4A4A4A;
+    margin: 20px 0 13px 0;
   }
   .rMoney {
-    font-size: 30px;
+    text-align: center;
+    font-size: 36px;
     color: #30ce84;
-    font-weight: bold;
     margin-bottom: 17px;
   }
   ul {
@@ -316,6 +336,9 @@ export default {
       height: 53px;
       padding-top: 18px;
       box-sizing: border-box;
+      input{
+        background: transparent;
+      }
       .reFirst {
         color: #000;
       }
@@ -348,12 +371,19 @@ export default {
   }
 }
 
+.hint{
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}
+
 .commitApply {
   height: 50px;
   background: #30ce84;
   text-align: center;
   color: #fff;
-  font-size: 0.48rem;
+  font-size: 15px;
   line-height: 1.333333rem;
   position: fixed;
   bottom: 0;
@@ -366,10 +396,11 @@ export default {
 
 header {
   position: relative;
-  line-height: 70px;
+  line-height: 44px;
   text-align: center;
-  background: #fff;
+  background: #373C48;
   font-size: 18px;
+  color: #fff;
   .cubeic-back {
     position: absolute;
     left: 18px;

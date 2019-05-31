@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import getToken from './hook/getToken'
 import changeTitle from './hook/changeTitle';
 
-
 Vue.use(Router)
 
 const router = new Router({
@@ -118,6 +117,15 @@ const router = new Router({
           component: () => import('views/oil/home'),
           meta: {
             title: '加油卡首页',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'recovery',
+          name: 'recoveryList',
+          component: () => import(/* webpackPrefetch: true */ 'views/oil/recovery'),
+          meta: {
+            title: '加油卡回收列表',
             requireAuth: true
           }
         }

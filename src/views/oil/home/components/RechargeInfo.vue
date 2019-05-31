@@ -1,37 +1,43 @@
 <template>
   <transition name="slideUp" mode="out-in">
-    <ul class="info" v-if="show">
-      <li class="header">
-        <i class="cubeic-back" @click="$emit('go-back')"></i>
-        <span class="title">确认兑换</span>
-      </li>
-      <li class="price">
-        {{data.total|toPrice}}
-      </li>
-      <li class="item">
-        <span class="label">类型</span>
-        <span class="value">{{typeListFilter(data.type)}}</span>
-      </li>
-      <li class="item">
-        <span class="label">面值</span>
-        <span class="value">{{data.faceValue}}</span>
-      </li>
-      <li class="item">
-        <span class="label">服务费</span>
-        <span class="value">{{data.service_fee | toPrice}}</span>
-      </li>
-      <li class="item">
-        <span class="label">税费</span>
-        <span class="value">{{data.tax_total | toPrice}}</span>
-      </li>
-      <li class="item">
-        <span class="label">应付合计</span>
-        <span class="value">{{data.total | toPrice}}</span>
-      </li>
-      <li class="footer">
-        <button class="confirm" @click="handlerShowCode">确认</button>
-      </li>
-    </ul>
+    <div class="info-wrapper" v-if="show">
+      <ul class="info">
+        <li class="header">
+          <i class="cubeic-back" @click="$emit('go-back')"></i>
+          <span class="title">确认兑换</span>
+        </li>
+        <li class="price">
+          {{data.total|toPrice}}
+        </li>
+        <li class="item">
+          <span class="label">产品名称</span>
+          <span class="value">{{data.productName}}</span>
+        </li>
+        <li class="item" v-if="config.cardNum">
+          <span class="label">充值账号</span>
+          <span class="value">{{config.cardNum}}</span>
+        </li>
+        <li class="item">
+          <span class="label">售价</span>
+          <span class="value">{{data.faceValue}}</span>
+        </li>
+        <li class="item">
+          <span class="label">服务费</span>
+          <span class="value">{{data.service_fee | toPrice}}</span>
+        </li>
+        <li class="item">
+          <span class="label">税费</span>
+          <span class="value">{{data.tax_total | toPrice}}</span>
+        </li>
+        <li class="item">
+          <span class="label">应付合计</span>
+          <span class="value">{{data.total | toPrice}}</span>
+        </li>
+      </ul>
+      <div class="footer">
+        <button class="confirm" @click="handlerShowCode" :disabled="confirmBtn">确认</button>
+      </div>
+    </div>
   </transition>
 </template>
 
@@ -47,7 +53,8 @@ export default {
     }
   },
   data: () => ({
-    data: {}
+    data: {},
+    confirmBtn: false
   }),
   computed: {
     ...mapGetters({
@@ -66,7 +73,7 @@ export default {
   methods: {
     async getCostInfo() {
       const {faceValue, type, token} = this.config
-      let res = await getCostInfo({faceValue, type, token})
+      let res = await getCostInfo({faceValue, type, token: this.getToken})
       if (res.code !== '1' && res.code !== '6' && res.code !== '4') return this.$toast(res.message)
       this.data = res.data[0]
       if (res.code === '6') {
@@ -74,6 +81,7 @@ export default {
           return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
         })
       } else if (res.code === '4') {
+        this.confirmBtn = true
         return this.$toast(res.message)
       }
     },
@@ -93,53 +101,61 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.info{
+.info-wrapper{
   position: fixed;
   z-index: 11;
   background: #fff;
-  padding: 0 18px 36px;
   bottom: 0;
   left: 0;
   width: 100%;
   box-sizing: border-box;
-  color: #8B8B8B;
-  font-size: 13px;
-  .header{
-    padding: 20px 0 21px 0;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 400;
-    color: #111010;
-    position: relative;
-    i{
-      position: absolute;
-      left: 0;
+  .info{
+    padding: 0 18px 0;
+    color: #8B8B8B;
+    font-size: 13px;
+    .header{
+      padding: 20px 0 21px 0;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 400;
+      color: #111010;
+      position: relative;
+      i{
+        position: absolute;
+        left: 0;
+      }
     }
-  }
-  .price{
-    padding: 40px 0 0 0;
-    margin-bottom: 45px;
-    font-size: 30px;
-    color: #111010;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
-    &::before{
-      position: absolute;
-      display: block;
-      content: '';
-      width: 100%;
-      height: 1px;
-      background: #DEDEDE;
-      top: 0;
+    .price{
+      padding: 40px 0 0 0;
+      margin-bottom: 45px;
+      font-size: 30px;
+      color: #111010;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      &::before{
+        position: absolute;
+        display: block;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background: #d3d3d3;
+        top: 0;
+      }
     }
-  }
-  .item{
-    margin-top: 35px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px 0 12px;
-    font-weight: 400;
+    .item{
+      margin-top: 35px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px 0 12px;
+      font-weight: 400;
+      .label{
+        color: #999;
+      }
+      .value{
+        color: #4a4a4a;
+      }
+    }
   }
   .footer{
     margin-top: 36px;
@@ -147,10 +163,9 @@ export default {
       border: none;
       background: #30CE84;
       width: 100%;
-      border-radius: 25px; /*no*/
       padding: 11px 0;
       color: #fff;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 400;
     }
   }

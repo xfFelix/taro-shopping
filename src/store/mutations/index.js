@@ -27,4 +27,10 @@ export default {
       console.error(e)
     }
   },
+  setShowSetPassword (state, value) {
+    state.showSetPassword = value
+  },
+  setShowSetMobile(state, value) {
+    state.showSetMoblie = value
+  },
 }

@@ -4,12 +4,12 @@
             <span class="iconfont phoneChe-backW " @click="$emit('update:showSendCode', false)">&#xe61e;</span>
             <span class="phonePay-tName">确认兑换</span>
         </p>
-        <p class="phonePay-telW hide" v-show="isSmsCode">短信验证码已发送至手机
+        <p class="phonePay-telW hide" v-if="userinfo.payValidType !== 1">短信验证码已发送至手机
             <span class="phonePay-tel">{{userName|formatPhone}}</span>
         </p>
         <p class="phonePay-inpW">
-            <input class="phonePay-msg" type="number" placeholder="请输入短信验证码" v-model="smsCode" />
-            <span class="sendPhoneSms" :style="validateFlag==1?'background: #30ce84':'background: #999999'" @click="sendPhoneSms()">{{validate}}</span>
+            <input class="phonePay-msg" type="tel" autofocus="autofocus" :maxlength="userinfo.payValidType === 1?6:4" :placeholder="userinfo.payValidType === 1? '请输入支付密码': '请输入短信验证码'" v-model="smsCode" />
+            <span v-if="userinfo.payValidType !== 1" class="sendPhoneSms" :style="validateFlag==1?'background: #30ce84':'background: #999999'" @click="sendPhoneSms()">{{validate}}</span>
         </p>
         <button class="phonePay-confirm phonePay-conA" :class="smsCode?'light': ''" :disabled="btnDisabled" @click="sumitOrder">确认提交</button>
     </div>
@@ -24,7 +24,6 @@ export default {
         smsCode: undefined,
         validate: "获取验证码",
         validateFlag: 1,
-        isSmsCode: true,
         userName: undefined,
         btnDisabled: false
     }),
@@ -45,7 +44,8 @@ export default {
     },
     computed: {
       ...mapGetters({
-        getToken: 'getToken'
+        getToken: 'getToken',
+        userinfo: 'getUserinfo'
       })
     },
     methods: {
@@ -56,7 +56,6 @@ export default {
                     return this.$toast(data.message)
                 }
                 this.validateFlag = 0
-                this.isSmsCode = true
                 this.validate = "120s 重新获取"
                 let _this = this;
                 let timeInit = 120;
@@ -76,7 +75,19 @@ export default {
         },
         sumitOrder() {
           this.btnDisabled = true
-          this.$emit('commit-order', this.smsCode)
+          if (this.userinfo.payValidType === 1) {
+            if (this.smsCode.length === 6) {
+              this.$emit('commit-order', this.smsCode)
+            } else {
+              this.$toast('请输入6位数字密码')
+            }
+          } else {
+            if (this.smsCode.length === 4) {
+              this.$emit('commit-order', this.smsCode)
+            } else {
+              this.$toast('请输入4位数字验证码')
+            }
+          }
         }
     }
 }

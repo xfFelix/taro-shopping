@@ -3,45 +3,42 @@
     <div class="oilChanges">
         <div class="changeIconW">
             <span class="changeIcon iconfont">&#xe631;</span>
+            <p class="changeWord">提交成功</p>
         </div>
-        <p class="changeWord">兑换成功</p>
         <p class="changeMoney">{{data.totalAmount|toPrice}}</p>
         <ul class="changeInfo">
             <li>
-                <span>商品名</span>
+                <span>产品名称:</span>
                 <span>{{data.cardUser}}</span>
             </li>
-            <li>
-                <span>卡号</span>
-                <span v-if="data.cardId === 1">{{data.cardNum}}</span>
-                <span v-else-if="data.cardId === 2">{{data.idBackUrl}}</span>
+            <li v-if="data.cardId === 1">
+                <span>充值账号:</span>
+                <span>{{data.cardNum}}</span>
+                <!-- <span v-else-if="data.cardId === 2">{{data.idBackUrl}}</span> -->
             </li>
-            <li v-if="data.cardId === 2">
-                <span>卡密</span>
+            <!-- <li v-if="data.cardId === 2">
+                <span>卡密:</span>
                 <span>{{data.memo}}</span>
-            </li>
+            </li> -->
             <li>
-                <span>面值</span>
+                <span>售价:</span>
                 <span>{{data.orderNum|toPrice}}</span>
             </li>
             <li>
-                <span>服务费</span>
+                <span>服务费:</span>
                 <span>{{data.serviceFee|toPrice}}</span>
             </li>
             <li>
-                <span>税费</span>
+                <span>税费:</span>
                 <span>{{data.taxFee|toPrice}}</span>
             </li>
             <li>
-                <span>应付合计</span>
+                <span>应付合计:</span>
                 <span>{{data.totalAmount|toPrice}}</span>
             </li>
         </ul>
-        <router-link :to="{path:'/oil'}" class="changeConfim" v-if="data.cardId === 1">完成</router-link>
-        <div class="changeGo" v-else-if="data.cardId === 2">
-            <router-link :to="{path:'/oil/oilRecovery', query: {id: $route.query.id}}" class="cRecove">回收</router-link>
-            <router-link :to="{path:'/oil'}" class="cConfim">完成</router-link>
-        </div>
+        <div class="changeConfim" @click="goHome">确定</div>
+        <span class="time"><em class="price-color">{{this.time}}s</em>后自动跳转至首页</span>
     </div>
   </transition>
 </template>
@@ -49,12 +46,17 @@
 import {getOilOrderDetail} from 'api';
 import { mapGetters } from 'vuex';
 import {isEmpty} from 'util/common';
+import { clearInterval } from 'timers';
 export default {
     data: () => ({
-      data: {}
+      data: {},
+      time: 0
     }),
     created() {
       this.getDetail()
+    },
+    mounted() {
+      this.countdown()
     },
     computed: {
       ...mapGetters({
@@ -67,6 +69,21 @@ export default {
         let res = await getOilOrderDetail({token: this.token, id: this.$route.query.id})
         if (res.code !== '1') return this.$toast(res.message)
         this.data = res.data
+      },
+      countdown () {
+        this.time = 5
+        this.timeout = setInterval(() => {
+          if (this.time > 0) {
+            this.time--
+          } else {
+            window.clearInterval(this.timeout)
+            this.$router.push('/oil')
+          }
+        }, 1000);
+      },
+      goHome() {
+        window.clearInterval(this.timeout)
+        this.$router.push('/oil')
       }
     }
 }
@@ -78,59 +95,80 @@ export default {
     width: 100%;
     text-align: center;
     .changeIconW {
+      display: flex;
+      padding-top: 77px;
+      justify-content: center;
         .changeIcon {
-            width: 84px;
-            height: 84px;
-            color: #fff;
-            background: #30CE84;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            color: #30CE84;
+            background: #fff;
             border-radius: 50%;
+            border: 2px solid #30CE84;
             text-align: center;
-            line-height: 84px;
-            font-size: 48px;
-            margin: 63px auto 20px auto;
+            font-size: 26px;
             display: inline-block;
+            position: relative;
+            &::before{
+              content: '';
+              display: block;
+              width: 10px;
+              height: 6px;
+              border-radius: 50%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              background: #fff;
+            }
+        }
+        .changeWord {
+            font-size: 30px;
+            line-height: 38px;
+            color: #30CE84;
+            margin-left: 22px;
         }
     }
-    .changeWord {
-        font-size: 18px;
-        color: #000000;
-    }
     .changeMoney {
-        font-size: 30px;
-        font-weight: bold;
-        color: #000000;
+        font-size: 36px;
+        color: #30CE84;
         padding: 10px 0 20px 0;
-        margin: 0 17px;
-        border-bottom: 1px solid #DEDEDE;
+        margin: 21px 15px;
+        border-bottom: 1px solid #DEDEDE; /*no*/
     }
     .changeInfo {
         padding: 20px 0;
         li {
             display: flex;
-            justify-content: space-between;
             margin: 0 35px;
-            font-size: 13px;
+            font-family: PingFang-SC-Regular;
+            font-size: 15px;
             line-height: 45px;
-            span:first-of-type {
-                color: #8B8B8B;
-            }
-            span:last-of-type {
-                color: #000000;
+            color: rgba(74, 74, 74, 1);
+            span:last-of-type{
+              margin-left: 20px;
             }
         }
     }
     .changeConfim,
     .changeGo {
-        line-height: 40px;
-        font-size: 18px;
-        width: 340px;
+        line-height: 44px;
+        font-size: 15px;
+        width: 345px;
         margin: 0 auto;
     }
     .changeConfim {
         background: #30CE84;
         color: #fff;
         display: inline-block;
-        border-radius: 40px;
+        border-radius: 5px; /*no*/
+    }
+    .time{
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+      color: #999;
     }
     .changeGo {
         display: flex;

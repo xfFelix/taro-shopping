@@ -5,10 +5,9 @@
         <i class="cubeic-back" @click="$emit('go-back-info')"></i>
         <span class="title">确认申请表</span>
       </div>
-      <!-- <h1>短信验证码已发送至手机</h1> -->
-       <h1>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>
+      <h1 v-if="userinfo.payValidType !== 1">短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>
       <div class="input-code">
-        <cube-input v-model="code" type="number" placeholder="请输入短信验证码"></cube-input>
+        <cube-input v-model.trim="code" type="tel" :placeholder="userinfo.payValidType === 1? '请输入支付密码': '请输入短信验证码'" :maxlength="userinfo.payValidType === 1 ? 6 : 4"></cube-input>
       </div>
       <button class="confirm" @click="validateCode">确认</button>
     </div>
@@ -41,7 +40,9 @@ export default {
   watch: {
     show(val) {
       if (val) {
-        this.sendCode()
+        if (this.userinfo.payValidType !== 1) {
+          this.sendCode()
+        }
       }
     },
   },
@@ -75,17 +76,18 @@ export default {
         this.$emit('go-back-init');
         return this.$toast(res.message)
       } else {
-        this.$router.push({
-          path: '/oil/oilRecoveryS', query: {
-            idBackUrl: this.recoveryListC.idBackUrl,
-            memo: this.recoveryListC.cardMemo,
-            cardUser: this.recoveryListC.cardUser,
-            name: this.recoveryListC.payeeName,
-            bankNum: this.recoveryListC.bankNum,
-            openBank: this.recoveryListC.openBank[0],
-            disPrice:this.recoveryListC.disPrice
-          }
-        })
+        this.$emit('handler-show-success')
+        // this.$router.push({
+        //   path: '/oil/oilRecoveryS', query: {
+        //     idBackUrl: this.recoveryListC.idBackUrl,
+        //     memo: this.recoveryListC.cardMemo,
+        //     cardUser: this.recoveryListC.cardUser,
+        //     name: this.recoveryListC.payeeName,
+        //     bankNum: this.recoveryListC.bankNum,
+        //     openBank: this.recoveryListC.openBank[0],
+        //     disPrice:this.recoveryListC.disPrice
+        //   }
+        // })
       }
 
     }

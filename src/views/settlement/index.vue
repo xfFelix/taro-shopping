@@ -17,6 +17,10 @@
     <transition name="slide-left" mode="out-in">
       <exchange-su :price="feeInfo.total" v-if="showSuccess"></exchange-su>
     </transition>
+    <!-- 设置支付密码dialog -->
+    <set-password :show.sync="showSetPassword"></set-password>
+    <!-- 设置手机号 -->
+    <set-mobile :show.sync="showSetMobile"></set-mobile>
   </div>
 </template>
 
@@ -33,7 +37,9 @@ export default {
     Expense: () => import('./components/Expense'),
     BgMask: () => import('components/BgMask'),
     SmsConfirm: () => import('./components/SmsConfirm'),
-    ExchangeSu: () => import('./components/ExchangeSu')
+    ExchangeSu: () => import('./components/ExchangeSu'),
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
+    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
   },
   data: () => ({
     docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
@@ -82,13 +88,32 @@ export default {
     ...mapGetters({
       getToken: 'getToken',
       getTicketUser: 'ticket/getUser'
-    })
+    }),
+    showSetPassword: {
+      get () {
+        return this.$store.getters.getShowSetPassword
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetPassword', val)
+      }
+    },
+    showSetMobile: {
+      get () {
+        return this.$store.getters.getShowSetMobile
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetMobile', val)
+      }
+    }
   },
   methods: {
     ...mapActions({
-      setTicketUser: 'ticket/setUser'
+      setTicketUser: 'ticket/setUser',
+      checkPassword: 'checkPassword'
     }),
     async checkInfo() {
+      let res = await this.checkPassword()
+      if (!res) return
       if (!this.getToken) return this.$dialog({type: 'confirm', content: '请先登录'}, () => {
         window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
       })

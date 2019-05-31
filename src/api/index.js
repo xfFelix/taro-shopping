@@ -89,6 +89,13 @@ export const sendSmsCode = (data) => fetch({
   data
 })
 
+// 绑定手机号
+export const setMobile = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/bindMobile',
+  method: 'POST',
+  data
+})
+
 export const getCostInfo = (data) => fetch({
   url: '/oilcard/getCostInfo',
   method: 'POST',
@@ -119,6 +126,19 @@ export const priceQuery = (params) => fetch({
 //详情信息
 export const getOilOrderDetail= (data) => fetch({
   url: '/oilcard/getOrderInfo',
+  method: 'POST',
+  data
+})
+
+export const getRecoveryList = (data) => fetch({
+  url: 'oilcard/getBuyBackList',
+  method: 'POST',
+  data
+})
+
+// 查看密码接口
+export const getPayPassword = (data) => fetch({
+  url: 'oilcard/getCardPwd',
   method: 'POST',
   data
 })
@@ -159,6 +179,12 @@ export const vipOrderList= (data) => fetch({
   data
 })
 
+
+export const checkPayPwd = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/editPayPwd',
+  method: 'POST',
+  data
+})
 
 
 
