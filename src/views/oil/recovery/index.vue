@@ -37,6 +37,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import clip from 'util/clipboard'
 export default {
   components: {
     NoData: () => import(/* webpackPrefetch: true */ 'components/NoData')
@@ -157,7 +158,18 @@ export default {
       const { code, data, message } = await getPayPassword({ token: this.token, code: this.code, orderNo: id})
       this.code = ''
       if (code !== '1') return this.$toast(message)
-      this.$dialog({content: `卡密:${data}`},() => {})
+      this.$createDialog({
+        type: 'alert',
+        title: '提示',
+        confirmBtn: {
+          text: '提交',
+          active: true
+        },
+        onConfirm: () => {},
+        onClose: () => {}
+      }, (h) => {
+        return <p style="textAlign: center" slot="content">卡密：<span onClick={($event) => clip(data, $event) }>{data}</span></p>
+      }).show()
     },
     initData() {
       this.list = []
