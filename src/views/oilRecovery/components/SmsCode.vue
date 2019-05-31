@@ -3,7 +3,7 @@
     <div class="code" v-if="show">
       <div class="header">
         <i class="cubeic-back" @click="$emit('go-back-info')"></i>
-        <span class="title">确认申请表</span>
+        <span class="title">{{userinfo.payValidType === 1 ? '请输入支付密码': '确认申请表'}}</span>
       </div>
       <h1 v-if="userinfo.payValidType !== 1">短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>
       <div class="input-code">
@@ -121,13 +121,14 @@ export default {
   }
   h1 {
     margin-top: 21px;
-    padding: 16px 0;
+    padding: 16px 0 0;
     font-size: 13px;
     color: #C3C3C3;
     border-top: 1px solid rgba(222, 222, 222, 0.9);
   }
   .input-code {
     border: 1px solid #DEDEDE;
+    margin-top: 21px;
   }
   .confirm {
     width: 100%;

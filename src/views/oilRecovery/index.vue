@@ -228,7 +228,7 @@ export default {
       if (!this.checked) {
         return toast("您还未同意协议")
       }
-      this.goBackInfo();
+      this.handlerShowCode();
 
       if (this.selfFlag) {
         this.recoveryListP = this.selfa;

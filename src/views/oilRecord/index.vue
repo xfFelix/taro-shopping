@@ -24,10 +24,10 @@
                         <div class="reName flex">
                             <span>产品名称:{{item.cardUser}}</span>
                             <div>
-                                <span v-if="item.status==0">已售出</span>
-                                <span v-else-if="item.status==1">成功</span>
-                                <span v-else-if="item.status==2">失败</span>
-                                <span v-else-if="item.status==3">回购中</span>
+                                <span v-if="item.status==0">兑换成功</span>
+                                <span v-else-if="item.status==1">回收成功</span>
+                                <span v-else-if="item.status==2">回收失败</span>
+                                <span v-else-if="item.status==3">回收中</span>
                             </div>
                             <!-- <div v-else>
                                 <span v-if="item.status==0">已售出</span>
