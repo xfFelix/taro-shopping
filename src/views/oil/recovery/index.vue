@@ -162,10 +162,10 @@ export default {
         type: 'alert',
         title: '提示',
         confirmBtn: {
-          text: '提交',
+          text: '复制',
           active: true
         },
-        onConfirm: () => {},
+        onConfirm: ($event) => clip(data, $event),
         onClose: () => {}
       }, (h) => {
         return <p style="textAlign: center" slot="content">卡密：<span onClick={($event) => clip(data, $event) }>{data}</span></p>

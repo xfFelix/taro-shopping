@@ -14,10 +14,11 @@ const state = {
     rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值
   },
   statusList: [
-    { label: '已售出', value: 0 },
-    { label: '成功', value: 1 },
-    { label: '失败', value: 2 },
-    { label: '回购中', value: 3 }
+    { label: '兑换成功', value: 0 },
+    { label: '回收成功', value: 1 },
+    { label: '回收失败', value: 2 },
+    { label: '回收中', value: 3 },
+    { label: '兑换失败', value: 3 }
   ]
 }
 
