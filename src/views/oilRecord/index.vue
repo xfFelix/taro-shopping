@@ -28,6 +28,7 @@
                                 <span v-else-if="item.status==1">回收成功</span>
                                 <span v-else-if="item.status==2">回收失败</span>
                                 <span v-else-if="item.status==3">回收中</span>
+                                <span v-else-if="item.status==4">兑换失败</span>
                             </div>
                             <!-- <div v-else>
                                 <span v-if="item.status==0">已售出</span>
