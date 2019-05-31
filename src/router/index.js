@@ -71,7 +71,7 @@ const router = new Router({
       component: () => import('views/oilRecovery'),
       meta: {
         title: '加油卡回收',
-        // requireAuth: true
+        requireAuth: true
       }
     },
     {

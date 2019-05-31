@@ -38,13 +38,16 @@ export default {
     }),
   },
   watch: {
-    show(val) {
-      if (val) {
-        if (this.userinfo.payValidType !== 1) {
-          this.sendCode()
+    show: {
+      handler (val) {
+        if (val) {
+          if (this.userinfo.payValidType !== 1) {
+            this.sendCode()
+          }
         }
-      }
-    },
+      },
+      immediate: true
+    }
   },
   methods: {
     validateCode() {

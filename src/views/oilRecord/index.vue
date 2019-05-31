@@ -24,9 +24,9 @@
                         <div class="reName flex">
                             <span>产品名称:{{item.cardUser}}</span>
                             <div>
-                                <span v-if="item.status==0">{{changeFlag? '充值中': '兑换成功'}}</span>
-                                <span v-else-if="item.status==1">{{changeFlag? '充值成功': '已回收'}}</span>
-                                <span v-else-if="item.status==2">{{changeFlag? '充值失败': '回收失败'}}</span>
+                                <span v-if="item.status==0">{{changeFlag? '兑换中': '兑换成功'}}</span>
+                                <span v-else-if="item.status==1">{{changeFlag? '兑换成功': '已回收'}}</span>
+                                <span v-else-if="item.status==2">{{changeFlag? '兑换失败': '回收失败'}}</span>
                                 <span v-else-if="item.status==3">回收中</span>
                                 <span v-else-if="item.status==4">兑换失败</span>
                             </div>

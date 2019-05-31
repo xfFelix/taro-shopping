@@ -71,7 +71,7 @@
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
 
-    <recovery-Info :show="show.info" @handler-show-code="handlerShowCode" @go-back-init="goBackInit" :recoveryListC="recoveryListP" v-if="show.mask"></recovery-Info>
+    <!-- <recovery-Info :show="show.info" @handler-show-code="handlerShowCode" @go-back-init="goBackInit" :recoveryListC="recoveryListP" v-if="show.mask"></recovery-Info> -->
     <sms-code :show="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit"></sms-code>
     <success :show="show.success"></success>
     <agree-file :show="show.file" @handle-show-file="goBackInit"></agree-file>
@@ -154,7 +154,7 @@ export default {
     }
   },
   components: {
-    RecoveryInfo: () => import("./components/RecoveryInfo"),
+    // RecoveryInfo: () => import("./components/RecoveryInfo"),
     BgMask: () => import("components/BgMask"),
     SmsCode: () => import("./components/SmsCode"),
     AgreeFile: () => import("./components/AgreeFile"),
