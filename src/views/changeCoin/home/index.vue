@@ -7,7 +7,7 @@
     <div class="changeCoin-content">
       <div class="changeCoin-inp-wrap">
         <span class="logoPng"></span>
-        <input type="number" placeholder="请输入椰子分金额" @input="realMoney(false,$event)" v-model="coinInfo.moneyNum" />
+        <input type="number" placeholder="请输入椰子分金额" @blur="realMoney(false,$event)" v-model="coinInfo.moneyNum" />
       </div>
       <div class="changeCoin-account-wrap">
         <p>当前账号：

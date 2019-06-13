@@ -16,8 +16,8 @@
             </li>
             <li>订单编号:&nbsp;{{item.idUrl}}</li>
             <li>时间：{{item.addDate}}</li>
-            <li>充值账号：{{item.mobile}}</li>
-            <li>兑换椰子分：{{item.repaymentAmount|toPrice}}</li>
+            <li>兑换账号：{{item.mobile}}</li>
+            <li>椰子分金额：{{item.repaymentAmount|toPrice}}</li>
             <li>服务费：{{item.serviceFee}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>
