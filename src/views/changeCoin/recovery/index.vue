@@ -9,7 +9,7 @@
         <cube-scroll ref="scroll" :data="orderList" :options="options" @pulling-up="onPullingUp" v-if="orderList.length!=0">
           <ul class="item" v-for="(item,index) in orderList" :key="index">
             <li class="title">
-              <span class="order-number">产品名称：{{item.repaymentAmount|toPrice}}椰子分兑换{{item.cardBank|toDecimal2Fp}}金币</span>
+              <span class="order-number">产品名称：{{item.memo|toDecimal2Fp}}金币</span>
               <span class="status" v-if="item.status == 0">兑换中</span>
               <span class="status" v-else-if="item.status == 1">兑换成功</span>
               <span class="status" v-else>兑换失败</span>
@@ -18,7 +18,7 @@
             <li>时间：{{item.addDate}}</li>
             <li>充值账号：{{item.mobile}}</li>
             <li>兑换椰子分：{{item.repaymentAmount|toPrice}}</li>
-            <li>金币数量：{{item.cardBank}}</li>
+            <li>服务费：{{item.serviceFee}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>
               <span class="total">合计：{{item.totalAmount|toPrice}}</span>

@@ -10,13 +10,17 @@
         <input type="number" placeholder="请输入椰子分金额" @input="realMoney(false,$event)" v-model="coinInfo.moneyNum" />
       </div>
       <div class="changeCoin-account-wrap">
-        <p>当前账号：<span class="changeCoin-account">{{userinfo.userName}}</span></p>
+        <p>当前账号：
+          <span class="changeCoin-account">{{userinfo.userName}}</span>
+        </p>
         <p class="changeCoin-goout" @click="outLogin">退出登录</p>
       </div>
     </div>
 
     <div class="changeCoin-money-wrap">
-      <p>椰子分余额：<span class="changeCoin-money">{{userinfo.score | toPrice}}</span></p>
+      <p>椰子分余额：
+        <span class="changeCoin-money">{{userinfo.score | toPrice}}</span>
+      </p>
       <p @click="$router.push({name:'coinList'})">兑换记录></p>
     </div>
 
@@ -36,11 +40,9 @@
     </ul>
     <p class="change-coin-bnt" @click="coinChange()">立即兑换</p>
 
-    <div style="width:50%;overflow: hidden;margin:10px;">
-      <cube-checkbox class="with-click" v-model="checked" shape="square">
-        我已阅读并同意
-        <a href="javascript:;" @click.stop>《xxx》</a>
-      </cube-checkbox>
+    <div class="agreement">
+      <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
+      <span @click="show.file=true" class="file">《椰子分兑换金币说明》</span>
     </div>
 
     <!-- 遮罩层 -->
@@ -55,13 +57,15 @@
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
     <set-mobile :show.sync="showSetMobile"></set-mobile>
+    <!-- 同意协议 -->
+    <agree-file :show="show.file" @handle-show-file="initShow"></agree-file>
   </div>
 </template>
 <script>
 import { localStorage } from 'common/storage'
 import { tools_uri } from 'common/tools';
 import { getCostCoin, sumbmitCoin } from 'api';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data: () => ({
@@ -72,7 +76,8 @@ export default {
     show: {
       mask: false,
       info: false,
-      sms: false
+      sms: false,
+      file: false
     },
     coinInfo: {
       num: 0,
@@ -117,14 +122,23 @@ export default {
     codeInfo(code) {
       this.coinSumbmit(code)
     },
+    initData() {
+      this.coinInfo = {
+        num: 0,
+        tax_total: 0,
+        service_fee: 0,
+        total: 0,
+        moneyNum: ""
+      }
+    },
     initShow() {
-      this.show = { mask: false, info: false, sms: false };
+      this.show = { mask: false, info: false, sms: false, file: false };
     },
     showInfo() {
-      this.show = { mask: true, info: true, sms: false };
+      this.show = { mask: true, info: true, sms: false, file: false };
     },
     showSms() {
-      this.show = { mask: true, info: false, sms: true };
+      this.show = { mask: true, info: false, sms: true, file: false };
     },
     coinChange() {
       if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
@@ -138,11 +152,13 @@ export default {
       })
     },
     async realMoney(changeFlag, e) {
+      let res = await this.checkPassword();
+      if (!res) return;
       if (e) {
         e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
         this.coinInfo.moneyNum = e.target.value;
       }
-      if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
+      if (!this.coinInfo.moneyNum) {return this.$toast("请输入有效的椰子分") }
       let data = await getCostCoin({ token: this.getToken, integral: this.coinInfo.moneyNum });
       if (changeFlag == true) {
         if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
@@ -173,19 +189,20 @@ export default {
       if (res.code == 1) {
         this.coinInfo.moneyNum = "";
         this.initShow();
-        return this.$dialog({
-          title: "兑换成功",
-        })
+        return this.$dialog({ title: "兑换成功", }, () => { this.initData()})
       }
-    }
-
+    },
+    ...mapActions({
+      checkPassword: 'checkPassword'
+    })
   },
   components: {
     BgMask: () => import('components/BgMask'),
     SmsCode: () => import('./components/SmsCode'),
     RechargeInfo: () => import('./components/RechargeInfo'),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
-    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
+    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile'),
+    AgreeFile: () => import('./components/AgreeFile')
   },
 }
 </script>
@@ -268,15 +285,17 @@ export default {
     color: #Fff;
     background: #30ce84;
   }
-  .cube-checkbox {
-    .cube-checkbox-wrap {
-      display: inline-block;
-      width: auto!important;
-      .cube-checkbox-label {
-        a {
-          color: #30ce84;
-        }
-      }
+  .agreement {
+    display: flex;
+    align-items: center;
+    padding-bottom: 50px;
+    margin: 10px;
+    .file {
+      color: #30ce84;
+      margin-top: -1px;
+    }
+    .cube-checkbox {
+      padding-right: 0;
     }
   }
 }
