@@ -86,6 +86,7 @@ export default {
       total: 0,
       moneyNum: ""
     },
+    vendorId: null
   }),
   watch: {
     'show.mask': {
@@ -148,7 +149,7 @@ export default {
     outLogin() {
       this.$dialog({ type: 'confirm', content: '确认退出当前账号？' }, () => {
         localStorage.remove('token');
-        window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
+        window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location.origin + window.location.pathname)
       })
     },
     async realMoney(changeFlag, e) {
@@ -158,8 +159,8 @@ export default {
         e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
         this.coinInfo.moneyNum = e.target.value;
       }
-      if (!this.coinInfo.moneyNum) {return this.$toast("请输入有效的椰子分") }
-      let data = await getCostCoin({ token: this.getToken, integral: this.coinInfo.moneyNum });
+      if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
+      let data = await getCostCoin({ token: this.getToken, integral: this.coinInfo.moneyNum,vendorId:this.vendorId });
       if (changeFlag == true) {
         if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
         if (data.code === '6') {
@@ -176,7 +177,7 @@ export default {
       this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
     },
     async coinSumbmit(code) {
-      let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code })
+      let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code,vendorId:this.vendorId })
       if (res.code != 1 && res.code != 4) {
         this.initShow();
         return this.$toast(res.message);
@@ -189,12 +190,18 @@ export default {
       if (res.code == 1) {
         this.coinInfo.moneyNum = "";
         this.initShow();
-        return this.$dialog({ title: "兑换成功", }, () => { this.initData()})
+        return this.$dialog({ title: "兑换成功", }, () => { this.initData() })
       }
     },
     ...mapActions({
       checkPassword: 'checkPassword'
-    })
+    }),
+
+  },
+  mounted() {
+    if(this.$route.query.vendorId){
+      this.vendorId = this.$route.query.vendorId
+    }
   },
   components: {
     BgMask: () => import('components/BgMask'),
