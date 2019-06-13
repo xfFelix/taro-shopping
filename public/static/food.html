@@ -79,12 +79,12 @@
 <body>
   <div class="main-wrapper">
     <div class="back iconfont" onclick="goBack()">&#xe61e;</div>
-    <div class="more fruit"><a href="https://mall.cocogc.cn/#/goodsList?classfyId=18591"></a></div>
-    <div class="item first"><a href="https://mall.cocogc.cn/#/goodsDetail/119405"></a></div>
-    <div class="item second"><a href="https://mall.cocogc.cn/#/goodsDetail/119408"></a></div>
-    <div class="more pearls"><a href="https://mall.cocogc.cn/#/goodsList?classfyId=18591"></a></div>
-    <div class="item third"><a href="https://mall.cocogc.cn/#/goodsDetail/160842"></a></div>
-    <div class="item four"><a href="https://mall.cocogc.cn/#/goodsDetail/175811"></a></div>
+    <div class="more fruit"><a onclick="goList('18591')"></a></div>
+    <div class="item first"><a onclick="goDetail('119405')"></a></div>
+    <div class="item second"><a onclick="goDetail('119408')"></a></div>
+    <div class="more pearls"><a onclick="goList('18591')"></a></div>
+    <div class="item third"><a onclick="goDetail('160842')"></a></div>
+    <div class="item four"><a onclick="goDetail('175811')"></a></div>
   </div>
   <script>
   !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
@@ -92,6 +92,12 @@
   <script>
     function goBack() {
       window.history.back(-1);
+    }
+    function goList(id) {
+      window.location.href = `${window.location.origin}/#/goodsList?classfyId=${id}`
+    }
+    function goDetail(id) {
+      window.location.href = `${window.location.origin}/#/goodsDetail/${id}`
     }
   </script>
 </body>
