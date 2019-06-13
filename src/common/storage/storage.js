@@ -49,7 +49,7 @@ class Storage {
     try {
       value = JSON.parse(value)
     } catch (e) {
-      value = undefined
+      value = value
     }
     return value
   }
