@@ -187,4 +187,24 @@ export const checkPayPwd = (data) => fetch({
 })
 
 
+//兑换金币
+export const getCostCoin =(data)=>fetch({
+  url:"goldcoin/getCostInfo",
+  method:'POST',
+  data
+})
+//提交订单
+export const sumbmitCoin =(data)=>fetch({
+  url:"goldcoin/submit",
+  method:'POST',
+  data
+})
+//金币兑换列表
+export const coinList =(data)=>fetch({
+  url:"/goldcoin/getOrderList",
+  method:'POST',
+  data
+})
+
+
 

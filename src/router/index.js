@@ -179,6 +179,36 @@ const router = new Router({
         requireAuth: true
       }
     },
+    {
+      path: '/changeCoin',
+      name: 'changeCoin',
+      component: () => import('views/changeCoin'),
+      meta: {
+        title: '兑换金币',
+        requireAuth: true
+      },
+      redirect: '/changeCoin/home',
+      children: [
+        {
+          path: 'home',
+          name: 'coinHome',
+          component: () => import('views/changeCoin/home'),
+          meta: {
+            title: '兑换金币',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'recovery',
+          name: 'coinList',
+          component: () => import(/* webpackPrefetch: true */ 'views/changeCoin/recovery'),
+          meta: {
+            title: '兑换金币列表',
+            requireAuth: true
+          }
+        }
+      ]
+    },
   ]
 })
 

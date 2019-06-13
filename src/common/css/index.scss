@@ -147,3 +147,11 @@ img:after{
 		height: 1px;
 	}
 }
+
+.logoPng {
+	width: 22px;
+	height: 22px;
+	display: inline-block;
+	background: url("../images/logo.png") no-repeat;
+	background-size: 100% 100%;
+}
