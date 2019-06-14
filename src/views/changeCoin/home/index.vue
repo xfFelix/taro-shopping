@@ -120,6 +120,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      checkPassword: 'checkPassword',
+      setUserInfo: 'setUserinfo'
+    }),
     codeInfo(code) {
       this.coinSumbmit(code)
     },
@@ -189,18 +193,14 @@ export default {
             total: 0,
             moneyNum: ""
           }
-          this.reInfo();
+          this.getInfo();
         })
       }
     },
-    async reInfo() {
+    async getInfo() {
       let info = await getInfo({ token: this.getToken })
       if (!info.error_code) { return this.setUserInfo(info.data) }
     },
-    ...mapActions({
-      checkPassword: 'checkPassword',
-      setUserInfo: 'setUserInfo'
-    }),
   },
   mounted() {
     if (this.$route.query.vendorId) {
