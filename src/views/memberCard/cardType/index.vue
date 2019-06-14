@@ -37,6 +37,7 @@ export default {
       cardNumber: undefined,
       productType: undefined
     },
+    failText: ''
   }),
   computed: {
     ...mapGetters({
