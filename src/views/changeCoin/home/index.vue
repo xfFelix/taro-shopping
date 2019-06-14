@@ -64,7 +64,7 @@
 <script>
 import { localStorage } from 'common/storage'
 import { tools_uri } from 'common/tools';
-import { getCostCoin, sumbmitCoin } from 'api';
+import { getCostCoin, sumbmitCoin,getInfo } from 'api';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -122,15 +122,6 @@ export default {
   methods: {
     codeInfo(code) {
       this.coinSumbmit(code)
-    },
-    initData() {
-      this.coinInfo = {
-        num: 0,
-        tax_total: 0,
-        service_fee: 0,
-        total: 0,
-        moneyNum: ""
-      }
     },
     initShow() {
       this.show = { mask: false, info: false, sms: false, file: false };
@@ -190,13 +181,17 @@ export default {
       if (res.code == 1) {
         this.coinInfo.moneyNum = "";
         this.initShow();
-        return this.$dialog({ title: "兑换成功", }, () => { this.initData() })
+        return this.$dialog({ title: "兑换成功", }, () => {this.reInfo();})
       }
     },
+    async reInfo(){
+        let info = await getInfo({token: this. getToken})
+        if (!info.error_code){return this.setUserInfo(info.data)}
+    },
     ...mapActions({
-      checkPassword: 'checkPassword'
+      checkPassword: 'checkPassword',
+      setUserInfo:'setUserInfo'
     }),
-
   },
   mounted() {
     if(this.$route.query.vendorId){
