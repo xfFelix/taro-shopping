@@ -7,7 +7,8 @@
       </div>
       <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
       <h1 v-else>短信验证码已发送至手机 {{userinfo.userName | formatPhone}} <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button></h1>
-      <Code @confirm="validateCode"></Code>
+      <Code @confirm="validateCode" v-model="code"></Code>
+      <div class="fail-text">{{failText}}</div>
     </div>
   </transition>
 </template>
@@ -22,6 +23,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    failText: {
+      type: String,
+      default: ''
     }
   },
   data: () => ({
@@ -35,7 +40,15 @@ export default {
     ...mapGetters({
       userinfo: 'getUserinfo',
       token: 'getToken',
-    })
+    }),
+    code: {
+      get() {
+        return this.$store.getters['oil/getConfig'].code
+      },
+      set(val) {
+        this.$store.dispatch('oil/setConfig', {code: val})
+      }
+    }
   },
   watch: {
     show(val){
@@ -80,7 +93,7 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 16px 15px 105px;
+  padding: 16px 15px 50px;
   box-sizing: border-box;
   z-index: 11;
   .header{
@@ -119,6 +132,10 @@ export default {
     border: none;
     border-radius: 25px; /*no*/
     padding: 11px 0;
+  }
+  .fail-text{
+    color: #f74340;
+    padding: 10px 0 ;
   }
 }
 </style>

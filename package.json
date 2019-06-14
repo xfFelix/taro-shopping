@@ -7,7 +7,13 @@
     "test": "vue-cli-service build --mode test",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "commit": "git cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -34,7 +40,9 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-polyfill": "^6.26.0",
+    "commitizen": "^3.1.1",
     "compression-webpack-plugin": "^2.0.0",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "fibers": "^3.1.1",
