@@ -207,7 +207,7 @@ export default {
 .reInput {
   margin: 24px 0 0 15px;
   font-size: 12px;
-  color: #4A4A4A;
+  color: #f74340;
   position: absolute;
 }
 </style>
