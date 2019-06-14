@@ -5,7 +5,7 @@
     <!-- 兑换信息 -->
     <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
     <!-- 短信 -->
-    <sms-code :show="show.sms" @go-back="initShow" @code-info="codeInfo" :codeError.sync="codeErrFlag" @send-sms="sendCode"></sms-code>
+    <sms-code :show="show.sms" :fail-text="failText" @go-back="initShow" @code-info="codeInfo" :codeError.sync="codeErrFlag" @send-sms="sendCode"></sms-code>
     <!-- 遮罩层 -->
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
@@ -126,6 +126,7 @@ export default {
     async vipSubmit(code) {
       let res = await vipSubmit({ code: code, token: this.getToken, productId: this.productId, accountNo: this.chargeInfo.cardNumber });
       if (res.code == 4) {
+        this.failText = res.message
         return this.codeErrFlag = true;
       }
       if (res.code != 1 && res.code != 4) {

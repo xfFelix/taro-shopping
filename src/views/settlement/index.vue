@@ -12,7 +12,7 @@
         <bg-mask v-model="showSendCode"></bg-mask>
     </transition>
     <transition name="slideUp">
-        <sms-confirm :showSendCode.sync="showSendCode" @commit-order="submitOrder"></sms-confirm>
+        <sms-confirm :showSendCode.sync="showSendCode" @commit-order="submitOrder" :fail-text="failText"></sms-confirm>
     </transition>
     <transition name="slide-left" mode="out-in">
       <exchange-su :price="feeInfo.total" v-if="showSuccess"></exchange-su>
@@ -58,7 +58,8 @@ export default {
     },
     showSuccess: false,
     userinfo: {},
-    showLogin: false
+    showLogin: false,
+    failText: ''
   }),
   watch:{
     showHeight:function() {
@@ -150,7 +151,7 @@ export default {
       this.$loading()
       let data = await submitOrder(args)
       this.$loading.hide()
-      if (data.code !== '1') return this.$toast(data.message)
+      if (data.code !== '1') return this.failText = data.message
       this.$toast('门票下单成功')
       this.setTicketUser(this.user) // 保存取票人信息
       this.showSendCode = false
