@@ -97,7 +97,7 @@ export default {
       clearInterval(this.timeout);
       let res = await sendSmsCode({ token: this.token })
       if (res.error_code) return this.$toast(res.message)
-      this.time = 10
+      this.time = 120
       this.timeout = setInterval(() => {
         if (this.time > 0) {
           this.time--
