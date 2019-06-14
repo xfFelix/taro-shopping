@@ -64,7 +64,7 @@
 <script>
 import { localStorage } from 'common/storage'
 import { tools_uri } from 'common/tools';
-import { getCostCoin, sumbmitCoin,getInfo } from 'api';
+import { getCostCoin, sumbmitCoin, getInfo } from 'api';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -151,7 +151,7 @@ export default {
         this.coinInfo.moneyNum = e.target.value;
       }
       if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
-      let data = await getCostCoin({ token: this.getToken, integral: this.coinInfo.moneyNum,vendorId:this.vendorId });
+      let data = await getCostCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId });
       if (changeFlag == true) {
         if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
         if (data.code === '6') {
@@ -168,7 +168,7 @@ export default {
       this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
     },
     async coinSumbmit(code) {
-      let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code,vendorId:this.vendorId })
+      let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId })
       if (res.code != 1 && res.code != 4) {
         this.initShow();
         return this.$toast(res.message);
@@ -181,20 +181,29 @@ export default {
       if (res.code == 1) {
         this.coinInfo.moneyNum = "";
         this.initShow();
-        return this.$dialog({ title: "兑换成功", }, () => {this.reInfo();})
+        return this.$dialog({ title: "兑换成功", }, () => {
+          this.coinInfo = {
+            num: 0,
+            tax_total: 0,
+            service_fee: 0,
+            total: 0,
+            moneyNum: ""
+          }
+          this.reInfo();
+        })
       }
     },
-    async reInfo(){
-        let info = await getInfo({token: this. getToken})
-        if (!info.error_code){return this.setUserInfo(info.data)}
+    async reInfo() {
+      let info = await getInfo({ token: this.getToken })
+      if (!info.error_code) { return this.setUserInfo(info.data) }
     },
     ...mapActions({
       checkPassword: 'checkPassword',
-      setUserInfo:'setUserInfo'
+      setUserInfo: 'setUserInfo'
     }),
   },
   mounted() {
-    if(this.$route.query.vendorId){
+    if (this.$route.query.vendorId) {
       this.vendorId = this.$route.query.vendorId
     }
   },
