@@ -21,7 +21,7 @@
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[5]}}</div>
         <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" :maxlength="userinfo.payValidType === 1 ? 6: 4" v-focus>
       </div>
-      <div class="reInput" v-if="tipError">验证码输入错误，请重新输入</div>
+      <div class="reInput" v-if="tipError">{{failText}}</div>
     </div>
   </transition>
 </template>
@@ -38,7 +38,8 @@ export default {
     codeError: {
       type: Boolean,
       default: false
-    }
+    },
+    failText: ''
   },
   computed: {
     ...mapGetters({
@@ -163,7 +164,7 @@ export default {
   .reInput {
     margin: 24px 0 0 15px;
     font-size: 12px;
-    color: #4A4A4A;
+    color: #ea5a5a;
     position: absolute;
   }
 }

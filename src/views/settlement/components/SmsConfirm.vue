@@ -11,6 +11,7 @@
             <input class="phonePay-msg" type="tel" autofocus="autofocus" :maxlength="userinfo.payValidType === 1?6:4" :placeholder="userinfo.payValidType === 1? '请输入支付密码': '请输入短信验证码'" v-model="smsCode" />
             <span v-if="userinfo.payValidType !== 1" class="sendPhoneSms" :style="validateFlag==1?'background: #30ce84':'background: #999999'" @click="sendPhoneSms()">{{validate}}</span>
         </p>
+        <p class="fail-text">{{failText}}</p>
         <button class="phonePay-confirm phonePay-conA" :class="smsCode?'light': ''" :disabled="btnDisabled" @click="sumitOrder">确认提交</button>
     </div>
 </template>
@@ -31,7 +32,8 @@ export default {
       showSendCode: {
         type: Boolean,
         default: false
-      }
+      },
+      failText: ''
     },
     watch: {
       btnDisabled(val) {
@@ -171,6 +173,10 @@ export default {
     }
     .light {
         background-color: #27bd5a;
+    }
+    .fail-text{
+      color: red;
+      padding: 0 18px 18px;
     }
 }
 </style>
