@@ -299,8 +299,7 @@ export default {
   .agreement {
     display: flex;
     align-items: center;
-    padding-bottom: 50px;
-    margin: 10px;
+    padding:10px 10px 50px 10px;
     .file {
       color: #30ce84;
       margin-top: -1px;

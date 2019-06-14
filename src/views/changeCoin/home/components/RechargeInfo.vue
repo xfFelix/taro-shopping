@@ -97,31 +97,32 @@ export default {
       font-weight: 400;
       color: #111010;
       position: relative;
+      border-bottom: 1px solid #d3d3d3;
       i {
         position: absolute;
         left: 0;
       }
     }
     .price {
-      padding: 40px 0 0 0;
-      margin-bottom: 45px;
+      padding: 30px 0 0 0;
+      margin-bottom: 40px;
       font-size: 30px;
       color: #111010;
       font-weight: bold;
       text-align: center;
       position: relative;
-      &::before {
-        position: absolute;
-        display: block;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background: #d3d3d3;
-        top: 0;
-      }
+      // &::before {
+      //   position: absolute;
+      //   display: block;
+      //   content: '';
+      //   width: 100%;
+      //   height: 1px;
+      //   background: #d3d3d3;
+      //   top: 0;
+      // }
     }
     .item {
-      margin-top: 35px;
+      margin-top: 30px;
       display: flex;
       justify-content: space-between;
       padding: 0 10px 0 12px;

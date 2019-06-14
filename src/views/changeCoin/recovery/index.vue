@@ -116,14 +116,14 @@ export default {
     .item {
       border: 1px solid rgba(222, 222, 222, 1);
       border-radius: 5px;
-      margin-top: 20px;
+      margin-top: 25px;
+      overflow: hidden;
       li {
         padding: 15px 15px 0;
         color: #4A4A4A;
         font-size: 12px;
         background: #F4F4F4;
         &.title {
-          height: 43px;
           line-height: 43px;
           padding-top: 0;
           display: flex;
