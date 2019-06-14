@@ -14,7 +14,7 @@
     <!-- 加油卡号dialog -->
     <card-number :show="show.card" @close-dialog="initShow" @handler-show-info="handlerShowInfo" @handler-show-type="handlerShowType"></card-number>
     <!-- 短信dialog -->
-    <sms-code :show="show.code" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
+    <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
     <!-- 选择类型dialog 中石化1，中石油2 -->
     <select-type :show="show.type" @handler-show-info="handlerClick" @init-show="initShow"></select-type>
     <!-- 详情dialog -->
@@ -47,7 +47,8 @@ export default {
       code: false,
       type: false,
       info: false
-    }
+    },
+    failText: ''
   }),
   watch: {
     'show.mask': {
@@ -88,7 +89,10 @@ export default {
       let config = {faceValue, code, cardNum, token, rechargeType, oilCardType: type}
       const {submitOilOrder} = await import(/* webpackPrefetch: true */ 'api')
       let res = await submitOilOrder(config)
-      if (res.code !== '1') return this.$toast(res.message)
+      if (res.code !== '1') {
+        this.$store.dispatch('oil/setConfig', {code: ''})
+        return this.failText = res.message
+      }
       this.initShow()
       this.$router.push({
         path: '/oil/oilChangeS',

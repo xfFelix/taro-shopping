@@ -8,7 +8,7 @@
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[4]}}</div>
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[5]}}</div>
         </label>
-        <input class="code-input-input" id="code" autofocus="autofocus" v-model.trim="code" :maxlength="userinfo.payValidType === 1 ? 6 : 4" type="tel" autocomplete="off" pattern="[0-9]*"/>
+        <input class="code-input-input" id="code" autofocus="autofocus" :value="code" @input="$emit('input', $event.target.value.trim())" :maxlength="userinfo.payValidType === 1 ? 6 : 4" type="tel" autocomplete="off" pattern="[0-9]*"/>
     </div>
 </template>
 
@@ -16,18 +16,17 @@
 import { mapGetters } from 'vuex';
 export default {
   name: "CodeInput",
+  model: {
+    prop: 'code',
+    event: 'input'
+  },
+  props: {
+    code: ''
+  },
   computed: {
     ...mapGetters({
       userinfo: 'getUserinfo'
-    }),
-    code: {
-      get() {
-        return this.$store.state.oil.config.code
-      },
-      set(val) {
-        this.$store.dispatch('oil/setConfig', {code: val})
-      }
-    }
+    })
   },
   watch: {
     code (val) {
