@@ -173,7 +173,7 @@ export default {
 </style>
 <style>
 @media screen and (min-width: 600px){
-  .info{
+  .info-wrapper{
     max-width: 384px; /*no*/
     left: 50% !important;
     transform: translateX(-50%);

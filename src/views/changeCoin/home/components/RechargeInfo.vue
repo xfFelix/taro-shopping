@@ -11,11 +11,15 @@
         </li>
          <li class="item">
           <span class="label">商品名称</span>
-          <span class="value">{{coinInfo.moneyNum}}椰子分兑换{{coinInfo.num|toDecimal2Fp}}金币</span>
+          <span class="value">{{coinInfo.num|toDecimal2Fp}}金币</span>
         </li>
         <li class="item">
-          <span class="label">充值账号</span>
+          <span class="label">兑换账号</span>
           <span class="value">{{userinfo.userName}}</span>
+        </li>
+        <li class="item">
+          <span class="label">椰子分金额</span>
+          <span class="value">{{coinInfo.moneyNum | toPrice}}</span>
         </li>
         <li class="item">
           <span class="label">服务费</span>
