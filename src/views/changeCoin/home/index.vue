@@ -185,7 +185,7 @@ export default {
       if (res.code == 1) {
         this.coinInfo.moneyNum = "";
         this.initShow();
-        return this.$dialog({ title: "兑换成功", }, () => {
+        return this.$dialog({ title: "恭喜您，兑换成功",icon:"cubeic-right" }, () => {
           this.coinInfo = {
             num: 0,
             tax_total: 0,
@@ -310,4 +310,18 @@ export default {
     }
   }
 }
+</style>
+<style lang="scss">
+.cube-dialog-icon{
+  .cubeic-right{
+    background: #fff;
+    width: auto;
+    height: auto;
+    &::before{
+      color:#30ce84;
+      font-size:60px;
+  }
+}
+}
+
 </style>
