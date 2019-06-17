@@ -1,6 +1,7 @@
 <template>
   <transition name="slideUp" mode="out-in">
     <div class="code" v-if="show">
+      <input type="text" style="position: absolute;top:-300px;background: transparent;"ref="inputNext">
       <div class="header">
         <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
         <span class="title">确认兑换</span>
@@ -9,7 +10,6 @@
       <h1 v-else>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}
         <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button>
       </h1>
-
       <div class="code-input-main">
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[0]}}</div>
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[1]}}</div>
@@ -17,7 +17,7 @@
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[3]}}</div>
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[4]}}</div>
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[5]}}</div>
-        <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" :maxlength="userinfo.payValidType === 1 ? 6: 4" v-focus>
+        <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" :maxlength="userinfo.payValidType === 1 ? 6: 4" v-focus ref="inputText">
       </div>
       <div class="reInput" v-if="tipError">{{codeMessage}}</div>
     </div>
@@ -63,6 +63,8 @@ export default {
         }
       }else{
         this.initData();
+        this.$refs.inputText.blur();
+        this.$refs.inputNext.focus();
       }
     },
     code(val) {
