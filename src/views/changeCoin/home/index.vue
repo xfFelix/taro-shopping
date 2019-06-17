@@ -194,6 +194,7 @@ export default {
             moneyNum: ""
           }
           this.getInfo();
+          return
         })
       }
     },
