@@ -2,8 +2,7 @@ import fetch from './fetch'
 
 // 配置接口
 export const getInfo = (data) => fetch({
-  // url: process.env.VUE_APP_INFO_URl + 'user/info',
-  url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/be39a1697591bc52a141.json",
+  url: process.env.VUE_APP_INFO_URl + 'user/info',
   method: 'POST',
   data
 })
@@ -190,15 +189,13 @@ export const checkPayPwd = (data) => fetch({
 
 //兑换金币
 export const getCostCoin =(data)=>fetch({
-  // url:"goldcoin/getCostInfo",
-  url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/5cc0565d5e0b05791758.json",
+  url:"goldcoin/getCostInfo",
   method:'POST',
   data
 })
 //提交订单
 export const sumbmitCoin =(data)=>fetch({
-  // url:"goldcoin/submit",
-  url:"http://lc-OnsG2j7w.cn-n1.lcfile.com/9eb53709b55403c6aee8.json",
+  url:"goldcoin/submit",
   method:'POST',
   data
 })
