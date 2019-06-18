@@ -7,19 +7,20 @@
     <div class="changeCoin-content">
       <div class="changeCoin-inp-wrap">
         <span class="logoPng"></span>
-        <input type="number" placeholder="请输入椰子分金额" @blur="realMoney(false,$event)" v-model="coinInfo.moneyNum" />
+        <input type="number" placeholder="请输入椰子分金额" @input="getMoneyInfo(false,$event)" v-model="coinInfo.moneyNum" />
       </div>
       <div class="changeCoin-account-wrap">
         <p>当前账号：
           <span class="changeCoin-account">{{userinfo.userName}}</span>
         </p>
-        <p class="changeCoin-goout" @click="outLogin">退出登录</p>
+        <!-- <p class="changeCoin-goout" @click="outLogin">退出登录</p> -->
       </div>
     </div>
 
     <div class="changeCoin-money-wrap">
       <p>椰子分余额：
         <span class="changeCoin-money">{{userinfo.score | toPrice}}</span>
+        <span class="changeCoin-goout" @click="exchangeAll">全部兑换</span>
       </p>
       <p @click="$router.push({name:'coinList'})">兑换记录></p>
     </div>
@@ -28,16 +29,20 @@
       <li>兑换金币数：
         <span>{{coinInfo.num|toDecimal2Fp}}</span>
       </li>
-      <li>税费：
-        <span>{{coinInfo.tax_total|toDecimal2}}</span>
-      </li>
-      <li>服务费：
-        <span>{{coinInfo.service_fee|toDecimal2}}</span>
-      </li>
-      <li>应付合计：
-        <span>{{coinInfo.total|toDecimal2}}</span>
-      </li>
     </ul>
+    <div class="change-coin-total">
+      <div>
+        <span>税费：
+          <i>{{coinInfo.tax_total|toDecimal2}}</i>
+        </span>
+        <span style="margin-left: 15px">服务费：
+          <i>{{coinInfo.service_fee|toDecimal2}}</i>
+        </span>
+      </div>
+      <span style="font-weight: 600">应付合计：
+        <i style="font-weight: 600">{{coinInfo.total|toDecimal2}}</i>
+      </span>
+    </div>
     <p class="change-coin-bnt" @click="coinChange()">立即兑换</p>
 
     <div class="agreement">
@@ -124,6 +129,10 @@ export default {
       checkPassword: 'checkPassword',
       setUserInfo: 'setUserinfo'
     }),
+    exchangeAll () {
+      this.coinInfo.moneyNum = this.userinfo.score
+      this.realMoney(false, undefined)
+    },
     codeInfo(code) {
       this.coinSumbmit(code)
     },
@@ -146,6 +155,12 @@ export default {
         localStorage.remove('token');
         window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location.origin + window.location.pathname)
       })
+    },
+    getMoneyInfo(changeFlag, e) {
+      window.clearTimeout(this.timeOut)
+      this.timeOut = window.setTimeout(() => {
+        this.realMoney(changeFlag, e)
+      }, 1000)
     },
     async realMoney(changeFlag, e) {
       let res = await this.checkPassword();
@@ -277,16 +292,33 @@ export default {
     .changeCoin-money {
       color: #30ce84;
     }
+    .changeCoin-goout {
+      background: #30ce84;
+      font-size: 11px;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin-left: 10px;
+      color: #fff;
+    }
   }
   ul {
-    padding: 0px 20px 30px 20px;
+    padding: 0px 20px 20px 20px;
     font-size: 14px;
     line-height: 50px;
     color: #4f4f4f;
     li {
       display: flex;
       justify-content: space-between;
+      border-bottom: 1px solid #eee;
     }
+  }
+  .change-coin-total{
+    font-size: 14px;
+    color: #4f4f4f;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
   }
   .change-coin-bnt {
     margin: 0 25px;
