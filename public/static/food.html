@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>海南特产</title>
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1126106_ah7hai1tsp.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1244015_taaw89pdwhh.css">
   <style>
     html,body {
       margin: 0 auto;
@@ -38,7 +38,11 @@
       height: 20px;
       position: absolute;
       z-index: 2;
-      right: 0.93rem;
+      right: 0.8rem;
+      font-size: 10px;
+      padding-top: 5px;
+      font-weight: 600;
+      color: #C61436;
     }
     .more>a{
       display: block;
@@ -74,17 +78,114 @@
     .four{
       top: 855px;
     }
+    .flex{
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+    }
+    .flex>.text-wrapper{
+      flex: 1;
+      padding: 14px 0 13px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .flex>.text-wrapper>.name{
+      font-size: 13px;
+      color: #C61436;
+      font-weight: 600;
+      margin: 0;
+    }
+    .flex>.text-wrapper>.desc{
+      font-size: 10px;
+      color: #A9A9A9;
+      margin: 0;
+    }
+    .flex>.text-wrapper>.price{
+      font-size: 17px;
+      color: #C61436;
+      font-weight: 700;
+      margin: 0;
+    }
+    .flex>.text-wrapper>.price>.min-font{
+      font-size: 11px;
+      font-weight: 1100;
+    }
+    .flex>.text-wrapper>.price>.icon-img{
+      width: 12px;
+      height: 12px;
+    }
+    .flex>.img-wrapper{
+      flex: 1;
+      padding: 15px;
+    }
+    .flex>.img-wrapper>.img{
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="back iconfont" onclick="goBack()">&#xe61e;</div>
-    <div class="more fruit"><a onclick="goList('18591')"></a></div>
-    <div class="item first"><a onclick="goDetail('176496')"></a></div>
-    <div class="item second"><a onclick="goDetail('119408')"></a></div>
-    <div class="more pearls"><a onclick="goList('18591')"></a></div>
-    <div class="item third"><a onclick="goDetail('160842')"></a></div>
-    <div class="item four"><a onclick="goDetail('175811')"></a></div>
+    <div class="more fruit"><a onclick="goList('18591')">更多>></a></div>
+    <div class="item first">
+      <a onclick="goDetail('176496')">
+        <div class="flex">
+          <div class="text-wrapper">
+            <p class="name">海南特产 陆侨无核荔枝 红荔珍品 1500克/箱 约66颗</p>
+            <!-- <p class="desc">水果的文字介绍内容内容内容水果的文字</p> -->
+            <p class="price"><img class="icon-img" src="./icon.png" alt="无"/>338.<span class="min-font">00</span></p>
+          </div>
+          <div class="img-wrapper">
+            <img class="img" src="https://vendor.cocogc.cn/profile/shops/2019-05-30/890a188d-3126-4692-b3cc-3a5a2c955c14.jpeg" alt="无">
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="item second">
+      <a onclick="goDetail('119408')">
+        <div class="flex">
+          <div class="img-wrapper">
+            <img class="img" src="https://vendor.cocogc.cn/profile/shops/2019-04-12/a1ea1c2c-5919-4a55-a862-23619ad17c2c.png" alt="无">
+          </div>
+          <div class="text-wrapper" style="padding-left: 0">
+            <p class="name">海南特产 桥头地瓜 5斤装</p>
+            <p class="price"><img class="icon-img" src="./icon.png" alt="无"/>58.<span class="min-font">00</span></p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="more pearls"><a onclick="goList('18591')">更多>></a></div>
+    <div class="item third">
+      <a onclick="goDetail('160842')">
+        <div class="flex">
+          <div class="text-wrapper">
+            <p class="name">京润珍珠粉200g</p>
+            <p class="desc">美容养颜珍珠粉薰衣草精华礼盒清洁保湿珍珠粉</p>
+            <p class="price"><img class="icon-img" src="./icon.png" alt="无"/>379.<span class="min-font">00</span></p>
+          </div>
+          <div class="img-wrapper">
+            <img class="img" src="https://vendor.cocogc.cn/profile/shops/2019-04-16/3d47e410-95e1-403f-8570-d1d16dadaabf.jpeg" alt="无">
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="item four">
+      <a onclick="goDetail('175811')">
+        <div class="flex">
+            <div class="img-wrapper">
+              <img class="img" src="https://vendor.cocogc.cn/profile/shops/2019-04-17/09988228-a17f-4b9a-bc2b-d2b39a385007.jpeg" alt="无">
+            </div>
+            <div class="text-wrapper" style="padding-left: 0">
+              <p class="name">美白塑颜三件套</p>
+              <p class="desc">护肤套装洁面爽肤水乳液补水保湿护肤套装</p>
+              <p class="price"><img class="icon-img" src="./icon.png" alt="无"/>159.<span class="min-font">00</span></p>
+            </div>
+        </div>
+      </a>
+    </div>
   </div>
   <script>
   !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
