@@ -20,7 +20,7 @@
     <div class="changeCoin-money-wrap">
       <p>椰子分余额：
         <span class="changeCoin-money">{{userinfo.score | toPrice}}</span>
-        <span class="changeCoin-goout" @click="exchangeAll">全部兑换</span>
+        <span class="changeCoin-goout" :class="+userinfo.score === 0 ? 'disabled': ''" @click="+userinfo.score === 0 ? undefined : exchangeAll()">全部兑换</span>
       </p>
       <p @click="$router.push({name:'coinList'})">兑换记录></p>
     </div>
@@ -31,7 +31,7 @@
       </li>
     </ul>
     <div class="change-coin-total">
-      <div>
+      <div class="tax-wrapper">
         <span>税费：
           <i>{{coinInfo.tax_total|toDecimal2}}</i>
         </span>
@@ -39,7 +39,7 @@
           <i>{{coinInfo.service_fee|toDecimal2}}</i>
         </span>
       </div>
-      <span style="font-weight: 600">应付合计：
+      <span class="total-wrapper">应付合计：
         <i style="font-weight: 600">{{coinInfo.total|toDecimal2}}</i>
       </span>
     </div>
@@ -131,7 +131,7 @@ export default {
     }),
     exchangeAll () {
       this.coinInfo.moneyNum = this.userinfo.score
-      this.realMoney(false, undefined)
+      this.realMoney(false, undefined, 1)
     },
     codeInfo(code) {
       this.coinSumbmit(code)
@@ -162,7 +162,7 @@ export default {
         this.realMoney(changeFlag, e)
       }, 1000)
     },
-    async realMoney(changeFlag, e) {
+    async realMoney(changeFlag, e, isAll) {
       let res = await this.checkPassword();
       if (!res) return;
       if (e) {
@@ -170,7 +170,11 @@ export default {
         this.coinInfo.moneyNum = e.target.value;
       }
       if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
-      let data = await getCostCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId });
+      let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId }
+      if (isAll) {
+        Object.assign(params, { isall: isAll})
+      }
+      let data = await getCostCoin(params);
       if (changeFlag == true) {
         if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
         if (data.code === '6') {
@@ -185,6 +189,7 @@ export default {
         if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
       }
       this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
+      this.coinInfo.moneyNum = data.data[0].amount
     },
     async coinSumbmit(code) {
       let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId })
@@ -299,6 +304,9 @@ export default {
       padding: 5px 10px;
       margin-left: 10px;
       color: #fff;
+      &.disabled{
+        background: #ccc;
+      }
     }
   }
   ul {
@@ -317,8 +325,17 @@ export default {
     color: #4f4f4f;
     padding: 0 20px;
     margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
+    overflow: hidden;
+    .tax-wrapper{
+      float: left;
+      margin-bottom: 10px;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+    .total-wrapper{
+      float: right;
+      font-weight: 600;
+    }
   }
   .change-coin-bnt {
     margin: 0 25px;
