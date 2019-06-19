@@ -20,7 +20,7 @@
     <div class="changeCoin-money-wrap">
       <p>椰子分余额：
         <span class="changeCoin-money">{{userinfo.score | toPrice}}</span>
-        <span class="changeCoin-goout" :class="+userinfo.score === 0 ? 'disabled': ''" @click="+userinfo.score === 0 ? undefined : exchangeAll()">全部兑换</span>
+        <!-- <span class="changeCoin-goout" :class="+userinfo.score === 0 ? 'disabled': ''" @click="+userinfo.score === 0 ? undefined : exchangeAll()">全部兑换</span> -->
       </p>
       <p @click="$router.push({name:'coinList'})">兑换记录></p>
     </div>
@@ -156,6 +156,15 @@ export default {
         window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location.origin + window.location.pathname)
       })
     },
+    initData() {
+      this.coinInfo = {
+        num: 0,
+        tax_total: 0,
+        service_fee: 0,
+        total: 0,
+        moneyNum: ""
+      }
+    },
     getMoneyInfo(changeFlag, e) {
       window.clearTimeout(this.timeOut)
       this.timeOut = window.setTimeout(() => {
@@ -169,7 +178,10 @@ export default {
         e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
         this.coinInfo.moneyNum = e.target.value;
       }
-      if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
+      if (!this.coinInfo.moneyNum) {
+        this.initData()
+        return this.$toast("请输入有效的椰子分")
+      }
       let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId }
       if (isAll) {
         Object.assign(params, { isall: isAll})
@@ -189,7 +201,9 @@ export default {
         if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
       }
       this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
-      this.coinInfo.moneyNum = data.data[0].amount
+      if (data.data[0].amount) {
+        this.coinInfo.moneyNum = data.data[0].amount
+      }
     },
     async coinSumbmit(code) {
       let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId })
