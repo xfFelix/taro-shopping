@@ -91,7 +91,8 @@ export default {
       total: 0,
       moneyNum: ""
     },
-    vendorId: null
+    vendorId: null,
+    vendorUid: undefined
   }),
   watch: {
     'show.mask': {
@@ -206,7 +207,7 @@ export default {
       }
     },
     async coinSumbmit(code) {
-      let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId })
+      let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId, vendorUid: this.vendorUid })
       if (res.code != 1 && res.code != 4) {
         this.initShow();
         return this.$toast(res.message);
@@ -240,6 +241,9 @@ export default {
   mounted() {
     if (this.$route.query.vendorId) {
       this.vendorId = this.$route.query.vendorId
+    }
+    if (this.$route.query.vendorUid) {
+      this.vendorUid = this.$route.query.vendorUid
     }
   },
   components: {

@@ -13,7 +13,7 @@
 
     <div class="surRecW">
       <div class="surplus">
-        <span>剩余可用余额：</span>
+        <span>椰子分余额：</span>
          <span>{{userinfo.score | toPrice}} </span>
       </div>
 
