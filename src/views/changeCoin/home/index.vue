@@ -146,9 +146,11 @@ export default {
     showSms() {
       this.show = { mask: true, info: false, sms: true, file: false };
     },
-    coinChange() {
+    async coinChange() {
       if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
       if (this.checked == false) { return this.$toast("请阅读并同意协议") }
+      let res = await this.checkPassword();
+      if (!res) return;
       this.realMoney(true, undefined);
     },
     outLogin() {
@@ -173,8 +175,6 @@ export default {
       }, 1000)
     },
     async realMoney(changeFlag, e, isAll) {
-      let res = await this.checkPassword();
-      if (!res) return;
       if (e) {
         e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
         this.coinInfo.moneyNum = e.target.value;
