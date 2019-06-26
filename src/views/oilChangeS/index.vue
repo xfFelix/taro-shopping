@@ -33,7 +33,7 @@
                 <span>{{data.taxFee|toPrice}}</span>
             </li>
             <li>
-                <span>应付合计:</span>
+                <span>合计:</span>
                 <span>{{data.totalAmount|toPrice}}</span>
             </li>
         </ul>

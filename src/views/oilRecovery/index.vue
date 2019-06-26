@@ -18,7 +18,7 @@
     </div> -->
 
     <div class="recoveryInfoW">
-      <p class="rMoneyTtiel">回收价格：</p>
+      <p class="rMoneyTtiel">回收金额：</p>
       <p class="rMoney">{{selfa.disPrice|toPrice}}</p>
       <ul>
         <li>
@@ -42,17 +42,17 @@
           <input type="text" placeholder="填写收款人身份证号码" v-if="!selfFlag" v-model="noself.idNum">
         </li>
         <li>
-          <div class="reFirst">开户行</div>
-          <div @click="showPicker">
-            <input type="text" placeholder="请选择开户行" readonly="readonly" :value="selfFlag?selfa.openBank:noself.openBank">
-            <span class="iconfont bankSelect">&#xe61e;</span>
-          </div>
-        </li>
-        <li>
           <div class="reFirst">银行卡号</div>
           <div>
             <input v-if="selfFlag" type="number" placeholder="请填写收款银行卡号码" v-model="selfa.bankNum">
             <input v-else type="number" placeholder="请填写收款银行卡号码" v-model="noself.bankNum">
+          </div>
+        </li>
+        <li>
+          <div class="reFirst">开户行</div>
+          <div @click="showPicker">
+            <input type="text" placeholder="请选择开户行" readonly="readonly" :value="selfFlag?selfa.openBank:noself.openBank">
+            <span class="iconfont bankSelect">&#xe61e;</span>
           </div>
         </li>
       </ul>

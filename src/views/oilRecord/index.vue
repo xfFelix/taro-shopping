@@ -3,7 +3,7 @@
         <div class="headFixed">
             <header>
                 <i class="cubeic-back" @click="$router.back()"></i>
-                充值记录
+                兑换记录
             </header>
             <div class="whoSelectW">
                 <p :class="changeFlag?'whoSelectLogo':''" @click="directCharge()">
