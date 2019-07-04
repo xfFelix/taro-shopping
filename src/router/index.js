@@ -238,6 +238,33 @@ const router = new Router({
           }
         },
         {
+          path: 'account',
+          name: 'lifeAccount',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/addAccount'),
+          meta: {
+            title: '新增缴费账户',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'record',
+          name: 'lifeRecord',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/record'),
+          meta: {
+            title: '兑换记录',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'changeS',
+          name: 'lifeChangeS',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/changeS'),
+          meta: {
+            title: '兑换成功',
+            requireAuth: true
+          }
+        },
+        {
           path: 'paymentUnit',
           name: 'paymentUnit',
           component: () => import(/* webpackPrefetch: true */ 'views/life/paymentUnit'),
