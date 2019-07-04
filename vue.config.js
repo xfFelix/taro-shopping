@@ -45,6 +45,9 @@ module.exports = {
     config.performance = {
       hints: false
     }
+    config.externals = {
+      BMap: 'BMap'
+    }
     // 删除console插件
     let plugins = [
       new UglifyJsPlugin({
