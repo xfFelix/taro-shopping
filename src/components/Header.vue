@@ -2,15 +2,27 @@
   <header>
     <h1><slot></slot></h1>
     <i class="cubeic-back" v-if="showBack" @click="goBack"></i>
+    <i class="iconfont icon-gengduo-copy" v-if="showMore" @click="toggleFlag = !toggleFlag"></i>
+    <HeadTab v-show="toggleFlag" class="header-tab"/>
   </header>
 </template>
 
 <script>
 export default {
+  components: {
+    HeadTab: () => import(/* webpackPrefetch: true */ './HeadTab')
+  },
+  data: () => ({
+    toggleFlag: false
+  }),
   props:{
     showBack: {
       type: Boolean,
       default: true
+    },
+    showMore: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -49,6 +61,17 @@ header{
     &::before{
       font-size: 18px;
     }
+  }
+  .icon-gengduo-copy{
+    position: absolute;
+    top: 0;
+    right: 6px;
+    font-size: 28px;
+  }
+  .header-tab{
+    line-height: 1;
+    top: 44px;
+    right: 2px;
   }
 }
 </style>
