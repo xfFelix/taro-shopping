@@ -245,6 +245,24 @@ const router = new Router({
             title: '新增缴费账户',
             requireAuth: true
           }
+        },
+        {
+          path: 'record',
+          name: 'lifeRecord',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/record'),
+          meta: {
+            title: '兑换记录',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'changeS',
+          name: 'lifeChangeS',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/changeS'),
+          meta: {
+            title: '兑换成功',
+            requireAuth: true
+          }
         }
       ]
     }

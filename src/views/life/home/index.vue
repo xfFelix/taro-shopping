@@ -1,15 +1,6 @@
 <template>
   <div class="life-home">
-    <div class="header">
-      <i class="cubeic-back" @click="goHome"></i>
-      生活缴费
-      <div class="iconMoreW">
-        <div class="iconMore">
-          <span class="iconfont" @click="showDialog=!showDialog">&#xe80c;</span>
-          <Head-tab v-if="showDialog"></Head-tab>
-        </div>
-      </div>
-    </div>
+    <Header class="navbar" :show-more="true">新增缴费账户</Header>
 
     <div class="home-content-wrap">
       <div class="home-pay-my">我的缴费
@@ -44,15 +35,12 @@
       </ul>
       <p class="home-help">帮助中心</p>
     </div>
-
-    <bg-mask v-model="showDialog" color="transparent"></bg-mask>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    showDialog: false,
     addList: [
       {
         name: '电费',
@@ -80,8 +68,7 @@ export default {
     },
   },
   components: {
-    HeadTab: () => import('@/components/HeadTab'),
-    BgMask: () => import("@/components/BgMask"),
+    Header: () => import('@/components/Header'),
   }
 }
 </script>
@@ -91,28 +78,9 @@ export default {
   width: 100%;
   min-height: 100%;
   background-color: #f2f2f2;
-  .header {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0 14px 0;
-    font-size: 18px;
-    background: #373C48;
+  .navbar {
+     background: #373C48;
     color: #fff;
-    .cubeic-back {
-      position: absolute;
-      left: 18px;
-      top: 12px;
-    }
-    .iconMoreW {
-      position: absolute;
-      right: 18px;
-      top: 12px;
-      .iconMore {
-        position: relative;
-      }
-    }
   }
   .home-content-wrap {
     padding: 30px 16px;
