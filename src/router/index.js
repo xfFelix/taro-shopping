@@ -209,6 +209,36 @@ const router = new Router({
         }
       ]
     },
+    {
+      path: '/life',
+      name: 'life',
+      component: () => import('views/life'),
+      meta: {
+        title: '生活缴费',
+        requireAuth: true
+      },
+      redirect: '/life/home',
+      children: [
+        {
+          path: 'home',
+          name: 'lifeHome',
+          component: () => import('views/life/home'),
+          meta: {
+            title: '生活缴费首页',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'geolocation',
+          name: 'lifeGeolocation',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/geolocation'),
+          meta: {
+            title: '选择城市',
+            requireAuth: true
+          }
+        }
+      ]
+    }
   ]
 })
 
