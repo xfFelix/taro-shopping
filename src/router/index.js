@@ -236,6 +236,24 @@ const router = new Router({
             title: '选择城市',
             requireAuth: true
           }
+        },
+        {
+          path: 'paymentUnit',
+          name: 'paymentUnit',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/paymentUnit'),
+          meta: {
+            title: '选择缴费单位',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'group',
+          name: 'group',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/group'),
+          meta: {
+            title: '选择分组',
+            requireAuth: true
+          }
         }
       ]
     }
