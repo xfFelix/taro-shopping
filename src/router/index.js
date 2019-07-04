@@ -236,6 +236,15 @@ const router = new Router({
             title: '选择城市',
             requireAuth: true
           }
+        },
+        {
+          path: 'account',
+          name: 'lifeAccount',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/addAccount'),
+          meta: {
+            title: '新增缴费账户',
+            requireAuth: true
+          }
         }
       ]
     }
