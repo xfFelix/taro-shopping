@@ -21,7 +21,7 @@
       <li>税费：</li>
       <li>合计：</li>
     </ul>
-     <button class="confirm" @click="$router.push({name:'memberHome'})">确定</button>
+     <button class="confirm" @click="$router.push({name:'lifeHome'})">确定</button>
     <span class="time">
       <em>{{countDown}}s</em>后自动跳转至首页</span>
   </div>
