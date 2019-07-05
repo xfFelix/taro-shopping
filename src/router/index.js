@@ -263,6 +263,42 @@ const router = new Router({
             title: '兑换成功',
             requireAuth: true
           }
+        },
+        {
+          path: 'paymentUnit',
+          name: 'paymentUnit',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/paymentUnit'),
+          meta: {
+            title: '选择缴费单位',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'group',
+          name: 'group',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/group'),
+          meta: {
+            title: '选择分组',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'fail',
+          name: 'fail',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/fail'),
+          meta: {
+            title: '缴费失败',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'payment',
+          name: 'LifePayment',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/payment'),
+          meta: {
+            title: '缴费账户',
+            requireAuth: true
+          }
         }
       ]
     }
