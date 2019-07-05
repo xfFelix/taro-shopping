@@ -21,48 +21,48 @@
       <li>税费：</li>
       <li>合计：</li>
     </ul>
-    <!-- <button class="confirm" @click="$router.push({name:'memberHome'})">确定</button>
+     <button class="confirm" @click="$router.push({name:'memberHome'})">确定</button>
     <span class="time">
-      <em>{{countDown}}s</em>后自动跳转至首页</span> -->
+      <em>{{countDown}}s</em>后自动跳转至首页</span>
   </div>
 </template>
 
 <script>
-// import { vipCostInfo } from 'api';
-// import { mapGetters } from 'vuex';
+import { vipCostInfo } from 'api';
+import { mapGetters } from 'vuex';
 export default {
-  // data: () => ({
-  //   timer: null,
-  //   countDown: 5,
-  //   infoList: {}
-  // }),
-  // methods: {
-  //   async vipCostInfo() {
-  //     let data = await vipCostInfo({ token: this.getToken, productId: this.$route.query.productId });
-  //     if (data.code != 1 && data.code != 4 && data.code != 6) return this.$toast(data.message);
-  //     this.infoList = data.data;
-  //   },
-  // },
-  // computed: {
-  //   ...mapGetters({
-  //     getToken: 'getToken',
-  //   })
-  // },
-  // mounted() {
-  //   this.vipCostInfo()
-  //   this.timer = setInterval(() => {
-  //     this.countDown--
-  //     if (this.countDown == 0) {
-  //       clearInterval(this.timer);
-  //       this.$router.push({ name: 'memberHome' })
-  //     }
-  //   }, 1000)
-  // }
+  data: () => ({
+    timer: null,
+    countDown: 5,
+    infoList: {}
+  }),
+  methods: {
+    async vipCostInfo() {
+      let data = await vipCostInfo({ token: this.getToken, productId: this.$route.query.productId });
+      if (data.code != 1 && data.code != 4 && data.code != 6) return this.$toast(data.message);
+      this.infoList = data.data;
+    },
+  },
+  computed: {
+    ...mapGetters({
+      getToken: 'getToken',
+    })
+  },
+  mounted() {
+    this.vipCostInfo()
+    this.timer = setInterval(() => {
+      this.countDown--
+      if (this.countDown == 0) {
+        clearInterval(this.timer);
+        this.$router.push({ name: 'lifeHome' })
+      }
+    }, 1000)
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.success-wrapper {
+.life-changeS {
   padding: 0 15px;
   background: #fff;
   min-height: 100%;
