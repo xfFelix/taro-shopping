@@ -13,7 +13,7 @@ export default {
 <style lang="scss" scoped>
 .life{
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   background-color: #f2f2f2;
 }
 </style>
