@@ -79,7 +79,7 @@ export default {
     async vipOrderList() {
       let data = await vipOrderList({ token: this.getToken, offset: this.offset, rows: this.pageSize });
       if (data.code != 1) { return this.$toast(data.message); }
-      if (data.data.length == 10){ this.tenFlag = true; }
+      if (data.data.length >= 10){ this.tenFlag = true; }
       else { this.tenFlag = false; }
       this.orderList.push(...data.data);
     },
