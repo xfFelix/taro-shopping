@@ -6,7 +6,7 @@
         缴费单位
         <span class="address">{{config.city || address}}<i class="cubeic-arrow"></i></span>
       </li>
-      <li v-for="item of companies" :key="item.id">
+      <li v-for="item of companies" :key="item.id" @click="goAccount(item)">
         {{item.com}}
       </li>
     </ul>
@@ -55,6 +55,10 @@ export default {
       const { code, data } = await getCompaniesByCity({type, city: city || address})
       if (code !== '1') return
       this.companies = data
+    },
+    goAccount(item) {
+      this.setConfig({ unit: item.com})
+      this.$router.push('account')
     }
   }
 }

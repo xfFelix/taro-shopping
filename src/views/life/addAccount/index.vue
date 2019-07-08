@@ -4,29 +4,32 @@
     <ul class="account-content-wrap">
       <li class="account-margin10">
         <div>
-          <span class="account-img name01"></span>电费</div>
-        <div>深圳市
+          <span class="account-img"
+          :class="config.type === '电费' ? 'name01' : (config.type === '水费' ? 'name02' : 'name03')"
+          ></span>{{config.type}}</div>
+        <div>{{config.city}}
           <i class="cubeic-back"></i>
         </div>
       </li>
       <li class="displayr">
         <div class="marlr15">
           缴费单位
-          <div>深圳市
-            <i class="cubeic-back"></i>
+          <div>{{config.unit}}
+            <!-- <i class="cubeic-back"></i> -->
           </div>
         </div>
 
       </li>
-      <li class="account-margin10">
+      <li class="user-number">
         用户编号
-        <div><input type="number" v-model="idNmu">
-          <span class="check-num">如何查户号</span>
+        <div class="user">
+          <input type="number" v-model="idNmu">
+          <span class="check-num" @click="goQuestion">如何查户号</span>
         </div>
       </li>
-      <li class="account-margin10">
+      <li class="user-number">
         分组
-        <p>我家
+        <p @click="goGroup">{{config.group}}
           <i class="cubeic-back"></i>
         </p>
       </li>
@@ -37,28 +40,44 @@
       <span @click="show.file=true" class="file">《椰云网络生活缴费服务协议》</span>
     </div>
 
-    <div class="next-step">下一步</div>
+    <div class="next-step" @click="goNext">下一步</div>
 
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
   data: () => ({
 
     idNmu: '232323',
-    checked: false,
+    checked: true,
     show: {
       life: false
     }
   }),
   computed: {
-
+    ...mapGetters({
+      config: 'life/getConfig'
+    })
   },
   methods: {
+    ...mapActions({
+      setConfig: 'life/setConfig'
+    }),
+    goNext() {
+      this.setConfig({ number: this.idNmu })
+      this.$router.push('payment')
+    },
     goHome() {
       window.location.href = process.env.VUE_APP_BASE_HOME_URL;
     },
+    goGroup() {
+      this.$router.push('group')
+    },
+    goQuestion() {
+      this.$router.push('userNumber')
+    }
   },
   components: {
     Header: () => import('@/components/Header'),
@@ -80,8 +99,28 @@ export default {
     .account-margin10 {
       border-bottom: 10px solid #F4F4F4;
       padding: 25px 15px;
-      .check-num {
-        color: #30CE84;
+    }
+    .user-number{
+      height: 64px;
+      line-break: 64px;
+      padding: 0 15px;
+      .user{
+        height: 100%;
+        .check-num {
+          color: #30CE84;
+          margin-left: 10px;
+          font-size: 12px;
+          height: 100%;
+          line-height: 64px;
+        }
+        input{
+          text-align: right;
+          height: 100%;
+        }
+      }
+      p {
+        height: 100%;
+        line-height: 64px;
       }
     }
     li {

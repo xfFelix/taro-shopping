@@ -1,19 +1,24 @@
 import {isEmpty} from 'util/common';
-import { localStorage } from 'common/storage'
+import { localStorage, sessionStorage } from 'common/storage'
 
 let defaultHistory = []
+let defaultConfig = {
+  type: '电费', // 电费 水费 燃煤费
+  city: '',
+  group: '我家'
+}
 try{
   if (localStorage.get('city_history')) {
     defaultHistory = localStorage.get('city_history')
+  }
+  if (sessionStorage.get('life_config')) {
+    defaultConfig = sessionStorage.get('life_config')
   }
 } catch(e) {
   console.error(e)
 }
 const state = {
-  config: {
-    type: '电费', // 电费 水费 燃煤费
-    city: ''
-  },
+  config: defaultConfig,
   history: defaultHistory
 }
 
@@ -52,6 +57,11 @@ const mutations = {
     } else {
       state.config = Object.assign(state.config, config)
     }
+    try{
+      sessionStorage.set('life_config', state.config)
+    } catch(e) {
+      console.error(`sessionStorage保存life_config失败`)
+    }
   },
   setHistory(state, value) {
     state.history.unshift(value)
@@ -67,7 +77,13 @@ const mutations = {
   initConfig(state) {
     state.config = {
       type: '电费',
-      city: ''
+      city: '',
+      group: '我家'
+    }
+    try{
+      sessionStorage.set('life_config', state.config)
+    } catch(e) {
+      console.error(`sessionStorage保存life_config失败`)
     }
   }
 }
