@@ -4,7 +4,7 @@
     <div class="search-wrapper">
       <div class="search">
         <img src="~common/images/search.png" alt="搜索" class="search-icon">
-        <input type="text" placeholder="北京/beingjing/bj" class="search-input">
+        <input type="text" placeholder="北京/beingjing/bj" class="search-input" v-model="searchCity" @input="handlerInput" @keyup.enter="getCities">
       </div>
       <div class="address">
         当前定位:
@@ -12,26 +12,16 @@
         <span class="price-color">{{address}}</span>
       </div>
     </div>
-    <div class="item">
+    <div class="item" v-if="history">
       <h1 class="title">最近访问</h1>
       <ul class="content">
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
+        <li v-for="(item, index) in history" :key="index" @click="redirectUnit(item)">{{item}}</li>
       </ul>
     </div>
-    <div class="item">
-      <h1 class="title">A</h1>
+    <div class="item" v-for="item of cityList" :key="item.py">
+      <h1 class="title">{{item.py}}</h1>
       <ul class="content">
-        <li>阿北藏族羌族水水水水水水水水</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
-        <li>深圳市</li>
+        <li v-for="(i, index) in item.cities" :key="index" @click="redirectUnit(i, true)">{{i}}</li>
       </ul>
     </div>
     <div id="allmap"></div>
@@ -41,21 +31,52 @@
 <script>
 import Header from 'components/Header'
 import Geolocation from 'util/geolocation'
+import {getCityList} from 'api'
+import { mapGetters, mapActions } from 'vuex';
 export default {
   components: {
     Header
   },
   data: () => ({
-    address: ''
+    address: '',
+    cityList: [],
+    searchCity: ''
   }),
+  computed: {
+    ...mapGetters({
+      config: 'life/getConfig',
+      history: 'life/getHistory'
+    })
+  },
   mounted() {
     this.getGeolocation()
+    this.getCities()
   },
   methods: {
+    ...mapActions({
+      setConfig: 'life/setConfig',
+      setHistory: 'life/setHistory'
+    }),
     async getGeolocation() {
       let geolocation = new Geolocation()
       let result = await geolocation.getIP()
       this.address = result.name
+    },
+    async getCities() {
+      const { type } = this.config
+      const { code, data } = await getCityList({type, city: this.searchCity || undefined})
+      this.cityList = data
+    },
+    handlerInput() {
+      window.clearTimeout(this.timeout)
+      this.timeout = window.setTimeout(() => {
+        this.getCities()
+      }, 1000)
+    },
+    redirectUnit(city, isHistory) {
+      if (isHistory) this.setHistory(city)
+      this.setConfig({ city })
+      this.$router.back()
     }
   }
 }
