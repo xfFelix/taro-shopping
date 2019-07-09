@@ -11,7 +11,7 @@
         </li>
          <li class="item">
           <span class="label">商品名称</span>
-          <span class="value">{{coinInfo.num|toDecimal2Fp}}金币</span>
+          <span class="value">{{coinInfo.num|toDecimal2Fp}}{{userinfo.coinAlisa ? '元宝' : '金币'}}</span>
         </li>
         <li class="item">
           <span class="label">兑换账号</span>
