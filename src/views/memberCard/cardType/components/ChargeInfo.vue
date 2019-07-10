@@ -2,11 +2,11 @@
   <transition name="slideUp" mode="out-in">
     <ul class="info" v-if="show">
       <li class="header">
-
         <span class="title">确认兑换</span>
         <i @click="$emit('go-back')">取消</i>
       </li>
       <li class="price">
+        <span class="logoPng"></span>
         {{info.total|toPrice}}
       </li>
       <li class="item">
@@ -111,6 +111,9 @@ export default {
     font-weight: bold;
     text-align: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &::before {
       position: absolute;
       display: block;
@@ -119,6 +122,14 @@ export default {
       height: 1px;
       background: #DEDEDE;
       top: 0;
+    }
+    .logoPng {
+      width: 27px;
+      height: 27px;
+      display: inline-block;
+      background: url("../../../../common/images/logo.png") no-repeat;
+      background-size: 100% 100%;
+      margin-right: 5px;
     }
   }
   .item {

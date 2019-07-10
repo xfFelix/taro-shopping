@@ -58,10 +58,10 @@
                                     <span>卡密：</span>
                                     <span>{{item.memo}} <em class="see" @click="dialogPwd(item.idUrl)">查看</em></span>
                                 </p>
-                                <p>
+                                <!-- <p>
                                     <span>售价：</span>
                                     <span>{{item.orderNum|toPrice}}</span>
-                                </p>
+                                </p> -->
                                 <p>
                                     <span>服务费：</span>
                                     <span>{{item.serviceFee|toPrice}}</span>
@@ -77,7 +77,7 @@
 
                             </div>
                             <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==0?'recoverCan':'recoverNo'">
-                                回收
+                                立即回收
                             </div>
                         </div>
                     </li>

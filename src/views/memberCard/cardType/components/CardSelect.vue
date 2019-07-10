@@ -309,21 +309,25 @@ export default {
 
 input::-webkit-input-placeholder {
   color: #999999;
+  font-size: 16px;
 }
 
 input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #999999;
+  font-size: 16px;
 }
 
 input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #999999;
+  font-size: 16px;
 }
 
 input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #999999;
+  font-size: 16px;
 }
 </style>
 

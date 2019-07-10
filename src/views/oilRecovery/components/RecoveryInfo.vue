@@ -3,7 +3,7 @@
     <ul class="info" v-if="show">
       <li class="header">
         <i class="cubeic-back" @click="$emit('go-back-init')"></i>
-        <span class="title">确认申请表</span>
+        <span class="title">确认申请</span>
       </li>
       <li class="priceTitle">回收价</li>
       <li class="price">

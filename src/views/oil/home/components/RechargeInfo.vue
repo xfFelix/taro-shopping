@@ -7,6 +7,7 @@
           <span class="title">确认兑换</span>
         </li>
         <li class="price">
+           <span class="logoPng"></span>
           {{data.total|toPrice}}
         </li>
         <li class="item">
@@ -133,6 +134,9 @@ export default {
       font-weight: bold;
       text-align: center;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       &::before{
         position: absolute;
         display: block;
@@ -141,6 +145,14 @@ export default {
         height: 1px;
         background: #d3d3d3;
         top: 0;
+      }
+        .logoPng {
+        width: 27px;
+        height: 27px;
+        display: inline-block;
+        background: url("../../../../common/images/logo.png") no-repeat;
+        background-size: 100% 100%;
+        margin-right: 5px;
       }
     }
     .item{

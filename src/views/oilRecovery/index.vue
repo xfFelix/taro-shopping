@@ -59,9 +59,15 @@
     </div>
 
     <div class="agreement">
-      <cube-checkbox v-model="checked" position="left" shape="square" :hollow-style="true">
+      <!-- <cube-checkbox v-model="checked" position="left" shape="square" :hollow-style="true">
         <span>我已阅读并同意</span>
-      </cube-checkbox>
+      </cube-checkbox> -->
+      <div class="oil-agreeWrap" @click="checked=!checked">
+          <div class="oil-agree">
+            <span class="oil-agreeY" v-if="checked"></span>
+          </div>
+          <span>我已阅读并同意</span>
+      </div>
       <span class="file" @click="show.file=true">《加油卡回收协议》</span>
     </div>
     <span class="hint">1个工作日内到账，请耐心等待</span>
@@ -364,12 +370,42 @@ export default {
 .agreement {
   display: flex;
   align-items: center;
-  padding-bottom: 50px;
+  padding:10px 0 50px 0;
+  .oil-agreeWrap{
+    display: flex;
+    align-items: center;
+  }
+  .oil-agree{
+     margin: 0 4px 0 18px;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #999999;
+    .oil-agreeY {
+      position: relative;
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+    }
+    .oil-agreeY::before {
+        display: block;
+        content: '√';
+        color: #000;
+        transform: rotate(15deg);
+        font-size: 12px;
+        margin-left: 1px;
+    }
+  }
+
   .file {
     color: #30ce84;
     margin-top: 1px;
   }
 }
+
+
+
 
 .hint{
   display: block;
