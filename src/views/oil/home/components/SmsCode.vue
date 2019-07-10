@@ -3,8 +3,8 @@
     <div class="code" v-if="show">
       <div class="header">
         <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
-        <span class="title" v-if="userinfo.payValidType === 1">请输入短信验证码</span>
-        <span class="title" v-else>请输入支付密码</span>
+        <span class="title" v-if="userinfo.payValidType === 1">请输入支付密码</span>
+        <span class="title" v-else>请输入短信验证码</span>
       </div>
       <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
       <h1 v-else>短信验证码已发送至手机 {{userinfo.userName | formatPhone}} <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button></h1>
