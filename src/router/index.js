@@ -299,6 +299,15 @@ const router = new Router({
             title: '缴费账户',
             requireAuth: true
           }
+        },
+        {
+          path: 'userNumber',
+          name: 'LifeFindNumber',
+          component: () => import(/* webpackPrefetch: true */ 'views/life/userNumber'),
+          meta: {
+            title: '如何查户号',
+            requireAuth: true
+          }
         }
       ]
     }

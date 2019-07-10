@@ -2,17 +2,18 @@
   <div class="group">
     <Header class="navbar" :show-more="true">选择分组</Header>
     <ul class="content">
-      <li v-for="item of list" :key="item.id" @click="group = item.value">
+      <li v-for="item of list" :key="item.id" @click="group = item.label">
         {{item.label}}
-        <span class="circle" :class="group === item.value && 'active'"></span>
+        <span class="circle" :class="group === item.label && 'active'"></span>
       </li>
     </ul>
-    <button class="next">下一步</button>
+    <button class="next" @click="goNext">下一步</button>
   </div>
 </template>
 
 <script>
 import Header from 'components/Header'
+import { mapGetters, mapActions } from 'vuex';
 export default {
   components: {
     Header
@@ -24,8 +25,25 @@ export default {
       { label: '朋友', value: '3', id: 2 },
       { label: '其他', value: '4', id: 3 }
     ],
-    group: 'group'
-  })
+    group: '我家'
+  }),
+  computed: {
+    ...mapGetters({
+      config: 'life/getConfig'
+    })
+  },
+  mounted() {
+    this.group = this.config.group
+  },
+  methods: {
+    ...mapActions({
+      setConfig: 'life/setConfig'
+    }),
+    goNext() {
+      this.setConfig({ group: this.group })
+      this.$router.back()
+    }
+  }
 }
 </script>
 

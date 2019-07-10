@@ -28,7 +28,7 @@
         </p>
       </div>
       <ul class="home-pay-wrap">
-        <li class="home-add-pay" v-for="(item,index) in addList" :key="index" @click="$router.push({name:'lifeGeolocation'})">
+        <li class="home-add-pay" v-for="(item,index) in addList" :key="index" @click="goUnit(item.name)">
           <p class="home-add-img" :class="item.nameImg"></p>
           <p>{{item.name}}</p>
         </li>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data: () => ({
     addList: [
@@ -59,13 +60,24 @@ export default {
       }
     ],
   }),
+  mounted() {
+    this.initConfig()
+  },
   computed: {
 
   },
   methods: {
+    ...mapActions({
+      setConfig: 'life/setConfig',
+      initConfig: 'life/initConfig'
+    }),
     goHome() {
       window.location.href = process.env.VUE_APP_BASE_HOME_URL;
     },
+    goUnit(type) {
+      this.setConfig({type})
+      this.$router.push('paymentUnit')
+    }
   },
   components: {
     Header: () => import('@/components/Header'),

@@ -71,7 +71,7 @@ class Geolocation {
           var cityName = result.name
           map.setCenter(cityName)
           resolve(result)
-          toast("当前定位城市:"+ cityName)
+          // toast("当前定位城市:"+ cityName)
         }
         var myCity = new BMap.LocalCity()
         myCity.get(myFun)

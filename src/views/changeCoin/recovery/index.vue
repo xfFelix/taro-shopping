@@ -2,14 +2,14 @@
   <div class="record-wrapper">
     <header>
       <i class="cubeic-back back" @click="$router.back()"></i>
-      金币兑换记录
+      {{userinfo.coinAlisa ? '元宝' : '金币'}}兑换记录
     </header>
     <div class="content">
       <div class="scroll-list-wrap">
         <cube-scroll ref="scroll" :data="orderList" :options="options" @pulling-up="onPullingUp" v-if="orderList.length!=0">
           <ul class="item" v-for="(item,index) in orderList" :key="index">
             <li class="title">
-              <span class="order-number">商品名称：{{item.memo|toDecimal2Fp}}金币</span>
+              <span class="order-number">商品名称：{{item.memo|toDecimal2Fp}}{{userinfo.coinAlisa ? '元宝' : '金币'}}</span>
               <span class="status" v-if="item.status == 0">兑换中</span>
               <span class="status" v-else-if="item.status == 1">兑换成功</span>
               <span class="status" v-else>兑换失败</span>
@@ -63,6 +63,7 @@ export default {
 
     ...mapGetters({
       getToken: 'getToken',
+      userinfo: 'getUserinfo'
     }),
   },
   methods: {

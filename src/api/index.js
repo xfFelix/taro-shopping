@@ -206,5 +206,22 @@ export const coinList =(data)=>fetch({
   data
 })
 
+/**
+ * 根据城市与生活缴费类型获取公司
+ */
+export const getCompaniesByCity = (params) => fetch({
+  url: '/live/companies',
+  method: 'GET',
+  params
+})
+
+/**
+ * 获取城市列表
+ */
+export const getCityList = (params) => fetch({
+  url: '/live/cities',
+  method: 'GET',
+  params
+})
 
 

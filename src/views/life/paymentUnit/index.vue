@@ -2,28 +2,64 @@
   <div class="payment-unit">
     <Header class="navbar" :show-more="true">选择缴费单位</Header>
     <ul class="content">
-      <li>
+      <li @click="goGeolocation">
         缴费单位
-        <span class="address">深圳市<i class="cubeic-arrow"></i></span>
+        <span class="address">{{config.city || address}}<i class="cubeic-arrow"></i></span>
       </li>
-      <li>
-        深圳市电费
-      </li>
-      <li>
-        国网深圳市电力公司电费
-      </li>
-      <li>
-        国网深圳市电力公司电费
+      <li v-for="item of companies" :key="item.id" @click="goAccount(item)">
+        {{item.com}}
       </li>
     </ul>
+    <div id="allmap"></div>
   </div>
 </template>
 
 <script>
 import Header from 'components/Header'
+import Geolocation from 'util/geolocation'
+import { mapActions, mapGetters } from 'vuex';
+import { getCompaniesByCity } from 'api'
 export default {
   components: {
     Header
+  },
+  data: () => ({
+    address: '',
+    companies: []
+  }),
+  mounted() {
+    this.getGeolocation()
+  },
+  computed: {
+    ...mapGetters({
+      config: 'life/getConfig'
+    })
+  },
+  methods: {
+    ...mapActions({
+      setConfig: 'life/setConfig'
+    }),
+    async getGeolocation() {
+      let geolocation = new Geolocation()
+      let result = await geolocation.getIP()
+      this.address = result.name
+      this.getCompanies()
+    },
+    goGeolocation() {
+      this.$router.push('geolocation')
+    },
+    async getCompanies() {
+      const { type, city } = this.config
+      let address = this.address
+      address = address.replace('市', '')
+      const { code, data } = await getCompaniesByCity({type, city: city || address})
+      if (code !== '1') return
+      this.companies = data
+    },
+    goAccount(item) {
+      this.setConfig({ unit: item.com})
+      this.$router.push('account')
+    }
   }
 }
 </script>
