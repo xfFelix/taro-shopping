@@ -18,10 +18,10 @@
           <span class="label">充值账号</span>
           <span class="value">{{config.cardNum}}</span>
         </li>
-        <li class="item">
+        <!-- <li class="item">
           <span class="label">售价</span>
           <span class="value">{{data.faceValue}}</span>
-        </li>
+        </li> -->
         <li class="item">
           <span class="label">服务费</span>
           <span class="value">{{data.service_fee | toPrice}}</span>

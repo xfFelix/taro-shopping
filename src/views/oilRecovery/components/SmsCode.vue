@@ -2,8 +2,8 @@
   <transition name="slideUp" mode="out-in">
     <div class="code" v-if="show">
       <div class="header">
-        <i class="cubeic-back" @click="$emit('go-back-info')"></i>
-        <span class="title">{{userinfo.payValidType === 1 ? '请输入支付密码': '确认申请表'}}</span>
+        <i class="cubeic-back" @click="$emit('go-back-init')"></i>
+        <span class="title">{{userinfo.payValidType === 1 ? '请输入支付密码': '确认申请'}}</span>
       </div>
       <h1 v-if="userinfo.payValidType !== 1">短信验证码已发送至手机 {{userinfo.userName | formatPhone}}</h1>
       <div class="input-code">

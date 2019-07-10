@@ -20,10 +20,10 @@
                 <span>卡密:</span>
                 <span>{{data.memo}}</span>
             </li> -->
-            <li>
+            <!-- <li>
                 <span>售价:</span>
                 <span>{{data.orderNum|toPrice}}</span>
-            </li>
+            </li> -->
             <li>
                 <span>服务费:</span>
                 <span>{{data.serviceFee|toPrice}}</span>

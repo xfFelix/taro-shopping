@@ -22,11 +22,11 @@
               <li>时间：{{item.orderTime}}</li>
               <li>卡号：{{item.idBackUrl}}</li>
               <li>卡密：{{item.memo}} <em class="see" @click="dialogPwd(item.idUrl)">查看</em></li>
-              <li>售价：{{item.orderNum|toPrice}}</li>
+              <!-- <li>售价：{{item.orderNum|toPrice}}</li> -->
               <li>服务费：{{item.serviceFee|toPrice}}</li>
               <li><span>税费：{{item.taxFee|toPrice}}</span><span class="total">合计：{{item.totalAmount|toPrice}}</span></li>
             </ul>
-            <button class="return-back" @click="goDetail(item.id,item.status)">回收</button>
+            <button class="return-back" @click="goDetail(item.id,item.status)">立即回收</button>
           </div>
         </div>
       </cube-scroll>

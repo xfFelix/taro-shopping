@@ -4,7 +4,8 @@
       <input type="text" style="position: absolute;top:-300px;background: transparent;"ref="inputNext">
       <div class="header">
         <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
-        <span class="title">确认兑换</span>
+        <span class="title" v-if="userinfo.payValidType === 1">请输入短信验证码</span>
+        <span class="title" v-else>请输入支付密码</span>
       </div>
       <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
       <h1 v-else>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}
