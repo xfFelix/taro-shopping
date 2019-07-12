@@ -1,12 +1,12 @@
 <template>
   <div class="life-home">
-    <Header class="navbar" :show-more="true">新增缴费账户</Header>
+    <Header class="navbar" :show-more="true">缴费账户</Header>
 
     <div class="home-content-wrap">
+      <div class="home-pay-my">我的缴费
+        <span @click="$router.push('record')">兑换记录</span>
+      </div>
       <template v-if="!data || Object.keys(data).length">
-        <div class="home-pay-my">我的缴费
-          <span @click="$router.push('record')">兑换记录</span>
-        </div>
         <ul class="home-pay-wrap" v-for="(value, key, index) in data" :key="index">
           <li class="home-pay-title">{{findNameByGroup(key)}}</li>
           <li class="home-pay-item" v-for="(item, i) in value" :key="i" @click="goPayment(item, key)">
@@ -35,7 +35,7 @@
           <p>{{item.name}}</p>
         </li>
       </ul>
-      <p class="home-help">帮助中心</p>
+      <!-- <p class="home-help">帮助中心</p> -->
     </div>
   </div>
 </template>

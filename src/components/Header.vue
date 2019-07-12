@@ -30,6 +30,10 @@ export default {
       let route = this.$route
       if (route.path === '/order/list') {
         return this.$router.push('/')
+      } else if (route.path.includes('/life/home')) {
+        return window.location.href = process.env.VUE_APP_BASE_HOME_URL
+      } else if (route.path.includes('/life/record')) {
+        return this.$router.push('home')
       }
       this.$router.back()
     }

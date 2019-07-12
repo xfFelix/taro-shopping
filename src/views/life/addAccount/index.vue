@@ -23,13 +23,13 @@
       <li class="user-number">
         用户编号
         <div class="user">
-          <input type="number" v-model="idNmu" placeholder="请输入用户编号">
+          <input type="number" v-model="idNmu" placeholder="请输入用户编号" pattern="[0-9]*">
           <span class="check-num" @click="goQuestion">如何查户号</span>
         </div>
       </li>
       <li class="user-number">
         分组
-        <p @click="goGroup">{{findNameByGroup(config.group)}}
+        <p @click="getGroup">{{findNameByGroup(config.group)}}
           <i class="cubeic-back"></i>
         </p>
       </li>
@@ -74,11 +74,18 @@ export default {
       this.setConfig({ number: this.idNmu })
       this.$router.push('payment')
     },
-    goHome() {
-      window.location.href = process.env.VUE_APP_BASE_HOME_URL;
-    },
-    goGroup() {
-      this.$router.push('group')
+    getGroup() {
+      if (!this.picker) {
+        this.picker = this.$createPicker({
+          title: '选择分组',
+          data: [this.groupList],
+          onSelect: (val, i, text) => {
+            this.setConfig({group: +val.join('')})
+          },
+          onCancel: () => {}
+        })
+      }
+      this.picker.show()
     },
     goQuestion() {
       this.$router.push('userNumber')

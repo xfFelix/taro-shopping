@@ -6,10 +6,10 @@ export default {
       { name: '燃煤费', nameImg: 'name03', type: 14, imgUrl: 'ranqifeic', icon: 'ranqifei' }
     ],
     groupList: [
-      { label: '我家', value: 0, id: 0 },
-      { label: '父母', value: 1, id: 1 },
-      { label: '朋友', value: 2, id: 2 },
-      { label: '其他', value: 3, id: 3 }
+      { label: '我家', value: 0, id: 0, text: '我家' },
+      { label: '父母', value: 1, id: 1, text: '父母' },
+      { label: '朋友', value: 2, id: 2, text: '朋友' },
+      { label: '其他', value: 3, id: 3, text: '其他' }
     ]
   }),
   methods: {

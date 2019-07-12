@@ -27,7 +27,7 @@
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
-        <input type="number" placeholder="请输入缴费金额" v-model="price" @input="isNull">
+        <input type="number" placeholder="请输入缴费金额" v-model="price" @input="isNull" pattern="[0-9]*">
       </div>
       <ul class="info">
         <li>
@@ -42,20 +42,29 @@
       </ul>
       <button class="payment" @click="validate">立即充值</button>
     </div>
-    <verify-code v-model="code" @confirm="payment" :showCode.sync="showCode" :amount="amount" :sale="salePrice" :price="price"></verify-code>
+    <verify-code @confirm="payment" :showCode.sync="showCode" :amount="amount" :sale="salePrice" :price="price"></verify-code>
+    <!-- 设置支付密码dialog -->
+    <set-password :show.sync="showSetPassword"></set-password>
+    <!-- 设置手机号 -->
+    <set-mobile :show.sync="showSetMobile"></set-mobile>
+    <!-- fail -->
+    <payment-fail :message="failMessage" :show-fail.sync="showFail"></payment-fail>
   </div>
 </template>
 
 <script>
 import Header from 'components/Header'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { getPriceByLife, paymentByLife } from 'api'
 import mixin from '../mixin'
 export default {
   mixins: [mixin],
   components: {
     Header,
-    VerifyCode: () => import(/* webpackPrefetch: true */ './components/VerifyCode')
+    VerifyCode: () => import(/* webpackPrefetch: true */ './components/VerifyCode'),
+    PaymentFail: () => import(/* webpackPrefetch: true */ './components/PaymentFail'),
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
+    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
   },
   data: () =>({
     price: '',
@@ -66,7 +75,8 @@ export default {
       service: 0,
       total: 0
     },
-    code: ''
+    showFail: false,
+    failMessage: ''
   }),
   computed: {
     ...mapGetters({
@@ -74,11 +84,30 @@ export default {
       token: 'getToken',
       userinfo: 'getUserinfo'
     }),
+    showSetPassword: {
+      get () {
+        return this.$store.getters.getShowSetPassword
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetPassword', val)
+      }
+    },
+    showSetMobile: {
+      get () {
+        return this.$store.getters.getShowSetMobile
+      },
+      set (val) {
+        this.$store.dispatch('setShowSetMobile', val)
+      }
+    },
     salePrice() {
       return this.amount.sale + this.amount.service
     }
   },
   methods: {
+    ...mapActions({
+      checkPassword: 'checkPassword'
+    }),
     isNull() {
       if (!this.price) {
         this.amount = {
@@ -108,8 +137,10 @@ export default {
       if (!this.price) return this.$toast('请输入缴费金额')
       this.showCode = true
     },
-    async payment() {
-      if (!this.code) return this.$toast('请输入验证码')
+    async payment(code) {
+      if (!code) return this.$toast('请输入验证码')
+      let res = await this.checkPassword()
+      if (!res) return
       const toast = this.$createToast({message: 'loading', mask:true})
       toast.show()
       const { group, type, unitId, number} = this.config
@@ -120,12 +151,15 @@ export default {
         pn: number,
         grp: group,
         bt: type,
-        verify_code: this.code
+        verify_code: code
       }
       const { error_code, data, message } = await paymentByLife(params)
       toast.hide()
+      if (error_code) {
+        this.failMessage = message
+        return this.showFail = true
+      }
       this.showCode = false
-      if (error_code) return this.$router.push({path: 'fail', query: { message}})
       this.$router.push({path: 'changeS', query: { price: this.amount.total}})
     }
   }

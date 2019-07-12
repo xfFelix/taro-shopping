@@ -1,21 +1,28 @@
 <template>
-  <div class="mask" v-if="showCode" @click="$emit('update:showCode', false)">
-    <div class="wrapper" @click.stop="$emit('update:showCode', true)">
-      <h2>确认兑换</h2>
-      <h1>{{amount.total.toFixed(2)}}</h1>
-      <div class="item"><span class="label">产品名称</span><i>:</i>{{price}}元{{findNameByType(config.type)}}充值</div>
-      <div class="item"><span class="label">售价</span><i>:</i>{{sale.toFixed(2)}}</div>
-      <div class="item"><span class="label">税费</span><i>:</i>{{amount.tax.toFixed(2)}}</div>
-      <div class="item"><span class="label">应付合计</span><i>:</i>{{amount.total.toFixed(2)}}</div>
-      <div class="item">
-        <span class="label">验证码</span>
-        <i>:</i>
-        <input type="tel" placeholder="请输入验证码" class="verify-code" :value="code" @change="$emit('input', $event.target.value)" maxlength="6">
-        <button class="btn-code" @click="getCode" :disabled="btnCodeDisabled">{{time > 0 ? `${time}s` : '发送验证码'}}</button>
+  <transition name="fade" mode="out-in">
+    <div class="mask" v-if="showCode" @click="$emit('update:showCode', false)">
+      <div class="wrapper" @click.stop="$emit('update:showCode', true)">
+        <h2>确认兑换</h2>
+        <h1>{{amount.total.toFixed(2)}}</h1>
+        <div class="item"><span class="label">产品名称</span><i>:</i>{{price}}元{{findNameByType(config.type)}}充值</div>
+        <div class="item"><span class="label">售价</span><i>:</i>{{sale.toFixed(2)}}</div>
+        <div class="item"><span class="label">税费</span><i>:</i>{{amount.tax.toFixed(2)}}</div>
+        <div class="item"><span class="label">应付合计</span><i>:</i>{{amount.total.toFixed(2)}}</div>
+        <div class="item">
+          <span class="label">{{+userinfo.payValidType === 1 ? '密码': '验证码'}}</span>
+          <i>:</i>
+          <input type="tel"
+            :placeholder="+userinfo.payValidType === 1 ? '请输入支付密码': '请输入短信验证码'"
+            class="verify-code"
+            v-model="code"
+            :maxlength="+userinfo.payValidType === 1 ? 6 : 4"
+            pattern="[0-9]*">
+          <button v-if="+userinfo.payValidType !== 1" class="btn-code" @click="getCode" :disabled="btnCodeDisabled">{{time > 0 ? `${time}s` : '发送验证码'}}</button>
+        </div>
+        <button class="btn-confirm" @click="$emit('confirm', code)">确认兑换</button>
       </div>
-      <button class="btn-confirm" @click="$emit('confirm')">确认兑换</button>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -23,26 +30,23 @@ import { mapGetters } from 'vuex';
 import mixin from '../../../mixin'
 export default {
   mixins: [mixin],
-  model: {
-    prop: 'code',
-    event: 'input'
-  },
   data:() => ({
     btnCodeDisabled: false,
-    time: 0
+    time: 0,
+    code: ''
   }),
   computed: {
     ...mapGetters({
       config: 'life/getConfig',
-      token: 'getToken'
+      token: 'getToken',
+      userinfo: 'getUserinfo'
     })
   },
   props: {
     amount: Object,
     showCode: false,
     sale: 0,
-    price: 0,
-    code: String
+    price: 0
   },
   methods: {
     async getCode() {
