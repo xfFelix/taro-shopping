@@ -82,7 +82,7 @@ export const homeBanner = (data) => fetch({
   data
 })
 
-// 发送验证码
+// 发送验证码 短信
 export const sendSmsCode = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/sms',
   method: 'POST',
@@ -210,7 +210,7 @@ export const coinList =(data)=>fetch({
  * 根据城市与生活缴费类型获取公司
  */
 export const getCompaniesByCity = (params) => fetch({
-  url: '/live/companies',
+  url: `${process.env.VUE_APP_INFO_URl}/live/companies`,
   method: 'GET',
   params
 })
@@ -219,9 +219,52 @@ export const getCompaniesByCity = (params) => fetch({
  * 获取城市列表
  */
 export const getCityList = (params) => fetch({
-  url: '/live/cities',
+  url: `${process.env.VUE_APP_INFO_URl}/live/cities`,
   method: 'GET',
   params
 })
-
-
+/**
+ * 生活缴费下单
+ * @param {*} data
+ */
+export const paymentByLife = (data) => fetch({
+  url: `${process.env.VUE_APP_INFO_URl}/live/pay`,
+  method: 'POST',
+  data
+})
+/**
+ * 生活缴费 兑换记录
+ * @param {*} data
+ */
+export const getLogsByLife = (data) => fetch({
+  url: `${process.env.VUE_APP_INFO_URl}/live/logs`,
+  method: 'POST',
+  data
+})
+/**
+ * 首页 用户列表
+ * @param {*} data
+ */
+export const getGroupByLife = data => fetch({
+  url: `${process.env.VUE_APP_INFO_URl}/live/grps`,
+  method: 'POST',
+  data
+})
+/**
+ * 根据用户编号获取用户信息 姓名。。。
+ * @param {*} data
+ */
+export const getUserByNumber = data => fetch({
+  url: `${process.env.VUE_APP_INFO_URl}/live/info`,
+  method: 'POST',
+  data
+})
+/**
+ * 获取售价 合计。。。
+ * @param {*} data
+ */
+export const getPriceByLife = data => fetch({
+  url: `${process.env.VUE_APP_INFO_URl}/live/tax`,
+  method: 'POST',
+  data
+})

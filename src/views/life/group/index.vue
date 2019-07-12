@@ -2,9 +2,9 @@
   <div class="group">
     <Header class="navbar" :show-more="true">选择分组</Header>
     <ul class="content">
-      <li v-for="item of list" :key="item.id" @click="group = item.label">
+      <li v-for="item of groupList" :key="item.id" @click="setGroup(item)">
         {{item.label}}
-        <span class="circle" :class="group === item.label && 'active'"></span>
+        <span class="circle" :class="group === item.id && 'active'"></span>
       </li>
     </ul>
     <button class="next" @click="goNext">下一步</button>
@@ -14,18 +14,14 @@
 <script>
 import Header from 'components/Header'
 import { mapGetters, mapActions } from 'vuex';
+import mixin from '../mixin'
 export default {
+  mixins: [mixin],
   components: {
     Header
   },
   data: () => ({
-    list: [
-      { label: '我家', value: '1', id: 0 },
-      { label: '父母', value: '2', id: 1 },
-      { label: '朋友', value: '3', id: 2 },
-      { label: '其他', value: '4', id: 3 }
-    ],
-    group: '我家'
+    group: 0,
   }),
   computed: {
     ...mapGetters({
@@ -39,8 +35,11 @@ export default {
     ...mapActions({
       setConfig: 'life/setConfig'
     }),
+    setGroup(item) {
+      this.group = item.id
+    },
     goNext() {
-      this.setConfig({ group: this.group })
+      this.setConfig({ group: this.group})
       this.$router.back()
     }
   }

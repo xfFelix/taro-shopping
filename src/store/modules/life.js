@@ -3,9 +3,9 @@ import { localStorage, sessionStorage } from 'common/storage'
 
 let defaultHistory = []
 let defaultConfig = {
-  type: '电费', // 电费 水费 燃煤费
+  type: 13, // 13电费 12水费 14燃煤费
   city: '',
-  group: '我家'
+  group: 0, // 0 我家 1 父母 2 朋友 3 其他
 }
 try{
   if (localStorage.get('city_history')) {
@@ -76,9 +76,9 @@ const mutations = {
   },
   initConfig(state) {
     state.config = {
-      type: '电费',
+      type: 13,
       city: '',
-      group: '我家'
+      group: 0, // 0 我家 1 父母 2 朋友 3 其他
     }
     try{
       sessionStorage.set('life_config', state.config)

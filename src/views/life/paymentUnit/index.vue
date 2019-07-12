@@ -52,12 +52,12 @@ export default {
       const { type, city } = this.config
       let address = this.address
       address = address.replace('市', '')
-      const { code, data } = await getCompaniesByCity({type, city: city || address})
-      if (code !== '1') return
+      const { error_code, data } = await getCompaniesByCity({type, city: city || address})
+      if (error_code) return
       this.companies = data
     },
     goAccount(item) {
-      this.setConfig({ unit: item.com})
+      this.setConfig({ unit: item.com, unitId: item.code, city: this.config.city || this.address.replace('市', '')})
       this.$router.push('account')
     }
   }

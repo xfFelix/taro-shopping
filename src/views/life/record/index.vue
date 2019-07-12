@@ -3,15 +3,15 @@
     <Header class="navbar" :show-more="true">兑换记录</Header>
     <div class="record-select-wrap">
       <div class="all-select">
-        <div @click="showDialog=true" class="select-name">
-          <span>全部费种</span>
+        <div @click="showPicker" class="select-name">
+          <span>{{typeName}}</span>
           <i class="cubeic-back" :style="showDialog?'transform: rotate(270deg);':'transform: rotate(90deg);'"></i>
         </div>
-        <ul v-show="showDialog">
+        <!-- <ul v-show="showDialog">
           <li>水费</li>
           <li>电费</li>
           <li>燃煤费</li>
-        </ul>
+        </ul> -->
       </div>
     </div>
 
@@ -21,22 +21,15 @@
           <ul class="item" v-for="(item,index) in orderList" :key="index">
             <li class="title">
               <span class="order-number">
-                产品名称：{{item.cardUser}}
+                产品名称：{{item.cardBank + '元' + findNameByType(item.cardSubBank) + '直充'}}
               </span>
               <span class="status" v-if="item.status == 0">兑换中</span>
               <span class="status" v-else-if="item.status == 1">兑换成功</span>
               <span class="status" v-else>兑换失败</span>
             </li>
-            <li>时间：{{item.orderTime}}</li>
+            <li>时间：{{item.addDate}}</li>
             <li>充值账号：{{item.cardNum}}</li>
-            <li>类型：
-              <span v-if="item.cardBank==1">周卡</span>
-              <span v-else-if="item.cardBank==2">月卡</span>
-              <span v-else-if="item.cardBank==3">季卡</span>
-              <span v-else-if="item.cardBank==4">半年卡</span>
-              <span v-else>年卡</span>
-            </li>
-            <li>售价：{{item.repaymentAmount|toPrice}}</li>
+            <li>售价：{{(item.repaymentAmount + item.serviceFee)|toPrice}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>
               <span class="total">合计：{{item.totalAmount|toPrice}}</span>
@@ -51,9 +44,11 @@
 </template>
 
 <script>
-import { vipOrderList } from 'api';
+import { getLogsByLife } from 'api';
 import { mapGetters } from 'vuex';
+import mixin from '../mixin'
 export default {
+  mixins: [mixin],
   data: () => ({
     orderList: [],
     pullUpLoad: true,
@@ -63,7 +58,15 @@ export default {
     pageSize: 10,
     tenFlag: true,
     pageNum: 1,
-    showDialog: false
+    showDialog: false,
+    type: 0,
+    typeName: '全部',
+    list: [
+      {text: '全部', value: 0},
+      {text: '电费', value: 13},
+      {text: '水费', value: 12},
+      {text: '燃煤费', value: 14},
+    ]
   }),
   computed: {
     options() {
@@ -81,33 +84,64 @@ export default {
       } : false
     },
     offset() {
-      return (this.pageNum - 1) * this.pageSize + 1;
+      return (this.pageNum - 1) * this.pageSize;
     },
     ...mapGetters({
       getToken: 'getToken',
     }),
   },
   methods: {
-    async vipOrderList() {
-      let data = await vipOrderList({ token: this.getToken, offset: this.offset, rows: this.pageSize });
-      if (data.code != 1) { return this.$toast(data.message); }
-      if (data.data.length >= 10) { this.tenFlag = true; }
+    async getList() {
+      const { error_code, data } = await getLogsByLife({ token: this.getToken, start: this.offset, type: this.type || undefined });
+      if (error_code) return
+      if (data.length >= 10) { this.tenFlag = true; }
       else { this.tenFlag = false; }
-      this.orderList.push(...data.data);
+      this.orderList.push(...data);
     },
     onPullingUp() {
       console.log(this.tenFlag)
       if (this.tenFlag === true) {
         this.pageNum++;
-        this.vipOrderList();
+        this.getList();
       }
       if (!this.tenFlag && this.orderList.length > 0) {
         this.$refs.scroll.forceUpdate();
       }
     },
+    initData() {
+      this.orderList = []
+      this.pageSize = 10,
+      this.tenFlag = true,
+      this.pageNum = 1,
+      this.showDialog = false
+    },
+    showPicker() {
+      this.showDialog=true
+      if (!this.picker) {
+        this.picker = this.$createPicker({
+          title: '选择类型',
+          data: [this.list],
+          onSelect: (val, i, text) => {
+            this.initData()
+            this.type = +val.join('')
+            this.typeName = text.join('')
+            this.getList()
+          },
+          onCancel: () => { this.showDialog = false}
+        })
+      }
+      this.picker.show()
+    },
+    // selectHandle(selectedVal, selectedIndex, selectedText) {
+    //   this.$createDialog({
+    //     type: 'warn',
+    //     content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+    //     icon: 'cubeic-alert'
+    //   }).show()
+    // }
   },
   mounted() {
-    this.vipOrderList()
+    this.getList()
   },
   components: {
     NoData: () => import('components/NoData'),
@@ -127,7 +161,7 @@ export default {
   }
   .record-select-wrap {
     .all-select {
-      padding: 25px 15px;
+      padding: 15px;
       font-size: 15px;
       background: #fff;
       position: relative;

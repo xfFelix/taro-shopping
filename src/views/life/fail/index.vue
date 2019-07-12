@@ -2,7 +2,7 @@
   <div class="fail">
     <Header class="navbar" :show-more="true">缴费失败</Header>
     <img src="~common/images/cuowu.png" alt="失败" class="fail-png">
-    <p class="text">您输入的缴费号有误,请重新输入</p>
+    <p class="text">{{$route.query.message}}</p>
     <p class="point">缴费信息可以查询纸质账单</p>
   </div>
 </template>

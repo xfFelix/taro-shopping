@@ -5,8 +5,8 @@
       <li class="account-margin10">
         <div>
           <span class="account-img"
-          :class="config.type === '电费' ? 'name01' : (config.type === '水费' ? 'name02' : 'name03')"
-          ></span>{{config.type}}</div>
+          :class="findClassByType(config.type)"
+          ></span>{{findNameByType(config.type)}}</div>
         <div>{{config.city}}
           <i class="cubeic-back"></i>
         </div>
@@ -23,13 +23,13 @@
       <li class="user-number">
         用户编号
         <div class="user">
-          <input type="number" v-model="idNmu">
+          <input type="number" v-model="idNmu" placeholder="请输入用户编号">
           <span class="check-num" @click="goQuestion">如何查户号</span>
         </div>
       </li>
       <li class="user-number">
         分组
-        <p @click="goGroup">{{config.group}}
+        <p @click="goGroup">{{findNameByGroup(config.group)}}
           <i class="cubeic-back"></i>
         </p>
       </li>
@@ -40,17 +40,18 @@
       <span @click="show.file=true" class="file">《椰云网络生活缴费服务协议》</span>
     </div>
 
-    <div class="next-step" @click="goNext">下一步</div>
+    <div class="next-step" @click="validate">下一步</div>
 
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import mixin from '../mixin'
 export default {
+  mixins: [mixin],
   data: () => ({
-
-    idNmu: '232323',
+    idNmu: '',
     checked: true,
     show: {
       life: false
@@ -65,6 +66,10 @@ export default {
     ...mapActions({
       setConfig: 'life/setConfig'
     }),
+    validate() {
+      if (!this.idNmu) return this.$toast('请输入用户编号')
+      this.goNext()
+    },
     goNext() {
       this.setConfig({ number: this.idNmu })
       this.$router.push('payment')

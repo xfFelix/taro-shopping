@@ -3,53 +3,131 @@
     <Header class="navbar" :show-more="true">缴费账户</Header>
     <div class="type-wrapper">
       <div class="type">
-        <img src="~common/images/dianfei.png" alt="">
-        电费
+        <img :src="require(`../../../common/images/${findIconByType(config.type)}.png`)" alt="">
+        {{findNameByType(config.type)}}
       </div>
       <div class="score">
-        椰子分余额:&nbsp;<span class="price-color">105.2</span>
+        椰子分余额:&nbsp;<span class="price-color">{{userinfo.score}}</span>
       </div>
     </div>
     <div class="content-wrapper">
       <ul class="info">
         <li>
-          缴费单元<span class="value">国家电网供电公司</span>
+          缴费单元<span class="value">{{config.unit}}</span>
         </li>
         <li>
-          用户编号<span class="value">5800282069</span>
+          用户编号<span class="value">{{config.number}}</span>
         </li>
-        <li>
+        <!-- <li>
           户名<span class="value">*成刚</span>
         </li>
         <li>
           户号余额<span class="value">-1.23</span>
-        </li>
+        </li> -->
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
-        <input type="number">
+        <input type="number" placeholder="请输入缴费金额" v-model="price" @input="isNull">
       </div>
       <ul class="info">
         <li>
-          售价：<span class="value">2.32</span>
+          售价：<span class="value">{{salePrice.toFixed(2)}}</span>
         </li>
         <li>
-          税费：<span class="value">0.00</span>
+          税费：<span class="value">{{amount.tax.toFixed(2)}}</span>
         </li>
         <li>
-          应付合计：<span class="value">2.42</span>
+          应付合计：<span class="value">{{amount.total.toFixed(2)}}</span>
         </li>
       </ul>
-      <button class="payment">立即充值</button>
+      <button class="payment" @click="validate">立即充值</button>
     </div>
+    <verify-code v-model="code" @confirm="payment" :showCode.sync="showCode" :amount="amount" :sale="salePrice" :price="price"></verify-code>
   </div>
 </template>
 
 <script>
 import Header from 'components/Header'
+import { mapGetters } from 'vuex';
+import { getPriceByLife, paymentByLife } from 'api'
+import mixin from '../mixin'
 export default {
+  mixins: [mixin],
   components: {
-    Header
+    Header,
+    VerifyCode: () => import(/* webpackPrefetch: true */ './components/VerifyCode')
+  },
+  data: () =>({
+    price: '',
+    showCode: false,
+    amount: {
+      sale: 0,
+      tax: 0,
+      service: 0,
+      total: 0
+    },
+    code: ''
+  }),
+  computed: {
+    ...mapGetters({
+      config: 'life/getConfig',
+      token: 'getToken',
+      userinfo: 'getUserinfo'
+    }),
+    salePrice() {
+      return this.amount.sale + this.amount.service
+    }
+  },
+  methods: {
+    isNull() {
+      if (!this.price) {
+        this.amount = {
+          sale: 0,
+          tax: 0,
+          service: 0,
+          total: 0
+        }
+      } else {
+        this.getTotal()
+      }
+    },
+    getTotal() {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(async() => {
+        const {error_code, data} = await getPriceByLife({token: this.token, amount: this.price})
+        if (error_code) return
+        this.amount = Object.assign(this.amount, {
+          sale: data.sale,
+          tax: data.tax_total,
+          service: data.service_fee,
+          total: data.total
+        })
+      }, 1000)
+    },
+    validate() {
+      if (!this.price) return this.$toast('请输入缴费金额')
+      this.showCode = true
+    },
+    async payment() {
+      if (!this.code) return this.$toast('请输入验证码')
+      const toast = this.$createToast({message: 'loading', mask:true})
+      toast.show()
+      const { group, type, unitId, number} = this.config
+      let params = {
+        token: this.token,
+        productNo: unitId,
+        pr: this.price,
+        pn: number,
+        grp: group,
+        bt: type,
+        verify_code: this.code
+      }
+      const { error_code, data, message } = await paymentByLife(params)
+      toast.hide()
+      this.showCode = false
+      if (error_code) return this.$router.push({path: 'fail', query: { message}})
+      this.$router.push({path: 'changeS', query: { price: this.amount.total}})
+    }
   }
 }
 </script>
