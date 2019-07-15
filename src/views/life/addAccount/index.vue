@@ -8,7 +8,7 @@
           :class="findClassByType(config.type)"
           ></span>{{findNameByType(config.type)}}</div>
         <div>{{config.city}}
-          <i class="cubeic-back"></i>
+          <!-- <i class="cubeic-back"></i> -->
         </div>
       </li>
       <li class="displayr">

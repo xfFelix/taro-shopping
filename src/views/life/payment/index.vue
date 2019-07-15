@@ -56,15 +56,14 @@
 import Header from 'components/Header'
 import { mapGetters, mapActions } from 'vuex';
 import { getPriceByLife, paymentByLife } from 'api'
+import { setPayType } from '@/mixins'
 import mixin from '../mixin'
 export default {
-  mixins: [mixin],
+  mixins: [mixin, setPayType],
   components: {
     Header,
     VerifyCode: () => import(/* webpackPrefetch: true */ './components/VerifyCode'),
-    PaymentFail: () => import(/* webpackPrefetch: true */ './components/PaymentFail'),
-    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
-    SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')
+    PaymentFail: () => import(/* webpackPrefetch: true */ './components/PaymentFail')
   },
   data: () =>({
     price: '',
@@ -84,22 +83,6 @@ export default {
       token: 'getToken',
       userinfo: 'getUserinfo'
     }),
-    showSetPassword: {
-      get () {
-        return this.$store.getters.getShowSetPassword
-      },
-      set (val) {
-        this.$store.dispatch('setShowSetPassword', val)
-      }
-    },
-    showSetMobile: {
-      get () {
-        return this.$store.getters.getShowSetMobile
-      },
-      set (val) {
-        this.$store.dispatch('setShowSetMobile', val)
-      }
-    },
     salePrice() {
       return this.amount.sale + this.amount.service
     }
@@ -155,12 +138,10 @@ export default {
       }
       const { error_code, data, message } = await paymentByLife(params)
       toast.hide()
-      if (error_code) {
-        this.failMessage = message
-        return this.showFail = true
+      if (!error_code) {
+        this.showCode = false
+        this.$router.push({path: 'changeS', query: { price: this.amount.total }})
       }
-      this.showCode = false
-      this.$router.push({path: 'changeS', query: { price: this.amount.total}})
     }
   }
 }

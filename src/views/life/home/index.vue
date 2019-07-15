@@ -3,10 +3,8 @@
     <Header class="navbar" :show-more="true">缴费账户</Header>
 
     <div class="home-content-wrap">
-      <div class="home-pay-my">我的缴费
-        <span @click="$router.push('record')">兑换记录</span>
-      </div>
       <template v-if="!data || Object.keys(data).length">
+        <div class="home-pay-my">我的缴费</div>
         <ul class="home-pay-wrap" v-for="(value, key, index) in data" :key="index">
           <li class="home-pay-title">{{findNameByGroup(key)}}</li>
           <li class="home-pay-item" v-for="(item, i) in value" :key="i" @click="goPayment(item, key)">
@@ -35,6 +33,7 @@
           <p>{{item.name}}</p>
         </li>
       </ul>
+      <p @click="$router.push('record')" class="home-help">兑换记录</p>
       <!-- <p class="home-help">帮助中心</p> -->
     </div>
   </div>
@@ -190,7 +189,7 @@ export default {
     }
     .home-help {
       color: #30CE84;
-      font-size: 12px;
+      font-size: 14px;
       text-align: center;
     }
   }

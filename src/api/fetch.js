@@ -1,5 +1,6 @@
 import axios from 'axios' // 导入axios
-import {toast} from 'util/toast'
+import {toast, dialog} from 'util/toast'
+import store from 'store'
 
 const instance = axios.create({
   // 设置默认根地址
@@ -26,6 +27,18 @@ instance.interceptors.request.use((config) => {
 // 返回状态判断
 instance.interceptors.response.use((res) => {
   let data = res.data
+  if (+data.error_code) {
+    switch(+data.error_code) {
+      case 30000:
+        dialog({content: data.message, type: 'confirm'}, () => {
+          window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?token=' + store.state.token;
+        })
+        break
+      default:
+        toast(data.message)
+        break
+    }
+  }
   if (data.code === 1001) {
     return Promise.reject(res)
   }

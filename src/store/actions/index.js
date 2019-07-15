@@ -33,12 +33,26 @@ export default {
       return token
     }
   },
+  /**
+   * 设置密码
+   * @param {*} param0
+   * @param {*} value
+   */
   setShowSetPassword ({commit}, value) {
     commit('setShowSetPassword', value)
   },
+  /**
+   * 设置手机号
+   * @param {*} param0
+   * @param {*} value
+   */
   setShowSetMobile({commit}, value) {
     commit('setShowSetMobile', value)
   },
+  /**
+   * 验证是否需要设置密码或者手机号
+   * @param {*} param0
+   */
   checkPassword({state, dispatch}) {
     if (state.userinfo.payValidType === 1 && !state.userinfo.payPwd) {
       dispatch('setShowSetPassword', true)
