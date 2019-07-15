@@ -11,8 +11,9 @@
         <div class="item">
           <span class="label">{{+userinfo.payValidType === 1 ? '密码': '验证码'}}</span>
           <i>:</i>
-          <input type="tel"
-            :placeholder="+userinfo.payValidType === 1 ? '请输入支付密码': '请输入短信验证码'"
+          <input
+            :type="+userinfo.payValidType === 1 ? 'password': 'tel'"
+            :placeholder="+userinfo.payValidType === 1 ? '**支付密码**': '**短信验证码**'"
             class="verify-code"
             v-model="code"
             :maxlength="+userinfo.payValidType === 1 ? 6 : 4"

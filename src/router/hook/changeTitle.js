@@ -6,6 +6,8 @@ export default router => {
       document.title = '会员卡券'
     }else if(to.path.includes("changeCoin")){
       document.title = '兑换'
+    }else if(to.path.includes("life")){
+      document.title = '生活缴费'
     } else {
       document.title = '海南旅游'
     }

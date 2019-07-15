@@ -133,14 +133,14 @@ export default {
         })
       }, 1000)
     },
-    validate() {
+    async validate() {
       if (!this.price) return this.$toast('请输入缴费金额')
+      let res = await this.checkPassword()
+      if (!res) return
       this.showCode = true
     },
     async payment(code) {
-      if (!code) return this.$toast('请输入验证码')
-      let res = await this.checkPassword()
-      if (!res) return
+      if (!code) return this.$toast(+this.userinfo.payValidType === 1 ? '请输入支付密码': '请输入验证码')
       const toast = this.$createToast({message: 'loading', mask:true})
       toast.show()
       const { group, type, unitId, number} = this.config

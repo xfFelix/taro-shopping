@@ -11,7 +11,7 @@
       <button class="btn-order" @click="$router.replace('record')">查看订单</button>
     </div>
     <div class="timer"><i class="price-color">{{countDown}}s</i>后自动回到首页</div>
-    <img src="~common/images/guanggaowei.png" alt="banner" class="banner">
+    <!-- <img src="~common/images/guanggaowei.png" alt="banner" class="banner"> -->
   </div>
 </template>
 
