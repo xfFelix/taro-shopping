@@ -1,4 +1,3 @@
-import Vue from 'vue/dist/vue.esm.js'
 export default {
   components: {
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),

@@ -27,7 +27,14 @@
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
-        <input type="number" placeholder="请输入缴费金额" v-model="price" @input="isNull" pattern="[0-9]*">
+        <input
+          type="number"
+          placeholder="请输入缴费金额"
+          v-model="price"
+          @input="isNull"
+          @focus="iptFocus"
+          @blur="iptBlur"
+          pattern="[0-9]*">
       </div>
       <ul class="info">
         <li>
@@ -58,8 +65,9 @@ import { mapGetters, mapActions } from 'vuex';
 import { getPriceByLife, paymentByLife } from 'api'
 import { setPayType } from '@/mixins'
 import mixin from '../mixin'
+import { IOSFocus } from '@/mixins'
 export default {
-  mixins: [mixin, setPayType],
+  mixins: [mixin, setPayType, IOSFocus],
   components: {
     Header,
     VerifyCode: () => import(/* webpackPrefetch: true */ './components/VerifyCode'),

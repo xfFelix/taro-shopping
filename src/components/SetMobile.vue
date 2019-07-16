@@ -8,11 +8,26 @@
           <select style="border:none;background:#fff;width: 50px;" v-model="telPlace">
               <option :value="item.telRealVal" v-for="item in telList" :key="item.telRealVal">{{item.telShowVal}}</option>
           </select>
-          <input type="tel" placeholder="请输入手机号" v-model.trim="data.mobile" pattern="[0-9]*" autofocus="autofocus" autocomplete="off">
+          <input
+            type="tel"
+            placeholder="请输入手机号"
+            v-model.trim="data.mobile"
+            pattern="[0-9]*"
+            autofocus="autofocus"
+            @focus="iptFocus"
+            @blur="iptBlur"
+            autocomplete="off">
         </div>
         <div class="item border-1-px">
           <span class="iconfont">&#xe62a;</span>
-          <input type="tel" placeholder="请输入验证码" v-model.trim="data.code" pattern="[0-9]*" autocomplete="off">
+          <input
+            type="tel"
+            placeholder="请输入验证码"
+            v-model.trim="data.code"
+            pattern="[0-9]*"
+            @focus="iptFocus"
+            @blur="iptBlur"
+            autocomplete="off">
           <button class="send-code" @click.stop="sendCode" :disabled="data.codeFlag">{{data.codeText}}</button>
         </div>
         <div class="item">
@@ -26,7 +41,9 @@
 <script>
 import { IsMobile, IsChinaMobile, IsHKMobile } from "util/common";
 import { mapActions, mapGetters } from 'vuex';
+import { IOSFocus } from '@/mixins'
 export default {
+  mixins: [IOSFocus],
   props: {
     show: {
       type: Boolean,

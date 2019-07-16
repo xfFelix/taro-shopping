@@ -8,12 +8,14 @@
       <span class="square">{{code[4]}}</span>
       <span class="square">{{code[5]}}</span>
     </div>
-    <input type="tel" class="input" autofocus="autofocus" pattern="[0-9]*" maxlength="6" :value="code" @input="$emit('input', $event.target.value)">
+    <input type="tel" class="input" autofocus="autofocus" pattern="[0-9]*" maxlength="6" :value="code" @input="$emit('input', $event.target.value)" @blur="iptBlur" @focus="iptFocus">
   </div>
 </template>
 
 <script>
+import { IOSFocus } from '@/mixins'
 export default {
+  mixins: [IOSFocus],
   model: {
     prop: 'code',
     event: 'input'
@@ -22,6 +24,12 @@ export default {
     code: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    setScroll() {
+      console.log('1111')
+      window.scrollTo(0, 0)
     }
   }
 }
