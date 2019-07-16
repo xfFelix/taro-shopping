@@ -108,6 +108,9 @@ export default {
           total: 0
         }
       } else {
+        if (this.price < 1 || this.price > 9999) {
+          return this.$toast('金额限制1~9999')
+        }
         this.getTotal()
       }
     },
