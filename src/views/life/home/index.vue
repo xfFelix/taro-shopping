@@ -33,7 +33,7 @@
           <p>{{item.name}}</p>
         </li>
       </ul>
-      <p @click="$router.push('record')" class="home-help">兑换记录</p>
+      <p @click="$router.push('record')" class="home-help">缴费记录</p>
       <!-- <p class="home-help">帮助中心</p> -->
     </div>
   </div>

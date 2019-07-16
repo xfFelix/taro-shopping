@@ -1,6 +1,6 @@
 <template>
   <div class="life-record">
-    <Header class="navbar" :show-more="true">兑换记录</Header>
+    <Header class="navbar" :show-more="true">缴费记录</Header>
     <div class="record-select-wrap">
       <div class="all-select">
         <div @click="showPicker" class="select-name">
