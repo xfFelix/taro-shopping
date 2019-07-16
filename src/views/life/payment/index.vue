@@ -108,9 +108,6 @@ export default {
           total: 0
         }
       } else {
-        if (this.price < 1 || this.price > 9999) {
-          return this.$toast('金额限制1~9999')
-        }
         this.getTotal()
       }
     },
@@ -129,6 +126,9 @@ export default {
     },
     async validate() {
       if (!this.price) return this.$toast('请输入缴费金额')
+      if (this.price < 1 || this.price > 9999) {
+        return this.$toast('金额限制1~9999')
+      }
       let res = await this.checkPassword()
       if (!res) return
       this.showCode = true
