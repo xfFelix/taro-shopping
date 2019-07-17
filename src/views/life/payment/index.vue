@@ -29,7 +29,7 @@
         <span class="point">充值金额:</span>
         <input
           type="number"
-          placeholder="请输入缴费金额"
+          placeholder="金额限制5~9999"
           v-model="price"
           @input="isNull"
           @focus="iptFocus"
@@ -126,8 +126,8 @@ export default {
     },
     async validate() {
       if (!this.price) return this.$toast('请输入缴费金额')
-      if (this.price < 1 || this.price > 9999) {
-        return this.$toast('金额限制1~9999')
+      if (+this.price < 5 || +this.price > 9999) {
+        return this.$toast('金额限制5~9999')
       }
       let res = await this.checkPassword()
       if (!res) return
