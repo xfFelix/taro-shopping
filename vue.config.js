@@ -46,7 +46,11 @@ module.exports = {
       hints: false
     }
     config.externals = {
-      BMap: 'BMap'
+      BMap: 'BMap',
+      vue: 'Vue',
+      'vue-router': 'VueRouter',
+      vuex: 'Vuex',
+      axios: 'axios'
     }
     // 删除console插件
     let plugins = [
