@@ -1,11 +1,11 @@
 <template>
   <div class="sign-helper">
-    <Header class="navbar" :show-more="true">签约助手</Header>
+    <h1>签约助手</h1>
     <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
     <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
     <div class="agreement">
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span class="file">《在线签约用户协议》</span>
+      <span class="file" @click="$router.push({name:'signHelpFile'})">《在线签约用户协议》</span>
     </div>
     <div class="next-step" @click="commitInfo">确认提交</div>
   </div>
@@ -35,7 +35,7 @@ export default {
       if(isEmpty(this.dataInfo.mobile)) return this.$toast("请填写您的手机号");
       if (!IsMobile(this.dataInfo.mobile)) return this.$toast("请输入正确的手机号");
       if(isEmpty(this.dataInfo.code)) return this.$toast("请输入验证码");
-      if(this.checked==false) return  this.$toast("请阅读并同意《在线签约用户协议》");
+      if(this.checked==false) return  this.$toast("请阅读并同意<p>《在线签约用户协议》</p>");
       this.checkedID();
     },
     //校验
@@ -47,6 +47,8 @@ export default {
     },
     //上传文件
     uploadFile(){
+      const toast = this.$createToast({message: 'loading', mask:true})
+      toast.show()
       let formData = new FormData();
         formData.append('name',this.dataInfo.name);
         formData.append('idCard',this.dataInfo.idNum);
@@ -59,14 +61,17 @@ export default {
         headers:{'Content-Type': 'multipart/form-data;charset=utf-8'}
       })
       instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{
+        toast.hide()
         if(res.data.code==0){
             this.$router.push({name:'signHelps'})
         }else{
           this.$toast(res.data.msg);
         }
+
       }).catch(err=>{
-          console.error(err);
-        })
+        toast.hide()
+        console.error(err);
+      })
     },
     //拿到子组件的值，开始调接口
     personInfoF(val){
@@ -81,7 +86,6 @@ export default {
     }
   },
   components: {
-    Header: () => import("@/components/Header"),
     personInfo: () => import("./components/personInfo"),
     uploadImg: () => import("./components/uploadImg")
   }
@@ -89,9 +93,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sign-helper {
-  .navbar {
-    background: #373c48;
+  h1{
+    line-height: 44px;
+    background: #373C48;
+    text-align: center;
     color: #fff;
+    font-size: 18px;
+    font-family: PingFang-SC-Regular;
   }
   .next-step {
     width: 345px;

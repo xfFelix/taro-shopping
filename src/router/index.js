@@ -198,9 +198,9 @@ const router = new Router({
       }
     },
     {
-      path: '/memberCard/signProtocol',
-      name: 'signProtocol',
-      component: () => import('views/memberCard/signProtocol'),
+      path: '/memberCard/signHelpFile',
+      name: 'signHelpFile',
+      component: () => import('views/memberCard/signHelpFile'),
       meta: {
         title: '在线签约用户协议',
         requireAuth: true
