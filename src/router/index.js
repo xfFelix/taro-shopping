@@ -180,6 +180,33 @@ const router = new Router({
       }
     },
     {
+      path: '/memberCard/signHelper',
+      name: 'signHelper',
+      component: () => import('views/memberCard/signHelper'),
+      meta: {
+        title: '签约助手',
+        requireAuth: true
+      }
+    },
+    {
+      path: '/memberCard/signHelps',
+      name: 'signHelps',
+      component: () => import('views/memberCard/signHelps'),
+      meta: {
+        title: '签约助手',
+        requireAuth: true
+      }
+    },
+    {
+      path: '/memberCard/signProtocol',
+      name: 'signProtocol',
+      component: () => import('views/memberCard/signProtocol'),
+      meta: {
+        title: '在线签约用户协议',
+        requireAuth: true
+      }
+    },
+    {
       path: '/changeCoin',
       name: 'changeCoin',
       component: () => import('views/changeCoin'),
