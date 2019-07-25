@@ -20,12 +20,12 @@ const router = new Router({
         title: '首页',
         keepAlive:true
       },
-      component: () => import('views/home')
+      component: () => import(/* webpackChunkName: "group-ticket" */ 'views/home')
     },
     {
       path: '/goodsDetail',
       name: 'goodsDetail',
-      component: () => import('views/goodsDetail')
+      component: () => import(/* webpackChunkName: "group-ticket" */ 'views/goodsDetail')
     },
     {
       path: '/order',
@@ -33,13 +33,13 @@ const router = new Router({
       meta: {
         title: '订单'
       },
-      component: () => import('views/order'),
+      component: () => import(/* webpackChunkName: "group-ticket" */ 'views/order'),
       redirect: '/order/list',
       children:[
         {
           path: 'list',
           name: 'list',
-          component: () => import('views/order/list'),
+          component: () => import(/* webpackChunkName: "group-ticket" */ 'views/order/list'),
           meta: {
             title: '订单列表',
             requireAuth: true
@@ -48,7 +48,7 @@ const router = new Router({
         {
           path: 'detail',
           name: 'detail',
-          component: () => import('views/order/detail'),
+          component: () => import(/* webpackChunkName: "group-ticket" */ 'views/order/detail'),
           meta: {
             title: '订单详情',
             requireAuth: true
@@ -59,7 +59,7 @@ const router = new Router({
     {
       path: '/settlement',
       name: 'settlement',
-      component: () => import('views/settlement'),
+      component: () => import(/* webpackChunkName: "group-ticket" */ 'views/settlement'),
       meta: {
         title: '结算',
         requireAuth: true
@@ -68,7 +68,7 @@ const router = new Router({
     {
       path: '/oil/oilRecovery',
       name: 'oilRecovery',
-      component: () => import('views/oilRecovery'),
+      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecovery'),
       meta: {
         title: '加油卡回收',
         requireAuth: true
@@ -77,7 +77,7 @@ const router = new Router({
     {
       path: '/oil/oilRecord',
       name: 'oilRecord',
-      component: () => import('views/oilRecord'),
+      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecord'),
       meta: {
         title: '加油卡充值',
         // requireAuth: true
@@ -86,7 +86,7 @@ const router = new Router({
     {
       path: '/oil/oilChangeS',
       name: 'oilChangeS',
-      component: () => import('views/oilChangeS'),
+      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilChangeS'),
       meta: {
         title: '兑换成功',
         // requireAuth: true
@@ -95,7 +95,7 @@ const router = new Router({
     {
       path: '/oil/oilRecoveryS',
       name: 'oilRecoveryS',
-      component: () => import('views/oilRecoveryS'),
+      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecoveryS'),
       meta: {
         title: '回购成功',
         // requireAuth: true
@@ -104,7 +104,7 @@ const router = new Router({
     {
       path: '/oil',
       name: 'oil',
-      component: () => import('views/oil'),
+      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil'),
       meta: {
         title: '加油卡',
         requireAuth: true
@@ -114,7 +114,7 @@ const router = new Router({
         {
           path: 'home',
           name: 'oilHome',
-          component: () => import('views/oil/home'),
+          component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil/home'),
           meta: {
             title: '加油卡首页',
             requireAuth: true
@@ -123,7 +123,7 @@ const router = new Router({
         {
           path: 'recovery',
           name: 'recoveryList',
-          component: () => import(/* webpackPrefetch: true */ 'views/oil/recovery'),
+          component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil/recovery'),
           meta: {
             title: '加油卡回收列表',
             requireAuth: true
@@ -134,7 +134,7 @@ const router = new Router({
     {
       path: '/memberCard',
       name: 'memberCard',
-      component: () => import('views/memberCard'),
+      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard'),
       meta: {
         title: '会员卡券',
         requireAuth: true
@@ -144,7 +144,7 @@ const router = new Router({
         {
           path: 'home',
           name: 'memberHome',
-          component: () => import('views/memberCard/home'),
+          component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/home'),
           meta: {
             title: '会员卡券首页',
             requireAuth: true
@@ -155,7 +155,7 @@ const router = new Router({
     {
       path: '/memberCard/cardType',
       name: 'cardType',
-      component: () => import('views/memberCard/cardType'),
+      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardType'),
       meta: {
         title: '充值类型',
         requireAuth: true
@@ -164,7 +164,7 @@ const router = new Router({
     {
       path: '/memberCard/cardRecord',
       name: 'cardRecord',
-      component: () => import('views/memberCard/cardRecord'),
+      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardRecord'),
       meta: {
         title: '兑换记录',
         requireAuth: true
@@ -173,7 +173,7 @@ const router = new Router({
     {
       path: '/memberCard/cardChangeS',
       name: 'cardChangeS',
-      component: () => import('views/memberCard/cardChangeS'),
+      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardChangeS'),
       meta: {
         title: '充值成功',
         requireAuth: true
@@ -209,7 +209,7 @@ const router = new Router({
     {
       path: '/changeCoin',
       name: 'changeCoin',
-      component: () => import('views/changeCoin'),
+      component: () => import(/* webpackChunkName: "group-coin" */ 'views/changeCoin'),
       meta: {
         title: '兑换金币',
         requireAuth: true
@@ -219,7 +219,7 @@ const router = new Router({
         {
           path: 'home',
           name: 'coinHome',
-          component: () => import('views/changeCoin/home'),
+          component: () => import(/* webpackChunkName: "group-coin" */ 'views/changeCoin/home'),
           meta: {
             title: '兑换金币',
             requireAuth: true
@@ -228,7 +228,7 @@ const router = new Router({
         {
           path: 'recovery',
           name: 'coinList',
-          component: () => import(/* webpackPrefetch: true */ 'views/changeCoin/recovery'),
+          component: () => import(/* webpackChunkName: "group-coin" */ 'views/changeCoin/recovery'),
           meta: {
             title: '兑换金币列表',
             requireAuth: true
@@ -239,7 +239,7 @@ const router = new Router({
     {
       path: '/life',
       name: 'life',
-      component: () => import('views/life'),
+      component: () => import(/* webpackChunkName: "group-life" */'views/life'),
       meta: {
         title: '生活缴费',
         requireAuth: true
@@ -249,7 +249,7 @@ const router = new Router({
         {
           path: 'home',
           name: 'lifeHome',
-          component: () => import('views/life/home'),
+          component: () => import(/* webpackChunkName: "group-life" */'views/life/home'),
           meta: {
             title: '生活缴费首页',
             requireAuth: true
@@ -258,7 +258,7 @@ const router = new Router({
         {
           path: 'geolocation',
           name: 'lifeGeolocation',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/geolocation'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/geolocation'),
           meta: {
             title: '选择城市',
             requireAuth: true
@@ -267,7 +267,7 @@ const router = new Router({
         {
           path: 'account',
           name: 'lifeAccount',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/addAccount'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/addAccount'),
           meta: {
             title: '新增缴费账户',
             requireAuth: true
@@ -276,7 +276,7 @@ const router = new Router({
         {
           path: 'record',
           name: 'lifeRecord',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/record'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/record'),
           meta: {
             title: '兑换记录',
             requireAuth: true
@@ -285,7 +285,7 @@ const router = new Router({
         {
           path: 'changeS',
           name: 'lifeChangeS',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/changeS'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/changeS'),
           meta: {
             title: '兑换成功',
             requireAuth: true
@@ -294,7 +294,7 @@ const router = new Router({
         {
           path: 'paymentUnit',
           name: 'paymentUnit',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/paymentUnit'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/paymentUnit'),
           meta: {
             title: '选择缴费单位',
             requireAuth: true
@@ -303,7 +303,7 @@ const router = new Router({
         {
           path: 'group',
           name: 'group',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/group'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/group'),
           meta: {
             title: '选择分组',
             requireAuth: true
@@ -312,7 +312,7 @@ const router = new Router({
         {
           path: 'fail',
           name: 'fail',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/fail'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/fail'),
           meta: {
             title: '缴费失败',
             requireAuth: true
@@ -321,7 +321,7 @@ const router = new Router({
         {
           path: 'payment',
           name: 'LifePayment',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/payment'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/payment'),
           meta: {
             title: '缴费账户',
             requireAuth: true
@@ -330,7 +330,7 @@ const router = new Router({
         {
           path: 'userNumber',
           name: 'LifeFindNumber',
-          component: () => import(/* webpackPrefetch: true */ 'views/life/userNumber'),
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/userNumber'),
           meta: {
             title: '如何查户号',
             requireAuth: true
