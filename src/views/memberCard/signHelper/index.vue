@@ -56,8 +56,23 @@ export default {
         formData.append('code',this.dataInfo.code);
         formData.append('positiveIDPhoto1',this.frontObj.file);
         formData.append('negativeIDPhoto1',this.backObj.file);
+
+        // let xhr = new XMLHttpRequest();
+        // xhr.open("post", process.env.VUE_APP_CONTRACT_URL+'/contract/submit', true);
+        // xhr.setRequestHeader("Content-type","multipart/form-data;");
+        // xhr.onreadystatechange = ()=>{
+        //   if(xhr.readyState == 4 && xhr.status == 200) {
+        //     let data=JSON.parse(xhr.responseText);
+        //      if(data==0){
+        //        this.$router.push({name:'signHelps'})
+        //      }else{
+        //        this.$toast(data.msg);
+        //      }
+        //   }
+        //    toast.hide()
+        // }
+        // xhr.send(formData)
       const instance = axios.create({
-        withCredentials: true,
         headers:{'Content-Type': 'multipart/form-data;charset=utf-8'}
       })
       instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{

@@ -185,7 +185,6 @@ const router = new Router({
       component: () => import('views/memberCard/signHelper'),
       meta: {
         title: '签约助手',
-        requireAuth: true
       }
     },
     {
@@ -194,7 +193,6 @@ const router = new Router({
       component: () => import('views/memberCard/signHelps'),
       meta: {
         title: '签约助手',
-        requireAuth: true
       }
     },
     {
@@ -203,7 +201,6 @@ const router = new Router({
       component: () => import('views/memberCard/signHelpFile'),
       meta: {
         title: '在线签约用户协议',
-        requireAuth: true
       }
     },
     {
