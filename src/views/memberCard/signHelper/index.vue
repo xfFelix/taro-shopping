@@ -1,12 +1,13 @@
 <template>
   <div class="sign-helper">
-    <h1>签约助手</h1>
-    <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
-    <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
-    <div class="agreement">
-      <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span class="file" @click="$router.push({name:'signHelpFile'})">《在线签约用户协议》</span>
-    </div>
+    <form ref="advForm">
+      <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
+      <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
+      <div class="agreement">
+        <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
+        <span class="file" @click="$router.push({name:'signHelpFile'})">《在线签约用户协议》</span>
+      </div>
+    </form>
     <div class="next-step" @click="commitInfo">确认提交</div>
   </div>
 </template>
@@ -49,29 +50,13 @@ export default {
     uploadFile(){
       const toast = this.$createToast({message: 'loading', mask:true})
       toast.show()
-      let formData = new FormData();
+      let formData = new FormData(this.$refs.advForm);
         formData.append('name',this.dataInfo.name);
         formData.append('idCard',this.dataInfo.idNum);
         formData.append('mobile',this.dataInfo.mobile);
         formData.append('code',this.dataInfo.code);
         formData.append('positiveIDPhoto1',this.frontObj.file);
         formData.append('negativeIDPhoto1',this.backObj.file);
-
-        // let xhr = new XMLHttpRequest();
-        // xhr.open("post", process.env.VUE_APP_CONTRACT_URL+'/contract/submit', true);
-        // xhr.setRequestHeader("Content-type","multipart/form-data;");
-        // xhr.onreadystatechange = ()=>{
-        //   if(xhr.readyState == 4 && xhr.status == 200) {
-        //     let data=JSON.parse(xhr.responseText);
-        //      if(data==0){
-        //        this.$router.push({name:'signHelps'})
-        //      }else{
-        //        this.$toast(data.msg);
-        //      }
-        //   }
-        //    toast.hide()
-        // }
-        // xhr.send(formData)
       const instance = axios.create({
         headers:{'Content-Type': 'multipart/form-data;charset=utf-8'}
       })
@@ -82,7 +67,6 @@ export default {
         }else{
           this.$toast(res.data.msg);
         }
-
       }).catch(err=>{
         toast.hide()
         console.error(err);
@@ -108,14 +92,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sign-helper {
-  h1{
-    line-height: 44px;
-    background: #373C48;
-    text-align: center;
-    color: #fff;
-    font-size: 18px;
-    font-family: PingFang-SC-Regular;
-  }
+  min-height: 100%;
+  // h1{
+  //   line-height: 44px;
+  //   background: #373C48;
+  //   text-align: center;
+  //   color: #fff;
+  //   font-size: 18px;
+  //   font-family: PingFang-SC-Regular;
+  // }
   .next-step {
     width: 345px;
     background: #30ce84;

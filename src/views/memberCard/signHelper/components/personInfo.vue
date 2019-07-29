@@ -104,6 +104,7 @@ export default {
       flex: 1;
       height: 100%;
       color: #333;
+      line-height: 100%;
       &::-webkit-input-placeholder {
         color: #a9a9a9;
         font-size: 13px;
