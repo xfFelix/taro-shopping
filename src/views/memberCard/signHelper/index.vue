@@ -29,6 +29,7 @@ export default {
     },
     //判断是否为空
     judgeEmpty(){
+
       if(Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
       if(Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if(isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
@@ -51,6 +52,7 @@ export default {
       const toast = this.$createToast({message: 'loading', mask:true})
       toast.show()
       let formData = new FormData(this.$refs.advForm);
+        console.log(this.$refs.advForm)
         formData.append('name',this.dataInfo.name);
         formData.append('idCard',this.dataInfo.idNum);
         formData.append('mobile',this.dataInfo.mobile);
