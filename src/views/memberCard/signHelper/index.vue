@@ -49,7 +49,7 @@ export default {
     },
     //上传文件
     uploadFile(){
-      const toast = this.$createToast({message: 'loading', mask:true})
+      const toast = this.$createToast({message: 'loading', mask:true,time:0})
       toast.show()
       let formData = new FormData(this.$refs.advForm);
         console.log(this.$refs.advForm)
@@ -61,7 +61,7 @@ export default {
         formData.append('negativeIDPhoto1',this.backObj.file);
       const instance = axios.create({
         headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
-        withCredentials: process.env.NODE_ENV === 'production'
+        withCredentials: process.env.NODE_ENV === 'production',
       })
       instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{
         toast.hide()
