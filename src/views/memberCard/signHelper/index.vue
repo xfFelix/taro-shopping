@@ -60,7 +60,8 @@ export default {
         formData.append('positiveIDPhoto1',this.frontObj.file);
         formData.append('negativeIDPhoto1',this.backObj.file);
       const instance = axios.create({
-        headers:{'Content-Type': 'multipart/form-data;charset=utf-8'}
+        headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
+        withCredentials: process.env.NODE_ENV === 'production'
       })
       instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{
         toast.hide()
