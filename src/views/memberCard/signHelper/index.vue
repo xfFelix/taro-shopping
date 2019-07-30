@@ -50,7 +50,7 @@ export default {
     //上传文件
     uploadFile(){
       const toast = this.$createToast({message: 'loading', mask:true,time:0})
-      toast.show()
+      // toast.show()
       let formData = new FormData(this.$refs.advForm);
         console.log(this.$refs.advForm)
         formData.append('name',this.dataInfo.name);
@@ -59,6 +59,24 @@ export default {
         formData.append('code',this.dataInfo.code);
         formData.append('positiveIDPhoto1',this.frontObj.file);
         formData.append('negativeIDPhoto1',this.backObj.file);
+        fetch(process.env.VUE_APP_CONTRACT_URL+'/contract/submit', {
+          method: 'POST',
+          body: formData,
+          mode: 'cors',
+        })
+        .then(response => {
+          response.json().then(data => {
+              if(data==0){
+                this.$router.push({name:'signHelps'})
+              }else{
+                this.$toast(data.msg);
+              }
+            }).catch(error => console.log(error))
+        })
+        .catch(error => console.error('Error:', error));
+
+
+
       // const instance = axios.create({
       //   headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
       //   withCredentials: process.env.NODE_ENV === 'production',
@@ -79,25 +97,25 @@ export default {
       //   }
       //   toast.hide()
       // }
-      axios.defaults.headers.post['Content-Type']='multipart/form-data;charse=UTF-8';
-      axios({
-          method: 'post',
-          data: formData,
-          transformRequest: [function(){
-              return formData;
-          }],
-          url: process.env.VUE_APP_CONTRACT_URL+'/contract/submit',
-      }).then(res => {
-           toast.hide()
-          if(res.data.code==0){
-              this.$router.push({name:'signHelps'})
-          }else{
-              this.$toast(res.data.msg);
-          }
-      }).catch(err=>{
-        toast.hide()
-        console.error(err);
-      });
+      // axios.defaults.headers.post['Content-Type']='multipart/form-data;charse=UTF-8';
+      // axios({
+      //     method: 'post',
+      //     data: formData,
+      //     transformRequest: [function(){
+      //         return formData;
+      //     }],
+      //     url: process.env.VUE_APP_CONTRACT_URL+'/contract/submit',
+      // }).then(res => {
+      //      toast.hide()
+      //     if(res.data.code==0){
+      //         this.$router.push({name:'signHelps'})
+      //     }else{
+      //         this.$toast(res.data.msg);
+      //     }
+      // }).catch(err=>{
+      //   toast.hide()
+      //   console.error(err);
+      // });
 
       // instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{
       //   toast.hide()
