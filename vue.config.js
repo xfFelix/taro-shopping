@@ -1,5 +1,5 @@
 const path = require('path')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 
 function resolve (dir) {
@@ -52,10 +52,10 @@ module.exports = {
     }
     config.externals = {
       BMap: 'BMap',
-      vue: 'Vue',
-      'vue-router': 'VueRouter',
-      vuex: 'Vuex',
-      axios: 'axios'
+      // vue: 'Vue',
+      // 'vue-router': 'VueRouter',
+      // vuex: 'Vuex',
+      // axios: 'axios'
     }
     // 删除console插件
     let plugins = [
