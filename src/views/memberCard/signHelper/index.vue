@@ -59,21 +59,57 @@ export default {
         formData.append('code',this.dataInfo.code);
         formData.append('positiveIDPhoto1',this.frontObj.file);
         formData.append('negativeIDPhoto1',this.backObj.file);
-      // const instance = axios.create()
-      axios.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData,{
-        headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
-        withCredentials: process.env.NODE_ENV === 'production',
-      }).then(res=>{
-        toast.hide()
-        if(res.data.code==0){
-            this.$router.push({name:'signHelps'})
-        }else{
-          this.$toast(res.data.msg);
-        }
+      // const instance = axios.create({
+      //   headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
+      //   withCredentials: process.env.NODE_ENV === 'production',
+      // })
+
+      // let xhr = new XMLHttpRequest();
+      // xhr.open("post", process.env.VUE_APP_CONTRACT_URL+'/contract/submit', true);
+      // // xhr.setRequestHeader("Content-Type","multipart/form-data;charset=utf-8");
+      // xhr.send(formData);
+      // xhr.onreadystatechange = ()=>{
+      //   if(xhr.readyState == 4 && xhr.status == 200) {
+      //     let data=JSON.parse(xhr.responseText);
+      //     if(data==0){
+      //       this.$router.push({name:'signHelps'})
+      //     }else{
+      //     this.$toast(data.msg);
+      //     }
+      //   }
+      //   toast.hide()
+      // }
+      axios.defaults.headers.post['Content-Type']='multipart/form-data;charse=UTF-8';
+      axios({
+          method: 'post',
+          data: formData,
+          transformRequest: [function(){
+              return formData;
+          }],
+          url: process.env.VUE_APP_CONTRACT_URL+'/contract/submit',
+      }).then(res => {
+           toast.hide()
+          if(res.data.code==0){
+              this.$router.push({name:'signHelps'})
+          }else{
+              this.$toast(res.data.msg);
+          }
       }).catch(err=>{
         toast.hide()
         console.error(err);
-      })
+      });
+
+      // instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{
+      //   toast.hide()
+      //   if(res.data.code==0){
+      //       this.$router.push({name:'signHelps'})
+      //   }else{
+      //     this.$toast(res.data.msg);
+      //   }
+      // }).catch(err=>{
+      //   toast.hide()
+      //   console.error(err);
+      // })
     },
     //拿到子组件的值，开始调接口
     personInfoF(val){
