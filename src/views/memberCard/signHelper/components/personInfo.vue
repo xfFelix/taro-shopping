@@ -9,6 +9,10 @@
         <span>证件号码</span>
         <input type="text" placeholder="请填写证件号码" v-model.trim="data.idNum" />
       </li>
+      <!-- <li>
+        <span>银行卡号</span>
+        <input type="text" placeholder="请填写银行卡号" v-model.trim="data.bankCard" />
+      </li> -->
       <li>
         <span>手机号</span>
         <input type="tel" placeholder="与提现手机号一致" v-model.trim="data.mobile" pattern="[0-9]*" />
@@ -40,7 +44,8 @@ export default {
       mobile: "",
       code: "",
       idNum: "",
-      name: ""
+      name: "",
+      bankCard:""
     }
   }),
   watch: {
