@@ -51,7 +51,7 @@ export default {
     uploadFile(){
       const toast = this.$createToast({message: 'loading', mask:true,time:0})
       toast.show()
-      let formData = new FormData(this.$refs.advForm);
+      let formData = new FormData();
         console.log(this.$refs.advForm)
         formData.append('name',this.dataInfo.name);
         formData.append('idCard',this.dataInfo.idNum);
@@ -59,11 +59,11 @@ export default {
         formData.append('code',this.dataInfo.code);
         formData.append('positiveIDPhoto1',this.frontObj.file);
         formData.append('negativeIDPhoto1',this.backObj.file);
-      const instance = axios.create({
+      // const instance = axios.create()
+      axios.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData,{
         headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
         withCredentials: process.env.NODE_ENV === 'production',
-      })
-      instance.post(process.env.VUE_APP_CONTRACT_URL+'/contract/submit',formData).then(res=>{
+      }).then(res=>{
         toast.hide()
         if(res.data.code==0){
             this.$router.push({name:'signHelps'})

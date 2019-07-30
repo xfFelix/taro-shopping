@@ -39,6 +39,11 @@ module.exports = {
       .set('api', resolve('src/api'))
       .set('util', resolve('src/util'))
       .set('store', resolve('src/store'))
+    config
+      // https://webpack.js.org/configuration/devtool/#development
+      .when(process.env.NODE_ENV === 'development',
+        config => config.devtool('cheap-source-map')
+      )
   },
   configureWebpack: (config) => {
     // 删除大文件提示
@@ -54,22 +59,22 @@ module.exports = {
     }
     // 删除console插件
     let plugins = [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-            drop_console: true,
-            drop_debugger: true,
-            pure_funcs: ['console.log']
-          },
-          output: {
-            // 去掉注释内容
-            comments: false
-          }
-        },
-        sourceMap: false,
-        parallel: true
-      }),
+      // new UglifyJsPlugin({
+      //   uglifyOptions: {
+      //     compress: {
+      //       warnings: false,
+      //       drop_console: true,
+      //       drop_debugger: true,
+      //       pure_funcs: ['console.log']
+      //     },
+      //     output: {
+      //       // 去掉注释内容
+      //       comments: false
+      //     }
+      //   },
+      //   sourceMap: false,
+      //   parallel: true
+      // }),
       new CompressionPlugin({
         test: /\.(js|css|html|svg)$/,
         threshold: 20480,
