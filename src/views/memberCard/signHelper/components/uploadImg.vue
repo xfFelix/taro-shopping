@@ -8,14 +8,14 @@
           <cube-upload
             ref="frontUpload"
             v-model="frontFiles"
-            @files-added="frontHandler"
             @file-submitted="frontGetFile"
+            @files-added="frontHandler"
           >
             <div class="clear-fix">
               <cube-upload-file v-for="(file, i) in frontFiles" :file="file" :key="i"></cube-upload-file>
               <cube-upload-btn :multiple="false">
                 <div>
-                   <img src="~/common/images/frontImg.png" alt="正面照" />
+                  <img src="~/common/images/frontImg.png" alt="正面照" />
                 </div>
               </cube-upload-btn>
             </div>
@@ -23,7 +23,7 @@
         </div>
         <!-- 身份证反面照 -->
         <div class="identity-back-img">
-           <cube-upload
+          <cube-upload
             ref="backUpload"
             v-model="backFiles"
             @files-added="backHandler"
@@ -33,7 +33,7 @@
               <cube-upload-file v-for="(file, i) in backFiles" :file="file" :key="i"></cube-upload-file>
               <cube-upload-btn :multiple="false">
                 <div>
-                   <img src="~/common/images/backImg.png" alt="反面照" />
+                  <img src="~/common/images/backImg.png" alt="反面照" />
                 </div>
               </cube-upload-btn>
             </div>
@@ -47,22 +47,88 @@
 export default {
   data: () => ({
     frontFiles: [],
-    backFiles:[]
+    backFiles: [],
+
   }),
   methods: {
-    frontGetFile() {
-      this.$emit("front-file", this.frontFiles[0]);
-    },
-    frontHandler() {
+    frontHandler(files) {
+      this.sizeJudge(files);
       const file = this.frontFiles[0];
       file && this.$refs.frontUpload.removeFile(file);
     },
-    backGetFile() {
-      this.$emit("back-file", this.backFiles[0]);
-    },
-    backHandler() {
+    backHandler(files) {
+      this.sizeJudge(files);
       const file = this.backFiles[0];
       file && this.$refs.backUpload.removeFile(file);
+    },
+    frontGetFile() {
+      const file = this.frontFiles[0].file;
+      this.uploadImg(file,'front')
+    },
+    backGetFile() {
+      const file = this.backFiles[0].file;
+      this.uploadImg(file,'back');
+    },
+    // 图片不能超过10M
+    sizeJudge(files){
+       const maxSize = 10 * 1024* 1024;
+        if(files[0].size>maxSize){
+          files[0].ignore = true;
+          this.$createToast({
+            type: "warn",
+            time: 1000,
+            txt: "图片不能超过10M"
+          }).show();
+        }
+    },
+    // 上传图片
+    uploadImg(file,imgDir) {
+      let that = this;
+      let hasIgnore = false;
+      const limitSize = 1 *1024 ;
+      // 如果选择的图片大小大于1M则进行图片压缩处理（Base64）
+      if (file.size > limitSize) {
+        this.compressPic(file,imgDir);
+      } else {
+        let reads = new FileReader();
+        reads.readAsDataURL(file);
+        reads.onload = function(e) {
+          let bdata = e.target.result;
+          // let dataBese = bdata.split(',')[1];
+          if(imgDir=='front'){
+            that.$emit("front-file", bdata);
+          }else{
+            that.$emit("back-file", bdata);
+          }
+        };
+      }
+    },
+    compressPic(file,imgDir) {
+      let reads = new FileReader();
+      reads.readAsDataURL(file);
+      let that = this;
+      reads.onload = function(e) {
+        var bdata = e.target.result;
+        // 这里quality的范围是（0-1）
+        var quality = 0.5;
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var img = new Image();
+        img.src = bdata;
+        img.onload = function() {
+          var width = img.width;
+          canvas.width = width;
+          canvas.height = width * (img.height / img.width);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          let data = canvas.toDataURL("image/jpeg", quality);
+          // let dataBese = data.split(',')[1];
+          if(imgDir=='front'){
+            that.$emit("front-file", data);
+          }else{
+            that.$emit("back-file", data);
+          }
+        };
+      };
     },
 
   }
@@ -100,10 +166,10 @@ export default {
     .cube-upload-btn {
       margin: 0;
       height: 100%;
-      .bgImg{
+      .bgImg {
         width: 100%;
         height: 100%;
-        background:url("../../../../common/images/frontImg.png") no-repeat;
+        background: url("../../../../common/images/frontImg.png") no-repeat;
       }
     }
     .cube-upload-file {
@@ -117,13 +183,13 @@ export default {
         height: 100%;
         width: 100%;
       }
-      +.cube-upload-btn{
+      + .cube-upload-btn {
         opacity: 0;
       }
-      .cubeic-wrong{
+      .cubeic-wrong {
         display: none;
       }
-      .cube-upload-file_stat{
+      .cube-upload-file_stat {
         display: none;
       }
     }

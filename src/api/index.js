@@ -289,4 +289,14 @@ export const checkId = data => fetch({
   data
 })
 
+/**
+ * 签约助手---校验姓名和身份证号码
+ * @param {*} data
+ */
+export const signInfo = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/contract/save`,
+  method: 'POST',
+  data
+})
+
 
