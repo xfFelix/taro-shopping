@@ -19,7 +19,7 @@
       </li>
       <li>
         <span>手机验证码</span>
-        <input type="text" v-model.trim="data.code" autocomplete="off"/>
+        <input type="text" v-model.trim="data.code"/>
         <p @click.stop="sendCode" :display="codeFlag">{{codeText}}</p>
       </li>
     </ul>
@@ -125,7 +125,8 @@ export default {
     }
     input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active{
       -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-      background-color: white;
+      -webkit-transition-delay: 9999s;
+      -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
     }
     p {
       width: 88px;
