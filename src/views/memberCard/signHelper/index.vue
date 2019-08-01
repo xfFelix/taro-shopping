@@ -45,7 +45,6 @@ export default {
     //校验
     async checkedID(){
       let data = await checkId({name:this.dataInfo.name, idCard: this.dataInfo.idNum,bankCardNum:this.dataInfo.bankCard});
-      console.log(data)
       if (data.code!=0) return this.$toast(data.msg);
       this.uploadFile()
     },

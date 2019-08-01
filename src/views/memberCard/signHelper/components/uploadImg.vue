@@ -85,8 +85,8 @@ export default {
     uploadImg(file,imgDir) {
       let that = this;
       let hasIgnore = false;
-      const limitSize = 1 *1024 ;
-      // 如果选择的图片大小大于1M则进行图片压缩处理（Base64）
+      const limitSize = 20 *1024 ;
+      // 如果选择的图片大小大于20K则进行图片压缩处理（Base64）
       if (file.size > limitSize) {
         this.compressPic(file,imgDir);
       } else {
@@ -110,18 +110,20 @@ export default {
       reads.onload = function(e) {
         var bdata = e.target.result;
         // 这里quality的范围是（0-1）
-        var quality = 0.5;
+        var quality = 0.92;
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
         var img = new Image();
         img.src = bdata;
         img.onload = function() {
-          var width = img.width;
+          var width = 400;
+          // var width = img.width;
           canvas.width = width;
           canvas.height = width * (img.height / img.width);
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           let data = canvas.toDataURL("image/jpeg", quality);
           // let dataBese = data.split(',')[1];
+           console.log(data)
           if(imgDir=='front'){
             that.$emit("front-file", data);
           }else{
