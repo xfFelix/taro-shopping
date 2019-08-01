@@ -9,6 +9,7 @@
       </div>
     </form>
     <div class="next-step" @click="commitInfo">确认提交</div>
+    <div class="next-step-height"></div>
   </div>
 </template>
 <script>
@@ -101,7 +102,10 @@ export default {
     color: #fff;
     line-height: 44px;
     text-align: center;
-    margin: 0 auto 54px auto;
+    margin: 0 auto;
+  }
+  .next-step-height{
+    height:50px;
   }
   .agreement {
     display: flex;

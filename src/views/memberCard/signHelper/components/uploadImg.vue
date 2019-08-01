@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="identity-photo-wrap">
-      <p>请上传您的身份证照片</p>
+      <p class="identity-title">请上传您的身份证照片</p>
       <div class="identity-front-back">
         <!-- 身份证正面照 -->
         <div class="identity-front-img">
@@ -141,8 +141,9 @@ export default {
 .identity-photo-wrap {
   background: #fff;
   padding: 25px 15px 30px 15px;
-  p {
+  .identity-title {
     color: #4e4e4e;
+    font-size: 14px;
   }
   .identity-front-back {
     display: flex;
