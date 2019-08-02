@@ -41,7 +41,7 @@ export default {
     list: [
       {value: 100, sell: 101},
       {value: 200, sell: 201},
-      {value: 500, sell: 501},
+      // {value: 500, sell: 501},
       {value: 1000, sell: 1001},
     ],
     checkValue: 100
