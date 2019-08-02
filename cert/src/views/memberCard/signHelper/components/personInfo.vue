@@ -3,11 +3,11 @@
     <ul class="identity-info-wrap">
       <li>
         <span>真实姓名</span>
-        <input type="text" placeholder="请填写真实姓名（与提现姓名一致）" v-model.trim="data.name" />
+        <input type="text" placeholder="请填写真实姓名" v-model.trim="data.name" />
       </li>
       <li>
         <span>证件号码</span>
-        <input type="text" placeholder="请填写证件号码" v-model.trim="data.idNum" />
+        <input type="text" placeholder="请填写身份证号码" v-model.trim="data.idNum" />
       </li>
       <li>
         <span>银行卡号</span>
@@ -55,11 +55,6 @@ export default {
           this.$emit('update:getPersonInfoC', false);
         }
     }
-  },
-  computed: {
-    ...mapGetters({
-      token: "getToken"
-    })
   },
   methods: {
     async sendCode() {

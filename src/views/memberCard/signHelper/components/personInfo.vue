@@ -3,19 +3,19 @@
     <ul class="identity-info-wrap">
       <li>
         <span>真实姓名</span>
-        <input type="text" placeholder="请填写真实姓名（与提现姓名一致）" v-model.trim="data.name" />
+        <input type="text" placeholder="请填写真实姓名" v-model.trim="data.name" />
       </li>
       <li>
         <span>证件号码</span>
-        <input type="text" placeholder="请填写证件号码" v-model.trim="data.idNum" />
+        <input type="text" placeholder="请填写身份证号码" v-model.trim="data.idNum" />
       </li>
       <li>
         <span>银行卡号</span>
-        <input type="text" placeholder="请填写银行卡号" v-model.trim="data.bankCard" />
+        <input type="text" placeholder="请填写储蓄卡卡号" v-model.trim="data.bankCard" />
       </li>
       <li>
         <span>手机号</span>
-        <input type="tel" placeholder="与提现手机号一致" v-model.trim="data.mobile" pattern="[0-9]*" />
+        <input type="tel" placeholder="请填写真实的手机号码" v-model.trim="data.mobile" pattern="[0-9]*" />
       </li>
       <li>
         <span>手机验证码</span>
