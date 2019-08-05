@@ -18,11 +18,11 @@
         <li>
           用户编号<span class="value">{{config.number}}</span>
         </li>
-        <li>
+        <!-- <li>
           欠费
-          <div class="process" :style="{'--p': processTime}" v-if="intervalout > 0"></div>
+          <div class="process" v-if="!arrears"><span class="square"></span></div>
           <span class="value" v-else>{{arrears}}</span>
-        </li>
+        </li> -->
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
@@ -87,7 +87,7 @@ export default {
     arrears: ''
   }),
   created() {
-    this.getArrears()
+    // this.getArrears()
   },
   computed: {
     ...mapGetters({
@@ -97,10 +97,6 @@ export default {
     }),
     salePrice() {
       return this.amount.sale + this.amount.service
-    },
-    processTime() {
-      let max = 30
-      return ((max - this.intervalout) * (10 / 3)) + '%'
     }
   },
   methods: {
@@ -108,17 +104,21 @@ export default {
       checkPassword: 'checkPassword'
     }),
     getArrears() {
-      this.interval = setInterval(async () => {
-        const { error_code, data, message } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
+      this.interval = window.setInterval(async () => {
+        const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
+        if (+status === 404) {
+            this.arrears = '获取失败'
+            window.clearInterval(this.interval)
+        }
         if (+error_code === 3) {
           this.intervalout--
           if (this.intervalout <= 0) {
             this.arrears = '获取失败'
-            clearInterval(this.interval)
+            window.clearInterval(this.interval)
           }
         } else {
           this.arrears = data.totalamount
-          clearInterval(this.interval)
+          window.clearInterval(this.interval)
         }
       }, 1000)
     },
@@ -234,16 +234,31 @@ export default {
         }
         .process{
           flex: 1;
-          margin: 0 0 0 100px;
-          box-sizing: border-box;
-          --c: #0ff;
-          --p: 0%;
-          height: 10px;
-          background-color: silver;
-          border-radius: 30px;
-          background-image: radial-gradient(closest-side circle at var(--p), var(--c), var(--c) 100%, transparent),linear-gradient(var(--c), var(--c));
-          background-size: 100%, var(--p);
-          background-repeat: no-repeat;
+          height: 12px;
+          border: 0.5px solid #ccc;
+          margin-left: 100px;
+          border-radius: 15px; /* no */
+          overflow: hidden;  /*注意这里*/
+          box-shadow: 0 0 5px 0px #ddd inset;
+          .square{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #2989d8 30%,#7db9e8 31%,#7db9e8 58%,#2989d8 59%);
+            background-size: 60px 30px;
+            border-radius: 15px; /* no */
+            text-align: center;
+            color:#fff;
+            animation:load 30s ease-in;
+          }
+          @keyframes load{
+            0%{
+                width: 0%;
+            }
+            100%{
+                width: 100%;
+            }
+          }
         }
         .value{
           font-weight: 400;

@@ -13,6 +13,7 @@ module.exports = {
   // 删除打包后.map文件
   productionSourceMap: false,
   css: {
+    extract: false,
     // css预设器配置项
     loaderOptions: {
       stylus: {
