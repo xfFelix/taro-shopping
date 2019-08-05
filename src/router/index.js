@@ -180,30 +180,6 @@ const router = new Router({
       }
     },
     {
-      path: '/memberCard/signHelper',
-      name: 'signHelper',
-      component: () => import('views/memberCard/signHelper'),
-      meta: {
-        title: '签约助手',
-      }
-    },
-    {
-      path: '/memberCard/signHelps',
-      name: 'signHelps',
-      component: () => import('views/memberCard/signHelps'),
-      meta: {
-        title: '签约助手',
-      }
-    },
-    {
-      path: '/memberCard/signHelpFile',
-      name: 'signHelpFile',
-      component: () => import('views/memberCard/signHelpFile'),
-      meta: {
-        title: '在线签约用户协议',
-      }
-    },
-    {
       path: '/changeCoin',
       name: 'changeCoin',
       component: () => import(/* webpackChunkName: "group-coin" */ 'views/changeCoin'),
