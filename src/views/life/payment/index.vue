@@ -18,11 +18,11 @@
         <li>
           用户编号<span class="value">{{config.number}}</span>
         </li>
-        <!-- <li>
+        <li v-if="showProgress">
           欠费
           <div class="process" v-if="!arrears"><span class="square"></span></div>
           <span class="value" v-else>{{arrears}}</span>
-        </li> -->
+        </li>
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
@@ -81,13 +81,14 @@ export default {
       service: 0,
       total: 0
     },
+    showProgress: true,
     showFail: false,
     failMessage: '',
     intervalout: 30,
     arrears: ''
   }),
   created() {
-    // this.getArrears()
+    this.getArrears()
   },
   computed: {
     ...mapGetters({
@@ -107,18 +108,23 @@ export default {
       this.interval = window.setInterval(async () => {
         const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
         if (+status === 404) {
-            this.arrears = '获取失败'
             window.clearInterval(this.interval)
+            this.showProgress = false
+            this.arrears = '获取失败'
         }
         if (+error_code === 3) {
           this.intervalout--
           if (this.intervalout <= 0) {
-            this.arrears = '获取失败'
             window.clearInterval(this.interval)
+            this.showProgress = false
+            this.arrears = '获取失败'
           }
         } else {
-          this.arrears = data.totalamount
+          if (+error_code) {
+            this.showProgress = false
+          }
           window.clearInterval(this.interval)
+          this.arrears = data.totalamount
         }
       }, 1000)
     },
