@@ -18,11 +18,11 @@
         <li>
           用户编号<span class="value">{{config.number}}</span>
         </li>
-        <li>
+        <!-- <li>
           欠费
           <div class="process" v-if="!arrears"><span class="square"></span></div>
           <span class="value" v-else>{{arrears}}</span>
-        </li>
+        </li> -->
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
@@ -87,7 +87,7 @@ export default {
     arrears: ''
   }),
   created() {
-    this.getArrears()
+    // this.getArrears()
   },
   computed: {
     ...mapGetters({
@@ -104,17 +104,21 @@ export default {
       checkPassword: 'checkPassword'
     }),
     getArrears() {
-      this.interval = setInterval(async () => {
-        const { error_code, data, message } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
+      this.interval = window.setInterval(async () => {
+        const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
+        if (+status === 404) {
+            this.arrears = '获取失败'
+            window.clearInterval(this.interval)
+        }
         if (+error_code === 3) {
           this.intervalout--
           if (this.intervalout <= 0) {
             this.arrears = '获取失败'
-            clearInterval(this.interval)
+            window.clearInterval(this.interval)
           }
         } else {
           this.arrears = data.totalamount
-          clearInterval(this.interval)
+          window.clearInterval(this.interval)
         }
       }, 1000)
     },
