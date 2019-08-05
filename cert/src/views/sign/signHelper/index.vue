@@ -5,7 +5,7 @@
       <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
       <div class="agreement">
         <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-        <span class="file" @click="$router.push({name:'signHelpFile'})">《在线签约用户协议》</span>
+        <span class="file" @click="$router.push({name:'signHelpFile'})">《数字经济合作伙伴协议》</span>
       </div>
     </form>
     <div class="next-step" @click="commitInfo">确认提交</div>
