@@ -251,6 +251,15 @@ export const getGroupByLife = data => fetch({
   data
 })
 /**
+ * 首页 用户列表
+ * @param {*} data
+ */
+export const getArrearsByLife = data => fetch({
+  url: `${process.env.VUE_APP_INFO_URl}/live/bill`,
+  method: 'POST',
+  data
+})
+/**
  * 根据用户编号获取用户信息 姓名。。。
  * @param {*} data
  */

@@ -18,12 +18,11 @@
         <li>
           用户编号<span class="value">{{config.number}}</span>
         </li>
-        <!-- <li>
-          户名<span class="value">*成刚</span>
-        </li>
         <li>
-          户号余额<span class="value">-1.23</span>
-        </li> -->
+          欠费
+          <div class="process" :style="{'--p': processTime}" v-if="intervalout > 0"></div>
+          <span class="value" v-else>{{arrears}}</span>
+        </li>
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
@@ -62,7 +61,7 @@
 <script>
 import Header from 'components/Header'
 import { mapGetters, mapActions } from 'vuex';
-import { getPriceByLife, paymentByLife } from 'api'
+import { getPriceByLife, paymentByLife, getArrearsByLife } from 'api'
 import { setPayType } from '@/mixins'
 import mixin from '../mixin'
 import { IOSFocus } from '@/mixins'
@@ -83,8 +82,13 @@ export default {
       total: 0
     },
     showFail: false,
-    failMessage: ''
+    failMessage: '',
+    intervalout: 30,
+    arrears: ''
   }),
+  created() {
+    this.getArrears()
+  },
   computed: {
     ...mapGetters({
       config: 'life/getConfig',
@@ -93,12 +97,31 @@ export default {
     }),
     salePrice() {
       return this.amount.sale + this.amount.service
+    },
+    processTime() {
+      let max = 30
+      return ((max - this.intervalout) * (10 / 3)) + '%'
     }
   },
   methods: {
     ...mapActions({
       checkPassword: 'checkPassword'
     }),
+    getArrears() {
+      this.interval = setInterval(async () => {
+        const { error_code, data, message } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
+        if (+error_code === 3) {
+          this.intervalout--
+          if (this.intervalout <= 0) {
+            this.arrears = '获取失败'
+            clearInterval(this.interval)
+          }
+        } else {
+          this.arrears = data.totalamount
+          clearInterval(this.interval)
+        }
+      }, 1000)
+    },
     isNull() {
       if (!this.price) {
         this.amount = {
@@ -208,6 +231,19 @@ export default {
         font-weight: bold;
         &:first-of-type{
           margin-top: 0;
+        }
+        .process{
+          flex: 1;
+          margin: 0 0 0 100px;
+          box-sizing: border-box;
+          --c: #0ff;
+          --p: 0%;
+          height: 10px;
+          background-color: silver;
+          border-radius: 30px;
+          background-image: radial-gradient(closest-side circle at var(--p), var(--c), var(--c) 100%, transparent),linear-gradient(var(--c), var(--c));
+          background-size: 100%, var(--p);
+          background-repeat: no-repeat;
         }
         .value{
           font-weight: 400;

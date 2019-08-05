@@ -35,7 +35,6 @@ instance.interceptors.response.use((res) => {
         })
         break
       default:
-        toast(data.message)
         break
     }
   }
