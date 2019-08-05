@@ -8,37 +8,29 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/memberCard/signHelper'
+      redirect: '/sign'
     },
-    // {
-    //   path: '/home',
-    //   name: 'home',
-    //   meta: {
-    //     title: '首页',
-    //     keepAlive:true
-    //   },
-    //   component: () => import(/* webpackChunkName: "group-ticket" */ 'views/home')
-    // },
     {
-      path: '/memberCard/signHelper',
+      path: '/sign',
       name: 'signHelper',
-      component: () => import('views/memberCard/signHelper'),
+      component: () => import('views/sign/signHelper'),
       meta: {
         title: '签约助手',
+        keepAlive:true
       }
     },
     {
-      path: '/memberCard/signHelps',
+      path: '/sign/signHelps',
       name: 'signHelps',
-      component: () => import('views/memberCard/signHelps'),
+      component: () => import('views/sign/signHelps'),
       meta: {
         title: '签约助手',
       }
     },
     {
-      path: '/memberCard/signHelpFile',
+      path: '/sign/signHelpFile',
       name: 'signHelpFile',
-      component: () => import('views/memberCard/signHelpFile'),
+      component: () => import('views/sign/signHelpFile'),
       meta: {
         title: '在线签约用户协议',
       }
