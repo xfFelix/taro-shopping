@@ -124,7 +124,9 @@ export default {
             this.showProgress = false
           }
           window.clearInterval(this.interval)
-          this.arrears = data.totalamount
+          if (data) {
+            this.arrears = data.totalamount
+          }
         }
       }, 1000)
     },
