@@ -20,12 +20,12 @@
         </li>
         <li v-if="showProgress">
           欠费
-          <div class="process" v-if="intervalout > 0"><span class="square"></span></div>
+          <div class="process" v-if="!showArrears"><span class="square"></span></div>
           <span class="value" v-else>{{arrears}}</span>
         </li>
-        <li v-if="showProgress && intervalout <= 0">
+        <li v-if="showArrears">
           余额
-          <span class="value">{{balance}}</span>
+          <span class="value">{{balance || 0}}</span>
         </li>
       </ul>
       <div class="input-wrapper">
@@ -90,7 +90,8 @@ export default {
     failMessage: '',
     intervalout: 30,
     arrears: '',
-    balance: ''
+    showArrears: false,
+    balance: '',
   }),
   created() {
     this.getArrears()
@@ -115,14 +116,12 @@ export default {
         if (+status === 404) {
             window.clearInterval(this.interval)
             this.showProgress = false
-            this.arrears = '获取失败'
         }
         if (+error_code === 3) {
           this.intervalout--
           if (this.intervalout <= 0) {
             window.clearInterval(this.interval)
             this.showProgress = false
-            this.arrears = '获取失败'
           }
         } else {
           if (+error_code) {
@@ -132,6 +131,7 @@ export default {
           if (data) {
             this.arrears = data.totalamount
             this.balance = data.wecbalance
+            this.showArrears = true
           }
         }
       }, 1000)
