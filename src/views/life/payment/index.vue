@@ -167,7 +167,7 @@ export default {
         return this.$toast('金额限制5~9999')
       }
       if (this.arrears && +this.arrears > +this.price) {
-        return this.$toast(`充值金额要≥欠费金额"${this.arrears}"`)
+        return this.$toast(`<div style="white-space: nowrap;font-size: 11px;">充值金额要≥欠费金额:${this.arrears}</div>`)
       }
       let res = await this.checkPassword()
       if (!res) return
