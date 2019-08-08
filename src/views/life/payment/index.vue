@@ -21,11 +21,11 @@
         <li v-if="showProgress">
           欠费
           <div class="process" v-if="!showArrears"><span class="square"></span></div>
-          <span class="value" v-else>{{arrears}}</span>
+          <span class="value" v-else>{{arrears || '0.00'}}</span>
         </li>
         <li v-if="showArrears">
           余额
-          <span class="value">{{balance || 0}}</span>
+          <span class="value">{{balance || '0.00'}}</span>
         </li>
       </ul>
       <div class="input-wrapper">
