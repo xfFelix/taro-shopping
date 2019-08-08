@@ -23,6 +23,10 @@
           <div class="process" v-if="intervalout > 0"><span class="square"></span></div>
           <span class="value" v-else>{{arrears}}</span>
         </li>
+        <li v-if="showProgress && intervalout <= 0">
+          余额
+          <span class="value">{{balance}}</span>
+        </li>
       </ul>
       <div class="input-wrapper">
         <span class="point">充值金额:</span>
@@ -85,7 +89,8 @@ export default {
     showFail: false,
     failMessage: '',
     intervalout: 30,
-    arrears: ''
+    arrears: '',
+    balance: ''
   }),
   created() {
     this.getArrears()
@@ -126,6 +131,7 @@ export default {
           window.clearInterval(this.interval)
           if (data) {
             this.arrears = data.totalamount
+            this.balance = data.wecbalance
           }
         }
       }, 1000)
