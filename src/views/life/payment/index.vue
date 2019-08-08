@@ -20,7 +20,7 @@
         </li>
         <li v-if="showProgress">
           欠费
-          <div class="process" v-if="!arrears"><span class="square"></span></div>
+          <div class="process" v-if="intervalout > 0"><span class="square"></span></div>
           <span class="value" v-else>{{arrears}}</span>
         </li>
       </ul>
