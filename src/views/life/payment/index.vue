@@ -192,6 +192,8 @@ export default {
       if (!error_code) {
         this.showCode = false
         this.$router.push({path: 'changeS', query: { price: this.amount.total }})
+      } else {
+        this.$toast(message)
       }
     }
   }
