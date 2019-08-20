@@ -20,8 +20,12 @@
         </li>
         <li v-if="showProgress">
           欠费
-          <div class="process" v-if="intervalout > 0"><span class="square"></span></div>
-          <span class="value" v-else>{{arrears}}</span>
+          <div class="process" v-if="!showArrears"><span class="square"></span></div>
+          <span class="value" v-else>{{arrears || '0.00'}}</span>
+        </li>
+        <li v-if="showArrears">
+          余额
+          <span class="value">{{balance || '0.00'}}</span>
         </li>
       </ul>
       <div class="input-wrapper">
@@ -85,7 +89,9 @@ export default {
     showFail: false,
     failMessage: '',
     intervalout: 30,
-    arrears: ''
+    arrears: '',
+    showArrears: false,
+    balance: '',
   }),
   created() {
     this.getArrears()
@@ -110,14 +116,12 @@ export default {
         if (+status === 404) {
             window.clearInterval(this.interval)
             this.showProgress = false
-            this.arrears = '获取失败'
         }
         if (+error_code === 3) {
           this.intervalout--
           if (this.intervalout <= 0) {
             window.clearInterval(this.interval)
             this.showProgress = false
-            this.arrears = '获取失败'
           }
         } else {
           if (+error_code) {
@@ -126,6 +130,8 @@ export default {
           window.clearInterval(this.interval)
           if (data) {
             this.arrears = data.totalamount
+            this.balance = data.wecbalance
+            this.showArrears = true
           }
         }
       }, 1000)
@@ -160,6 +166,9 @@ export default {
       if (+this.price < 5 || +this.price > 9999) {
         return this.$toast('金额限制5~9999')
       }
+      if (this.arrears && +this.arrears > +this.price) {
+        return this.$toast(`<div style="white-space: nowrap;font-size: 11px;">充值金额要≥欠费金额:${this.arrears}</div>`)
+      }
       let res = await this.checkPassword()
       if (!res) return
       this.showCode = true
@@ -183,6 +192,8 @@ export default {
       if (!error_code) {
         this.showCode = false
         this.$router.push({path: 'changeS', query: { price: this.amount.total }})
+      } else {
+        this.$toast(message)
       }
     }
   }
