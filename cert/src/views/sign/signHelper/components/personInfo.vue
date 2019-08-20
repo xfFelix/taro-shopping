@@ -20,7 +20,7 @@
       <li>
         <span>手机验证码</span>
         <input type="text" v-model.trim="data.code"/>
-        <p @click.stop="sendCode" :display="codeFlag">{{codeText}}</p>
+        <button @click.stop="sendCode" :disabled="codeFlag" class="bnt">{{codeText}}</button>
       </li>
     </ul>
   </div>
@@ -123,8 +123,8 @@ export default {
       -webkit-transition-delay: 9999s;
       -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
     }
-    p {
-      width: 88px;
+    .bnt{
+      // width: 88px;
       text-align: center;
       height: 28px;
       display: flex;
@@ -132,6 +132,7 @@ export default {
       justify-content: center;
       border: 1px solid #30ce84;
       color: #30ce84;
+      background: #fff;
     }
   }
 }
