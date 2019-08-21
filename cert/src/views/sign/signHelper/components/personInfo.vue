@@ -18,15 +18,20 @@
         <input type="tel" placeholder="请填写真实的手机号码" v-model.trim="data.mobile" pattern="[0-9]*" />
       </li>
       <li>
+        <span>图形验证码</span>
+        <input type="text" placeholder="验证码" v-model.trim="captcha">
+        <img :src="validateImgSrc" class="img_captcha" @click="validateImgClick()">
+      </li>
+      <li>
         <span>手机验证码</span>
         <input type="text" v-model.trim="data.code"/>
-        <button @click.stop="sendCode" :disabled="codeFlag" class="bnt">{{codeText}}</button>
+        <button @click.prevent="sendCode" :disabled="codeFlag" class="bnt" type="button">{{codeText}}</button>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import { IsMobile } from "util/common";
+import { IsMobile,isEmpty } from "util/common";
 import { mapGetters } from "vuex";
 import { IOSFocus } from "@/mixins";
 export default {
@@ -40,6 +45,8 @@ export default {
   data: () => ({
     codeText: "发送验证码",
     codeFlag: false,
+    captcha:'',
+    validateImgSrc: '',
     data: {
       mobile: "",
       code: "",
@@ -59,12 +66,17 @@ export default {
   methods: {
     async sendCode() {
       if (!IsMobile(this.data.mobile)) return this.$toast("请输入正确的手机号");
+      if (isEmpty(this.captcha)) return this.$toast("请输入图形验证码");
       const { contractSms } = await import(/* webpackPrefetch: true */ "api");
-      let data = await contractSms({ mobile: this.data.mobile });
-      if (data.code!=0) return this.$toast(data.msg);
-      this.codeText = "300s 重新获取";
+      let data = await contractSms({ mobile: this.data.mobile,code:this.captcha});
+      if (data.code!=0){
+          this.validateImgClick();
+          this.captcha = '';
+          return this.$toast(data.msg);
+      }
+      this.codeText = "120s 重新获取";
       let _this = this;
-      let timeInit = 300;
+      let timeInit = 120;
       let countDown = window.setInterval(function() {
         let i = 1;
         timeInit = timeInit - i;
@@ -77,8 +89,14 @@ export default {
           window.clearInterval(countDown);
         }
       }, 1000);
+    },
+    validateImgClick(){
+      this.validateImgSrc = process.env.VUE_APP_CONTRACT_URL + '/contract/captcha?' + (new Date());
     }
-  }
+  },
+  mounted() {
+    this.validateImgSrc = process.env.VUE_APP_CONTRACT_URL + '/contract/captcha?' + (new Date());
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -124,7 +142,6 @@ export default {
       -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
     }
     .bnt{
-      // width: 88px;
       text-align: center;
       height: 28px;
       display: flex;
@@ -133,6 +150,10 @@ export default {
       border: 1px solid #30ce84;
       color: #30ce84;
       background: #fff;
+    }
+    img{
+      width: 90px;
+      height: 40px;
     }
   }
 }
