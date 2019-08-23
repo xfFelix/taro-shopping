@@ -37,9 +37,8 @@
 
     <div class="agreement">
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span @click="show.file=true" class="file">《椰云网络生活缴费服务协议》</span>
+      <span @click="$router.push('protocol')" class="file">《椰云网络生活缴费服务协议》</span>
     </div>
-
     <div class="next-step" @click="validate">下一步</div>
 
   </div>

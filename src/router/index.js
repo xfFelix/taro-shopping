@@ -283,11 +283,11 @@ const router = new Router({
           }
         },
         {
-          path: 'fail',
-          name: 'fail',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/fail'),
+          path: 'protocol',
+          name: 'Protocol',
+          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/protocol'),
           meta: {
-            title: '缴费失败',
+            title: '缴费协议',
             requireAuth: true
           }
         },
