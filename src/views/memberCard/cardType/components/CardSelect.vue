@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="typeHeader">
+    <div class="typeHeader" :style="infoContent.costWay==1?'height:83px':'height:44px'">
       <div class="headerTitle">
         <i class="cubeic-back" @click="$router.back()"></i>
         {{$route.query.title}}
       </div>
-      <div class="cardNumber">
+      <div class="cardNumber" v-if="infoContent.costWay==1">
         <span class="logoPng"></span>
         <input type="text" placeholder="请输入账号" v-model="infoContent.cardNumber" @keyup="trim()" />
       </div>
     </div>
 
     <div class="typeContent">
-      <div class="surplus">
+      <div class="surplus" :style="infoContent.costWay==1?'padding-top: 130px;':'padding-top: 65px;'">
         <span>椰子分余额：</span>
         <span>{{userinfo.score | toPrice}} </span>
       </div>
@@ -29,23 +29,38 @@
         <p class="faceValTitle">面值：</p>
         <ul>
           <li v-for="(itemVal,index) in valCard" :key="index" @click="timeCli(index,itemVal.productId)" :class="timeFlag==index?'timeSelect':''">
-            <div class="saleW">
-              <div>
-                <p v-if="itemVal.productType==='1'">周卡</p>
-                <p v-else-if="itemVal.productType==='2'">月卡</p>
-                <p v-else-if="itemVal.productType==='3'">季卡</p>
-                <p v-else-if="itemVal.productType==='4'">半年卡</p>
-                <p v-else>年卡</p>
+            <!-- 直充 -->
+            <div v-if="infoContent.costWay==1">
+              <div class="saleW">
+                <div>
+                  <p v-if="itemVal.productType==='1'">周卡</p>
+                  <p v-else-if="itemVal.productType==='2'">月卡</p>
+                  <p v-else-if="itemVal.productType==='3'">季卡</p>
+                  <p v-else-if="itemVal.productType==='4'">半年卡</p>
+                  <p v-else>年卡</p>
+                </div>
+                <p>
+                  <span>售价：</span>
+                  <span>{{itemVal.sellingPrice|toPrice}}</span>
+                </p>
               </div>
-              <p>
-                <span>售价：</span>
-                <span>{{itemVal.sellingPrice|toPrice}}</span>
-              </p>
+              <div class="realW">
+                <span>刊例价:</span>
+                <span>{{itemVal.marketPrice|toPrice}}</span>
+              </div>
             </div>
-            <div class="realW">
-              <span>刊例价:</span>
-              <span>{{itemVal.marketPrice|toPrice}}</span>
-            </div>
+            <!-- 卡充 -->
+            <div v-else>
+             <div class="saleW card-sale">
+                <div>
+                  <p>{{itemVal.marketPrice}}元面值</p>
+                </div>
+                <p>
+                  <span>售价：</span>
+                  <span>{{itemVal.sellingPrice|toPrice}}</span>
+                </p>
+              </div>
+           </div>
           </li>
         </ul>
       </div>
@@ -55,7 +70,7 @@
         <div v-html="warmTip" class="reminderFont"></div>
       </div>
     </div>
-    <div class="changeC" :class="infoContent.cardNumber?'changeCliNo':'changeCli'" @click="changeC">立即兑换</div>
+    <div class="changeC" :class="(infoContent.cardNumber || infoContent.costWay==2)?'changeCliNo':'changeCli'" @click="changeC">立即兑换</div>
   </div>
 </template>
 <script>
@@ -71,6 +86,7 @@ export default {
     infoContent: {
       productId: undefined,
       cardNumber: undefined,
+      costWay:undefined
     }
   }),
   computed: {
@@ -105,10 +121,11 @@ export default {
     async changeC() {
       let res = await this.checkPassword()
       if (!res) return
-      if (!this.infoContent.cardNumber) {
-        return false;
+      if (this.infoContent.cardNumber || this.infoContent.costWay==2) {
+        this.$emit('info-content', this.infoContent)
+      }else{
+         return false;
       }
-      this.$emit('info-content', this.infoContent)
     },
     //卡面值及类型
     async getVipList() {
@@ -121,6 +138,7 @@ export default {
     },
   },
   mounted() {
+    this.infoContent.costWay = this.$route.query.costWay;
     this.getVipList()
   }
 }
@@ -130,8 +148,9 @@ export default {
 .typeHeader {
   background: #373C48;
   color: #fff;
-  height: 83px;
-  position: relative;
+  position: fixed;
+  top:0;
+  width: 100%;
   .headerTitle {
     padding: 10px 0 0 0;
     position: relative;
@@ -175,12 +194,18 @@ export default {
     }
   }
 }
-
+    @media screen and (min-width: 600px){
+    .typeHeader{
+      max-width: 384px;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+  }
 .typeContent {
   padding: 0 15px;
   background: #fff;
   .surplus {
-    margin: 50px 0 20px 0;
+    margin-bottom: 20px;
     font-size: 12px;
     span:first-of-type {
       color: #4A4A4A;
@@ -228,6 +253,10 @@ export default {
             padding-bottom: 7px;
             font-size: 12px;
           }
+        }
+        .card-sale{
+           border-bottom: none;
+               padding: 4px 0;
         }
         .realW {
           font-size: 9px;
@@ -329,5 +358,6 @@ input:-ms-input-placeholder {
   color: #999999;
   font-size: 16px;
 }
+
 </style>
 

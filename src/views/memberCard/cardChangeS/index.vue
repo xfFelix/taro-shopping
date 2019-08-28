@@ -9,8 +9,10 @@
     </div>
     <ul>
       <li>产品名称：{{infoList.productName}}</li>
-      <li>充值账号：{{$route.query.num}}</li>
-      <li>类型：
+      <li v-if="infoList.productType==='6'">卡号：{{infoList.barcode}}</li>
+      <li v-if="infoList.productType==='6'">卡密：{{infoList.barpwd}}</li>
+      <li v-if="infoList.productType!=='6'">充值账号：{{$route.query.num}}</li>
+      <li v-if="infoList.productType!=='6'">类型：
         <span v-if="infoList.productType==='1'">周卡</span>
         <span v-else-if="infoList.productType==='2'">月卡</span>
         <span v-else-if="infoList.productType==='3'">季卡</span>
@@ -38,9 +40,10 @@ export default {
   }),
   methods: {
     async vipCostInfo() {
-      let data = await vipCostInfo({ token: this.getToken, productId: this.$route.query.productId });
-      if (data.code != 1 && data.code != 4 && data.code != 6) return this.$toast(data.message);
-      this.infoList = data.data;
+      // let data = await vipCostInfo({ token: this.getToken, productId: this.$route.query.productId });
+      // if (data.code != 1 && data.code != 4 && data.code != 6) return this.$toast(data.message);
+      // this.infoList = data.data;
+      this.infoList = JSON.parse(localStorage.getItem("vipInfoS"));
     },
   },
   computed: {

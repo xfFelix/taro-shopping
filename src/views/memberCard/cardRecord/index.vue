@@ -18,8 +18,10 @@
             </li>
             <li>订单编号:&nbsp;{{item.idUrl}}</li>
             <li>时间：{{item.orderTime}}</li>
-            <li>充值账号：{{item.cardNum}}</li>
-            <li>类型：
+            <li v-if="item.idUrl.length==30">卡号：{{item.orderNum}}</li>
+            <li v-if="item.idUrl.length==30">卡密：{{item.idBackUrl}}</li>
+            <li v-if="item.idUrl.length==32">充值账号：{{item.cardNum}}</li>
+            <li v-if="item.idUrl.length==32">类型：
               <span v-if="item.cardBank==1">周卡</span>
               <span v-else-if="item.cardBank==2">月卡</span>
               <span v-else-if="item.cardBank==3">季卡</span>
@@ -128,24 +130,25 @@ export default {
       border-radius: 5px;
       margin-top: 20px;
       li {
-        padding: 15px 15px 0;
+        padding:15px 15px 0 ;
         color: #4A4A4A;
         font-size: 12px;
         background: #F4F4F4;
         &.title {
-          height: 43px;
           line-height: 43px;
           padding-top: 0;
           display: flex;
           justify-content: space-between;
           background: #fff;
           font-size: 13px;
+          border-radius: 5px 5px 0 0;
         }
         &:last-of-type {
           padding-bottom: 15px;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          border-radius: 0 0 5px 5px;
         }
         .total{
           font-size: 15px;

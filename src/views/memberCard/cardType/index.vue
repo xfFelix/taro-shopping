@@ -35,7 +35,8 @@ export default {
       tax_total: undefined,
       total: undefined,
       cardNumber: undefined,
-      productType: undefined
+      productType: undefined,
+      costWay:undefined
     },
     failText: ''
   }),
@@ -81,8 +82,10 @@ export default {
       this.show = { mask: true, info: false, sms: true };
     },
     infoContent(item) {
+      console.log(item.productId)
       this.productId = item.productId;
       this.chargeInfo.cardNumber = item.cardNumber;
+      this.chargeInfo.costWay = item.costWay;
       this.vipCostInfo();
     },
     //兑换信息
@@ -134,7 +137,8 @@ export default {
         this.initShow();
         return this.$toast(res.message);
       }
-      this.$router.push({ name: 'cardChangeS', query: { num: this.chargeInfo.cardNumber, productId: this.productId } })
+      localStorage.setItem('vipInfoS',JSON.stringify(res.data))
+      this.$router.push({ name: 'cardChangeS'})
     },
   },
   components: {
