@@ -9,9 +9,10 @@
     </div>
     <ul>
       <li>产品名称：{{infoList.productName}}</li>
-      <li v-if="infoList.productType==='6'">卡号：{{infoList.barcode}}</li>
-      <li v-if="infoList.productType==='6'">卡密：{{infoList.barpwd}}</li>
-      <li v-if="infoList.productType!=='6'">充值账号：{{$route.query.num}}</li>
+      <li v-if="infoList.productType==='6' && infoList.barcode" >卡号：{{infoList.barcode}}</li>
+      <li v-if="infoList.productType==='6' && infoList.barpwd">卡密：{{infoList.barpwd}}</li>
+      <li v-if="infoList.productType==='6' && infoList.shorturl">兑换码：<a :href="infoList.shorturl" >{{infoList.shorturl}}</a></li>
+      <li v-if="infoList.productType!=='6'">充值账号：{{infoList.accountNo}}</li>
       <li v-if="infoList.productType!=='6'">类型：
         <span v-if="infoList.productType==='1'">周卡</span>
         <span v-else-if="infoList.productType==='2'">月卡</span>
@@ -114,10 +115,15 @@ export default {
     box-sizing: border-box;
     li {
       font-size: 15px;
+      word-break:break-all;
       /*no*/
       margin-top: 25px;
       &:first-of-type {
         margin-top: 0;
+      }
+      a{
+        color: blue;
+        text-decoration: underline;
       }
     }
   }

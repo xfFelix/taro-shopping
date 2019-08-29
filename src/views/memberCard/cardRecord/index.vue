@@ -18,8 +18,10 @@
             </li>
             <li>订单编号:&nbsp;{{item.idUrl}}</li>
             <li>时间：{{item.orderTime}}</li>
-            <li v-if="item.idUrl.length==30">卡号：{{item.orderNum}}</li>
-            <li v-if="item.idUrl.length==30">卡密：{{item.idBackUrl}}</li>
+            <li v-if="item.idUrl.length==30 && item.orderNum">卡密：{{item.orderNum}}</li>
+            <li v-if="item.idUrl.length==30 && item.idBackUrl">卡号：{{item.idBackUrl}}</li>
+            <li v-if="item.idUrl.length==30 && item.cardNum">有效日期：{{item.cardNum}}</li>
+            <li v-if="item.idUrl.length==30 && item.memo && item.memo!='兑换卡券成功'">兑换码：<a :href="item.memo">{{item.memo}}</a></li>
             <li v-if="item.idUrl.length==32">充值账号：{{item.cardNum}}</li>
             <li v-if="item.idUrl.length==32">类型：
               <span v-if="item.cardBank==1">周卡</span>
@@ -129,14 +131,17 @@ export default {
       border: 1px solid rgba(222, 222, 222, 1);
       border-radius: 5px;
       margin-top: 20px;
+      border-top: none;
       li {
         padding:15px 15px 0 ;
         color: #4A4A4A;
         font-size: 12px;
         background: #F4F4F4;
+        word-break: break-all;
         &.title {
+          border-top: 1px solid rgba(222, 222, 222, 1);
           line-height: 43px;
-          padding-top: 0;
+          padding-top: 3px;
           display: flex;
           justify-content: space-between;
           background: #fff;
@@ -152,6 +157,10 @@ export default {
         }
         .total{
           font-size: 15px;
+        }
+        a{
+          color: blue;
+          text-decoration: underline;
         }
       }
     }
