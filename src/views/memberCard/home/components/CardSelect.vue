@@ -45,7 +45,7 @@ export default {
       { title: '盒马鲜生', id: 19, cardLogo: 'cardLogo19' , costWay:'2'},
       // { title: '百果园', id: 20, cardLogo: 'cardLogo20', costWay:'2' },
       { title: '哈根达斯', id: 21, cardLogo: 'cardLogo21', costWay:'2' },
-      { title: '歌梵帝', id: 22, cardLogo: 'cardLogo22', costWay:'2' },
+      { title: '歌帝梵', id: 22, cardLogo: 'cardLogo22', costWay:'2' },
       { title: '瑞幸咖啡', id: 23, cardLogo: 'cardLogo23', costWay:'2' },
       { title: '滴滴快车', id: 24, cardLogo: 'cardLogo24', costWay:'2' },
       // { title: '星巴克', id: 25, cardLogo: 'cardLogo25' , costWay:'2'},

@@ -28,8 +28,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { IOSFocus } from "@/mixins";
 export default {
-
+  mixins: [IOSFocus],
   props: {
     show: {
       type: Boolean,
