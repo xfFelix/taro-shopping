@@ -21,7 +21,7 @@
         <span v-else>年卡</span>
       </li>
       <li>售价：{{infoList.sellingPrice|toPrice}}</li>
-      <li>税费：{{infoList.tax_total|toPrice}}</li>
+      <li>税费：{{infoList.tax|toPrice}}</li>
       <li>合计：{{infoList.total|toPrice}}</li>
     </ul>
     <button class="confirm" @click="$router.push({name:'memberHome'})">确定</button>
@@ -41,9 +41,6 @@ export default {
   }),
   methods: {
     async vipCostInfo() {
-      // let data = await vipCostInfo({ token: this.getToken, productId: this.$route.query.productId });
-      // if (data.code != 1 && data.code != 4 && data.code != 6) return this.$toast(data.message);
-      // this.infoList = data.data;
       this.infoList = JSON.parse(localStorage.getItem("vipInfoS"));
     },
   },
