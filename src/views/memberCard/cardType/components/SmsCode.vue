@@ -19,7 +19,16 @@
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[3]}}</div>
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[4]}}</div>
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[5]}}</div>
-        <input type="tel" class="code-input-input" v-model="code" @input="numberNo($event)" :maxlength="userinfo.payValidType === 1 ? 6: 4" v-focus>
+        <input
+          type="tel"
+          class="code-input-input"
+          v-model.trim="code"
+          pattern="[0-9]*"
+          @input="numberNo($event)"
+          :maxlength="userinfo.payValidType === 1 ? 6: 4"
+          v-focus
+          @focus="iptFocus"
+          @blur="iptBlur">
       </div>
       <div class="reInput" v-if="tipError">{{failText}}</div>
     </div>
