@@ -29,4 +29,14 @@ export const signInfo = data => fetch({
   data
 })
 
+/**
+ * 人脸识别---校验姓名和身份证号码
+ * @param {*} data
+ */
+export const checkInfoByFace = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/faceRecognition/createAccount`,
+  method: 'POST',
+  data
+})
+
 

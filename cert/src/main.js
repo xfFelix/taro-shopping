@@ -10,9 +10,12 @@ import './plugins'
 import FastClick from 'fastclick'
 import 'common/js/rem'
 import './common/css/index.scss'
+import Header from 'components/Header'
 
 // import Vconsole from 'vconsole';
 // new Vconsole();
+
+Vue.component('Header', Header)
 
 FastClick.attach(document.body);
 
