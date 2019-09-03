@@ -175,7 +175,8 @@ export default {
       background-position:-237px -145px;
     }
     .cardLogo26 {
-      background-position: -5px -192px;
+      background-position: -191px -192px;
+       width: 46px;
     }
     .cardLogo27 {
       background-position: -191px -98px;
