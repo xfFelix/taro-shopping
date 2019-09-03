@@ -35,6 +35,37 @@ const router = new Router({
         title: '在线签约用户协议',
       }
     },
+    {
+      path: '/face',
+      redirect: '/face/user',
+      component: () => import('views/face'),
+      children: [
+        {
+          path: 'user',
+          name: 'UserFace',
+          component: () => import('views/face/user'),
+          meta: {
+            title: '签约助手'
+          }
+        },
+        {
+          path: 'select',
+          name: 'FaceSelect',
+          component: () => import('views/face/select'),
+          meta: {
+            title: '人脸识别'
+          }
+        },
+        {
+          path: 'success',
+          name: 'FaceSuccess',
+          component: () => import('views/face/success'),
+          meta: {
+            title: '认证成功'
+          }
+        }
+      ]
+    }
   ]
 })
 

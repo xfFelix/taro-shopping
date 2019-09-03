@@ -24,6 +24,11 @@ export const IsHKMobile = (mobile) => {
 // 判断对象和数组是否为空
 export const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 
+export const isObject = val => {
+  const param =  Object.prototype.toString.call(val);
+  return param == '[object Object]' ? true : false
+}
+
 export function isIDCard(IDCard) {
   let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
   if (reg.test(IDCard)) return true

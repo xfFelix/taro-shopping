@@ -26,13 +26,12 @@ instance.interceptors.request.use((config) => {
 // 返回状态判断
 instance.interceptors.response.use((res) => {
   let data = res.data
-  if (+data.error_code) {
-      toast(data.message)
+  switch (data.code) {
+    case 0:
+      return res
+    default:
+      return Promise.reject(data.msg)
   }
-  if (data.code === 1001) {
-    return Promise.reject(res)
-  }
-  return res
 }, (err) => {
   if (err == 'Error: timeout of 10000ms exceeded') { // 接口超时处理，设置了timeout: 5000,
     toast('接口超时:10000ms')
