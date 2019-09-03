@@ -151,7 +151,7 @@ export default {
       background-position: -192px -5px;
     }
     .cardLogo18 {
-      background-position: -191px -50px;
+      background-position: -191px -51px;
     }
     .cardLogo19 {
       background-position: -237px -5px;
