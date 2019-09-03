@@ -5,7 +5,7 @@
       <img src="~common/images/chenggong.png" alt=" ">
     </div>
     <p class="title">{{type == 1 ? '您本次的个人认证已通过，点击进行电子合同签章！' : '您本次的个人认证已失败'}}</p>
-    <button class="btn-next">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
+    <button class="btn-next" :class="!showTime && 'actived'" :disabled="showTime">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
   </div>
 </template>
 <script>
@@ -72,6 +72,9 @@ export default {
     font-weight:400;
     color:rgba(255,255,255,1);
     line-height:15px;
+    &.actived{
+      background: rgba(48,206,132,1);
+    }
   }
 }
 </style>
