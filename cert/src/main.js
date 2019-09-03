@@ -11,6 +11,7 @@ import FastClick from 'fastclick'
 import 'common/js/rem'
 import './common/css/index.scss'
 import Header from 'components/Header'
+import store from '@/store'
 
 // import Vconsole from 'vconsole';
 // new Vconsole();
@@ -23,5 +24,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

@@ -23,12 +23,16 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   data: () => ({
     name: '',
     idcard: ''
   }),
   methods: {
+    ...mapActions({
+      setConfig: 'face/setConfig'
+    }),
     validate() {
       if (!this.name) return this.$toast('请输入姓名')
       if (!this.idcard) return this.$toast('请输入证件号码')
@@ -38,6 +42,7 @@ export default {
       try {
         const { checkInfoByFace } = await import('api')
         const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name})
+        this.setConfig({name: this.name, idcard: this.idcard, accountId: data.accountId})
         this.$router.push('select')
       } catch (e) {
         this.$toast(e.data.msg || '接口失败')

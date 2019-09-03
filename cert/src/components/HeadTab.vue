@@ -84,7 +84,7 @@ export default {
 }
 .goodsDetail{
     .dialog-container{
-        top:54px;
+        top: 54px;
         right: 7px;
     }
 }

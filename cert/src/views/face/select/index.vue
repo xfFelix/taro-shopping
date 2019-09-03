@@ -4,19 +4,19 @@
     <div class="content">
       <h1>人脸识别认证</h1>
       <div class="info">
-        <span class="name">张三</span>
-        <span class="idcard">439193193123192391</span>
-        <span class="edit">编辑</span>
+        <span class="name">{{config.name}}</span>
+        <span class="idcard">{{config.idcard}}</span>
+        <span class="edit" @click="editInfo">编辑</span>
       </div>
       <h2>选择人脸识别方式</h2>
-      <div class="card">
+      <div class="card" @click="selectType('ZHIMACREDIT')">
         <div class="title">
           <img src="~common/images/alibaba.png" alt=" ">
           <span>支付宝刷脸认证</span>
         </div>
         <div class="desc">需安装支付宝并登陆 “XXX” 的账号</div>
       </div>
-      <div class="card">
+      <div class="card" @click="selectType('TENCENT')">
         <div class="title">
           <img src="~common/images/wechat.png" alt=" ">
           <span>微信刷脸认证</span>
@@ -27,8 +27,37 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import Loading from '@/util/loading'
 export default {
-
+  computed: {
+    ...mapGetters({
+      config: 'face_config'
+    })
+  },
+  methods: {
+    ...mapActions({
+      setConfig: 'face/setConfig',
+    }),
+    editInfo() {
+      this.$dialog({type: 'confirm' ,content: '是否重新编辑'}, () => {
+        this.$router.back()
+      })
+    },
+    async selectType(type) {
+      try {
+        let loading = new Loading(`跳转对应${type === 'TENCENT'? '微信刷脸': '支付宝'}页面`)
+        loading.show()
+        const { selectTypeByFace } = await import('api')
+        const { code, data, msg } = await selectTypeByFace({faceauthMode: type, accountId: this.config.accountId})
+        loading.hide()
+        this.setConfig({flowId: data.flowId})
+        window.location.href = data.authUrl
+      } catch (e) {
+        this.$toast(e)
+      }
+    }
+  }
 }
 </script>
 <style scoped lang="scss">

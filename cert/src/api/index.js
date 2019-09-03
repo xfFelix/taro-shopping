@@ -39,4 +39,13 @@ export const checkInfoByFace = data => fetch({
   data
 })
 
+/**
+ * 人脸识别---选择人脸识别方式 支付宝or微信
+ * @param {*} data
+ */
+export const selectTypeByFace = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/faceRecognition/initiateFaceAuthentication`,
+  method: 'POST',
+  data
+})
 
