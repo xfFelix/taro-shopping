@@ -151,7 +151,7 @@ export default {
       background-position: -192px -5px;
     }
     .cardLogo18 {
-      background-position: -192px -50px;
+      background-position: -191px -50px;
     }
     .cardLogo19 {
       background-position: -237px -5px;
@@ -160,7 +160,7 @@ export default {
       background-position: -192px -145px;
     }
     .cardLogo21 {
-      background-position: -237px -54px;
+      background-position: -235px -54px;
     }
     .cardLogo22 {
       background-position: -146px -192px;
@@ -169,7 +169,7 @@ export default {
       background-position: -237px -98px;
     }
     .cardLogo24 {
-      background-position: -50px -192px;
+      background-position: -52px -192px;
     }
     .cardLogo25 {
       background-position:-237px -145px;
@@ -178,7 +178,7 @@ export default {
       background-position: -5px -192px;
     }
     .cardLogo27 {
-      background-position: -192px -98px;
+      background-position: -191px -98px;
     }
     p {
       color: #4A4A4A;
