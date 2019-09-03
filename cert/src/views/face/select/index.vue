@@ -14,7 +14,7 @@
           <img src="~common/images/alibaba.png" alt=" ">
           <span>支付宝刷脸认证</span>
         </div>
-        <div class="desc">需安装支付宝并登陆 “XXX” 的账号</div>
+        <div class="desc">需安装支付宝并登陆 “{{config.name}}” 的账号</div>
       </div>
       <div class="card" @click="selectType('TENCENT')">
         <div class="title">
@@ -45,16 +45,17 @@ export default {
       })
     },
     async selectType(type) {
+      let loading = new Loading(`跳转对应${type === 'TENCENT'? '微信刷脸': '支付宝'}页面`)
       try {
-        let loading = new Loading(`跳转对应${type === 'TENCENT'? '微信刷脸': '支付宝'}页面`)
         loading.show()
         const { selectTypeByFace } = await import('api')
         const { code, data, msg } = await selectTypeByFace({faceauthMode: type, accountId: this.config.accountId})
-        loading.hide()
         this.setConfig({flowId: data.flowId})
         window.location.href = data.authUrl
       } catch (e) {
         this.$toast(e)
+      } finally {
+        loading.hide()
       }
     }
   }

@@ -5,7 +5,7 @@
       <img src="~common/images/chenggong.png" alt=" ">
     </div>
     <p class="title">{{type == 1 ? '您本次的个人认证已通过，点击进行电子合同签章！' : '您本次的个人认证已失败'}}</p>
-    <button class="btn-next">立即签约<i v-if="type == 1">（{{time}}S）</i></button>
+    <button class="btn-next">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
   </div>
 </template>
 <script>
@@ -13,7 +13,8 @@ import { getParam } from '@/util/common'
 export default {
   data: () => ({
     type: 1,
-    time: 5
+    time: 5,
+    showTime: true
   }),
   created() {
     const result = getParam()['result']
@@ -28,8 +29,11 @@ export default {
     getTimeout() {
       clearInterval(this.timeout)
       this.timeout = setInterval(() => {
-        this.time--
-        console.log(this.time)
+        if (this.time > 0) {
+          this.time--
+        } else {
+          this.showTime = false
+        }
       }, 1000);
     }
   }

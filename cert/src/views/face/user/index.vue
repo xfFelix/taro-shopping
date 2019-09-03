@@ -24,6 +24,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import Loading from '@/util/loading'
 export default {
   data: () => ({
     name: '',
@@ -39,13 +40,17 @@ export default {
       this.goNext()
     },
     async goNext() {
+      let loading = new Loading('身份验证中...')
       try {
+        loading.show()
         const { checkInfoByFace } = await import('api')
         const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name})
         this.setConfig({name: this.name, idcard: this.idcard, accountId: data.accountId})
         this.$router.push('select')
       } catch (e) {
-        this.$toast(e.data.msg || '接口失败')
+        this.$toast(e)
+      } finally {
+        loading.hide()
       }
     }
   }
