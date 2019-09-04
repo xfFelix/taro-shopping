@@ -50,12 +50,11 @@ export default {
         loading.show()
         const { selectTypeByFace } = await import('api')
         const { code, data, msg } = await selectTypeByFace({faceauthMode: type, accountId: this.config.accountId})
+        loading.hide()
         this.setConfig({flowId: data.flowId})
         window.location.href = data.authUrl
       } catch (e) {
         this.$toast(e)
-      } finally {
-        loading.hide()
       }
     }
   }
