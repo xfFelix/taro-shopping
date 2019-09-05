@@ -10,9 +10,7 @@
       </div>
       <div class="vipS-jump">
         <p class="jump-home" @click="goHome()">返回首页</p>
-        <p class="jump-order"
-           @click="$router.push(pathC.query==0?{name:pathC.name}:{name:pathC.name,query:{cardId:pathC.cardId}})">
-           查看订单</p>
+        <p class="jump-order" @click="jumpOrder()">查看订单</p>
       </div>
       <div class="jump-page">
         <p class="jump-more">更多兑换</p>
@@ -97,6 +95,13 @@ export default {
   methods:{
     goHome(){
       window.location.href=`${process.env.VUE_APP_BASE_HOME_URL}?token=${this.getToken}`
+    },
+    jumpOrder(){
+      if(this.pathC.query==0){
+        this.$router.push({name:this.pathC.name})
+      }else{
+        this.$router.push({name:this.pathC.name,query:{cardId:this.pathC.query}})
+      }
     }
   },
   mounted(){
@@ -107,6 +112,11 @@ export default {
         this.$router.push({ name: this.pathHomeC })
       }
     }, 1000)
+  },
+  destroyed(){
+    if(this.timer) { //如果定时器在运行则关闭
+        clearInterval(this.timer);
+    }
   },
   components: {
     Header:()=>import('components/Header')
