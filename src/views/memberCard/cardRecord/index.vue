@@ -1,7 +1,7 @@
 <template>
   <div class="record-wrapper">
     <header>
-      <i class="cubeic-back back" @click="$router.back()"></i>
+      <i class="cubeic-back back" @click="$router.push({name:'memberCard'})"></i>
       兑换记录
     </header>
     <div class="content">
