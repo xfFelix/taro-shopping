@@ -97,17 +97,17 @@ export default {
           return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken;
         })
       }
+      if (data.code === '4') {
+        return this.$dialog({ content: '可用余额不足' }, () => {
+          return this.initShow();
+        })
+      }
       this.chargeInfo.productName = data.data.productName;
       this.chargeInfo.sellingPrice = data.data.sellingPrice;
       this.chargeInfo.tax_total = data.data.tax_total;
       this.chargeInfo.total = data.data.total;
       this.chargeInfo.productType = data.data.productType;
       this.showInfo();
-      if (data.code === '4') {
-        return this.$dialog({ content: '可用余额不足' }, () => {
-          return this.initShow();
-        })
-      }
     },
     //发送短信
     async sendSmsCode() {

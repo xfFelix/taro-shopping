@@ -2,7 +2,7 @@
     <div class="oilRecord">
         <div class="headFixed">
             <header>
-                <i class="cubeic-back" @click="$router.back()"></i>
+                <i class="cubeic-back" @click="$router.push({name:'oilRecord'})"></i>
                 兑换记录
             </header>
             <div class="whoSelectW">
@@ -238,7 +238,11 @@ export default {
         }
     },
     mounted() {
-        this.getScenicList()
+      if(this.$route.query.cardId==2){
+        this.changeFlag = 0;
+        this.typeFlag = 2;
+      }
+      this.getScenicList()
     }
 }
 </script>

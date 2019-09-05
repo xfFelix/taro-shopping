@@ -113,10 +113,8 @@ export default {
       }
     }, 1000)
   },
-  destroyed(){
-    if(this.timer) { //如果定时器在运行则关闭
-        clearInterval(this.timer);
-    }
+  beforeDestroy() {
+    clearInterval(this.timer)
   },
   components: {
     Header:()=>import('components/Header')
