@@ -104,7 +104,7 @@ export default {
       this.countDown--
       if (this.countDown == 0) {
         clearInterval(this.timer);
-        // this.$router.push({ name: this.pathHomeC })
+        this.$router.push({ name: this.pathHomeC })
       }
     }, 1000)
   },
