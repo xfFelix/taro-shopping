@@ -2,14 +2,17 @@
   <div class="success-wrapper">
     <Header :show-back="false">{{type == 1 ? '认证成功' : '认证失败'}}</Header>
     <div class="img-wrapper">
-      <img src="~common/images/chenggong.png" alt=" ">
+      <img :src="require(`common/images/${type==1 ? 'chenggong': 'fail'}.png`)" alt=" ">
     </div>
-    <p class="title">{{type == 1 ? '您本次的个人认证已通过，点击进行电子合同签章！' : '您本次的个人认证已失败'}}</p>
-    <button class="btn-next" :class="!showTime && 'actived'" :disabled="showTime">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
+    <p class="title">{{type == 1 ? '您本次的个人认证已通过，点击进行电子合同签章！' : '个人认证失败，请重新认证！'}}</p>
+    <button class="btn-next" v-if="type == 1" :class="!showTime && 'actived'" :disabled="showTime" @click="getSign">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
+    <button class="btn-next actived" v-else @click="goUser">返回首页</button>
   </div>
 </template>
 <script>
 import { getParam } from '@/util/common'
+import { mapGetters } from 'vuex';
+import Loading from 'util/loading'
 export default {
   data: () => ({
     type: 1,
@@ -25,7 +28,15 @@ export default {
 
     }
   },
+  computed: {
+    ...mapGetters({
+      config: 'face_config'
+    })
+  },
   methods: {
+    goUser() {
+      this.$router.push('user')
+    },
     getTimeout() {
       clearInterval(this.timeout)
       this.timeout = setInterval(() => {
@@ -35,6 +46,18 @@ export default {
           this.showTime = false
         }
       }, 1000);
+    },
+    async getSign() {
+      let loading = new Loading(`跳转签章页面...`)
+      try {
+        loading.show()
+        const { getSignByFace } = await import('api')
+        const { code, data, msg } = await getSignByFace({accountId: this.config.accountId})
+        loading.hide()
+        window.location.href = data.url
+      } catch (e) {
+        this.$toast(e)
+      }
     }
   }
 }

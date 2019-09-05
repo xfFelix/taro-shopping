@@ -63,6 +63,14 @@ const router = new Router({
           meta: {
             title: '认证成功'
           }
+        },
+        {
+          path: 'signSuccess',
+          name: 'SignSuccessForFace',
+          component: () => import('views/face/SignSuccess'),
+          meta: {
+            title: '签约成功'
+          }
         }
       ]
     }
