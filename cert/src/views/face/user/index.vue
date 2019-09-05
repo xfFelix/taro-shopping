@@ -46,11 +46,10 @@ export default {
         const { checkInfoByFace } = await import('api')
         const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name})
         this.setConfig({name: this.name, idcard: this.idcard, accountId: data.accountId})
+        loading.hide()
         this.$router.push('select')
       } catch (e) {
         this.$toast(e)
-      } finally {
-        loading.hide()
       }
     }
   }

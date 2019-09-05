@@ -49,3 +49,14 @@ export const selectTypeByFace = data => fetch({
   data
 })
 
+/**
+ * 人脸识别---签章
+ * @param {*} data
+ */
+export const getSignByFace = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/faceRecognition/autograph`,
+  method: 'POST',
+  data
+})
+
+
