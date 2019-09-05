@@ -1,148 +1,55 @@
 <template>
-  <div class="success-wrapper">
-    <div class="banner">
-      <div class="success">
-        <i class="iconfont ok">&#xe631;</i>
-        <span class="text">提交成功</span>
-      </div>
-      <div class="price">{{infoList.total|toPrice}}</div>
-    </div>
-    <ul>
-      <li>产品名称：{{infoList.productName}}</li>
-      <li v-if="infoList.productType==='6' && infoList.barcode" >卡号：{{infoList.barcode}}</li>
-      <li v-if="infoList.productType==='6' && infoList.barpwd">卡密：{{infoList.barpwd}}</li>
-      <li v-if="infoList.productType==='6' && infoList.shorturl">兑换码：<a :href="infoList.shorturl" >{{infoList.shorturl}}</a></li>
-      <li v-if="infoList.productType!=='6'">充值账号：{{infoList.accountNo}}</li>
-      <li v-if="infoList.productType!=='6'">类型：
-        <span v-if="infoList.productType==='1'">周卡</span>
-        <span v-else-if="infoList.productType==='2'">月卡</span>
-        <span v-else-if="infoList.productType==='3'">季卡</span>
-        <span v-else-if="infoList.productType==='4'">半年卡</span>
-        <span v-else>年卡</span>
-      </li>
-      <li>售价：{{infoList.sellingPrice|toPrice}}</li>
-      <li>税费：{{infoList.tax|toPrice}}</li>
-      <li>合计：{{infoList.total|toPrice}}</li>
-    </ul>
-    <button class="confirm" @click="$router.push({name:'memberHome'})">确定</button>
-    <span class="time">
-      <em>{{countDown}}s</em>后自动跳转至首页</span>
+  <div class="vipS-new">
+    <Header class="navbar" :show-more="true">会员卡券</Header>
+    <success-page
+      :pathC = pathP
+      :pathHomeC = pathHomeP
+      :moneyC = moneyP
+      :logoIdC = logoIdP
+    ></success-page>
   </div>
 </template>
-
 <script>
-import { vipCostInfo } from 'api';
-import { mapGetters } from 'vuex';
+
 export default {
-  data: () => ({
-    timer: null,
-    countDown: 5,
-    infoList: {}
-  }),
+  data(){
+    return{
+      pathP:{
+        name:'cardRecord',
+        query:0
+      },//要跳转的订单记录页面
+      moneyP:undefined,
+      pathHomeP:'memberCard',
+      logoIdP:[1,2,3,4]
+    }
+  },
   methods: {
-    async vipCostInfo() {
-      this.infoList = JSON.parse(localStorage.getItem("vipInfoS"));
+    vipCostInfo() {
+      let infoList = JSON.parse(localStorage.getItem("vipInfoS"));
+      this.moneyP = infoList.total;
     },
   },
-  computed: {
-    ...mapGetters({
-      getToken: 'getToken',
-    })
+  components: {
+    Header:()=>import('components/Header'),
+    SuccessPage:()=>import('components/SuccessPage')
   },
-  mounted() {
+  mounted(){
     this.vipCostInfo()
-    this.timer = setInterval(() => {
-      this.countDown--
-      if (this.countDown == 0) {
-        clearInterval(this.timer);
-        this.$router.push({ name: 'memberHome' })
-      }
-    }, 1000)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.success-wrapper {
-  padding: 0 15px;
+
+.vipS-new{
+  min-height:100%;
   background: #fff;
-  min-height: 100%;
-  letter-spacing: 1px;
-  .banner {
-    height: 215px;
-    border-bottom: 1px solid #DEDEDE;
-    .success {
-      padding-top: 84px;
-      font-size: 30px;
-      color: #30CE84;
-      text-align: center;
-      .ok {
-        font-size: 24px;
-        border: 2px solid #30CE84;
-        border-radius: 50%;
-        padding: 4px;
-        margin-right: 18px;
-        position: relative;
-        z-index: 0;
-        &::before {
-          content: '';
-          display: block;
-          position: absolute;
-          width: 6px;
-          height: 10px;
-          top: 0;
-          left: 3px;
-          background: #fff;
-          z-index: 1;
-        }
-      }
-    }
-    .price {
-      font-size: 36px;
-      color: #30CE84;
-      font-weight: 500;
-      text-align: center;
-      margin-top: 34px;
-    }
-  }
-  ul {
-    margin-top: 42px;
-    color: #4A4A4A;
-    padding-left: 15px;
-    box-sizing: border-box;
-    li {
-      font-size: 15px;
-      word-break:break-all;
-      /*no*/
-      margin-top: 25px;
-      &:first-of-type {
-        margin-top: 0;
-      }
-      a{
-        color: blue;
-        text-decoration: underline;
-      }
-    }
-  }
-  .confirm {
-    margin: 38px 0 10px 0;
-    border: none;
-    width: 100%;
-    height: 44px;
+  .navbar{
+    background: #373C48;
     color: #fff;
-    background: #30CE84;
-    border-radius: 5px;
   }
-  .time {
-    font-size: 12px;
-    /*no*/
-    padding: 15px 0 10px 0;
-    display: block;
-    text-align: center;
-    color: #999999;
-    em {
-      color: #30CE84;
-    }
-  }
+
 }
+
+
 </style>
