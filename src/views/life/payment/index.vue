@@ -115,6 +115,7 @@ export default {
         try {
           const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
         } catch(e) {
+          window.clearInterval(this.interval)
           console.log('接口超时！！！！')
         }
           if (+status === 404) {
