@@ -112,29 +112,33 @@ export default {
     }),
     getArrears() {
       this.interval = window.setInterval(async () => {
-        const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
-        if (+status === 404) {
-            window.clearInterval(this.interval)
-            this.showProgress = false
+        try {
+          const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
+        } catch(e) {
+          console.log('接口超时！！！！')
         }
-        if (+error_code === 3) {
-          this.intervalout--
-          if (this.intervalout <= 0) {
+          if (+status === 404) {
+              window.clearInterval(this.interval)
+              this.showProgress = false
+          }
+          if (+error_code === 3) {
+            this.intervalout--
+            if (this.intervalout <= 0) {
+              window.clearInterval(this.interval)
+              this.showProgress = false
+            }
+          } else {
+            if (+error_code) {
+              this.showProgress = false
+            }
             window.clearInterval(this.interval)
-            this.showProgress = false
+            if (data) {
+              this.arrears = data.totalamount
+              this.balance = data.wecbalance
+              this.showArrears = true
+            }
           }
-        } else {
-          if (+error_code) {
-            this.showProgress = false
-          }
-          window.clearInterval(this.interval)
-          if (data) {
-            this.arrears = data.totalamount
-            this.balance = data.wecbalance
-            this.showArrears = true
-          }
-        }
-      }, 1000)
+        }, 1000)
     },
     isNull() {
       if (!this.price) {
