@@ -11,7 +11,7 @@
 </template>
 <script>
 import { getParam } from '@/util/common'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Loading from 'util/loading'
 export default {
   data: () => ({
@@ -21,6 +21,8 @@ export default {
   }),
   created() {
     const result = getParam()['result']
+    const accountId = getParam()['accountId']
+    this.setConfig({accountId})
     this.type = result
     if (result == 1) {
       this.getTimeout()
@@ -34,6 +36,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      setConfig: 'face/setConfig'
+    }),
     goUser() {
       this.$router.push('user')
     },
