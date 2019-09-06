@@ -109,7 +109,7 @@ export default {
       this.countDown--
       if (this.countDown == 0) {
         clearInterval(this.timer);
-        this.$router.push({ name: this.pathHomeC })
+        // this.$router.push({ name: this.pathHomeC })
       }
     }, 1000)
   },
@@ -125,7 +125,7 @@ export default {
 .vipS-session{
     .vipS-InfoW{
     width:345px;
-    height:272px;
+    height:237px;
     background:rgba(255,255,255,1);
     box-shadow:0px 0px 11px 1px rgba(175,175,175,0.25);
     border-radius:25px;
@@ -140,7 +140,7 @@ export default {
       width: 57px;
         height: 57px;
         background-image: url('~common/images/chenggong.png');
-        margin: 66px 0 13px 0;
+        margin: 54px 0 7px 0;
     }
     .vips-info{
       margin-top: 27px;
@@ -162,7 +162,7 @@ export default {
   }
   .vipS-jump{
     text-align: center;
-    margin: 41px 0 54px 0;
+    margin: 36px 0 42px 0;
     .jump-home,.jump-order{
       border-radius:5px;
       padding: 15px 35px;
@@ -205,7 +205,7 @@ export default {
         img{
           width: 40px;
           height: 40px;
-          margin: 0 auto;
+          margin: 0 auto 6px auto;
         }
         .jump-name{
           font-size: 14px;
@@ -229,7 +229,7 @@ export default {
     text-align: center;
     font-size:12px;
     color: #999;
-    padding:45px 0 15px 0;
+    padding-top:30px;
     span{
       color: #31CF85;
     }

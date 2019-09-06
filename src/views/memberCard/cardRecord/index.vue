@@ -18,7 +18,7 @@
             </li>
             <li>订单编号:&nbsp;{{item.idUrl}}</li>
             <li>时间：{{item.orderTime}}</li>
-            <li v-if="item.idUrl.length==30 && item.orderNum">卡密：{{item.orderNum}}</li>
+            <li v-if="item.idUrl.length==30 && item.orderNum">卡密：{{item.orderNum}} <button class="copy" @click.stop="handleCopy(item.orderNum,$event)">复制</button></li>
             <li v-if="item.idUrl.length==30 && item.idBackUrl">卡号：{{item.idBackUrl}}</li>
             <li v-if="item.idUrl.length==30 && item.cardNum">有效日期：{{item.cardNum}}</li>
             <li v-if="item.idUrl.length==30 && item.memo && item.memo!='兑换卡券成功'">兑换码：<a :href="item.memo">{{item.memo}}</a></li>
@@ -46,6 +46,7 @@
 <script>
 import { vipOrderList } from 'api';
 import { mapGetters } from 'vuex';
+import clip from 'util/clipboard'
 export default {
   data: () => ({
     orderList: [],
@@ -95,6 +96,9 @@ export default {
       if (!this.tenFlag && this.orderList.length > 0) {
         this.$refs.scroll.forceUpdate();
       }
+    },
+     handleCopy(text, event) {
+      clip(text, event)
     },
   },
   mounted() {
@@ -161,6 +165,17 @@ export default {
         a{
           color: blue;
           text-decoration: underline;
+        }
+        .copy{
+          background: transparent;
+          border: none;
+          color: #585858;
+          font-size: 13px;
+          padding: 1px 10px;
+          border: 1px solid #585858;
+          border-radius: 25px; /*no*/
+          position: absolute;
+          right: 24px;
         }
       }
     }
