@@ -45,6 +45,11 @@ export default {
         loading.show()
         const { checkInfoByFace } = await import('api')
         const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name})
+        if (+code === 2222) {
+          loading.hide()
+          this.setConfig({name: this.name, idcard: this.idcard, accountId: data})
+          return this.$router.push({ path: 'success', query: { result: 1}})
+        }
         this.setConfig({name: this.name, idcard: this.idcard, accountId: data.accountId})
         loading.hide()
         this.$router.push('select')

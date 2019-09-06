@@ -26,8 +26,11 @@ instance.interceptors.request.use((config) => {
 // 返回状态判断
 instance.interceptors.response.use((res) => {
   let data = res.data
-  switch (data.code) {
+  switch (+data.code) {
     case 0:
+      return res
+    // 状态码 人脸识别-已经识别过
+    case 2222:
       return res
     default:
       return Promise.reject(data.msg)
