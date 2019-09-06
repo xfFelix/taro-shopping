@@ -109,7 +109,7 @@ export default {
       this.countDown--
       if (this.countDown == 0) {
         clearInterval(this.timer);
-        // this.$router.push({ name: this.pathHomeC })
+        this.$router.push({ name: this.pathHomeC })
       }
     }, 1000)
   },
@@ -129,7 +129,7 @@ export default {
     background:rgba(255,255,255,1);
     box-shadow:0px 0px 11px 1px rgba(175,175,175,0.25);
     border-radius:25px;
-    margin: 15px auto;
+    margin: 15px auto 21px auto;
     text-align: center;
     .vipS-logo,.vipS-suImg{
       background-repeat: no-repeat;
@@ -162,7 +162,7 @@ export default {
   }
   .vipS-jump{
     text-align: center;
-    margin: 36px 0 42px 0;
+    margin: 0px 0 27px 0;
     .jump-home,.jump-order{
       border-radius:5px;
       padding: 15px 35px;
@@ -229,7 +229,7 @@ export default {
     text-align: center;
     font-size:12px;
     color: #999;
-    padding-top:30px;
+    padding-top:10px;
     span{
       color: #31CF85;
     }
