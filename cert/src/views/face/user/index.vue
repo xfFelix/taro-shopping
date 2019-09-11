@@ -101,11 +101,16 @@ export default {
       .pre{
         flex: 0 0 100px;
         color: #666666;
+        font-weight: bold;
       }
       input{
         flex: 1;
         color: #333333;
         font-weight: bold;
+        height: 100%;
+        &::placeholder{
+          color: #999;
+        }
       }
     }
     .btn-next{
