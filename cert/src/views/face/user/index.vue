@@ -88,7 +88,7 @@ export default {
       h1{
         font-size: 15px;
         color: #333333;
-        font-weight:500;
+        font-weight: bold;
         margin-top: 5px;
       }
     }
@@ -106,7 +106,6 @@ export default {
       input{
         flex: 1;
         color: #333333;
-        font-weight: bold;
         height: 100%;
         &::placeholder{
           color: #999;
