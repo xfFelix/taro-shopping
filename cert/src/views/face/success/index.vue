@@ -24,19 +24,18 @@ export default {
     const accountId = getParam()['accountId']
     let loading = new Loading(`跳转签章页面...`)
     try {
-      loading.show()
-      const { getSignByFace } = await import('api')
-      const { code, data, msg } = await getSignByFace({accountId})
-      loading.hide()
-      window.location.href = data.url
-    } catch (e) {
-      this.$toast(e)
-    } finally {
       if (result == 1) {
+        loading.show()
+        const { getSignByFace } = await import('api')
+        const { code, data, msg } = await getSignByFace({accountId})
+        loading.hide()
+        window.location.href = data.url
         next(false)
       } else {
         next()
       }
+    } catch (e) {
+      this.$toast(e)
     }
   },
   async created() {
