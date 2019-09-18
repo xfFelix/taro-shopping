@@ -19,13 +19,33 @@ export default {
     time: 5,
     showTime: true
   }),
-  created() {
+  async beforeRouteEnter(to, from ,next) {
+    const result = getParam()['result']
+    const accountId = getParam()['accountId']
+    let loading = new Loading(`跳转签章页面...`)
+    try {
+      loading.show()
+      const { getSignByFace } = await import('api')
+      const { code, data, msg } = await getSignByFace({accountId})
+      loading.hide()
+      window.location.href = data.url
+    } catch (e) {
+      this.$toast(e)
+    } finally {
+      if (result == 1) {
+        next(false)
+      } else {
+        next()
+      }
+    }
+  },
+  async created() {
     const result = getParam()['result']
     const accountId = getParam()['accountId']
     this.setConfig({accountId})
     this.type = result
-    if (result == 1) {
-      this.getTimeout()
+    if (result != 1) {
+      // this.getTimeout()
     } else {
 
     }
