@@ -48,7 +48,7 @@ export default {
         if (+code === 2222) {
           loading.hide()
           this.setConfig({name: this.name, idcard: this.idcard, accountId: data})
-          return this.$router.push({ path: 'success', query: { result: 1}})
+          return this.$router.push({ path: 'success', query: { result: 1, accountId: data}})
         }
         this.setConfig({name: this.name, idcard: this.idcard, accountId: data.accountId})
         loading.hide()

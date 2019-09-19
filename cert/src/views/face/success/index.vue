@@ -20,9 +20,13 @@ export default {
     showTime: true
   }),
   async beforeRouteEnter(to, from ,next) {
-    const result = getParam()['result']
-    const accountId = getParam()['accountId']
+    let result = getParam()['result']
+    let accountId = getParam()['accountId']
     let loading = new Loading(`跳转签章页面...`)
+    if (!result) {
+      result = to.query.result
+      accountId = to.query.accountId
+    }
     try {
       if (result == 1) {
         loading.show()
