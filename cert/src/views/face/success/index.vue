@@ -6,7 +6,7 @@
     </div>
     <p class="title">{{type == 1 ? '您本次的个人认证已通过，点击进行电子合同签章！' : '个人认证失败，请重新认证！'}}</p>
     <button class="btn-next" v-if="type == 1" :class="!showTime && 'actived'" :disabled="showTime" @click="getSign">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
-    <button class="btn-next actived" v-else @click="goUser">返回首页</button>
+    <button class="btn-next actived" v-else @click="goUser">重新认证</button>
   </div>
 </template>
 <script>
@@ -63,7 +63,7 @@ export default {
       setConfig: 'face/setConfig'
     }),
     goUser() {
-      this.$router.push('user')
+      this.$router.push('select')
     },
     getTimeout() {
       clearInterval(this.timeout)
