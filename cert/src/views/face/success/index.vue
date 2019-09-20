@@ -13,6 +13,7 @@
 import { getParam } from '@/util/common'
 import { mapGetters, mapActions } from 'vuex';
 import Loading from 'util/loading'
+import {toast} from '@/util/toast'
 export default {
   data: () => ({
     type: 1,
@@ -39,7 +40,7 @@ export default {
         next()
       }
     } catch (e) {
-      this.$toast(e)
+      toast(e)
     }
   },
   async created() {
