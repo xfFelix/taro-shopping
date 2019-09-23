@@ -10,6 +10,7 @@ const state = {
     faceValue: 100,
     type: 1,
     token: undefined,
+    mobile: '',
     code: '',
     rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值
   },
@@ -74,6 +75,7 @@ const mutations = {
       cardNum: undefined,
       faceValue: 100,
       type: 1,
+      mobile: '',
       token: undefined,
       code: '',
       rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值

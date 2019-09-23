@@ -85,8 +85,11 @@ export default {
   },
   methods: {
     async submitOrder () {
-      const {faceValue, code, cardNum, token, type, rechargeType} = this.config
+      const {faceValue, code, cardNum, token, type, rechargeType, mobile} = this.config
       let config = {faceValue, code, cardNum, token, rechargeType, oilCardType: type}
+      if (rechargeType === 1 && type === 2) {
+        config.phoneNo = mobile
+      }
       const {submitOilOrder} = await import(/* webpackPrefetch: true */ 'api')
       let res = await submitOilOrder(config)
       if (res.code !== '1') {
