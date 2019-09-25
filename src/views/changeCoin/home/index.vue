@@ -183,7 +183,7 @@ export default {
         this.initData()
         return this.$toast("请输入有效的椰子分")
       }
-      let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId }
+      let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId, vendorUid: this.vendorUid }
       if (isAll) {
         Object.assign(params, { isall: isAll})
       }
