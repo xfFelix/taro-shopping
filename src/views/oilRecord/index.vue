@@ -136,7 +136,7 @@ export default {
         initData() {
             this.pageNum = 1;
             this.recodeList = [];
-            this.tenFlag === true
+            this.tenFlag = true
         },
         directCharge() {
             this.changeFlag = 1;

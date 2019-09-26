@@ -6,24 +6,50 @@
     </div>
     <p class="title">{{type == 1 ? '您本次的个人认证已通过，点击进行电子合同签章！' : '个人认证失败，请重新认证！'}}</p>
     <button class="btn-next" v-if="type == 1" :class="!showTime && 'actived'" :disabled="showTime" @click="getSign">立即签约<i v-if="type == 1 && showTime">（{{time}}S）</i></button>
-    <button class="btn-next actived" v-else @click="goUser">返回首页</button>
+    <button class="btn-next actived" v-else @click="goUser">重新认证</button>
   </div>
 </template>
 <script>
 import { getParam } from '@/util/common'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Loading from 'util/loading'
+import {toast} from '@/util/toast'
 export default {
   data: () => ({
     type: 1,
     time: 5,
     showTime: true
   }),
-  created() {
+  async beforeRouteEnter(to, from ,next) {
+    let result = getParam()['result']
+    let accountId = getParam()['accountId']
+    let loading = new Loading(`跳转签章页面...`)
+    if (!result) {
+      result = to.query.result
+      accountId = to.query.accountId
+    }
+    try {
+      if (result == 1) {
+        loading.show()
+        const { getSignByFace } = await import('api')
+        const { code, data, msg } = await getSignByFace({accountId})
+        loading.hide()
+        window.location.href = data.url
+        next(false)
+      } else {
+        next()
+      }
+    } catch (e) {
+      toast(e)
+    }
+  },
+  async created() {
     const result = getParam()['result']
+    const accountId = getParam()['accountId']
+    this.setConfig({accountId})
     this.type = result
-    if (result == 1) {
-      this.getTimeout()
+    if (result != 1) {
+      // this.getTimeout()
     } else {
 
     }
@@ -34,8 +60,11 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      setConfig: 'face/setConfig'
+    }),
     goUser() {
-      this.$router.push('user')
+      this.$router.push('select')
     },
     getTimeout() {
       clearInterval(this.timeout)

@@ -9,7 +9,7 @@
         <span class="edit" @click="editInfo">编辑</span>
       </div>
       <h2>选择人脸识别方式</h2>
-      <div class="card" @click="selectType('ZHIMACREDIT')">
+      <div class="card" @click="selectType('ZHIMACREDIT')" v-if="!isWeChat()">
         <div class="title">
           <img src="~common/images/alibaba.png" alt=" ">
           <span>支付宝刷脸认证</span>
@@ -29,6 +29,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Loading from '@/util/loading'
+import { getIsWxClient } from '@/util/common'
 export default {
   computed: {
     ...mapGetters({
@@ -56,6 +57,9 @@ export default {
       } catch (e) {
         this.$toast(e)
       }
+    },
+    isWeChat() {
+      return getIsWxClient() ? true : false
     }
   }
 }

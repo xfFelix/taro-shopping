@@ -2,7 +2,7 @@
   <div class="changeCoin-home">
     <header>
       <i class="cubeic-back back" @click="$router.go(-1)"></i>
-      兑换{{userinfo.coinAlisa ? '元宝' : '金币'}}
+      兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}
     </header>
     <div class="changeCoin-content">
       <div class="changeCoin-inp-wrap">
@@ -26,7 +26,7 @@
     </div>
 
     <ul>
-      <li>兑换{{userinfo.coinAlisa ? '元宝' : '金币'}}数：
+      <li>兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}数：
         <span>{{coinInfo.num|toDecimal2Fp}}</span>
       </li>
     </ul>
@@ -47,7 +47,7 @@
 
     <div class="agreement">
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span @click="show.file=true" class="file">《椰子分兑换{{userinfo.coinAlisa ? '元宝' : '金币'}}说明》</span>
+      <span @click="show.file=true" class="file">《椰子分兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}说明》</span>
     </div>
 
     <!-- 遮罩层 -->
@@ -183,7 +183,7 @@ export default {
         this.initData()
         return this.$toast("请输入有效的椰子分")
       }
-      let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId }
+      let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId, vendorUid: this.vendorUid }
       if (isAll) {
         Object.assign(params, { isall: isAll})
       }

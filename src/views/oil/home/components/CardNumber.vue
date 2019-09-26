@@ -7,7 +7,10 @@
       </div>
       <div class="input-card">
         <cube-input v-model.trim="cardNum" placeholder="请输入您的加油卡号" class="input">
-          <span class="prepend" slot="prepend">卡号</span>
+          <span class="prepend" slot="prepend" :class="(config.rechargeType == 1 && config.type == 2) && 'long'">卡号</span>
+        </cube-input>
+        <cube-input v-model.trim="mobile" placeholder="请输入您的绑卡手机号" class="input" v-if="config.rechargeType == 1 && config.type == 2">
+          <span class="prepend" slot="prepend" :class="(config.rechargeType == 1 && config.type == 2) && 'long'">绑卡手机号</span>
         </cube-input>
       </div>
       <button class="confirm" @click="handlerShowInfo">确认</button>
@@ -17,6 +20,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {IsMobile} from '@/util/common'
 export default {
   props: {
     show: {
@@ -29,7 +33,8 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      typeList: 'oil/getTypeList'
+      typeList: 'oil/getTypeList',
+      config: 'oil/getConfig'
     }),
     cardNum: {
       get() {
@@ -46,6 +51,14 @@ export default {
       set(val) {
         return this.$store.dispatch('oil/setConfig',{type: val})
       }
+    },
+    mobile: {
+      get() {
+        return this.$store.state.oil.config.mobile
+      },
+      set(val) {
+        return this.$store.dispatch('oil/setConfig',{mobile: val})
+      }
     }
   },
   methods: {
@@ -57,6 +70,11 @@ export default {
     },
     handlerShowInfo() {
       if (!this.cardNum) return this.$toast('请输入充值卡号')
+      if (this.config.rechargeType == 1 && this.config.type == 2 && this.mobile) {
+        if (!IsMobile(this.mobile)) {
+          return this.$toast('请输入正确的手机号')
+        }
+      }
       this.$emit('handler-show-info')
     },
     handlerShowType() {
@@ -94,9 +112,10 @@ export default {
   .input-card{
     margin: 54px 18px 0;
     box-sizing: border-box;
-    border: 1px solid #DEDEDE;
+    // border: 1px solid #DEDEDE;
     .input {
       height: 44px;
+      margin-top: 20px;
       .cube-input-prepend{
         .prepend{
           margin: 10px 0;
@@ -104,6 +123,10 @@ export default {
           font-size: 13px;
           color: #000;
           border-right: 1px solid #B1B1B1;
+          text-align-last: justify;
+          &.long{
+            width: 90px;
+          }
         }
       }
     }

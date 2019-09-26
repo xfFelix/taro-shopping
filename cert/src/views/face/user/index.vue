@@ -48,7 +48,7 @@ export default {
         if (+code === 2222) {
           loading.hide()
           this.setConfig({name: this.name, idcard: this.idcard, accountId: data})
-          return this.$router.push({ path: 'success', query: { result: 1}})
+          return this.$router.push({ path: 'success', query: { result: 1, accountId: data}})
         }
         this.setConfig({name: this.name, idcard: this.idcard, accountId: data.accountId})
         loading.hide()
@@ -88,7 +88,7 @@ export default {
       h1{
         font-size: 15px;
         color: #333333;
-        font-weight:500;
+        font-weight: bold;
         margin-top: 5px;
       }
     }
@@ -101,11 +101,15 @@ export default {
       .pre{
         flex: 0 0 100px;
         color: #666666;
+        font-weight: bold;
       }
       input{
         flex: 1;
         color: #333333;
-        font-weight: bold;
+        height: 100%;
+        &::placeholder{
+          color: #999;
+        }
       }
     }
     .btn-next{

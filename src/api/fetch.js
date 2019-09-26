@@ -65,8 +65,6 @@ export default (options) => {
   return new Promise((resolve, reject) => {
     instance(options).then(response => {
       resolve(response.data)
-    }, err => {
-      reject(err)
     }).catch((error) => {
       reject(error)
     })
