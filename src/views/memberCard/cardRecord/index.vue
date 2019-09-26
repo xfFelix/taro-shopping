@@ -124,7 +124,9 @@ export default {
     color: #fff;
     .back {
       position: absolute;
-      left: 15px;
+      top: 0;
+      left: 0;
+      padding: 0 0.4rem;
       font-size: 18px;
     }
   }

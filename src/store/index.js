@@ -22,7 +22,10 @@ import state from './states'
 import ticket from './modules/ticket';
 import scrollTo from './modules/scrollTo';
 import oil from './modules/oil';
-import life from './modules/life'
+import life from './modules/life';
+import gold from './modules/gold';
+import phone from './modules/phone';
+
 import createLogger from 'vuex/dist/logger' // 每次修改会去控制台打一个状态
 
 Vue.use(Vuex)
@@ -38,7 +41,9 @@ export default new Vuex.Store({
     ticket,
     scrollTo,
     oil,
-    life
+    life,
+    gold,
+    phone,
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

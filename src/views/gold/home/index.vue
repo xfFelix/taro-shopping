@@ -1,0 +1,199 @@
+<template>
+<div class="gold-home">
+  <div v-show="!suceesShow">
+      <Header class="navbar" :show-more="!yingqiudiShow">黄金兑换</Header>
+      <gold-info  v-model.trim="inpPrice"  @inp-Clean="inpClean" @total-money="totalMoney"></gold-info>
+      <div class="agreement">
+        <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
+        <span @click="show.file=true" class="file">《黄金兑换协议》</span>
+      </div>
+      <gold-type></gold-type>
+      <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" ></sms-code>
+      <transition name="fade">
+        <bg-mask v-model="show.mask"></bg-mask>
+      </transition>
+      <!-- 设置支付密码dialog -->
+      <set-password :show.sync="showSetPassword"></set-password>
+      <!-- 设置手机号 -->
+      <set-mobile :show.sync="showSetMobile"></set-mobile>
+      <div class="goldBnt">
+        <p class="goldBnt-left" @click="handlerShowType()" :class="!inpPrice?'bntNo':'bntCan'" >
+            立即兑换
+        </p>
+        <p class="goldBnt-right" @click="$router.push({name:'goldRecord',query:{cardId:goldType.type}})" v-if="!yingqiudiShow">
+            立即回购
+        </p>
+      </div>
+    </div>
+      <succ-page v-if="suceesShow" v-on:getCData="getCData"></succ-page>
+      <gold-file  :show="show.file" @handle-show-file="initShow"></gold-file>
+</div>
+</template>
+<script>
+
+import {mapGetters, mapActions} from 'vuex';
+import { goldBuy } from 'api';
+import { setPayType ,IOSFocus ,vipCustom} from '@/mixins';
+import { IsInteger } from "util/common";
+export default {
+  mixins: [setPayType, IOSFocus,vipCustom],
+  data:()=>({
+      checked:true,
+      show:{
+        code:false,
+        mask:false,
+        file:false
+      },
+      failText:undefined,
+      inpPrice:undefined,
+      suceesShow:false,
+      total:0,
+  }),
+  watch: {
+    'show.mask': {
+      handler(val) {
+        if (!val) {
+          this.initShow()
+        }
+      }
+    },
+  },
+  computed: {
+    ...mapGetters({
+      getToken: 'getToken',
+      goldType: 'gold/getConfig',
+      userinfo: 'getUserinfo'
+    }),
+  },
+  methods:{
+      ...mapActions({
+        checkPassword: 'checkPassword',
+        setConfig: 'gold/setConfig',
+        initConfig:'gold/initConfig'
+      }),
+      inpClean(){
+        this.inpPrice = ''
+      },
+      totalMoney(val){
+        this.total = val;
+      },
+      getCData(val){  //关闭成功页
+        this.suceesShow=val;
+        this.inpPrice='';
+      },
+      handlerShowInfo(){
+        this.initShow();
+      },
+      async submitOrder(val){ //输入短信下单
+        let res = await goldBuy({token:this.getToken,amount:this.inpPrice,verify_code:val,id:this.goldType.type});
+        if(res.error_code!=0)  return this.$toast(res.message);
+        this.setConfig({id:res.data.id});
+        this.initShow();
+        this.suceesShow=true;
+      },
+      initShow(){
+        this.show={mask:false,code:false,file:false};
+      },
+      async handlerShowType() {
+        if(this.inpPrice >=1 && IsInteger(this.inpPrice)){
+          if(this.total>this.userinfo.score){
+            this.$toast('您的积分不足');
+          }else{
+            let res = await this.checkPassword();
+            if (!res) return;
+            this.show = { mask: true,code: true,file:false}
+          }
+        }else{
+          if(this.goldType.type==0){
+            this.$toast('请输入有效的根数');
+          }else{
+            this.$toast('请输入有效的颗数');
+          }
+        }
+      },
+  },
+  components: {
+    Header: () => import('@/components/Header'),
+    goldInfo: ()=> import('./components/goldInfo'),
+    goldType: ()=> import('./components/goldType'),
+    SmsCode: ()=> import('@/components/SmsCode'),
+    BgMask: () => import('@/components/BgMask'),
+    succPage:()=> import('./components/succPage'),
+    goldFile: () => import("./components/goldFile"),
+  },
+  created() {
+    this.initConfig()
+  },
+  mounted(){
+
+  }
+}
+</script>
+<style lang="scss" scoped>
+.gold-home{
+  .navbar{
+      background: #313340;
+      color: #fff;
+      position: fixed;
+      width: 100%;
+  }
+}
+  .agreement {
+    display: flex;
+    align-items: center;
+    padding-bottom: 44px;
+    .cube-checkbox {
+      padding: 0 0 0 20px;
+    }
+    .file {
+      color: #30CE84;
+      margin-top: -2px;
+    }
+  }
+
+.goldBnt{
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    text-align: center;
+    font-size: 16px;
+  .goldBnt-left {
+    flex: 2;
+    color: #fff;
+    height: 100%;
+    line-height: 1.173333rem;
+  }
+  .goldBnt-right{
+    height: 45px;
+    display: inline-block;
+    color: #4A4A4A;
+    line-height: 45px;
+    background: #fff;
+    border-top: 1px solid #DEDEDE;
+    width: 35%;
+  }
+  .bntCan{
+    background: #30ce84;
+    border-top: 1px solid #30ce84;
+  }
+  .bntNo{
+    background:#98E7C2;
+    border-top: 1px solid #98E7C2;
+  }
+}
+
+
+
+</style>
+<style>
+@media screen and (min-width: 600px) {
+  .navbar,.goldBnt{
+    max-width: 384px; /*no*/
+  }
+}
+</style>
+

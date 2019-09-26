@@ -21,6 +21,12 @@ export const IsHKMobile = (mobile) => {
   }
 }
 
+//判断是否为整数
+export const IsInteger = (s) =>{
+  var re = /^[1-9]\d*$/;
+  return re.test(s);
+}
+
 // 判断对象和数组是否为空
 export const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 

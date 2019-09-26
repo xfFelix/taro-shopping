@@ -158,3 +158,92 @@ img:after{
 .cube-toast-tip{
 	max-height: 100% !important;
 }
+
+.iconImg{
+	background-repeat: no-repeat;
+	display: inline-block;
+	background-size:100% 100%;
+  }
+
+  
+input::-webkit-input-placeholder {
+	color: #999999;
+	font-size: 16px;
+  }
+  
+input::-moz-placeholder {
+/* Mozilla Firefox 19+ */
+	color: #999999;
+	font-size: 16px;
+}
+
+input:-moz-placeholder {
+/* Mozilla Firefox 4 to 18 */
+	color: #999999;
+	font-size: 16px;
+}
+
+input:-ms-input-placeholder {
+/* Internet Explorer 10-11 */
+	color: #999999;
+	font-size: 16px;
+}
+
+
+.goldC-buy,.phoneBill-inpW,.pay-input{
+	width: 100%;
+	flex: 1;
+	height: 100%;
+	font-size: 18px;
+	.logoGreen {
+		width: 25px;
+		height: 25px;
+		background-image: url(../../common/images/yezifen.png);
+		margin-right: 5px;
+	}
+	input{
+		width: 100%;
+		flex: 1;
+		height: 100%;
+	}
+}
+.realName,.addCard-info,.bind{
+	input::-webkit-input-placeholder {
+		color: #999999;
+		font-size: 14px;
+		}
+		
+	input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+		color: #999999;
+		font-size: 14px;
+	}
+
+	input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+		color: #999999;
+		font-size: 14px;
+	}
+
+	input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+		color: #999999;
+		font-size: 14px;
+	}
+}
+.certBnt{
+	background: linear-gradient(to right, #52e49c, #2fcf84);
+	line-height: 45px;
+	text-align: center;
+	font-size: 15px;
+	color: #fff;
+	width: 92%;
+	border-radius: 30px;
+	margin: 0 auto;
+	border: none;
+}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active{
+	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+	-webkit-transition-delay: 9999s;
+	-webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+}

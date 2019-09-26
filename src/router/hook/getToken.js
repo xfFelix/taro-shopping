@@ -22,6 +22,7 @@ export default router => {
               window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
             })
           } else {
+            info.data.haiHang = info.haiHang;
             store.dispatch('setUserinfo', info.data)
           }
         } catch (e) {

@@ -310,7 +310,202 @@ const router = new Router({
           }
         }
       ]
-    }
+    },
+    {
+      path: '/gold',
+      name: 'gold',
+      component: () => import(/* webpackChunkName: "group-life" */'views/gold'),
+      meta: {
+        title: '黄金兑换',
+        requireAuth: true
+      },
+      redirect: '/gold/home',
+      children: [
+        {
+          path: 'home',
+          name: 'goldHome',
+          component: () => import(/* webpackChunkName: "group-life" */'views/gold/home'),
+          meta: {
+            title: '黄金兑换',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'buyBack',
+          name: 'goldBuyBack',
+          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack'),
+          meta: {
+            title: '黄金回购',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'record',
+          name: 'goldRecord',
+          component: () => import(/* webpackChunkName: "group-life" */'views/gold/record'),
+          meta: {
+            title: '黄金兑换记录',
+            requireAuth: true
+          }
+        }
+      ]},
+      {
+        path: '/phone',
+        name: 'phone',
+        component: () => import(/* webpackChunkName: "group-life" */'views/phone'),
+        meta: {
+          title: '话费充值',
+          requireAuth: true
+        },
+        redirect: '/phone/home',
+        children: [
+          {
+            path: 'home',
+            name: 'phoneHome',
+            component: () => import(/* webpackChunkName: "group-life" */'views/phone/home'),
+            meta: {
+              title: '话费充值',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'record',
+            name: 'phoneRecord',
+            component: () => import(/* webpackChunkName: "group-life" */'views/phone/record'),
+            meta: {
+              title: '话费记录',
+              requireAuth: true
+            }
+          }
+        ]
+      },
+      {
+        path: '/creditCard',
+        name: 'creditCard',
+        component: () => import(/* webpackChunkName: "group-life" */'views/creditCard'),
+        meta: {
+          title: '信用卡还款',
+          requireAuth: true
+        },
+        redirect: '/creditCard/home',
+        children: [
+          {
+            path: 'home',
+            name: 'CCHome',
+            component: () => import(/* webpackChunkName: "group-life" */'views/creditCard/home'),
+            meta: {
+              title: '信用卡还款',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'record',
+            name: 'CCRecord',
+            component: () => import(/* webpackChunkName: "group-life" */'views/creditCard/record'),
+            meta: {
+              title: '还款记录',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'manage',
+            name: 'CCManage',
+            component: () => import(/* webpackChunkName: "group-life" */'views/creditCard/manage'),
+            meta: {
+              title: '信用卡管理',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'unbind',
+            name: 'CCUnbind',
+            component: () => import(/* webpackChunkName: "group-life" */'views/creditCard/unbind'),
+            meta: {
+              title: '信用卡解绑',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'addCard',
+            name: 'CCAddCard',
+            component: () => import(/* webpackChunkName: "group-life" */'views/creditCard/addCard'),
+            meta: {
+              title: '添加信用卡',
+              requireAuth: true
+            }
+          }
+        ]
+      },
+      {
+        path: '/realName',
+        name: 'realName',
+        meta: {
+          title: '实名认证',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/realName')
+      },
+      {
+        path: '/bind',
+        name: 'userBind',
+        meta: {
+          title: '用户绑定',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/bind')
+      },
+      {
+        path: '/contact',
+        name: 'contact',
+        meta: {
+          title: '联系我们',
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/contact')
+      },
+      {
+        path: '/cooperate',
+        name: 'cooperate',
+        meta: {
+          title: '商务合作',
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/cooperate')
+      },
+      {
+        path: '/integrallog',
+        name: 'integrallog',
+        meta: {
+          title: '积分日志',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/integrallog')
+      },
+      {
+        path: '/reCharge',
+        name: 'reCharge',
+        meta: {
+          title: '椰子分充值',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/reCharge')
+      },
+      {
+        path: '/taxeRecord',
+        name: 'taxeRecord',
+        meta: {
+          title: '还款记录',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/taxeRecord')
+      },
+      {
+        path: '/changeCoinCQ',
+        name: 'changeCoinCQ',
+        meta: {
+          title: '椰子分兑换传奇金币',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/changeCoinCQ')
+      },
   ]
 })
 

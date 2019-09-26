@@ -8,6 +8,8 @@ export default router => {
       document.title = '兑换'
     }else if(to.path.includes("life")){
       document.title = '生活缴费'
+    } else if(to.path.includes("gold")){
+      document.title = '黄金兑换'
     } else {
       document.title = '海南旅游'
     }

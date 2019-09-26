@@ -3,6 +3,9 @@ import fetch from './fetch'
 // 配置接口
 export const getInfo = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/info',
+  // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/cc5c24b8de8ac46fa85f.json', //赢球帝
+  // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/53978791842af681d07b.json', //30000
+  // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/1dc605696e190e530bb6.json',//未实名
   method: 'POST',
   data
 })
@@ -277,4 +280,214 @@ export const getPriceByLife = data => fetch({
   method: 'POST',
   data
 })
+
+
+/****************************  黄金 ******************************/
+//获取黄金价格
+export const goldPrice = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/prices',
+  method: 'POST',
+  data
+})
+//计算黄金价格
+export const goldTax = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/goldTax',
+  method: 'POST',
+  data
+})
+
+//黄金兑换接口
+export const goldBuy = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/gold',
+  method: 'POST',
+  data
+})
+
+//黄金购买记录
+export const goldLog = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/golds',
+  method: 'POST',
+  data
+})
+
+//黄金兑换详情
+export const goldInfo = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/goldInfo',
+  method: 'POST',
+  data
+})
+
+//黄金回购
+export const goldbuyback = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/goldbuyback',
+  method: 'POST',
+  data
+})
+
+//黄金查看卡密
+export const goldCode = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/goldCode',
+  method: 'POST',
+  data
+})
+
+
+/****************************  话费 ******************************/
+//直充价格查询
+export const directPrice = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/phonePrice',
+  method: 'POST',
+  data
+})
+
+//直充兑换接口
+export const phoneCharge = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/phoneCharge',
+  method: 'POST',
+  data
+})
+
+//直充记录
+export const phoneLogs = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/phoneLogs',
+  method: 'POST',
+  data
+})
+
+//充值卡价格查询
+export const cardPrice = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/phoneCardPrice',
+  method: 'POST',
+  data
+})
+
+//话费充值税费计算
+export const phoneTax = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/phoneTax',
+  method: 'POST',
+  data
+})
+
+/****************************  信用卡 ******************************/
+// 信用卡列表 （状态为审核通过）
+export const cards = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/cards',
+  method: 'POST',
+  data
+})
+// 信用卡列表（状态为审核通过和审核中的信用卡）
+export const allcards = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/allcards',
+  method: 'POST',
+  data
+})
+// 信用卡校验
+export const validCard = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/validCard',
+  method: 'POST',
+  data
+})
+// 添加信用卡
+export const addcard = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/addvalidcard',
+  method: 'POST',
+  data
+})
+// 解绑信用卡
+export const unbindCard = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/unbind',
+  method: 'POST',
+  data
+})
+
+// 信用卡还款提交
+export const applyCard = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/apply',
+  method: 'POST',
+  data
+})
+
+// 信用卡还款税费计算
+export const cardTax = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/cardTax',
+  method: 'POST',
+  data
+})
+// 信用卡还款记录
+export const logsCard = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/logs',
+  method: 'POST',
+  data
+})
+// 信用卡信息
+export const cardInfo = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/cardInfo',
+  method: 'POST',
+  data
+})
+
+/************************************* userInfo *************************************/
+// 实名认证
+export const cert = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + '/user/cert',
+  method: 'POST',
+  data
+})
+//实名认证短信
+export const certsms = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + '/user/certsms',
+  method: 'POST',
+  data
+})
+
+
+// 用户绑定
+export const bind = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + '/user/bind',
+  method: 'POST',
+  data
+})
+
+
+// 椰子分充值
+export const charge = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + '/user/charge',
+  method: 'POST',
+  data
+})
+
+// 积分日志
+export const integraLogs = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + '/user/slogs',
+  method: 'POST',
+  data
+})
+
+// 缴税记录
+export const taxes = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/taxes',
+  method: 'POST',
+  data
+})
+
+/************************************* 传奇金币 *************************************/
+// 传奇金币
+export const chuanqiinfo = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/chuanqiinfo',
+  method: 'POST',
+  data
+})
+// 传奇金币税率
+export const chuanqiTax = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/chuanqiTax',
+  method: 'POST',
+  data
+})
+// 兑换传奇金币
+export const buyChuanQiCoin = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/buyChuanQiCoin',
+  method: 'POST',
+  data
+})
+
 

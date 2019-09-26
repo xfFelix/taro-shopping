@@ -1,7 +1,7 @@
 <template>
   <transition name="slideUp" mode="out-in">
     <div class="code" v-if="show">
-      <input type="text" style="position: absolute;top:-300px;background: transparent;"ref="inputNext">
+      <input type="text" style="position: absolute;top:-300px;background: transparent;" ref="inputNext">
       <div class="header">
         <i class="cubeic-back" @click="$emit('handler-show-info')"></i>
         <span class="title" v-if="userinfo.payValidType === 1">请输入支付密码</span>
