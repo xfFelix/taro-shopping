@@ -31,7 +31,6 @@ export default {
     },
     //判断是否为空
     judgeEmpty(){
-      console.log(this.dataInfo)
       if (Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
       if (Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
@@ -41,34 +40,36 @@ export default {
       if (!IsMobile(this.dataInfo.mobile)) return this.$toast("请输入正确的手机号");
       if (isEmpty(this.dataInfo.code)) return this.$toast("请输入验证码");
       if (this.checked==false) return  this.$toast("请阅读并同意<p>《在线签约用户协议》</p>");
-      this.checkedID()
+      this.checkedID();
     },
     //校验
     async checkedID(){
-      let data = await checkId({name:this.dataInfo.name, idCard: this.dataInfo.idNum,bankCardNum:this.dataInfo.bankCard});
-      if (data.code!=0) return this.$toast(data.msg);
-      this.uploadFile()
+      try{
+         let data = await checkId({name:this.dataInfo.name, idCard: this.dataInfo.idNum,bankCardNum:this.dataInfo.bankCard});
+         this.uploadFile()
+      }catch (e) {
+        this.$toast(e);
+      }
     },
     //上传文件
     async uploadFile(){
       const toast = this.$createToast({mask:true,time:0});
       toast.show();
-      let data = await signInfo({
-        name:this.dataInfo.name,
-        idCard:this.dataInfo.idNum,
-        mobile:this.dataInfo.mobile,
-        code:this.dataInfo.code,
-        bankCardNum:this.dataInfo.bankCard,
-        positiveIDPhoto:this.frontObj,
-        negativeIDPhoto:this.backObj
-      })
-
-      if(data.code==0){
+      try{
+        let data = await signInfo({
+          name:this.dataInfo.name,
+          idCard:this.dataInfo.idNum,
+          mobile:this.dataInfo.mobile,
+          code:this.dataInfo.code,
+          bankCardNum:this.dataInfo.bankCard,
+          positiveIDPhoto:this.frontObj,
+          negativeIDPhoto:this.backObj
+        })
         this.$router.push({name:'signHelps'})
         toast.hide();
-      }else{
+      } catch (e) {
         toast.hide();
-        this.$toast(data.msg)
+        this.$toast(e);
       }
 
     },

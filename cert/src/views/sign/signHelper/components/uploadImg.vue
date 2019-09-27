@@ -123,7 +123,7 @@ export default {
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           let data = canvas.toDataURL("image/jpeg", quality);
           // let dataBese = data.split(',')[1];
-           console.log(data)
+          //  console.log(data)
           if(imgDir=='front'){
             that.$emit("front-file", data);
           }else{

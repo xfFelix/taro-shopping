@@ -67,12 +67,13 @@ export default {
     async sendCode() {
       if (!IsMobile(this.data.mobile)) return this.$toast("请输入正确的手机号");
       if (isEmpty(this.captcha)) return this.$toast("请输入图形验证码");
-      const { contractSms } = await import(/* webpackPrefetch: true */ "api");
-      let data = await contractSms({ mobile: this.data.mobile,code:this.captcha});
-      if (data.code!=0){
-          this.validateImgClick();
-          this.captcha = '';
-          return this.$toast(data.msg);
+      try{
+        const { contractSms } = await import(/* webpackPrefetch: true */ "api");
+        let data = await contractSms({ mobile: this.data.mobile,code:this.captcha});
+      }catch (e) {
+        this.validateImgClick();
+        this.captcha = '';
+        return this.$toast(e);
       }
       this.codeText = "120s 重新获取";
       let _this = this;
