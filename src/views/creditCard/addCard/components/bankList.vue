@@ -22,6 +22,9 @@
       show:{
         type:Boolean,
         default:false
+      },
+      cardBankC:{
+        type:String
       }
     },
       data:()=>({
@@ -114,6 +117,15 @@
           }else{
             this.filterList=this.banks;
           }
+        },
+        cardBankC(val){
+          if(val){
+            for(let i=0;i<this.banks.length;i++){
+              if (this.banks[i].name.indexOf(val) >= 0){
+                this.$emit('bank-name',this.banks[i]);
+              }
+            }
+          }
         }
       },
       methods:{
@@ -125,6 +137,7 @@
       },
       mounted(){
         this.filterList = this.banks;
+        console.log(this.cardBankC)
       }
   }
 </script>

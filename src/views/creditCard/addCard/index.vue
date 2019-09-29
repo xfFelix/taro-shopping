@@ -12,7 +12,7 @@
     </ul>
     <div class="addCardBnt" @click="addCardBnt()" :class="bntFlag?'addBntCan':'addBntNo'">提交</div>
   </div>
-  <bank-list @bank-name="bankName" :show="show.banks" @hand-init='show.banks=false'></bank-list>
+  <bank-list @bank-name="bankName" :show="show.banks" @hand-init='show.banks=false'  :cardBankC="cardBankP"></bank-list>
 </div>
 </template>
 <script>
@@ -136,6 +136,7 @@ export default {
           formData.append('cardBank',this.cardBankP);
           formData.append('cardSubBank',this.cardSubBank);
           formData.append('token',this.getToken);
+          formData.append('bankId',this.bankId);
           const instance = axios.create({
             headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
             withCredentials: process.env.NODE_ENV === 'production',
@@ -146,7 +147,6 @@ export default {
                 this.$router.push({path:'/creditCard/manage'})
               })
             }else{
-
               this.$dialog({content:res.data.message},()=>{})
             }
           }).catch(err=>{
