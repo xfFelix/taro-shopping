@@ -135,18 +135,13 @@ export default {
     showDig(){
       this.$dialog({title:'回购说明',content: "<p style='margin-top:-12px;text-align: left;'>本服务由深圳市金宇阳光文化发展有限公司提供。</p><p style='text-align: left;margin: 8px 0 -13px 0;'>回购价格=基础金价-3元/克，基础金价为上海黄金交易所Au99.99当日开盘价。</p>"},() => {})
     },
-    async getPrice() {
-      let res = await goldPrice({ id: this.backInfo.type });
-      if(res.error_code!=0) return this.$toast(res.message);
-      if(this.backInfo.type==0){
-        this.backPrice = (res.data.goldPrice-20)*this.backInfo.weight;
-      }else{
-        this.backPrice = (res.data.goldPrice-21)*this.backInfo.weight;
-      }
-    },
   },
   mounted(){
-    this.getPrice()
+    if(this.backInfo.type==0){
+      this.backPrice = (this.backInfo.barPrice-20)*this.backInfo.weight;
+    }else{
+      this.backPrice = (this.backInfo.sandPrice-21)*this.backInfo.weight;
+    }
     this.inpInfo.code = this.backInfo.cardCode;
     this.inpInfo.mobile = this.userinfo.userName;
     this.inpInfo.name = this.userinfo.realName;
@@ -270,7 +265,7 @@ export default {
     }
   }
   .arrivel-accound-day{
-    padding: 40px 0 55px 0;
+    padding: 10px 0 55px 0;
     font-size:12px;
     color: #999999;
     text-align: center;

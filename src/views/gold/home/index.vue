@@ -2,7 +2,7 @@
 <div class="gold-home">
   <div v-show="!suceesShow">
       <Header class="navbar" :show-more="!yingqiudiShow">黄金兑换</Header>
-      <gold-info  v-model.trim="inpPrice"  @inp-Clean="inpClean" @total-money="totalMoney"></gold-info>
+      <gold-info  v-model.trim="inpPrice"  @inp-Clean="inpClean" @tax-money="taxInfo"></gold-info>
       <div class="agreement">
         <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
         <span @click="show.file=true" class="file">《黄金兑换协议》</span>
@@ -34,7 +34,7 @@
 import {mapGetters, mapActions} from 'vuex';
 import { goldBuy } from 'api';
 import { setPayType ,IOSFocus ,vipCustom} from '@/mixins';
-import { IsInteger } from "util/common";
+import { IsInteger,isEmpty } from "util/common";
 export default {
   mixins: [setPayType, IOSFocus,vipCustom],
   data:()=>({
@@ -47,7 +47,7 @@ export default {
       failText:undefined,
       inpPrice:undefined,
       suceesShow:false,
-      total:0,
+      taxMoney:{}
   }),
   watch: {
     'show.mask': {
@@ -74,8 +74,8 @@ export default {
       inpClean(){
         this.inpPrice = ''
       },
-      totalMoney(val){
-        this.total = val;
+      taxInfo(val){
+        this.taxMoney = val;
       },
       getCData(val){  //关闭成功页
         this.suceesShow=val;
@@ -86,6 +86,11 @@ export default {
       },
       async submitOrder(val){ //输入短信下单
         let res = await goldBuy({token:this.getToken,amount:this.inpPrice,verify_code:val,id:this.goldType.type});
+        if(res.error_code == 30000){
+          this.$dialog({type:'confirm',content:res.message},()=>{
+          this.$router.push({path:'/realName?back=/gold'})});
+          return false;
+        }
         if(res.error_code!=0)  return this.$toast(res.message);
         this.setConfig({id:res.data.id});
         this.initShow();
@@ -96,12 +101,19 @@ export default {
       },
       async handlerShowType() {
         if(this.inpPrice >=1 && IsInteger(this.inpPrice)){
-          if(this.total>this.userinfo.score){
-            this.$toast('您的积分不足');
+          if(this.userinfo.score >= this.taxMoney.total){
+            if(this.taxMoney.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
+              return this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
+                this.$router.push({path:'/realName?back=/gold'})
+              })
+            }
+            else{
+              let res = await this.checkPassword();
+              if (!res) return;
+              this.show = { mask: true,code: true,file:false}
+            }
           }else{
-            let res = await this.checkPassword();
-            if (!res) return;
-            this.show = { mask: true,code: true,file:false}
+            this.$toast('您的积分不足');
           }
         }else{
           if(this.goldType.type==0){
@@ -141,7 +153,6 @@ export default {
   .agreement {
     display: flex;
     align-items: center;
-    padding-bottom: 44px;
     .cube-checkbox {
       padding: 0 0 0 20px;
     }

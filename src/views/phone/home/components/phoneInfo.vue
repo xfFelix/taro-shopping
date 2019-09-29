@@ -40,13 +40,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { phoneTax } from 'api';
-import {tools_uri} from 'common/tools';
 export default {
   props: {
     show: {
       type: Boolean,
       default: false
+    },
+    phoneTax:{
+      type: Object,
     }
   },
   data: () => ({
@@ -55,36 +56,21 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      getToken: 'getToken',
       phoneConfig: 'phone/getConfig'
     })
   },
   watch: {
-    show(val) {
-      if (val) {
-        this.phoneTax()
+    phoneTax(val){
+      if(val){
+        this.data =val;
       }
     }
   },
   methods: {
-    async phoneTax() {
-      let amount = ''
-      if(this.phoneConfig.type==0){
-        amount = this.phoneConfig.realDirP;
-      }else{
-        amount = this.phoneConfig.realCarP;
-      }
-      let res = await phoneTax({amount:amount, token: this.getToken})
-      if (res.error_code != 0) return this.$toast(res.message);
-      this.data = res.data
-    },
     handlerShowCode() {
       this.$emit('handler-show-code')
     }
   },
-  mounted(){
-
-  }
 }
 </script>
 <style lang="scss" scoped>

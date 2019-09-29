@@ -2,7 +2,7 @@
 <div class="ccHome">
     <div v-if="!suceesShow">
         <Header class="navbar" :show-more="!yingqiudiShow">信用卡还款</Header>
-        <repayment @current-card="currentCard" v-model="taxPrice" @total-money="totalMoney"></repayment>
+        <repayment @current-card="currentCard" v-model="taxPrice" @tax-money="taxInfo"></repayment>
         <div class="agreement">
           <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
           <span @click="show.file=true" class="file">《信用卡还款协议》</span>
@@ -40,7 +40,7 @@ export default {
       cardId:undefined,
       taxPrice:undefined,
       totalAmount:0,
-      total:0
+      taxMoney:{}
   }),
   watch: {
     'show.mask': {
@@ -68,8 +68,8 @@ export default {
       currentCard(val){
         this.cardId = val;
       },
-      totalMoney(val){
-        this.total = val;
+      taxInfo(val){
+        this.taxMoney = val;
       },
       async payBnt(){
         if(!this.cardId){
@@ -83,7 +83,7 @@ export default {
         if(this.checked==false){
           return this.$toast('请阅读并同意信用卡还款协议');
         }
-        if(this.total>this.userinfo.score){
+        if(this.taxMoney.total>this.userinfo.score){
           return this.$toast('您的积分不足!');
         }
         if(!this.userinfo.idnum){

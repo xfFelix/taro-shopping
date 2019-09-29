@@ -6,6 +6,7 @@ export const getInfo = (data) => fetch({
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/cc5c24b8de8ac46fa85f.json', //赢球帝
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/53978791842af681d07b.json', //30000
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/1dc605696e190e530bb6.json',//未实名
+  // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/7ff01ba4aefcec48b369.json', //积分只有10
   method: 'POST',
   data
 })

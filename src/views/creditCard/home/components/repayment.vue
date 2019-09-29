@@ -50,7 +50,6 @@ export default {
       timeInp:null,
       taxInfo:{},
       initialIndex:0,
-      total:0
     }),
     computed: {
       ...mapGetters({
@@ -64,14 +63,11 @@ export default {
           window.clearTimeout(this.timeInp)
           this.timeInp=window.setTimeout(()=>{
             this.cardTax(val);
-          },800)
+          },500)
         }else{
           this.cardTax(0);
         }
       },
-      total(val){
-        this.$emit('total-money',val)
-      }
     },
     methods:{
       changePage(current) {
@@ -99,10 +95,10 @@ export default {
         })
       },
       async cardTax(val){
-         let res = await cardTax({token:this.getToken,amount:val});
-         if(res.error_code!=0) return this.$toast(res.message);
-         this.taxInfo = res.data;
-         this.total = res.data.total;
+          let res = await cardTax({token:this.getToken,amount:val});
+          if(res.error_code!=0) return this.$toast(res.message);
+          this.taxInfo = res.data;
+          this.$emit('tax-money',this.taxInfo)
       },
     },
     mounted(){

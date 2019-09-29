@@ -11,7 +11,9 @@ let defaultBack = { //回购信息
   cardId:undefined,
   cardCode:undefined,
   type:undefined,
-  weight:undefined
+  weight:undefined,
+  barPrice:undefined,
+  sandPrice:undefined
 }
 
 try{
@@ -61,6 +63,7 @@ const mutations = {
     state.config = Object.assign(state.config, config);
   },
   setBackInfo(state, backInfo) {
+
     state.backInfo = Object.assign(state.backInfo, backInfo)
     sessionStorage.set('goldBack_config', state.backInfo)
   },
@@ -69,7 +72,9 @@ const mutations = {
       cardId:'',
       cardCode:'',
       type:'',
-      weight:''
+      weight:'',
+      barPrice:'',
+      sandPrice:''
     }
     state.config = {
       type: 0, //0金条 1金砂

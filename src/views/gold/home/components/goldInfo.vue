@@ -78,7 +78,6 @@ export default {
     goldPrice:undefined,
     taxInfo:{},
     timeInp:null,
-    totalMoney:0,
   }),
   computed: {
     ...mapGetters({
@@ -121,9 +120,6 @@ export default {
         this.getTax(0);
       }
     },
-    totalMoney(val){
-      this.$emit('total-money',val)
-    }
   },
   methods: {
     ...mapActions({
@@ -150,7 +146,7 @@ export default {
       let res = await goldTax({ amount: val,id: this.gtId,token: this.getToken});
       if(res.error_code!=0) return this.$toast(res.message);
       this.taxInfo = res.data;
-      this.totalMoney = res.data.total
+      this.$emit('tax-money',this.taxInfo)
     },
     vipCustom(){  //赢球帝
       if(this.userinfo.vendorId == 'yingqiudi'){

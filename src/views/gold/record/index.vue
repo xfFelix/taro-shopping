@@ -47,10 +47,10 @@
                                 <p>税费：{{item.taxFee|toPrice}}</p>
                                 <p class="total">合计：{{item.totalAmount|toPrice}}</p>
                             </div>
-                            <div class="recover"  @click="recovery(item.id,item.gtype,item.code,item.weight)"  v-if='item.code && !item.buyInfo'>
+                            <div class="recover"  @click="recovery(item.id,item.gtype,item.code,item.weight)"  v-if='(item.code && (!item.buyInfo || item.buyInfo.status==2))'>
                                 立即回购
                             </div>
-                            <div v-if="item.buyInfo" >
+                            <div v-if="(item.buyInfo && item.buyInfo!=2)">
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
@@ -95,7 +95,7 @@ export default {
     computed: {
         options() {
             return {
-                pullUpLoad: this.pullUpLoadObj,
+              pullUpLoad: this.pullUpLoadObj,
             }
         },
         pullUpLoadObj: function() {
@@ -110,24 +110,8 @@ export default {
         ...mapGetters({
             getToken: 'getToken',
             userinfo: 'getUserinfo',
-            goldConfig: 'gold/getConfig'
+            goldConfig: 'gold/getConfig',
         }),
-        barPrice:{
-          get() {
-            return this.$store.state.gold.config.barPrice
-          },
-          set(val) {
-            return this.$store.dispatch('gold/setConfig',{barPrice: val})
-          }
-        },
-        sandPrice:{
-          get() {
-            return this.$store.state.gold.config.sandPrice
-          },
-          set(val) {
-            return this.$store.dispatch('gold/setConfig',{sandPrice: val})
-          }
-        }
     },
     methods: {
        ...mapActions({
@@ -158,10 +142,10 @@ export default {
           let res = await goldPrice({ id: this.typeFlag });
           if(res.error_code!=0) return this.$toast(res.message);
           this.goldPrice = res.data.goldPrice;
-          if(this.gtId==0){
-              this.barPrice = this.goldPrice;
+          if(this.typeFlag==0){
+            this.backInfo({barPrice: this.goldPrice})
           }else{
-              this.sandPrice = this.goldPrice;
+            this.backInfo({sandPrice: this.goldPrice});
           }
         },
         async getScenicList() {

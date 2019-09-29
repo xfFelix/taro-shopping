@@ -11,6 +11,7 @@ export default router => {
       if (!token) {
         dialog({type: 'confirm', content: '请先登录'}, () => {
           window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
+          // window.location.href = process.env.VUE_APP_BASE_HOME_URL + '/#/login?back=' + tools_uri.encode(window.location)
         })
       } else {
         try {
@@ -20,6 +21,7 @@ export default router => {
             store.dispatch('setUserinfo', undefined)
             dialog({type: 'confirm', content: '请先登录'}, () => {
               window.location.href = process.env.VUE_APP_INFO_URl + '#!/login?back=' + tools_uri.encode(window.location)
+              // window.location.href = process.env.VUE_APP_BASE_HOME_URL + '/#/login?back=' + tools_uri.encode(window.location)
             })
           } else {
             info.data.haiHang = info.haiHang;

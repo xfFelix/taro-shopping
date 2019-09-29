@@ -4,8 +4,8 @@
   <div v-if="!suceesShow">
     <Header class="navbar" :show-more="!yingqiudiShow" >话费充值</Header>
     <phone-type @hand-phoneCan="phoneCanP"></phone-type>
-    <phone-info :show="show.info" @handler-show-code="smsShow"  @go-back="initShow"></phone-info>
-    <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" ></Sms-code>
+    <phone-info :show="show.info" @handler-show-code="smsShow"  @go-back="initShow" :phoneTax="phoneTaxInfo"></phone-info>
+    <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="infoShow" @submit-order="submitOrder" ></Sms-code>
 
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
@@ -16,8 +16,8 @@
     <set-mobile :show.sync="showSetMobile"></set-mobile>
 
     <div class="phoneBnt">
-      <div class="dirPhone" v-show="phoneConfig.type==0" @click="phoneDirC" :style="phoneCan?' background: #30ce84;':' background: #98E7C2;'">立即兑换</div>
-      <div v-show="phoneConfig.type!=0" class="carPhone"><p @click="phoneCarC">立即兑换</p><span class="goLogs" @click="$router.push({name:'phoneRecord',query:{cardId:1}})">立即转卖</span></div>
+      <div class="dirPhone" v-show="phoneConfig.type==0" @click="phoneBnt('dir')" :style="phoneCan?' background: #30ce84;':' background: #98E7C2;'">立即兑换</div>
+      <div v-show="phoneConfig.type!=0" class="carPhone"><p @click="phoneBnt('card')">立即兑换</p><span class="goLogs" @click="$router.push({name:'phoneRecord',query:{cardId:1}})">立即转卖</span></div>
     </div>
   </div>
 
@@ -29,7 +29,8 @@
 
 import {mapGetters, mapActions } from 'vuex';
 import {setPayType ,IOSFocus ,vipCustom} from '@/mixins'
-import {phoneCharge} from 'api'
+import {phoneCharge ,phoneTax} from 'api';
+import { isEmpty  } from "util/common";
 export default {
   mixins: [setPayType, IOSFocus ,vipCustom],
   data:()=>({
@@ -44,7 +45,8 @@ export default {
       inpPrice:undefined,
       suceesShow:false,
       phoneCan:false,
-      totalAmount:0
+      totalAmount:0,
+      phoneTaxInfo:{}
   }),
   watch: {
     'show.mask': {
@@ -68,26 +70,24 @@ export default {
         checkPassword: 'checkPassword',
         initConfig: 'phone/initConfig'
       }),
-      async phoneDirC(){
-        if(this.phoneCan){
+      async phoneBnt(name){
+        if(name == 'dir'){
+          if(this.phoneCan){
+            let res = await this.checkPassword();
+            if (!res) return false;
+            this.phoneTax()
+          }
+        }else{
           let res = await this.checkPassword();
           if (!res) return false;
-          this.infoShow()
+          this.phoneTax()
         }
-      },
-      async phoneCarC(){
-        let res = await this.checkPassword();
-        if (!res) return false;
-        this.infoShow()
       },
       phoneCanP(val){
         this.phoneCan=val
       },
       getCData(val){  //关闭成功页
         this.suceesShow=val;
-      },
-      handlerShowInfo(){
-        this.initShow();
       },
       initShow(){
         this.show={mask:false,code:false,file:false,info:false};
@@ -111,12 +111,34 @@ export default {
         let res = await phoneCharge({token:this.getToken,amount:amount,verify_code:val,type:this.phoneConfig.type+'',mobile:mobile});
         if(res.error_code == 30000){ return this.$dialog({type:'confirm',content:res.message},()=>{
           this.$router.push({path:'/realName?back=/phone'})
-
         })}
         if(res.error_code!=0)  return this.failText = res.message;
         this.totalAmount = res.data.totalAmount;
         this.initShow();
         this.suceesShow=true;
+      },
+      async phoneTax() {
+        let amount = ''
+        if(this.phoneConfig.type==0){
+          amount = this.phoneConfig.realDirP;
+        }else{
+          amount = this.phoneConfig.realCarP;
+        }
+        let res = await phoneTax({amount:amount, token: this.getToken})
+        if (res.error_code != 0) return this.$toast(res.message);
+        this.phoneTaxInfo = res.data;
+        if(this.userinfo.score >= this.phoneTaxInfo.total){
+          if(this.phoneTaxInfo.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
+            this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
+              this.$router.push({path:'/realName?back=/phone'})
+            })
+            return false;
+          }
+        }else{
+          this.$dialog({content:'您的积分不足！'},()=>{});
+          return false;
+        }
+        this.infoShow()
       },
   },
   created(){
