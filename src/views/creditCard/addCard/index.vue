@@ -27,6 +27,7 @@ export default {
       },
       cardNum:undefined,
       cardBankP:undefined,
+      cardBankData:undefined,
       detailFlag:false,  //手动true
       cardBank:'请选择您的开户银行',
       cardSubBank:'',
@@ -63,6 +64,7 @@ export default {
         let res = await validCard({token:this.getToken,card:this.cardNum});
         if(res.error_code == 0){
           this.cardBankP = res.message;
+          this.cardBankData = res.data;
         }else if(res.error_code == 3){
           return this.$dialog({content:res.message},()=>{});
         }else if(res.error_code == 4){
@@ -106,13 +108,13 @@ export default {
       },
       addcard(){
         let formData = new FormData();
-        formData.append('file',this.imgFile);
         formData.append('cardUser',this.userinfo.realName);
         formData.append('cardNum',this.cardNum);
-        formData.append('bankId',this.bankId);
         formData.append('cardBank',this.cardBank);
         formData.append('cardSubBank',this.cardSubBank);
         formData.append('token',this.getToken);
+        formData.append('bankId',this.bankId);
+        formData.append('file',this.imgFile);
         const instance = axios.create({
           headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
           withCredentials: process.env.NODE_ENV === 'production',
@@ -133,10 +135,10 @@ export default {
          let formData = new FormData();
           formData.append('cardUser',this.userinfo.realName);
           formData.append('cardNum',this.cardNum);
-          formData.append('cardBank',this.cardBankP);
+          formData.append('bankId',this.bankId);
           formData.append('cardSubBank',this.cardSubBank);
           formData.append('token',this.getToken);
-          formData.append('bankId',this.bankId);
+          formData.append('cardBank',this.cardBankData);
           const instance = axios.create({
             headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
             withCredentials: process.env.NODE_ENV === 'production',
