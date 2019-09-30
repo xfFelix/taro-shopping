@@ -79,7 +79,7 @@ export default {
             this.$router.push({ path: 'goodsDetail', query: { sceneId: id } })
         },
         handleScroll() {
-            if (this.$route.name == "home") {
+            if (this.$route.name == "tourHome") {
                 //变量scrollTop是滚动条滚动时，距离顶部的距离
                 let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
                 if (scrollTop > 0) {

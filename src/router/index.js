@@ -15,7 +15,7 @@ const router = new Router({
     },
     {
       path: '/home',
-      name: 'home',
+      name: 'tourHome',
       meta: {
         title: '首页',
         keepAlive:true
@@ -24,12 +24,12 @@ const router = new Router({
     },
     {
       path: '/goodsDetail',
-      name: 'goodsDetail',
+      name: 'tourGoodsDetail',
       component: () => import(/* webpackChunkName: "group-ticket" */ 'views/goodsDetail')
     },
     {
       path: '/order',
-      name: 'order',
+      name: 'tourOrder',
       meta: {
         title: '订单'
       },
@@ -38,7 +38,7 @@ const router = new Router({
       children:[
         {
           path: 'list',
-          name: 'list',
+          name: 'tourList',
           component: () => import(/* webpackChunkName: "group-ticket" */ 'views/order/list'),
           meta: {
             title: '订单列表',
@@ -47,7 +47,7 @@ const router = new Router({
         },
         {
           path: 'detail',
-          name: 'detail',
+          name: 'tourDetail',
           component: () => import(/* webpackChunkName: "group-ticket" */ 'views/order/detail'),
           meta: {
             title: '订单详情',
@@ -58,7 +58,7 @@ const router = new Router({
     },
     {
       path: '/settlement',
-      name: 'settlement',
+      name: 'tourSettlement',
       component: () => import(/* webpackChunkName: "group-ticket" */ 'views/settlement'),
       meta: {
         title: '结算',
