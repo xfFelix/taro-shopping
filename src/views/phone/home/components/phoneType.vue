@@ -18,7 +18,9 @@
             <div class="phoneBill-info">
                 <div class="phoneBill-inpW phoneBill-direct">
                     <span class="logoGreen iconImg"></span>
-                    <input type="tel" pattern="\d*" class="phoneBill-inp" maxlength="11" placeholder="请输入充值手机号码" v-model.trim="mobile"/>
+                    <div class="input-flex">
+                      <input type="tel" pattern="\d*" class="phoneBill-inp" maxlength="11" placeholder="请输入充值手机号码" v-model.trim="mobile"/>
+                    </div>
                 </div>
                 <div class="phoneBill-OR">
                     <p> 椰子分余额：<span class="phoneBill-over">{{userinfo.score}}</span> </p>

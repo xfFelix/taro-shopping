@@ -23,13 +23,14 @@
 
       <div class="goldC-buy">
         <span class="logoGreen iconImg"></span>
-        <input
+        <div class="input-flex">
+          <input
           type="number"
           :placeholder="gtId==0?'1根起购，仅限整数':'1颗起购，仅限整数'"
           class="goldC-input"
           :value="inpPrice"
-          @input="$emit('input', $event.target.value)"
-        />
+          @input="$emit('input', $event.target.value)"/>
+        </div>
         <span class="goldC-unit">{{gtId==0?'根':'颗'}}</span>
         <span class="goldC-explain">{{gtId==0?'(1根=10克)':'(1颗=0.2克)'}}</span>
       </div>

@@ -15,7 +15,7 @@
       <div class="addCard" @click="$router.push({path:'/creditCard/manage'})">{{cardsList.length>0?'信用卡管理':'+ 添加信用卡'}}</div>
       <div class="pay-input">
         <span class="logoGreen iconImg"></span>
-        <input type="number" name="amount" placeholder="请输入还款金额"  min="1"  @input="$emit('input', $event.target.value)" :value="taxPrice">
+        <div class="input-flex"><input type="number" name="amount" placeholder="请输入还款金额"  min="1"  @input="$emit('input', $event.target.value)" :value="taxPrice"></div>
       </div>
     </div>
 

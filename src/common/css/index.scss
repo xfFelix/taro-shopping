@@ -201,10 +201,14 @@ input:-ms-input-placeholder {
 		background-image: url(../../common/images/yezifen.png);
 		margin-right: 5px;
 	}
-	input{
-		width: 100%;
+	.input-flex{
 		flex: 1;
 		height: 100%;
+		width: 100%;
+		input{
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 .realName,.addCard-info,.bind{

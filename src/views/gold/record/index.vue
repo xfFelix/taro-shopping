@@ -8,12 +8,9 @@
             <div class="whoSelectW">
                 <p :class="typeFlag==0?'whoSelectLogo':''"  @click="directCharge()">
                     <span>金条</span>
-                    <span></span>
                 </p>
-                <span class="divide" v-if="!yingqiudiShow">|</span>
                 <p :class="typeFlag==1?'whoSelectLogo':''"   @click="cardCharge()"  v-if="!yingqiudiShow">
                     <span >金砂</span>
-                    <span></span>
                 </p>
             </div>
         </div>
@@ -54,7 +51,7 @@
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
-                                <p class="backMoney">回购金额：{{item.gtype == 0?((goldConfig.price-20)*item.weight):((item.goldPriceNum-21)*item.weight)|toPrice}}</p>
+                                <p class="backMoney">回购金额：{{(item.buyInfo.goldPrice*item.weight)|toPrice}}</p>
                                 <p>姓名：{{item.buyInfo.name}}</p>
                               </div>
                               <div class="gold-bnt"  @click="transClick(item,index)">
@@ -257,38 +254,39 @@ export default {
     justify-content: space-between;
 }
 .whoSelectW {
-    display: flex;
-    justify-content: space-around;
-    height: 30px;
-    align-items: center;
+    height: 36px;
     background: #373C48;
-    P {
-        width: 90px;
+    p{
+        width: 50%;
         text-align: center;
         color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
         height: 100%;
         font-size: 15px;
-        span:first-of-type {
-            margin-bottom: 5px;
+        display: inline-block;
+        span{
+            height: 34px;
+            width: 110px;
+            display: inline-block;
+            text-align: center;
         }
-        span:last-of-type {
-            width: 100%;
-            height: 2px;
-            display: block;
+        &:nth-of-type(2){
+          &::before{
+            color: #b1b1b1;
+            font-size: 18px;
+            content: '';
+            display: inline-block;
+            width: 1px;
+            height: 22px;
+            background: #fff;
+            float: left;
+          }
         }
     }
     .whoSelectLogo {
         color: #30CE84;
-        span:last-of-type {
-            background: #30CE84;
+        span {
+            border-bottom: 2px solid #30CE84;
         }
-    }
-    .divide {
-        color: #b1b1b1;
-        font-size: 18px;
     }
 }
 
