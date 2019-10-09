@@ -75,8 +75,8 @@ export default {
     typeIndex:0,
     phoneCan:false,
     dirIndex:'',
-    carIndex:1,
-    noGoods:['1'],
+    carIndex:2,
+    noGoods:['1','5'],
     yinqiudiShow:false
   }),
   watch:{
@@ -145,7 +145,7 @@ export default {
               realCarP:Object.values(this.cardList)[Object.keys(this.cardList).length-1]
             })
         }else{
-          this.setConfig({cardPrice:Object.keys(this.cardList)[1],realCarP:Object.values(this.cardList)[1]}) //初始值拿下标为1的值
+          this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2]}) //初始值拿下标为1的值
         }
       }
   },

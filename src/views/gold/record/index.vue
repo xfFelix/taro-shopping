@@ -2,7 +2,7 @@
     <div class="oilRecord">
         <div class="headFixed">
             <header>
-                <i class="cubeic-back" @click="$router.push({name:'goldHome'})"></i>
+                <i class="cubeic-back" @click="$router.back()"></i>
                 兑换记录
             </header>
             <div class="whoSelectW">
@@ -176,7 +176,7 @@ export default {
             if (this.userinfo.payValidType === 1) {
               return [
                 h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入支付密码')]),
-                h('div', { class: { 'content-wrapper': true }, slot: 'content' }, [h('cube-input', { class: { 'input-code': true }, attrs: {type: 'password', eye: {open: true, reverse: true} , autofocus: true, maxlength: 6, placeholder: '请输入验证码' , pattern: '[0-9]*'},
+                h('div', { class: { 'content-wrapper': true }, slot: 'content' }, [h('cube-input', { class: { 'input-code': true }, attrs: {type: 'password', eye: {open: true, reverse: true} , autofocus: true, maxlength: 6, placeholder: '请输入验证码' , pattern: '[0-9]*', value: this.code},
                   on: { input: (val) => { this.code = val.trim() }}
                 })])
               ]
@@ -215,6 +215,7 @@ export default {
           const { goldCode } = await import(/* webpackPrefetch: true */ 'api')
           const { error_code , data, message } = await goldCode({ token: this.getToken, verify_code: this.code, id: id})
           if (error_code != 0) return this.$toast(message)
+          this.code = ''
           this.$dialog({type:'confirm',content: data,title:'您的黄金兑换码是：',confirmBtn:{text:'复制'}},($event) => {
               this.handleCopy(data,$event)
           })
