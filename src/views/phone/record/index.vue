@@ -2,18 +2,15 @@
     <div class="oilRecord">
         <div class="headFixed">
             <header>
-                <i class="cubeic-back" @click="$router.push({name:'phoneHome'})"></i>
+                <i class="cubeic-back" @click="$router.back()"></i>
                 兑换记录
             </header>
             <div class="whoSelectW">
                 <p :class="typeFlag==0?'whoSelectLogo':''"  @click="directCharge()" v-show="!yingqiudiShow">
                     <span>直充</span>
-                    <span></span>
                 </p>
-                <span class="divide" v-show="!yingqiudiShow">|</span>
                 <p :class="typeFlag==1?'whoSelectLogo':''"   @click="cardCharge()">
                     <span >充值卡</span>
-                    <span></span>
                 </p>
             </div>
         </div>
@@ -165,33 +162,39 @@ export default {
     justify-content: space-between;
 }
 .whoSelectW {
-    display: flex;
-    justify-content: space-around;
     height: 36px;
-    align-items: center;
     background: #373C48;
-    P {
-        width: 90px;
+    p{
+        width: 50%;
         text-align: center;
         color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         height: 100%;
         font-size: 15px;
-        span:first-of-type {
-            margin-bottom: 5px;
+        display: inline-block;
+        span{
+            height: 34px;
+            width: 110px;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
         }
-        span:last-of-type {
-            width: 100%;
-            height: 2px;
-            display: block;
+        &:nth-of-type(1){
+          &::after{
+            color: #b1b1b1;
+            font-size: 18px;
+            content: '';
+            display: inline-block;
+            width: 1px;
+            height: 22px;
+            background: #fff;
+            float: right;
+          }
         }
     }
     .whoSelectLogo {
-        color: #30CE84;
-        span:last-of-type {
-            background: #30CE84;
+        span{
+          color: #30ce84;
+          border-bottom: 2px solid #30ce84;
         }
     }
     .divide {

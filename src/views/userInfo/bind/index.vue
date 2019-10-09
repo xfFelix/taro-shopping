@@ -4,7 +4,7 @@
       <ul >
         <li><span class="iconImg telPng"></span><input type="text" placeholder="请输入手机号码" v-model.trim="mobile"/></li>
         <li><span class="iconImg msgPng"></span><input type="text" placeholder="短信验证码"  v-model.trim="smsValid"/>
-          <button class="btn-code" @click="getCode" :disabled="btnCodeDisabled">{{time > 0 ? `${time}s` : '发送验证码'}}</button>
+          <button class="btn-code" @click="getCode" :disabled="btnCodeDisabled">{{time > 0 ? `${time}s` : timeFlag}}</button>
         </li>
       </ul>
 
@@ -23,7 +23,8 @@ export default {
     btnCodeDisabled: false,
     time: 0,
     mobile:undefined,
-    smsValid:undefined
+    smsValid:undefined,
+    timeFlag:'发送验证码'
   }),
   computed: {
     ...mapGetters({
@@ -36,10 +37,11 @@ export default {
         return this.$toast('请输入有效的手机号码');
       }
       const { sendSmsCode } = await import(/* webpackPrefetch: true */ 'api');
-      let res= await sendSmsCode({token: this.token})
+      let res= await sendSmsCode({mobile: this.mobile})
       if (res.error_code != 0) return this.$toast(res.message);
       this.btnCodeDisabled = true;
       this.time = 120;
+      this.timeFlag = '重新获取'
       this.interval = setInterval(() => {
         if (this.time > 0) {
           this.time--

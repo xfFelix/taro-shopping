@@ -18,7 +18,9 @@
             <div class="phoneBill-info">
                 <div class="phoneBill-inpW phoneBill-direct">
                     <span class="logoGreen iconImg"></span>
-                    <input type="tel" pattern="\d*" class="phoneBill-inp" maxlength="11" placeholder="请输入充值手机号码" v-model.trim="mobile"/>
+                    <div class="input-flex">
+                      <input type="tel" pattern="\d*" class="phoneBill-inp" maxlength="11" placeholder="请输入充值手机号码" v-model.trim="mobile"/>
+                    </div>
                 </div>
                 <div class="phoneBill-OR">
                     <p> 椰子分余额：<span class="phoneBill-over">{{userinfo.score}}</span> </p>
@@ -73,8 +75,8 @@ export default {
     typeIndex:0,
     phoneCan:false,
     dirIndex:'',
-    carIndex:1,
-    noGoods:['1'],
+    carIndex:2,
+    noGoods:['1','5'],
     yinqiudiShow:false
   }),
   watch:{
@@ -143,7 +145,7 @@ export default {
               realCarP:Object.values(this.cardList)[Object.keys(this.cardList).length-1]
             })
         }else{
-          this.setConfig({cardPrice:Object.keys(this.cardList)[1],realCarP:Object.values(this.cardList)[1]}) //初始值拿下标为1的值
+          this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2]}) //初始值拿下标为1的值
         }
       }
   },

@@ -12,7 +12,7 @@
             <span @click="showDig()">?</span>
           </p>
         </li>
-        <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="inpInfo.code"/></li>
+        <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li>
         <li>联系电话<input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" v-model="inpInfo.mobile"/></li>
         <li>姓名<input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" v-model="inpInfo.name"/></li>
         <li>银行卡号<input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum"/></li>
@@ -51,8 +51,7 @@ export default {
       name:undefined,
       cardNum:undefined,
       bank:undefined,
-      subBank:undefined,
-      code:undefined
+      subBank:undefined
     },
     show:{
       mask:false,
@@ -91,13 +90,14 @@ export default {
             subBank: this.inpInfo.subBank,
             realName: this.inpInfo.name,
             cardNum: this.inpInfo.cardNum,
-            id: this.backInfo.type+'',
-            cardId:this.inpInfo.cardId,
+            id: this.backInfo.type,
+            cardId:this.backInfo.cardId,
             verify_code: val,
         })
         if(res.error_code != 0){
           return this.failText = res.message;
         }else{
+          this.initShow();
           this.$dialog({content:res.message},()=>{
             this.$router.push({name:'goldHome'})
           })
@@ -142,7 +142,6 @@ export default {
     }else{
       this.backPrice = (this.backInfo.sandPrice-21)*this.backInfo.weight;
     }
-    this.inpInfo.code = this.backInfo.cardCode;
     this.inpInfo.mobile = this.userinfo.userName;
     this.inpInfo.name = this.userinfo.realName;
   },

@@ -55,7 +55,7 @@ export default {
       this.charge()
     },
     async charge(){
-      let res = await charge({token:this.getToken,passwd:this.cardPass,captcha:this.captcha});
+      let res = await charge({token:this.getToken,passwd:this.cardPass,captcha:this.cardCap});
       if(res.error_code==0){
         this.$dialog({content:'卡密充值成功！'},()=>{location.href = this.userinfo.haiHang;})
       }else{

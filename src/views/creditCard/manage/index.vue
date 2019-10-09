@@ -6,15 +6,15 @@
         <div class="item-info">
           <p class="item-bank">{{item.cardBank}}</p>
           <p class="item-num">{{item.cardNum}}</p>
-          <p v-if="item.status==2">{{item.memo}}</p>
           <p :class="`bank-status bank-status-${item.status}`"></p>
         </div>
       </div>
+      <p v-if="item.status==2" class="card-memo">{{item.memo}}</p>
       <div class="card-oper" v-if="item.status==1">
         <p class="card-unbind" @click="unBind(item.id)">解绑</p><span class="divide"></span>
         <p class="card-pay" @click="$router.push({name:'CCHome',query:{id:item.id}})">立即还款</p>
       </div>
-      <div class="card-oper" v-else>
+      <div class="card-delete" v-else>
           <div class="delete" @click="unBind(item.id)">删除</div>
       </div>
     </div>
@@ -91,9 +91,15 @@ export default {
     border-radius: 4px;
     font-size: 14px;
     width: 318px;
-    height: 130px;
+    // height: 130px;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
     margin: 30px auto;
+    .card-memo{
+      font-size: 12px;
+      border-bottom: 1px solid #efefef;
+      padding: 0 2px;
+      color: red;
+    }
     .card-img{
         height: 90px;
         position: relative;
@@ -135,9 +141,12 @@ export default {
         justify-content: center;
         height: 100%;
       }
+    }
+    .card-delete{
       .delete{
         margin: 0 auto;
         height: 100%;
+        line-height: 40px;
         display: flex;
         align-items: center;
         width: 100%;

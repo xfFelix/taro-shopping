@@ -7,7 +7,7 @@
         <li v-if="smsValid"><span class="iconImg tel"></span><input type="text" placeholder="手机号码" v-model="mobile"></li>
         <li v-if="smsValid">
           <span class="iconImg sms"></span><input type="text" placeholder="短信验证码" v-model="smsCode">
-          <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button>
+          <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': timeFlag}}</button>
         </li>
         <li><span class="iconImg name"></span><input type="text" placeholder="姓名" v-model="name"></li>
         <li><span class="iconImg identy"></span><input type="text" placeholder="身份证号码" v-model="cardId">
@@ -36,7 +36,8 @@ export default {
       btnDisabled:false,
       timeout:null,
       smsValid:false,
-      time:0
+      time:0,
+      timeFlag:"获取验证码"
   }),
   computed:{
     ...mapGetters({
@@ -97,6 +98,7 @@ export default {
         })
       }else{
           this.time = 120;
+          this.timeFlag = "重新获取"
           this.timeout = setInterval(() => {
             if (this.time > 0) {
               this.time--
@@ -132,7 +134,8 @@ export default {
         })
       }
 
-      if (IsMobile(this.userinfo.userName)){
+
+      if (!IsMobile(this.userinfo.userName)){
         if(this.userinfo.payValidType == null || this.userinfo.payValidType == 0) {
           this.smsValid= true;
         }else{

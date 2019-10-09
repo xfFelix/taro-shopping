@@ -31,7 +31,7 @@ export default {
       detailFlag:false,  //手动true
       cardBank:'请选择您的开户银行',
       cardSubBank:'',
-      bankId:undefined,
+      bankId:'',
       imgFile:undefined,
     }),
     computed:{
@@ -135,10 +135,12 @@ export default {
          let formData = new FormData();
           formData.append('cardUser',this.userinfo.realName);
           formData.append('cardNum',this.cardNum);
-          formData.append('bankId',this.bankId);
           formData.append('cardSubBank',this.cardSubBank);
           formData.append('token',this.getToken);
           formData.append('cardBank',this.cardBankData);
+          if(this.bankId){
+            formData.append('bankId',this.bankId);
+          }
           const instance = axios.create({
             headers:{'Content-Type': 'multipart/form-data;charset=utf-8'},
             withCredentials: process.env.NODE_ENV === 'production',
