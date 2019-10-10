@@ -37,12 +37,20 @@
       <li v-show="selectIndex==2"><img src="../../../../common/images/gold/sand-03.png" alt="金砂" width="100%" /></li>
       <li v-show="selectIndex==3"><img src="../../../../common/images/gold/sand-04.png" alt="金砂" width="100%" /></li>
     </ul>
-    <div ref="headTop" class="headTop"></div>
+    <!-- <div ref="headTop" class="headTop"></div> -->
   </div>
 </template>
 <script>
 import { mapGetters} from 'vuex';
 export default {
+  props:{
+    viewTopC:{
+      type:Number,
+    },
+    viewBoxHeightC:{
+      type:Number
+    }
+  },
   data: () => ({
     detail: [
       {
@@ -60,8 +68,18 @@ export default {
     ],
     selectIndex:0,
     gtId:0,
-    fixedTop:0
+    fixedTop:0,
+    // viewBoxHeight:0
   }),
+  watch:{
+    viewTopC(val){
+      if(val>this.viewBoxHeightC){
+        this.fixedTop=1
+      }else{
+         this.fixedTop=0
+      }
+    }
+  },
   computed: {
      ...mapGetters({
       goldType: 'gold/getConfig',
@@ -71,23 +89,26 @@ export default {
     detailClick(index){
       this.selectIndex = index;
     },
-    handleScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      let detailTop = this.$refs.detailTop.offsetTop;
-      let detailPosit = detailTop - scrollTop;
-      let headTop = window.getComputedStyle(this.$refs.headTop).height.substring(0,2);
-      if(detailPosit<headTop){
-        this.fixedTop=1
-      }else{
-         this.fixedTop=0
-      }
-    }
+    // handleScroll() {
+    //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    //   let detailTop = this.$refs.detailTop.offsetTop;
+    //   let detailPosit = detailTop - scrollTop;
+    //   let headTop = window.getComputedStyle(this.$refs.headTop).height.substring(0,2);
+    //   if(detailPosit<headTop){
+    //     this.fixedTop=1
+    //   }else{
+    //      this.fixedTop=0
+    //   }
+    // }
   },
   mounted(){
-      window.addEventListener('scroll', this.handleScroll);
+      // window.addEventListener('scroll', this.handleScroll);
+      console.log(this.viewBoxHeightC)
+
+
   },
   beforeDestroy() {
-        window.removeEventListener('scroll', this.handleScroll);
+        // window.removeEventListener('scroll', this.handleScroll);
     },
 };
 </script>
@@ -98,8 +119,8 @@ export default {
 }
 .gold-type {
   background: #f4f4f4;
-  position: relative;
-  margin-top: 15px;
+  // position: relative;
+  // margin-top: 15px;
   width: 100%;
   box-sizing: border-box;
   .gold-select{
