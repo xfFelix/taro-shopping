@@ -44,10 +44,13 @@
                                 <p>税费：{{item.taxFee|toPrice}}</p>
                                 <p class="total">合计：{{item.totalAmount|toPrice}}</p>
                             </div>
-                            <div class="recover"  @click="recovery(item.id,item.gtype,item.code,item.weight)"  v-if='(item.code && (!item.buyInfo || item.buyInfo.status==2))'>
+                           <!-- buyInfo为空或者buyInfo.status==2 -->
+                            <div class="recover"  @click="recovery(item.id,item.gtype,item.code,item.weight)"
+                              v-if="(item.code && (item.buyInfo == 'null' || (item.buyInfo?item.buyInfo.status==2:true)))">
                                 立即回购
                             </div>
-                            <div v-if="(item.buyInfo && item.buyInfo!=2)">
+                            <!-- item.buyInfo不为空， item.buyInfo.status!=2-->
+                            <div v-if="(item.buyInfo != 'null' && (item.buyInfo?item.buyInfo.status!=2:false))">
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
