@@ -4,51 +4,38 @@
       <i class="cubeic-back back" @click="$router.go(-1)"></i>
       兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}
     </header>
-    <div class="changeCoin-content">
-      <div class="changeCoin-inp-wrap">
-        <span class="logoPng"></span>
-        <input type="number" placeholder="请输入椰子分金额" @input="getMoneyInfo(false,$event)" v-model="coinInfo.moneyNum" />
+    <div class="content">
+      <div class="input-wrapper">
+        <img src="~common/images/logo.png" alt="">
+        <input type="text" disabled v-model="userinfo.userName">
       </div>
-      <div class="changeCoin-account-wrap">
-        <p>当前账号：
-          <span class="changeCoin-account">{{userinfo.userName}}</span>
-        </p>
-        <!-- <p class="changeCoin-goout" @click="outLogin">退出登录</p> -->
+      <div class="score-wrapper">
+        椰子分余额：<span class="score">{{userinfo.score}}</span>
+      </div>
+      <div class="list">
+        <h2>种类</h2>
+        <div class="container">
+          <div class="item">{{storeName}}</div>
+        </div>
+      </div>
+      <div class="list">
+        <h2>面值</h2>
+        <div class="container">
+          <div class="face-item" v-for="(item, index) in list" :key="index">
+            <div class="price-wrapper" :class="coinInfo.moneyNum == item.catKey ? 'active': ''" @click="toggleActive(item)">
+              <div class="title">{{item.catName}}</div>
+              <div class="price"><span>售价：{{item.catKey}}</span></div>
+            </div>
+            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{item.obj.num}}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="desc">
+        <h2>温馨提示：</h2>
+        <p v-html="desc"></p>
       </div>
     </div>
-
-    <div class="changeCoin-money-wrap">
-      <p>椰子分余额：
-        <span class="changeCoin-money">{{userinfo.score | toPrice}}</span>
-        <!-- <span class="changeCoin-goout" :class="+userinfo.score === 0 ? 'disabled': ''" @click="+userinfo.score === 0 ? undefined : exchangeAll()">全部兑换</span> -->
-      </p>
-      <p @click="$router.push({name:'coinList'})">兑换记录></p>
-    </div>
-
-    <ul>
-      <li>兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}数：
-        <span>{{coinInfo.num|toDecimal2Fp}}</span>
-      </li>
-    </ul>
-    <div class="change-coin-total">
-      <div class="tax-wrapper">
-        <span>税费：
-          <i>{{coinInfo.tax_total|toDecimal2}}</i>
-        </span>
-        <span style="margin-left: 15px">服务费：
-          <i>{{coinInfo.service_fee|toDecimal2}}</i>
-        </span>
-      </div>
-      <span class="total-wrapper">应付合计：
-        <i style="font-weight: 600">{{coinInfo.total|toDecimal2}}</i>
-      </span>
-    </div>
-    <p class="change-coin-bnt" @click="coinChange()">立即兑换</p>
-
-    <div class="agreement">
-      <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span @click="show.file=true" class="file">《椰子分兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}说明》</span>
-    </div>
+    <button class="confirm" @click="coinChange">立即兑换</button>
 
     <!-- 遮罩层 -->
     <transition name="fade">
@@ -62,8 +49,7 @@
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
     <set-mobile :show.sync="showSetMobile"></set-mobile>
-    <!-- 同意协议 -->
-    <agree-file :show="show.file" @handle-show-file="initShow"></agree-file>
+
   </div>
 </template>
 <script>
@@ -92,7 +78,10 @@ export default {
       moneyNum: ""
     },
     vendorId: null,
-    vendorUid: undefined
+    vendorUid: undefined,
+    storeName: '',
+    list: [],
+    desc: ''
   }),
   watch: {
     'show.mask': {
@@ -125,14 +114,30 @@ export default {
       }
     }
   },
+  created() {
+    this.getList()
+  },
   methods: {
     ...mapActions({
       checkPassword: 'checkPassword',
       setUserInfo: 'setUserinfo'
     }),
-    exchangeAll () {
-      this.coinInfo.moneyNum = this.userinfo.score
-      this.realMoney(false, undefined, 1)
+    async getList(){
+      const {getChuanQiCoinList} = await import('@/api')
+      const { code, data } = await getChuanQiCoinList({catKey: this.vendorId})
+      for (let item of data) {
+        let obj = await this.getCostCoin(item.catKey)
+        let cost = {...item, obj}
+        this.list.push(cost)
+      }
+      this.coinInfo = { ...this.coinInfo, ...this.list[0].obj}
+      this.coinInfo.moneyNum = data[0].catKey
+      this.storeName = data[0].parentName
+      this.desc = data[0].content
+    },
+    toggleActive(item) {
+      this.coinInfo = { ...this.coinInfo, ...item.obj}
+      this.coinInfo.moneyNum = item.catKey
     },
     codeInfo(code) {
       this.coinSumbmit(code)
@@ -147,11 +152,9 @@ export default {
       this.show = { mask: true, info: false, sms: true, file: false };
     },
     async coinChange() {
-      if (!this.coinInfo.moneyNum) { return this.$toast("请输入有效的椰子分") }
-      if (this.checked == false) { return this.$toast("请阅读并同意协议") }
       let res = await this.checkPassword();
       if (!res) return;
-      this.realMoney(true, undefined);
+      this.showInfo()
     },
     outLogin() {
       this.$dialog({ type: 'confirm', content: '确认退出当前账号？' }, () => {
@@ -168,44 +171,44 @@ export default {
         moneyNum: ""
       }
     },
-    getMoneyInfo(changeFlag, e) {
-      window.clearTimeout(this.timeOut)
-      this.timeOut = window.setTimeout(() => {
-        this.realMoney(changeFlag, e)
-      }, 1000)
-    },
-    async realMoney(changeFlag, e, isAll) {
-      if (e) {
-        e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
-        this.coinInfo.moneyNum = e.target.value;
-      }
-      if (!this.coinInfo.moneyNum) {
-        this.initData()
-        return this.$toast("请输入有效的椰子分")
-      }
-      let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId, vendorUid: this.vendorUid }
-      if (isAll) {
-        Object.assign(params, { isall: isAll})
-      }
-      let data = await getCostCoin(params);
-      if (changeFlag == true) {
-        if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
-        if (data.code === '6') {
-          return this.$dialog({ content: '请先实名认证' }, () => {
-            return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
-          })
-        } else if (data.code === '4') {
-          return this.$toast(data.message)
-        }
-        this.showInfo();
-      } else {
-        if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
-      }
-      this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
-      if (data.data[0].amount) {
-        this.coinInfo.moneyNum = data.data[0].amount
+    async getCostCoin(integral){
+      try{
+        let params = { token: this.getToken, integral, vendorId: this.vendorId, vendorUid: this.vendorUid }
+        const { code, data } = await getCostCoin(params);
+        return data[0]
+      } catch (e) {
+        this.$toast('getCostCoin 接口失败')
       }
     },
+    // async realMoney(changeFlag, e) {
+    //   if (e) {
+    //     e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
+    //     this.coinInfo.moneyNum = e.target.value;
+    //   }
+    //   if (!this.coinInfo.moneyNum) {
+    //     this.initData()
+    //     return this.$toast("请输入有效的椰子分")
+    //   }
+    //   let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId, vendorUid: this.vendorUid }
+    //   let data = await getCostCoin(params);
+    //   if (changeFlag == true) {
+    //     if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
+    //     if (data.code === '6') {
+    //       return this.$dialog({ content: '请先实名认证' }, () => {
+    //         return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
+    //       })
+    //     } else if (data.code === '4') {
+    //       return this.$toast(data.message)
+    //     }
+    //     this.showInfo();
+    //   } else {
+    //     if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
+    //   }
+    //   this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
+    //   if (data.data[0].amount) {
+    //     this.coinInfo.moneyNum = data.data[0].amount
+    //   }
+    // },
     async coinSumbmit(code) {
       let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId, vendorUid: this.vendorUid })
       if (res.code != 1 && res.code != 4) {
@@ -241,6 +244,8 @@ export default {
   mounted() {
     if (this.$route.query.vendorId) {
       this.vendorId = this.$route.query.vendorId
+    } else {
+      this.vendorId = this.userinfo.vendorId
     }
     if (this.$route.query.vendorUid) {
       this.vendorUid = this.$route.query.vendorUid
@@ -252,129 +257,208 @@ export default {
     RechargeInfo: () => import('./components/RechargeInfo'),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
     SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile'),
-    AgreeFile: () => import('./components/AgreeFile')
   },
 }
 </script>
 <style lang="scss" scoped>
-.changeCoin-home {
-  header {
-    text-align: center;
-    position: relative;
-    font-size: 18px;
-    color: #FEFEFE;
+.changeCoin-home{
+  min-height: 100%;
+  background: #fff;
+  header{
     background: #373C48;
-    line-height: 44px;
-    .back {
+    color: #fff;
+    height: 92px;
+    font-size: 18px;
+    position: relative;
+    z-index: 2;
+    padding-top: 22px;
+    text-align: center;
+    .back{
       position: absolute;
       left: 15px;
-    }
-  }
-  .changeCoin-content {
-    background: #373C48;
-    color: #FEFEFE;
-    padding: 30px 15px 10px 15px;
-    .changeCoin-inp-wrap {
-      padding: 0 15px;
-      background: #fff;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      border-radius: 5px;
-      input {
-        width: 100%;
-        flex: 1;
-        font-size: 18px;
-        padding: 0 10px;
-      }
-    }
-    .changeCoin-account-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 20px 5px 10px 5px;
-      .changeCoin-account {
-        color: #30ce84;
-      }
-      .changeCoin-goout {
-        background: #30ce84;
-        font-size: 12px;
-        border-radius: 5px;
-        padding: 2px 11px;
+      margin-top: -3px;
+      &::before{
+        font-size: 25px;
       }
     }
   }
-  .changeCoin-money-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 15px;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0 20px 0;
-    .changeCoin-account,
-    .changeCoin-money {
-      color: #30ce84;
-    }
-    .changeCoin-goout {
-      background: #30ce84;
-      font-size: 11px;
-      border-radius: 5px;
-      padding: 5px 10px;
-      margin-left: 10px;
-      color: #fff;
-      &.disabled{
-        background: #ccc;
-      }
-    }
-  }
-  ul {
-    padding: 0px 20px 20px 20px;
-    font-size: 14px;
-    line-height: 50px;
-    color: #4f4f4f;
-    li {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid #eee;
-    }
-  }
-  .change-coin-total{
-    font-size: 14px;
-    color: #4f4f4f;
-    padding: 0 20px;
-    margin-bottom: 30px;
+  .content{
+    padding: 0 15px 50px;
     overflow: hidden;
-    .tax-wrapper{
-      float: left;
-      margin-bottom: 10px;
-      word-break: break-all;
-      word-wrap: break-word;
+    box-sizing: border-box;
+    background: #fff;
+    margin-top: -30px;
+    .input-wrapper{
+      height:60px;
+      background:rgba(255,255,255,1);
+      box-shadow:0px 1px 10px 0px rgba(55,60,72,0.25);
+      border-radius:5px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      img{
+        width: 22px;
+        height: 22px;
+        margin: 0 15px;
+      }
+      input{
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+        border-radius:5px;
+        &:disabled{
+          background: #fff;
+          color: #999;
+        }
+      }
     }
-    .total-wrapper{
-      float: right;
-      font-weight: 600;
+    .score-wrapper{
+      color: #4A4A4A;
+      margin-top: 20px;
+      .score{
+        color: #30CE84;
+      }
+    }
+    .list{
+      margin-top: 15px;
+      h2{
+        color: #999;
+      }
+      .container{
+        overflow: hidden;
+        .item{
+          width: 103px;
+          height: 49px;
+          margin-left: 18px;
+          margin-top: 15px;
+          background:rgba(48,206,132,1);
+          border-radius:5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          font-size: 15px;
+          float: left;
+          &:nth-child(3n + 1){
+            margin-left: 0;
+          }
+        }
+        .face-item{
+          width: 103px;
+          margin-left: 18px;
+          margin-top: 15px;
+          border-radius:5px;
+          float: left;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+          &:nth-child(3n + 1){
+            margin-left: 0;
+          }
+          .price-wrapper{
+            height: 49px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            color: #30CE84;
+            &::after{
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              border: 1px solid #30CE84;
+              box-sizing: border-box;
+              width: 200%;
+              height: 200%;
+              transform: scale(0.5);
+              transform-origin: left top;
+              border-radius:10px 10px 0px 0px;
+              pointer-events: none;
+            }
+            &.active{
+              background: #30CE84;
+              color: #fff;
+              border-radius:5px 5px 0px 0px;
+            }
+            .title{
+              font-weight: bold;
+              font-size: 15px;
+            }
+            .price{
+              font-size: 12px;
+              font-weight: 200;
+              span{
+                display: block;
+                transform: scale(.916);
+              }
+            }
+          }
+          .gift{
+            width: 100%;
+            height: 20px;
+            color: #999;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            opacity: .9;
+            &::after{
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              border: 1px solid #DEDEDE;
+              border-top: none;
+              box-sizing: border-box;
+              width: 200%;
+              height: 200%;
+              transform: scale(0.5);
+              transform-origin: left top;
+              border-radius: 0px 0px 10px 10px;
+              pointer-events: none;
+            }
+            span{
+              display: block;
+              transform: scale(.75);
+            }
+          }
+        }
+      }
+    }
+    .desc{
+      margin-top: 30px;
+      h2{
+        font-weight:400;
+        color:rgba(74,74,74,1);
+        font-size: 15px;
+      }
+      p{
+        margin-top: 18px;
+        font-size: 12px;
+        color: rgba(153,153,153,1);
+        line-height: 1.8;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
     }
   }
-  .change-coin-bnt {
-    margin: 0 25px;
-    line-height: 45px;
+  .confirm{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    background: #30CE84;
+    color: #fff;
     font-size: 15px;
-    text-align: center;
-    border-radius: 40px;
-    color: #Fff;
-    background: #30ce84;
-  }
-  .agreement {
-    display: flex;
-    align-items: center;
-    padding:10px 10px 50px 10px;
-    .file {
-      color: #30ce84;
-      margin-top: -1px;
-    }
-    .cube-checkbox {
-      padding-right: 0;
-    }
+    font-weight:400;
+    border: none;
   }
 }
 </style>

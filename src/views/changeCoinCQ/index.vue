@@ -5,7 +5,7 @@
     <div class="content">
       <div class="input-wrapper">
         <img src="~common/images/logo.png" alt="">
-        <input type="text">
+        <input type="text" disabled v-model="userinfo.userName">
       </div>
       <div class="score-wrapper">
         椰子分余额：<span class="score">{{userinfo.score}}</span>
@@ -20,7 +20,7 @@
         <h2>面值</h2>
         <div class="container">
           <div class="face-item" v-for="(item, index) in list" :key="index">
-            <div class="price-wrapper" :class="active == item.id ? 'active': ''" @click="toggleActive(item)">
+            <div class="price-wrapper" :class="active == item.catKey ? 'active': ''" @click="toggleActive(item)">
               <div class="title">{{item.catName}}</div>
               <div class="price"><span>售价：{{item.catKey}}</span></div>
             </div>
@@ -93,16 +93,6 @@ export default {
     this.getList()
   },
   watch:{
-    taxPrice(val){
-      if(val){
-        window.clearTimeout(this.timeInp)
-        this.timeInp=window.setTimeout(()=>{
-          this.chuanqiTax(val);
-        },500)
-      }else{
-        this.chuanqiTax(0);
-      }
-    },
     'show.mask': {
       handler(val) {
         if (!val) {
@@ -120,10 +110,10 @@ export default {
       const {getChuanQiCoinList} = await import('@/api')
       const { code, data } = await getChuanQiCoinList({catKey: ''})
       this.list = data
-      this.active = data[0].id
+      this.active = data[0].catKey
     },
     toggleActive(item) {
-      this.active = item.id
+      this.active = item.catKey
     },
     async chuanqiinfo(){
       let res = await chuanqiinfo({});
@@ -216,6 +206,11 @@ export default {
         width: 100%;
         height: 100%;
         font-size: 16px;
+        border-radius:5px;
+        &:disabled{
+          background: #fff;
+          color: #999;
+        }
       }
     }
     .score-wrapper{
