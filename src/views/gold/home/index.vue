@@ -100,6 +100,9 @@ export default {
         this.show={mask:false,code:false,file:false};
       },
       async handlerShowType() {
+        if(!this.checked){
+          return this.$toast('请阅读并同意《黄金兑换协议》');
+        }
         if(this.inpPrice >=1 && IsInteger(this.inpPrice)){
           if(this.userinfo.score >= this.taxMoney.total){
             if(this.taxMoney.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
