@@ -490,5 +490,10 @@ export const buyChuanQiCoin = (data) => fetch({
   method: 'POST',
   data
 })
-
+// 获取列表
+export const getChuanQiCoinList = (data) => fetch({
+  url: process.env.VUE_APP_BASE_URL + '/goldcoin/getGoldCards',
+  method: 'POST',
+  data
+})
 
