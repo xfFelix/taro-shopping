@@ -26,7 +26,7 @@
               <div class="title">{{item.catName}}</div>
               <div class="price"><span>售价：{{item.catKey}}</span></div>
             </div>
-            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{item.obj.num}}</span></div>
+            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{Math.round(item.obj.num)}}</span></div>
           </div>
         </div>
       </div>
@@ -425,6 +425,7 @@ export default {
             }
             span{
               display: block;
+              white-space: nowrap;
               transform: scale(.75);
             }
           }
