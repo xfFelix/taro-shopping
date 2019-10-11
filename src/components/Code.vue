@@ -50,10 +50,14 @@ export default {
   color: transparent;
   text-shadow: 0 0 0 transparent;
   width: 100%;
-  top: 0;
+  /* top: 0; */
   z-index: -1;
-  caret-color: transparent;
+  /* caret-color: transparent; */
   opacity: 0;
+  width: 345px;
+  height: 50px;
+  letter-spacing: 39px;
+  margin-left: 15px;
 }
 .code-input-main {
   display: flex;
@@ -62,9 +66,12 @@ export default {
   position: absolute;
   left: 0;
   right: 0;
+    width: 345px;
+  height: 50px;
 }
 .code-wrapper{
   position: relative;
+
 }
 .code-input-main-item {
   width: 50px;

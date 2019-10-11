@@ -1,7 +1,7 @@
 
 <template>
 <div class="phoneHome">
-  <div v-if="!suceesShow">
+  <div v-if="!suceesShow" class="phoneHome">
     <Header class="navbar" :show-more="!yingqiudiShow" >话费充值</Header>
     <phone-type @hand-phoneCan="phoneCanP"></phone-type>
     <phone-info :show="show.info" @handler-show-code="smsShow"  @go-back="initShow" :phoneTax="phoneTaxInfo"></phone-info>
@@ -19,7 +19,10 @@
       <div class="dirPhone" v-show="phoneConfig.type==0" @click="phoneBnt('dir')" :style="phoneCan?' background: #30ce84;':' background: #98E7C2;'">立即兑换</div>
       <div v-show="phoneConfig.type!=0" class="carPhone"><p @click="phoneBnt('card')">立即兑换</p><span class="goLogs" @click="$router.push({name:'phoneRecord',query:{cardId:1}})">立即转卖</span></div>
     </div>
+
+      <div @click="infoClick()">info</div>
   </div>
+
 
   <succ-page  :moneyP="totalAmount" v-if="suceesShow" v-on:getCData="getCData"> </succ-page>
 </div>
@@ -140,6 +143,9 @@ export default {
         }
         this.infoShow()
       },
+      infoClick(){
+        this.$dialog({content:this.userinfo},()=>{});
+      }
   },
   created(){
     this.initConfig()
@@ -156,6 +162,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .phoneHome{
+  height: 100%;
   .navbar{
       background: #313340;
       color: #fff;
@@ -204,5 +211,10 @@ export default {
   .navbar,.goldBnt{
     max-width: 384px; /*no*/
   }
+}
+.cube-dialog-content-def p{
+    word-break: break-all;
+    word-wrap: break-word;
+
 }
 </style>

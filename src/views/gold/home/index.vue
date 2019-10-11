@@ -1,6 +1,6 @@
 <template>
 <div class="gold-home">
-  <div v-show="!suceesShow">
+  <div v-show="!suceesShow" class="gold-home">
       <Header class="navbar" :show-more="!yingqiudiShow">黄金兑换</Header>
       <div class="main-absolute" ref='viewBox'>
         <gold-info  v-model.trim="inpPrice"  @inp-Clean="inpClean" @tax-money="taxInfo" @infoHeight="infoHeightF"></gold-info>
@@ -159,6 +159,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .gold-home{
+  height: 100%;
   .navbar{
       background: #313340;
       color: #fff;
