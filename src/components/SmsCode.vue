@@ -79,7 +79,7 @@ export default {
 
 <style lang="scss" scoped>
 .code{
-  position: fixed;
+  position: absolute;
   background: #fff;
   left: 0;
   bottom: 0;

@@ -1,5 +1,5 @@
 <template>
-    <div class="code-wrapper">
+    <div class="code-wrapper" style="-webkit-user-select:text!important;">
         <label for="code" class="code-input-main">
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[0]}}</div>
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[1]}}</div>
@@ -46,7 +46,6 @@ export default {
 <style scoped>
 .code-input-input {
   height: 50px;
-  position: absolute;
   outline: none;
   color: transparent;
   text-shadow: 0 0 0 transparent;
@@ -60,6 +59,9 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 .code-wrapper{
   position: relative;
