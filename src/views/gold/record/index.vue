@@ -45,10 +45,10 @@
                                 <p class="total">合计：{{item.totalAmount|toPrice}}</p>
                             </div>
                             <div class="recover"  @click="recovery(item.id,item.gtype,item.code,item.weight)"
-                              v-if="(item.code && (item.buyInfo == 'null'))">
+                              v-if="(item.code && (item.buyInfo == null))">
                                 立即回购
                             </div>
-                            <div v-if="(item.buyInfo != 'null' && item.buyInfo)">
+                            <div v-if="(item.buyInfo != null && item.buyInfo)">
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
