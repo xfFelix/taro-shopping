@@ -1,5 +1,5 @@
 <template>
-  <div class="gold-Info">
+  <div class="gold-Info" ref="infoContent">
     <div class="goldC-banner">
       <ul class="goldC-select">
         <li
@@ -156,6 +156,7 @@ export default {
     }
   },
   mounted(){
+    this.$emit('infoHeight',this.$refs.infoContent.offsetHeight)
     this.getPrice();
     this.vipCustom()
   }
@@ -166,7 +167,7 @@ export default {
   background: #313340;
   border: 1px solid #313340;
   position: relative;
-  padding: 44px 0 65px 0;
+  padding: 0 0 65px 0;
   .goldC-select {
     width: 88%;
     display: flex;
@@ -273,7 +274,7 @@ export default {
 .goldC-msg {
   border-top: 1px solid #dedede;
   border-bottom: 1px solid #dedede;
-  margin: 0.2rem;
+  margin: 0.2rem 0.2rem 0 0.2rem;
   li {
     display: flex;
     justify-content: space-between;

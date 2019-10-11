@@ -1,6 +1,6 @@
 <template>
 <div class="ccHome">
-    <div v-if="!suceesShow">
+    <div v-if="!suceesShow" class="ccHome">
         <Header class="navbar" :show-more="!yingqiudiShow">信用卡还款</Header>
         <repayment @current-card="currentCard" v-model="taxPrice" @tax-money="taxInfo"></repayment>
         <div class="agreement">
@@ -137,6 +137,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ccHome{
+  height: 100%;
   .navbar{
     background: #313340;
     color: #fff;

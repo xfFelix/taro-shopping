@@ -1,13 +1,15 @@
 <template>
 <div class="gold-home">
-  <div v-show="!suceesShow">
+  <div v-show="!suceesShow" class="gold-home">
       <Header class="navbar" :show-more="!yingqiudiShow">黄金兑换</Header>
-      <gold-info  v-model.trim="inpPrice"  @inp-Clean="inpClean" @tax-money="taxInfo"></gold-info>
-      <div class="agreement">
-        <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-        <span @click="show.file=true" class="file">《黄金兑换协议》</span>
+      <div class="main-absolute" ref='viewBox'>
+        <gold-info  v-model.trim="inpPrice"  @inp-Clean="inpClean" @tax-money="taxInfo" @infoHeight="infoHeightF"></gold-info>
+        <div class="agreement" ref="viewAgree">
+          <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
+          <span @click="show.file=true" class="file">《黄金兑换协议》</span>
+        </div>
+        <gold-type :viewTopC="viewTop" :viewBoxHeightC="viewBoxHeight"></gold-type>
       </div>
-      <gold-type></gold-type>
       <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" ></sms-code>
       <transition name="fade">
         <bg-mask v-model="show.mask"></bg-mask>
@@ -47,7 +49,9 @@ export default {
       failText:undefined,
       inpPrice:undefined,
       suceesShow:false,
-      taxMoney:{}
+      taxMoney:{},
+      viewTop:0,
+      viewBoxHeight:0,
   }),
   watch: {
     'show.mask': {
@@ -126,6 +130,9 @@ export default {
           }
         }
       },
+      infoHeightF(val){
+        this.viewBoxHeight = this.$refs.viewAgree.offsetHeight + val;
+      }
   },
   components: {
     Header: () => import('@/components/Header'),
@@ -140,12 +147,19 @@ export default {
     this.initConfig()
   },
   mounted(){
-
+    this.box = this.$refs.viewBox;
+    this.box.addEventListener('scroll', () => {
+      this.viewTop = this.$refs.viewBox.scrollTop;
+    }, false)
+  },
+  beforeDestroy() {
+    this.box.removeEventListener('scroll',this.$refs.viewBox);
   }
 }
 </script>
 <style lang="scss" scoped>
 .gold-home{
+  height: 100%;
   .navbar{
       background: #313340;
       color: #fff;
@@ -156,6 +170,7 @@ export default {
   .agreement {
     display: flex;
     align-items: center;
+    padding: 0.2rem 0;
     .cube-checkbox {
       padding: 0 0 0 20px;
     }
@@ -200,12 +215,26 @@ export default {
   }
 }
 
-
-
+.main-absolute{
+  height: calc(100vh-89px);
+  position: absolute;
+  top: 44px;
+  bottom:45px;
+  overflow-y: scroll; /*使之可以滚动*/
+　-webkit-overflow-scrolling:touch;
+  scrollbar-width: none;
+  overflow-x: hidden;
+}
+.main-absolute::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */}
+.main-absolute:-webkit-scrollbar-thumb {
+    background: transparent;
+}
 </style>
 <style>
 @media screen and (min-width: 600px) {
-  .navbar,.goldBnt{
+  .navbar,.goldBnt,.main-absolute{
     max-width: 384px; /*no*/
   }
 }
