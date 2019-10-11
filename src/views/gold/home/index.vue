@@ -160,6 +160,8 @@ export default {
 <style lang="scss" scoped>
 .gold-home{
   height: 100%;
+  // padding-bottom: 44px;
+  // box-sizing: border-box;
   .navbar{
       background: #313340;
       color: #fff;

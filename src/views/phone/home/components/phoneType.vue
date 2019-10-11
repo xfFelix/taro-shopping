@@ -54,6 +54,7 @@
               </ul>
           </div>
           <p class="phone-explain" v-show="typeIndex!=0">注：同一个账号在多个渠道进行充值卡充值，每天累计最多5次</p>
+          <p></p>
       </div>
 </div>
 </template>

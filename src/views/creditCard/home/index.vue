@@ -7,6 +7,7 @@
           <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
           <span @click="show.file=true" class="file">《信用卡还款协议》</span>
         </div>
+        <p></p>
         <p class="payBnt" @click="payBnt()">立即兑换 </p>
     </div>
     <succ-page :show="suceesShow" v-on:getCData="getCData" :totalAmount="totalAmount"></succ-page>
@@ -155,6 +156,7 @@ export default {
   text-align: center;
   font-size: 15px;
   position: fixed;
+  height: 44px;
 }
   .agreement {
     display: flex;
