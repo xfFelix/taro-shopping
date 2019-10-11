@@ -19,8 +19,6 @@
       <div class="dirPhone" v-show="phoneConfig.type==0" @click="phoneBnt('dir')" :style="phoneCan?' background: #30ce84;':' background: #98E7C2;'">立即兑换</div>
       <div v-show="phoneConfig.type!=0" class="carPhone"><p @click="phoneBnt('card')">立即兑换</p><span class="goLogs" @click="$router.push({name:'phoneRecord',query:{cardId:1}})">立即转卖</span></div>
     </div>
-
-      <div @click="infoClick()">info</div>
   </div>
 
 
@@ -143,9 +141,6 @@ export default {
         }
         this.infoShow()
       },
-      infoClick(){
-        this.$dialog({content:this.userinfo},()=>{});
-      }
   },
   created(){
     this.initConfig()
