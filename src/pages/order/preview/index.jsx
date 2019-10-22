@@ -34,7 +34,7 @@ export default class Preview extends Component{
     super(...arguments)
   }
 
-  async componentDidMount(): void {
+  async componentDidMount() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
     await this.props.getDefaultAddress({token: this.props.token})
     this.props.getPreviewOrder({token: this.props.token, id: this.props.address.id})

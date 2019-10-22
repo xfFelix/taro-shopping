@@ -67,6 +67,11 @@ class Cart extends Component {
     this.setState(pre => ({edit: !pre.edit}))
   }
 
+  goPreview = () => {
+    console.log('111')
+    Taro.navigateTo({url: '/pages/order/preview/index'})
+  }
+
   render() {
     this.props.totalNum && Taro.setTabBarBadge({index: 3, text: this.props.totalNum + ''})
     return (
@@ -145,7 +150,7 @@ class Cart extends Component {
             </View>
           }
           {
-            this.state.edit ? <Button className={styles.confirm}>去结算{this.props.totalNum && <Text>({this.props.totalNum})</Text>}</Button> :
+            this.state.edit ? <Button className={styles.confirm} onClick={() => this.goPreview()}>去结算{this.props.totalNum && <Text>({this.props.totalNum})</Text>}</Button> :
               <Button className={styles.delete} onClick={() => this.removeCart()}>删除</Button>
           }
         </View>

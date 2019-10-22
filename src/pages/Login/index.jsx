@@ -150,8 +150,12 @@ export default class Login extends Component {
       await setToken({mobile: name, verify_code: code, passwd: pwd})
       if (this.props.user.token) {
         await getInfo(this.props.user.token)
-        console.log(this.$router.params.redirect)
-        Taro.switchTab({url: this.$router.params.redirect})
+        let redirect = this.$router.params.redirect
+        if (!redirect) {
+          Taro.switchTab({url: '/pages/tab/Home/index'})
+        } else {
+          Taro.switchTab({url: redirect})
+        }
       }
     } catch (e) {
       dialog.toast({title: e})

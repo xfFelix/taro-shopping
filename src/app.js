@@ -21,11 +21,11 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/Login/index',
       'pages/tab/Cart/index',
       'pages/order/preview/index',
       'pages/tab/Home/index',
       'pages/goods/list/index',
-      'pages/Login/index',
       'pages/tab/ShoppingMall/index',
       'pages/tab/User/index',
       'pages/goods/detail/index',
