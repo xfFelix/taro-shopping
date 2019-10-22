@@ -28,11 +28,15 @@ export default class Login extends Component {
     verify: '',
     code: '',
     pwd: '',
-    verifyCode: `${INFO_URL}/user/captcha?${new Date()}`,
+    verifyCode: '',
     flag: true,
     nameLocationIndex: 0,
     showActionSheet: false,
     showPassword: true
+  }
+
+  componentDidMount(): void {
+    this.getVerifyCode()
   }
 
   getVerifyCode = () => {
