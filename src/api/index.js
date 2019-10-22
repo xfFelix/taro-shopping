@@ -8,6 +8,13 @@ export const login = (data) => fetch({
   data
 })
 
+// 发送短信
+export const sms = (data) => fetch({
+  url: INFO_URL + '/user/sms',
+  method: 'POST',
+  data
+})
+
 // 个人信息
 export const getInfo = (data) => fetch({
   url: INFO_URL + '/user/info',
