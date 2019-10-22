@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import { dialog, validate } from '@/util'
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
+import { sms } from '@/api'
 
 import openEye from '@/assets/img/login/eye-open.png'
 import closeEye from '@/assets/img/login/eye-close.png'
@@ -32,7 +33,9 @@ export default class Login extends Component {
     flag: true,
     nameLocationIndex: 0,
     showActionSheet: false,
-    showPassword: true
+    showPassword: true,
+    disabled:false,
+    downInfo:'获取验证码'
   }
 
   componentDidMount(): void {
@@ -90,7 +93,7 @@ export default class Login extends Component {
                   value={this.state.code}
                   onInput={(e) => this.setState({code: e.detail.value})}
                 />
-                <Button className={styles.code} plain type='primary'>获取验证码</Button>
+                <Button className={`${this.state.disabled?styles.noClick:styles.canClick} ${styles.code}`} plain type='primary' onClick={this.getSmsCode} disabled={this.state.disabled}>{this.state.downInfo}</Button>
               </View>
             </View>) :
             (<View className={styles.item}>
@@ -164,5 +167,33 @@ export default class Login extends Component {
     } catch (e) {
       dialog.toast({title: e})
     }
+  }
+  getSmsCode = async() => {
+    const { verify, name } = this.state;
+    if (!name || !validate.IsMobile(name)) return dialog.toast({title: '请输入正确手机号'});
+    if (!this.state.nameLocationIndex && !validate.IsChinaMobile(name)) return dialog.toast({title: '请输入大陆手机号'});
+    if (this.state.nameLocationIndex && !validate.IsHKMobile(name)) return dialog.toast({title:'请输入香港手机号'});
+    if (!verify) return dialog.toast({title:'请输入图片验证码'});
+    let res=await sms({mobile:name,captcha:verify});
+    if(res.error_code===0){
+      let timeInit = 120;
+      let countDown = setInterval(()=>{
+        let i = 1;
+        timeInit = timeInit - i;
+        if (timeInit > 0) {
+          this.setState({
+            downInfo: timeInit + 's 重新获取',
+            disabled:true
+          })
+        } else {
+          this.setState({
+            downInfo:'重新获取',
+            disabled:false
+          })
+          clearInterval(countDown)
+        }
+      }, 1000)
+    }
+    console.log(res)
   }
 }
