@@ -1,0 +1,93 @@
+.wrapper{
+  position: fixed;
+  background: rgba(0,0,0,.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  .container{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 5;
+    padding: 40px 38px;
+    box-sizing: border-box;
+    overflow: hidden;
+    .flex{
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      .productImg{
+        flex-basis: 75Px;
+        height: 75Px;
+        display: block;
+        border: none;
+      }
+      .infoWrapper{
+        flex: 1;
+        margin-left: 20px;
+        box-sizing: border-box;
+        .price{
+          color: #fe5a4c;
+          display: block;
+          font-size: 36px;
+          font-weight: bold;
+        }
+        .info{
+          color: #666;
+          font-size: 24px;
+        }
+      }
+    }
+    .buyInfo{
+      height: 540px;
+      overflow: hidden;
+      padding-top: 30px;
+      .numWrapper{
+        .numText{
+          color: rgba(153,153,153,1);
+          font-size: 24px;
+        }
+        .numContent{
+          color: #000;
+          display: flex;
+          flex-flow: nowrap row;
+          align-items: center;
+          margin-top: 10px;
+          .computed{
+            display: block;
+            flex-basis: 45px;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            background: #f1f1f1;
+            border-radius: 5px;
+            &:first-of-type{
+              margin-right: 10px;
+            }
+          }
+          .num{
+            display: block;
+            border-radius: 5px;
+            background: #f1f1f1;
+            line-height: 45px;
+            text-align: center;
+            flex-basis: 115px;
+            height: 45px;
+            margin-right: 10px;
+            font-size: 24px;
+          }
+        }
+      }
+    }
+    .next{
+      background: #30ce84;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 32px;
+    }
+  }
+}

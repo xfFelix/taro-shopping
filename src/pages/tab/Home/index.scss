@@ -1,0 +1,119 @@
+.home-wrapper{
+  .home{
+    position: relative;
+    .index-bg{
+      width: 100%;
+    }
+    .notice-bar{
+      position: absolute;
+      top: 50px;
+      width: 660px;
+      margin: 0 45px;
+      background: rgba(0, 0, 0, .15);
+      box-sizing: border-box;
+      display: flex;
+      .icon-listen{
+        flex: 0 0 50px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2px;
+        at-icon{
+          margin-bottom: 3px;
+        }
+      }
+      .notice-view{
+        white-space: nowrap;
+        flex: 0 0 130px;
+        display: flex;
+        align-items: center;
+        .notice-text{
+          font-size: 24px;
+          color: #fff;
+        }
+      }
+      .notice{
+        flex: 0 0 430px;
+        width: 430px;
+      }
+    }
+    .userinfo{
+      position: absolute;
+      top: 150px;
+      left: 130px;
+      color: #fff;
+      .font{
+        font-size: 24px;
+      }
+      .name{
+        font-size: 48px;
+        font-weight: bold;
+      }
+    }
+  }
+  .home-content{
+    margin-top: -240px;
+    .home-list-wrapper{
+      margin: 0 30px;
+      padding: 30px 10px 25px;
+      position: relative;
+      z-index: 1;
+      background: #ffffff;
+      border-radius:25px 25px 0px 0px;
+      .home-list-row{
+        display: flex;
+        margin-top: 40px;
+        &:nth-of-type(1) {
+          margin-top: 0;
+        }
+        .home-list-column{
+          flex: 0 0 25%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .home-list-column-img{
+            width: 80px;
+            height: 80px;
+          }
+          .home-list-column-text{
+            font-size: 24px;
+            color: #000;
+            margin-top: 15px;
+          }
+        }
+      }
+    }
+    .home-swiper-wrapper{
+      padding: 20px 0;
+      margin: 0 30px;
+      height: 200px;
+      border-radius:20px;
+      image{
+        border-radius:20px;
+      }
+    }
+  }
+  .home-hot-wrapper{
+    padding: 20px;
+    .home-hot-title{
+      font-size: 28px;
+    }
+    .home-hot-container{
+      overflow: hidden;
+      .home-hot-item{
+        width: 33.3%;
+        float: left;
+      }
+    }
+  }
+}
+.home-notice-bar.at-noticebar {
+  background: transparent;
+  color: #fff;
+}
+swiper{
+  height: 100%;
+  border-radius:20px;
+}

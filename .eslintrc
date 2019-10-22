@@ -1,0 +1,22 @@
+{
+  "extends": ["taro"],
+  "rules": {
+    "taro/this-props-function": 0,
+    "no-unused-vars": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-curly-brace-presence": 0,
+    "jsx-quotes": "off",
+    "react/jsx-closing-bracket-location": 0,
+    "react/jsx-no-undef": 0,
+    "no-shadow": "off",
+    "react/jsx-tag-spacing": 0,
+    "import/first": 0,
+    "import/prefer-default-export": 0,
+    "import/no-commonjs": 0,
+    "react/no-unused-state": 1,
+    "no-restricted-globals": "warn",
+    "react/jsx-boolean-value": 0,
+    "react/no-string-refs": 0
+  },
+    "parser": "babel-eslint"
+}

@@ -1,0 +1,88 @@
+.wrapper{
+  overflow: hidden;
+  .register{
+    position: absolute;
+    right: 70px;
+    top: 30px;
+    font-size: 30px;
+  }
+  .banner{
+    width: 100%;
+    height: 340px;
+  }
+  .container{
+    padding: 180px 49px 0;
+    .item{
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #dfdfdf;
+      height: 117px;
+      position: relative;
+      .image{
+        width: 38px;
+        height: 38px;
+        margin: 0 10px;
+      }
+      .tel{
+        width: 34px;
+        height: 46px;
+      }
+      input{
+        font-size: 26px;
+        margin-left: 20px;
+        flex: 1;
+        height: 100%;
+      }
+      .selectLocation{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        .locationName{
+          font-size: 26px;
+        }
+        .locationImage{
+          width: 18px;
+          height: 18px;
+          margin: 0 10px;
+          transition: transform .3s linear;
+        }
+        .selecting{
+          width: 18px;
+          height: 18px;
+          margin: 0 10px;
+          transform: rotate(180deg);
+          transition: transform .3s linear;
+        }
+      }
+      .verify{
+        width: 180px;
+        height: 60px;
+        position: absolute;
+        right: 0;
+      }
+      .code{
+        font-size: 26px;
+        white-space: nowrap;
+        color: #30ce84;
+        width: 202px;
+        height: 60px;
+        line-height: 60px;
+        margin-right: 0;
+        padding: 0;
+        border-radius:30px;
+      }
+      .eye{
+        width: 40px;
+        height: 40px;
+        right: 10px;
+      }
+    }
+  }
+  .confirm{
+    color: #fff;
+    margin: 50px 39px;
+    background:linear-gradient(90deg,rgba(81,229,158,1),rgba(48,206,132,1));
+    box-shadow:0px 15px 10px 0px rgba(135,248,199,0.2);
+    border-radius:45px;
+  }
+}

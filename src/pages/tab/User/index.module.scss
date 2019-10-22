@@ -1,0 +1,149 @@
+@import "../../../styles/mixin/index";
+
+.wrapper{
+  .bannerContainer{
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    .bannerSwiper{
+      width: 100%;
+      height: 180Px;
+      .bannerImg{
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+    .infoWrapper{
+      position: absolute;
+      z-index: 1;
+      top: 85px;
+      left: 0;
+      width: 100%;
+      padding-left: 66px;
+      box-sizing: border-box;
+      background: transparent;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .logoImg{
+        flex-basis: 110px;
+        height: 110px;
+        display: block;
+      }
+      .infoContainer{
+        flex: 1;
+        margin-left: 20px;
+        .mobile{
+          display: block;
+          font-size: 30px;
+          font-weight: bold;
+          color: #fff;
+        }
+        .hint{
+          color: #fff;
+          padding: 8px 0;
+          width: 184px;
+          border-radius: 50Px;
+          background: linear-gradient(90deg,#ebc99d,#d5b587);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 10px;
+          .handIcon{
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+          }
+          .hintText{
+            margin-left: 10px;
+            font-size: 26px;
+          }
+        }
+      }
+    }
+  }
+  .orderWrapper{
+    background: #eef1f6;
+    padding: 0 25px;
+    margin-top: -100px;
+    .orderContainer{
+      background: #fff;
+      border-radius: 10Px;
+      display: flex;
+      height: 180px;
+      position: relative;
+      z-index: 1;
+      .orderItem{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .orderIcon{
+          width: 50px;
+          height: 44px;
+          display: block;
+        }
+        .orderText{
+          font-size: 28px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .container{
+    background: #eef1f6;
+    overflow: hidden;
+    .content{
+      margin-top: 30px;
+      background: #fff;
+      .item{
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: #666;
+        height: 110px;
+        .icon{
+          width: 33px;
+          height: 28px;
+          display: block;
+          margin: 0 35px;
+        }
+        .title{
+          font-size: 30px;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: relative;
+          padding-right: 70px;
+          box-sizing: border-box;
+          &:after{
+            @include border-1px(#f4f4f4, bottom);
+          }
+        }
+        .right{
+          display: block;
+          width: 30px;
+          height: 40px;
+          position: absolute;
+          right: 30px;
+        }
+      }
+    }
+  }
+  .bottomSwiper{
+    padding: 50px;
+    height: 290px;
+    background: #eef1f6;
+    box-sizing: border-box;
+    .bannerImg{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+/* 改变主题变量，具体变量名可查看 taro-ui/dist/style/variables/default.scss 文件 */
+$color-brand: #30ce84;
+$hd: 2;
+
+/* Grid */
+$at-grid-font-size: 25px !default;
+$at-grid-img-size: 60px !default;
+$at-gird-img-size-sm: 30px !default;
+
+/* Tag */
+$at-tag-font-size: 22px !default;
+$at-tag-bg-color-primary-active: #30ce84 !default;
+$at-tag-border-color-active: #30ce84 !default;
+
+/* 引入 Taro UI 默认样式 */
+@import "~taro-ui/dist/style/index.scss";

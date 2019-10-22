@@ -1,0 +1,63 @@
+.addressWrapper{
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 38px 60px 38px 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 18px 36px 0 hsla(0,0%,48%,.16);
+  &:after{
+    content: ' ';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    height: 4px;
+    background: url("../../../../assets/img/cart/line.png");
+    background-size: cover;
+    pointer-events:none;
+    width: 100%;
+    left: 0;
+  }
+  .addAddress{
+    width: 44px;
+    height: 44px;
+  }
+  .selectAddressText{
+    color: #666666;
+    font-size: 28px;
+    margin-left: 20px;
+  }
+  .userContent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333333;
+    .default{
+      background: #30ce84;
+      color: #fff;
+      font-size: 24px;
+      padding: 4px 10px;
+      display: block;
+      border-radius: 20px;
+    }
+    .userText{
+      margin-left: 20px;
+      display: block;
+    }
+  }
+  .addressContent{
+    color: #666;
+    font-size: 28px;
+    margin-top: 20px;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+  .arrowRight{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+}

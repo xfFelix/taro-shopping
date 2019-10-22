@@ -1,0 +1,39 @@
+.wrapper{
+  font-family:Microsoft YaHei;
+  .title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 60px 0 0;
+    .icon{
+      width: 30px;
+      height: 30px;
+      margin: 0 15px;
+    }
+    .text{
+      font-size: 30px;
+      font-weight:bold;
+      color:rgba(229,170,97,1);
+    }
+  }
+  .container{
+    overflow: hidden;
+    padding: 30px 20px;
+    .goods{
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      margin: 20px 0;
+    }
+  }
+  .goList{
+    width: 220px;
+    height: 66px;
+    background: rgba(48,206,132,1);
+    border-radius: 8px;
+    font-size:28px;
+    color: #fff;
+    margin-bottom: 30px;
+  }
+}

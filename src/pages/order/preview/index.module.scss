@@ -1,0 +1,147 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  background: #eef1f6;
+  padding-bottom: 110px;
+  .address{
+    padding: 30px;
+  }
+  .content{
+    box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
+    border-radius: 0 0 50px 50px;
+    .store{
+      background: #fff;
+      padding: 40px 0 20px;
+      margin-top: 20px;
+      &:first-child{
+        margin-top: 0;
+      }
+      .title{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 30px;
+        .supermarket{
+          width: 34px;
+          height: 34px;
+        }
+        .storeName{
+          font-weight: bold;
+          font-size: 30px;
+          color: #000;
+          margin-left: 20px;
+        }
+        .size{
+          font-weight: bold;
+          font-size: 30px;
+          color: #E5AA61;
+          margin-left: 10px;
+        }
+      }
+      .goods{
+        padding: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+        &:after{
+          @include border-1px(#e6e6e6, bottom);
+        }
+        &:last-child{
+          &:after{
+            content: none;
+          }
+        }
+        .image{
+          width: 105Px;
+          height: 200px;
+          margin-left: 25px;
+        }
+        .info{
+          margin-left: 12.5Px;
+          flex: 1;
+          .name{
+            font-size: 30px;
+            color: #000;
+            word-break: break-all;
+            word-wrap: break-word;
+            position: relative;
+            height: 3em;
+            line-height: 1.5em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .select{
+            color: #999;
+            word-break: break-all;
+            word-wrap: break-word;
+            height: 3em;
+            line-height: 1.5em;
+            font-size: 24px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .priceWrapper{
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 66px;
+            .priceContainer{
+              .logo{
+                width: 32px;
+                height: 32px;
+              }
+              .price{
+                margin-left: 10px;
+                font-size: 26px;
+              }
+            }
+            .num{
+              margin-right: 25px;
+            }
+          }
+        }
+      }
+    }
+    .total{
+      border-top: 1px solid #dedede;
+      padding: 30px 30px 20px;
+      .item{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        font-size: 26px;
+      }
+    }
+  }
+  .fixed{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    .allTotal{
+      font-size: 45px;
+      font-weight: bold;
+      color: #30ce84;
+      margin-left: 40px;
+    }
+    .confirm{
+      background: #30ce84;
+      color: #ffffff;
+      padding: 0 50px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

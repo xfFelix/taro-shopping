@@ -1,0 +1,20 @@
+.isEmpty{
+  background: #ffffff;
+  padding: 0 30px 30px;
+  border-radius: 0 0 50px 50px;
+  .notingImg{
+    width: 276px;
+    height: 262px;
+    margin: auto;
+    display: block;
+  }
+  .goList{
+    width: 220px;
+    height: 66px;
+    background: rgba(48,206,132,1);
+    border-radius: 8px;
+    font-size:28px;
+    color: #fff;
+    margin-top: 30px;
+  }
+}

@@ -1,0 +1,186 @@
+@import '../../../styles/mixin/index.scss';
+
+.wrapper{
+  padding-bottom: 110px;
+  .swiperWrapper{
+    width: 100%;
+    height: 750px;
+    margin-bottom: -40px;
+    position: relative;
+    swiper-item{
+      .swiperImage{
+        width: 100%;
+      }
+    }
+  }
+  .infoWrapper{
+    padding: 30px 30px;
+    background: #fff;
+    border-radius: 50px 50px 0 0;
+    position: relative;
+    z-index: 2;
+    .nameWrapper{
+      display: flex;
+      align-items: center;
+      position: relative;
+      &:after{
+        @include border-1px(#dfdfdf, bottom);
+      }
+      .nameContent{
+        flex: 1;
+        .name{
+          font-size: 28px;
+          display: block;
+        }
+        .oldPrice{
+          color: #ccc;
+          text-decoration: line-through;
+        }
+      }
+      .priceWrapper{
+        flex-basis: 160px;
+        margin: 30px;
+        height: 140px;
+        border-radius: 20px;
+        text-align: center;
+        box-sizing: border-box;
+        box-shadow: 0 0 20px 0 rgba(0,0,0,.1);
+        padding-top: 15px;
+        .price{
+          color: #fe5a4c;
+          font-size: 36px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          display: block;
+        }
+        .priceHint{
+          position: relative;
+          padding: 0 7px;
+          font-size: 24px;
+          &:after{
+            @include all-border-1px(#000, 0);
+          }
+        }
+      }
+    }
+    .numberWrapper{
+      overflow: hidden;
+      .numberContent{
+        font-size: 26px;
+        margin-top: 20px;
+        line-height: 1.5;
+        .label{
+          color: #999;
+        }
+        .value{
+          color: #000;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  .balingWrapper{
+    background: #eef1f6;
+    overflow: hidden;
+    .balingContent{
+      margin-top: 30px;
+      background: #fff;
+      .title{
+        color: #000;
+        padding: 30px;
+        font-weight: bold;
+      }
+      .desc{
+        image{
+          width: 100%;
+        }
+      }
+    }
+  }
+  .buyWrapper{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    z-index: 3;
+    padding: 14px 14px 14px 18px;
+    box-sizing: border-box;
+    .priceTotal{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .currentPrice{
+        color: #333;
+        font-size: 36px;
+      }
+      .costPrice{
+        font-size: 24px;
+        color: #999;
+      }
+    }
+    .btnWrapper{
+      display: flex;
+      flex-basis: 480px;
+      align-items: center;
+      justify-content: space-between;
+      .cartWrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .cartIcon{
+          width: 42px;
+          height: 42px;
+          position: relative;
+          .cartImg{
+            width: 100%;
+            height: 100%;
+          }
+          .cartNum{
+            position: absolute;
+            top: -10px;
+            right: -14px;
+            font-size: 22px;
+            color: #fff;
+            background: #fe5a4c;
+            border-radius: 50%;
+            padding: 3px 10px;
+            text-align: center;
+            transform: scale(.7);
+          }
+        }
+        .cartText{
+          font-size: 30px;
+          color: #000;
+        }
+      }
+      .buyContent{
+        flex-basis: 370px;
+        font-size: 30px;
+        color: #fff;
+        display: flex;
+        flex-direction: row;
+        height: 80px;
+        line-height: 80px;
+        text-align: center;
+        .cart{
+          flex: 1;
+          display: block;
+          height: 100%;
+          background: #000;
+          border-radius: 40px 0 0 40px;
+        }
+        .buy{
+          flex: 1;
+          display: block;
+          height: 100%;
+          background: #30ce84;
+          border-radius: 0 40px 40px 0;
+        }
+      }
+    }
+  }
+}

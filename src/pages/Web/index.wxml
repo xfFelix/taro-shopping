@@ -1,0 +1,3 @@
+<scroll-view>
+  <web-view src="https://tmall.cocogc.cn"></web-view>
+</scroll-view>

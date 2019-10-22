@@ -1,0 +1,54 @@
+@import "../../../../../styles/mixin/index";
+
+.hotBg{
+  background: rgb(237,241,246);
+  padding: 20px 0 0;
+  .hot{
+    background: #fff;
+    padding-top: 20px;
+    .title{
+      display: block;
+      font-weight: bold;
+      padding: 0 30px;
+    }
+    .titleEN {
+      display: block;
+      font-size: 24px;
+      color: #999;
+      padding: 0 30px;
+    }
+    .integral{
+      padding: 0 20px;
+      position: relative;
+      height: 70px;
+      overflow: hidden;
+      transition: height .3s linear;
+      &.more{
+        height: 140px;
+      }
+      .arrowContainer{
+        position: absolute;
+        right: 2px;
+        top: 13px;
+        padding: 5px;
+        border-radius: 50%;
+        background: #f7f7f7;
+        transition: transform .3s linear;
+        .arrowDown{
+          transform: rotate(180deg);
+          transition: transform .3s linear;
+        }
+      }
+    }
+    .goodsContainer{
+      .item{
+        float: left;
+        width: 50%;
+        box-sizing: border-box;
+        overflow: hidden;
+        margin: 20px 0;
+        padding: 0 30px;
+      }
+    }
+  }
+}

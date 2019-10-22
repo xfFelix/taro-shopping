@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/reducers/*": ["src/reducers/*"],
+      "@/actions/*": ["./src/actions/*"],
+      "@/constants/*": ["./src/constants/*"],
+      "@/api/*": ["./src/api/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/util/*": ["./src/util/*"],
+      "@/navigator": ["./src/navigator/*"]
+    }
+  }
+}

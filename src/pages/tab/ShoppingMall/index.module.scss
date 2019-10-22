@@ -1,0 +1,89 @@
+.wrapper{
+  .swiper{
+    height: 400px;
+    position: relative;
+    swiper{
+      height: 100%;
+      image{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .searchWrapper{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: transparent;
+    }
+    .noticeWrapper{
+      display: flex;
+      align-items: center;
+      width: 660px;
+      box-sizing: border-box;
+      box-shadow: 0 4.5px 10px 0 #e1ebff;
+      height: 88px;
+      line-height: 88px;
+      margin: -44px auto 0;
+      background: #fff;
+      position: relative;
+      z-index: 2;
+      .iconListen{
+        flex: 0 0 60px;
+        text-align: center;
+      }
+      .noticeText{
+        font-size: 24px;
+        white-space: nowrap;
+        width: 120px;
+      }
+      .noticeContainer{
+        width: 420px;
+        .home-notice-bar {
+          background: transparent;
+        }
+      }
+    }
+  }
+  .classify{
+    padding: 30px 40px 0 ;
+  }
+  .hotBg{
+    background: rgb(237,241,246);
+    padding: 20px 0 0;
+    .hot{
+      background: #fff;
+      padding-top: 20px;
+      .title{
+        display: block;
+        font-weight: bold;
+        padding: 0 30px;
+      }
+      .titleEN {
+        display: block;
+        font-size: 24px;
+        color: #999;
+        padding: 0 30px;
+      }
+      .container{
+        height: 380px;
+        overflow: hidden;
+        swiper{
+          height: 100%;
+          swiper-item{
+            padding: 10px 3px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow: hidden;
+          }
+        }
+      }
+      .integral{
+        padding: 0 20px;
+      }
+      .goodsContainer{
+
+      }
+    }
+  }
+}
