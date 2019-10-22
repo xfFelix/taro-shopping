@@ -1,1 +1,2 @@
 export const GET_PREVIEW_ORDER='GET_PREVIEW_ORDER'
+export const SET_ERROR = 'SET_ERROR'

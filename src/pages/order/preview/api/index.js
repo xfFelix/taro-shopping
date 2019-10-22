@@ -6,3 +6,10 @@ export const getPreviewOrder = (data) => fetch({
   method: 'post',
   data
 })
+
+// 保存订单
+export const saveOrder = (data) => fetch({
+  url: `/api/saveOrderByCart`,
+  method: 'post',
+  data
+})

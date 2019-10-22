@@ -74,7 +74,7 @@ export default class Login extends Component {
                   value={this.state.verify}
                   onInput={(e) => this.setState({verify: e.detail.value})}
                 />
-                <Image src={this.state.verifyCode} className={styles.verify} onClick={this.getVerifyCode}/>
+                <Image src={this.state.verifyCode} className={styles.verify} onClick={() => this.getVerifyCode()}/>
               </View>
               <View className={styles.item}>
                 <Image className={styles.image} src={'../../assets/img/login/code.png'} />
