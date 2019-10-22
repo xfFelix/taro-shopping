@@ -6,12 +6,16 @@ import {connect} from "@tarojs/redux"
 import {getAddressSync} from "@/pages/tab/Cart/store/action"
 import {action} from './store'
 import PayPassword from "@/components/PayPassword"
+import {dialog} from "@/util/index";
+import {saveOrder} from './api'
 
 @connect(({cart, user, preview}) => ({
   address: cart.address,
   token: user.token,
   list: preview.list,
-  total: preview.total
+  total: preview.total,
+  haveMoney: preview.haveMoney,
+  errMsg: preview.errMsg
 }), dispatch => ({
   getDefaultAddress: (data) => dispatch(getAddressSync(data)),
   getPreviewOrder: (data) => dispatch(action.getPreviewOrderSync(data))
@@ -22,6 +26,10 @@ export default class Preview extends Component{
     navigationBarTitleText: '订单预览'
   }
 
+  state = {
+    showCode: false
+  }
+
   constructor(){
     super(...arguments)
   }
@@ -30,6 +38,19 @@ export default class Preview extends Component{
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
     await this.props.getDefaultAddress({token: this.props.token})
     this.props.getPreviewOrder({token: this.props.token, id: this.props.address.id})
+  }
+
+  validCode = () => {
+    if (!this.props.haveMoney) return dialog.toast({title: this.props.errMsg})
+    this.setState({
+      showCode: true
+    })
+  }
+
+  submitOrder = async (value) => {
+    this.setState({ showCode: false})
+    let params = { id: this.props.address.id, token: this.props.token, code: value }
+    const { data } = await saveOrder(params)
   }
 
   render(): any {
@@ -92,10 +113,10 @@ export default class Preview extends Component{
         </View>
         <View className={styles.fixed}>
           <View className={styles.allTotal}>{this.props.total}</View>
-          <View className={styles.confirm}>提交订单</View>
+          <View className={styles.confirm} onClick={() => this.validCode()}>提交订单</View>
         </View>
         {/* dialog start */}
-        <PayPassword></PayPassword>
+        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
         {/* dialog end */}
       </View>
     )
