@@ -6,9 +6,6 @@ import { dialog, validate } from '@/util'
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
 import { sms } from '@/api'
-
-import openEye from '@/assets/img/login/eye-open.png'
-import closeEye from '@/assets/img/login/eye-close.png'
 import {getInfoSync, setTokenAsync} from "@/actions/user"
 
 @connect(({login, user}) => ({
@@ -52,13 +49,13 @@ export default class Login extends Component {
     return (
       <View className={styles.wrapper}>
         <Text className={styles.register} onClick={() => Taro.navigateTo({url: '../Register/index'})}>注册</Text>
-        <Image src='../../assets/img/login/banner.png' className={styles.banner} />
+        <Image src='https://mall.cocotc.cn/static/images/regist.png' className={styles.banner} />
         <View className={styles.container}>
           <View className={styles.item}>
-            <Image className={`${styles.image} ${styles.tel}`} src={'../../assets/img/login/tel.png'} />
+            <Image className={`${styles.image} ${styles.tel}`} src={'https://mall.cocotc.cn/static/images/login-tel.png'} />
             <View className={styles.selectLocation} onClick={() => this.setState(preState => ({showActionSheet: !preState.showActionSheet}))}>
               <Text className={styles.locationName}>{this.props.login.locations[this.state.nameLocationIndex].label}</Text>
-              <Image src={'../../assets/img/login/select.png'} className={!this.state.showActionSheet ? styles.locationImage : styles.selecting}/>
+              <Image src={'https://tmall.cocogc.cn/static/images/select.png'} className={!this.state.showActionSheet ? styles.locationImage : styles.selecting}/>
             </View>
             <Input
               name='name'
@@ -72,7 +69,7 @@ export default class Login extends Component {
             this.state.flag ?
             (<View>
               <View className={styles.item}>
-                <Image className={styles.image} src={'../../assets/img/login/verify.png'} />
+                <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-vail.png'} />
                 <Input
                   name='verify'
                   type='text'
@@ -84,7 +81,7 @@ export default class Login extends Component {
                 <Image src={this.state.verifyCode} className={styles.verify} onClick={() => this.getVerifyCode()}/>
               </View>
               <View className={styles.item}>
-                <Image className={styles.image} src={'../../assets/img/login/code.png'} />
+                <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-msg.png'} />
                 <Input
                   name='code'
                   type='number'
@@ -93,11 +90,11 @@ export default class Login extends Component {
                   value={this.state.code}
                   onInput={(e) => this.setState({code: e.detail.value})}
                 />
-                <Button className={`${this.state.disabled?styles.noClick:styles.canClick} ${styles.code}`} plain type='primary' onClick={this.getSmsCode} disabled={this.state.disabled}>{this.state.downInfo}</Button>
+                <Button className={`${this.state.disabled?styles.noClick:styles.canClick} ${styles.code}`} plain type='primary' onClick={() => this.getSmsCode()} disabled={this.state.disabled}>{this.state.downInfo}</Button>
               </View>
             </View>) :
             (<View className={styles.item}>
-              <Image className={styles.image} src={'../../assets/img/login/password.png'} />
+              <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-password.png'} />
               <Input
                 name='pwd'
                 type='text'
@@ -107,7 +104,7 @@ export default class Login extends Component {
                 onInput={(e) => this.setState({pwd: e.detail.value})}
               />
               {
-                this.state.pwd && <Image src={this.state.showPassword ? openEye : closeEye} className={styles.eye} onClick={() => this.setState(preState => ({ showPassword: !preState.showPassword }))}/>
+                this.state.pwd && <Image src={this.state.showPassword ? 'https://tmall.cocogc.cn/static/images/eye-open.png' : 'https://tmall.cocogc.cn/static/images/eye-close.png'} className={styles.eye} onClick={() => this.setState(preState => ({ showPassword: !preState.showPassword }))}/>
               }
             </View>)
           }
@@ -151,6 +148,7 @@ export default class Login extends Component {
     }
     this.login(name, code, pwd)
   }
+
   login = async (name, code, pwd) => {
     try {
       const { setToken, getInfo } = this.props
@@ -168,6 +166,7 @@ export default class Login extends Component {
       dialog.toast({title: e})
     }
   }
+
   getSmsCode = async() => {
     const { verify, name } = this.state;
     if (!name || !validate.IsMobile(name)) return dialog.toast({title: '请输入正确手机号'});

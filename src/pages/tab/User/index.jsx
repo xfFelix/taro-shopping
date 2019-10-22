@@ -4,8 +4,6 @@ import styles from './index.module.scss'
 import {connect} from "@tarojs/redux"
 import { action } from './store'
 
-import handIcon from '@/assets/img/me/hands.png'
-
 @connect(({user, me}) => ({
   token: user.token,
   bannerList: me.bannerList,
@@ -33,10 +31,10 @@ class User extends Component {
 
   render() {
     const orderList = [
-      { id: '0', text: '全部订单', icon: 'all' },
-      { id: '1', text: '未完成', icon: 'waiting' },
-      { id: '2', text: '已完成', icon: 'finished' },
-      { id: '3', text: '已退货', icon: 'back' },
+      { id: '0', text: '全部订单', icon: 'https://tmall.cocogc.cn/static/images/personal/order-1.png' },
+      { id: '1', text: '未完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-2.png' },
+      { id: '2', text: '已完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-3.png' },
+      { id: '3', text: '已退货', icon: 'https://tmall.cocogc.cn/static/images/personal/order-4.png' },
     ]
     const list = [
       [
@@ -78,7 +76,7 @@ class User extends Component {
             <View className={styles.infoContainer}>
               <Text className={styles.mobile}>{this.props.info.userName}</Text>
               <View className={styles.hint}>
-                <Image src={handIcon} className={styles.handIcon}></Image>
+                <Image src={'https://tmall.cocogc.cn/static/images/me/hands.png'} className={styles.handIcon}></Image>
                 <Text className={styles.hintText}>专业选手</Text>
               </View>
             </View>
@@ -92,7 +90,7 @@ class User extends Component {
               orderList.map((item) => {
                 return (
                   <View key={item.id} className={styles.orderItem}>
-                    <Image src={`../../../assets/img/me/${item.icon}.png`} className={styles.orderIcon}></Image>
+                    <Image src={item.icon} className={styles.orderIcon}></Image>
                     <Text className={styles.orderText}>{item.text}</Text>
                   </View>
                 )
@@ -110,14 +108,14 @@ class User extends Component {
                     items.map((item) => {
                       return(
                         <View key={item.id} className={styles.item}>
-                          <Image src={`../../../assets/img/me/${item.icon}.png`} className={styles.icon}></Image>
+                          <Image src={`https://tmall.cocogc.cn/static/images/me/${item.icon}.png`} className={styles.icon}></Image>
                           <View className={styles.title}>
                             <Text>{item.title}</Text>
                             {
                               item.id === '0' && <Text>旅游分：{this.props.info.score}</Text>
                             }
                           </View>
-                          <Image src={'../../../assets/img/me/right.png'} className={styles.right}></Image>
+                          <Image src={'https://tmall.cocogc.cn/static/images/me/right.png'} className={styles.right}></Image>
                         </View>
                       )
                     })
