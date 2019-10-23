@@ -29,18 +29,23 @@ class User extends Component {
     this.props.getBannerList()
   }
 
+  goOrders = (status) => {
+    Taro.navigateTo({url: `/pages/order/list/index?status=${status}`})
+  }
+
   render() {
     const orderList = [
-      { id: '0', text: '全部订单', icon: 'https://tmall.cocogc.cn/static/images/personal/order-1.png' },
-      { id: '1', text: '未完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-2.png' },
-      { id: '2', text: '已完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-3.png' },
-      { id: '3', text: '已退货', icon: 'https://tmall.cocogc.cn/static/images/personal/order-4.png' },
+      { id: '0', text: '全部订单', icon: 'https://tmall.cocogc.cn/static/images/personal/order-1.png', status: 0 },
+      { id: '1', text: '未完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-2.png', status: 2 },
+      { id: '2', text: '已完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-3.png', status: 1 },
+      { id: '3', text: '已退货', icon: 'https://tmall.cocogc.cn/static/images/personal/order-4.png', status: 3 },
     ]
     const list = [
       [
         { id: '0', title: '我的椰子分', icon: 'yezi'},
         { id: '1', title: '话费充值', icon: 'mobile'},
-        { id: '2', title: '门票兑换记录', icon: 'ticket'}
+        { id: '2', title: '门票兑换记录', icon: 'ticket'},
+        { id: '7', title: '设置', icon: 'ticket'}
       ],
       [
         { id: '3', title: '卡密充值', icon: 'ticket'},
@@ -89,7 +94,7 @@ class User extends Component {
             {
               orderList.map((item) => {
                 return (
-                  <View key={item.id} className={styles.orderItem}>
+                  <View key={item.id} className={styles.orderItem} onClick={() => this.goOrders(item.status)}>
                     <Image src={item.icon} className={styles.orderIcon}></Image>
                     <Text className={styles.orderText}>{item.text}</Text>
                   </View>

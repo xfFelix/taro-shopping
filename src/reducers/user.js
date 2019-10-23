@@ -1,4 +1,4 @@
-import { SET_TOKEN, GET_INFO } from '@/constants/user'
+import { SET_TOKEN, GET_INFO, LOGIN_OUT } from '@/constants/user'
 import Storage from '@/assets/js/storage'
 
 const storage = new Storage()
@@ -23,6 +23,13 @@ export default function counter (state = INITIAL_STATE, action) {
       return {
         ...state,
         info: action.data
+      }
+    case LOGIN_OUT:
+      storage.clear()
+      return {
+        ...state,
+        token: '',
+        info: ''
       }
     default:
       return state

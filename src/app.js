@@ -21,8 +21,11 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/tab/Classify/index',
+      'pages/address/list/index',
       'pages/tab/User/index',
+      'pages/setting/index',
+      'pages/order/list/index',
+      'pages/tab/Classify/index',
       'pages/Login/index',
       'pages/Register/index',
       'pages/ForgetPwd/index',

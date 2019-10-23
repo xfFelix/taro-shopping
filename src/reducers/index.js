@@ -9,6 +9,8 @@ import { reducer as GoodsReducer } from '@/pages/goods/store'
 import { reducer as CartReducer } from '@/pages/tab/Cart/store'
 import { reducer as UserReducer } from '@/pages/tab/User/store'
 import { reducer as previewReducer } from '@/pages/order/preview/store'
+import { reducer as orderReducer } from '@/pages/order/list/store'
+import { reducer as addressReducer } from '@/pages/address/store'
 
 export default combineReducers({
   classify,
@@ -20,5 +22,7 @@ export default combineReducers({
   goods: GoodsReducer,
   cart: CartReducer,
   me: UserReducer,
-  preview: previewReducer
+  preview: previewReducer,
+  order: orderReducer,
+  address: addressReducer
 })
