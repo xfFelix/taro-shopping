@@ -11,7 +11,7 @@ import { action } from './store'
 }), dispatch => ({
   getOrderList: (data) => dispatch(action.getOrdersSync(data))
 }))
-export default class Preview extends Component{
+export default class OrderList extends Component{
 
   config ={
     navigationBarTitleText: '订单管理'

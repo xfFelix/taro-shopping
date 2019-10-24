@@ -11,7 +11,7 @@ import {action} from '../store'
 }), dispatch => ({
   getList: (data) => dispatch(action.getAddressListSync(data))
 }))
-export default class Preview extends Component{
+export default class AddressList extends Component{
 
   config ={
     navigationBarTitleText: '地址管理'
@@ -37,17 +37,17 @@ export default class Preview extends Component{
                 <View className={styles.top}>
                   <View className={styles.name}>
                     <Text>{item.name}</Text>
-                    <Text>{item.tel}</Text>
+                    <Text className={styles.tel}>{item.tel}</Text>
                   </View>
-                  <View>{item.area}</View>
+                  <View className={styles.address}>{item.area}</View>
                 </View>
                 <View className={styles.bottom}>
-                  <View>
-                    <Image></Image>
+                  <View className={styles.btn}>
+                    <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/edit.png'}></Image>
                     <Text>编辑</Text>
                   </View>
-                  <View>
-                    <Image></Image>
+                  <View className={styles.btn}>
+                    <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/delete.png'}></Image>
                     <Text>删除</Text>
                   </View>
                 </View>
@@ -55,6 +55,7 @@ export default class Preview extends Component{
             )
           })
         }
+        <Button className={styles.add}>添加新地址</Button>
       </View>
     )
   }
