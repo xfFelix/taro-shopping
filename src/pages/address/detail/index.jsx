@@ -16,7 +16,12 @@ export default class AddressDetail extends Component{
   }
 
   state = {
-    range: [
+    range: []
+  }
+
+  constructor(){
+    super(...arguments)
+    this.city = [
       { id: 1, name: '北京市' },
       { id: 2, name: '上海市' },
       { id: 3, name: '天津市' },
@@ -52,14 +57,12 @@ export default class AddressDetail extends Component{
       { id: 84, name: '钓鱼岛' },
       { id: 52993, name: '港澳地区' },
       { id: 53283, name: '海外' },
-    ],
-  }
-
-  constructor(){
-    super(...arguments)
+    ]
+    console.log(this.city)
   }
 
   onChange = e => {
+    console.log(e)
     this.setState({
       selectorChecked: this.state.selector[e.detail.value]
     })
@@ -84,7 +87,7 @@ export default class AddressDetail extends Component{
           </View>
           <View className={styles.item}>
             <Text className={styles.label}>所在地区</Text>
-            <Picker mode={'multiSelector'} range={this.state.range} rangeKey={'name'} value={[0]} onChange={this.onChange}>
+            <Picker mode={'selector'} range={this.state.range} rangeKey={'name'} onChange={this.onChange}>
               <Input className={styles.input} placeholder={'省市区县，乡镇等'}></Input>
             </Picker>
           </View>
