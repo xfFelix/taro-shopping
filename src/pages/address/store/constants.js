@@ -1,1 +1,6 @@
 export const GET_ADDRESS_LIST='GET_ADDRESS_LIST'
+export const GET_CITY='GET_CITY'
+export const CHANGE_CITY='CHANGE_CITY'
+export const GET_COUNTRY='GET_COUNTRY'
+export const GET_VILLAGE='GET_VILLAGE'
+export const SET_EMPTY='SET_EMPTY'

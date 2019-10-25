@@ -6,3 +6,11 @@ export const getAddressList = (data) => fetch({
   method: 'post',
   data
 })
+
+// 获取城市列表
+export const getCity = (data) => fetch({
+  url: `/api/selectCities`,
+  method: 'post',
+  data
+})
+
