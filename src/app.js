@@ -21,9 +21,9 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/tab/Home/index',
       'pages/tab/Cart/index',
       'pages/order/preview/index',
-      'pages/tab/Home/index',
       'pages/goods/list/index',
       'pages/Login/index',
       'pages/tab/ShoppingMall/index',
@@ -32,6 +32,9 @@ class App extends Component {
       'pages/Register/index',
       'pages/ForgetPwd/index',
       'pages/tab/Classify/index',
+      'pages/gold/home/index',
+      'pages/gold/protocol/index',
+      'pages/gold/record/index',
     ],
     window: {
       backgroundTextStyle: 'light',
