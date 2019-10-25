@@ -55,6 +55,10 @@ class Classify extends Component {
     })
   }
 
+  goList = (id) => {
+    Taro.navigateTo({url: `/pages/goods/list/index?id=${id}`})
+  }
+
   render() {
     const { firstDir, swiperList } = this.props.classify
     let secoundDir = this._store()
@@ -115,7 +119,7 @@ class Classify extends Component {
                         {
                           items.childCategory.map(item => {
                             return (
-                              <View className={styles.item} key={item.id}>
+                              <View className={styles.item} key={item.id} onClick={() => this.goList(item.id)}>
                                 <Image className={styles.image} src={item.picUrl} />
                                 <Text className={styles.name}>{item.name}</Text>
                               </View>

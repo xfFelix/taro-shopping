@@ -1,0 +1,53 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  .container{
+    padding: 30px;
+    .item{
+      position: relative;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 28px;
+      &:after{
+        @include border-1px(#dedede, bottom);
+      }
+      .label{
+        flex-basis: 120px;
+        text-align-last: justify;
+      }
+      .input{
+        margin-left: 20px;
+        height: 100%;
+        flex: 1;
+      }
+    }
+    .desc{
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      padding: 20px 20px;
+      font-size: 28px;
+      .label {
+        flex-basis: 120px;
+        text-align-last: justify;
+      }
+      &:after{
+        @include border-1px(#dedede, bottom);
+      }
+      .area{
+        flex: 1;
+        margin-left: 20px;
+      }
+    }
+  }
+  .add{
+    border: none;
+    background: #30ce84;
+    color: #ffffff;
+    width: 660px;
+    border-radius: 50px;
+    margin-top: 100px;
+  }
+}

@@ -35,6 +35,10 @@ class Storage {
     Taro.removeStorageSync(this.prefix + key)
   }
 
+  clear() {
+    Taro.clearStorageSync()
+  }
+
   getCurrentTimeStamp() {
     return Date.parse(new Date())
   }

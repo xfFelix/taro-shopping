@@ -1,6 +1,7 @@
 import {
   SET_TOKEN,
-  GET_INFO
+  GET_INFO,
+  LOGIN_OUT
 } from '../constants/user'
 import {login, getInfo} from "@/api"
 
@@ -25,5 +26,10 @@ export const setToken = (token) => ({
 
 export const getUserInfo = (data) => ({
   type: GET_INFO,
+  data
+})
+
+export const loginOut = (data) => ({
+  type: LOGIN_OUT,
   data
 })

@@ -6,9 +6,6 @@ import styles from './index.module.scss'
 import { dialog, validate } from '@/util'
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
-import openEye from '@/assets/img/login/eye-open.png'
-import closeEye from '@/assets/img/login/eye-close.png'
-
 @connect(({login}) => ({
   login
 }))
@@ -38,13 +35,13 @@ export default class Register extends Component {
   render() {
     return (
       <View className={styles.wrapper}>
-        <Image src='../../assets/img/login/banner.png' className={styles.banner} />
+        <Image src='https://mall.cocotc.cn/static/images/regist.png' className={styles.banner} />
         <View className={styles.container}>
           <View className={styles.item}>
-            <Image className={`${styles.image} ${styles.tel}`} src={'../../assets/img/login/tel.png'} />
+            <Image className={`${styles.image} ${styles.tel}`} src={'https://mall.cocotc.cn/static/images/login-tel.png'} />
             <View className={styles.selectLocation} onClick={() => this.setState(preState => ({showActionSheet: !preState.showActionSheet}))}>
               <Text className={styles.locationName}>{this.props.login.locations[this.state.nameLocationIndex].label}</Text>
-              <Image src={'../../assets/img/login/select.png'} className={styles.locationImage}/>
+              <Image src={'https://tmall.cocogc.cn/static/images/select.png'} className={styles.locationImage}/>
             </View>
             <Input
               name='name'
@@ -55,7 +52,7 @@ export default class Register extends Component {
             />
           </View>
           <View className={styles.item}>
-            <Image className={styles.image} src={'../../assets/img/login/verify.png'} />
+            <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-vail.png'} />
             <Input
               name='verify'
               type='text'
@@ -67,7 +64,7 @@ export default class Register extends Component {
             <Image src={this.state.verifyCode} className={styles.verify} onClick={this.getVerifyCode}/>
           </View>
           <View className={styles.item}>
-            <Image className={styles.image} src={'../../assets/img/login/code.png'} />
+            <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-msg.png'} />
             <Input
               name='code'
               type='number'
@@ -79,7 +76,7 @@ export default class Register extends Component {
             <Button className={styles.code} plain type='primary'>获取验证码</Button>
           </View>
           <View className={styles.item}>
-            <Image className={styles.image} src={'../../assets/img/login/password.png'} />
+            <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-password.png'} />
             <Input
               name='pwd'
               type='text'
@@ -89,7 +86,7 @@ export default class Register extends Component {
               onInput={(e) => this.setState({pwd: e.detail.value})}
             />
             {
-              this.state.pwd && <Image src={this.state.flag ? openEye : closeEye} className={styles.eye} onClick={() => this.setState(preState => ({ flag: !preState.flag }))}/>
+              this.state.pwd && <Image src={this.state.flag ? 'https://tmall.cocogc.cn/static/images/eye-open.png' : 'https://tmall.cocogc.cn/static/images/eye-close.png'} className={styles.eye} onClick={() => this.setState(preState => ({ flag: !preState.flag }))}/>
             }
           </View>
         </View>
