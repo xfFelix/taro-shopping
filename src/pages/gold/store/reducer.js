@@ -4,9 +4,9 @@ const INITIAL_STATE={
   barPrice:'',
   sandPrice:'',
   backInfo:{
-    cardId:0,
+    type:0,
+    cardId:'',
     cardCode:'',
-    type:'',
     weight:'',
     barPrice:'',
     sandPrice:''

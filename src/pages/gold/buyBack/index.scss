@@ -1,0 +1,101 @@
+.goldBuyBack{
+  min-height: 100%;
+  background: #fff;
+  .back-info{
+    padding: 10px 32px 0 32px;
+    color: #4A4A4A;
+    font-size: 28px;
+    .money-wrap{
+      margin-bottom: 20px;
+      .money-inner{
+        text-align: center;
+        .money{
+          font-size: 72px;
+          color: #30CE84;
+          line-height: 68px;
+        }
+        .yuan{
+          display: inline-block;
+          vertical-align: bottom;
+          color: #999999;
+        }
+        .qmark{
+          border: 1px solid #30CE84;
+          width: 30px;
+          height: 30px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          color: #30CE84;
+          font-size: 28px;
+          margin: 0px 0 0 20px;
+          font-weight: bold;
+        }
+      }
+    }
+    .backLi{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 120px;
+      border-bottom: 1px solid #DEDEDE;
+      input{
+        text-align: right;
+        flex: 1;
+        background: #fff;
+        height: 90%;
+      }
+    }
+  }
+  .agreeWrap{
+    font-size: 24rpx;
+    color: #666;
+    margin:36rpx;
+    .checkLabel{
+      display: flex;
+      align-items: center;;
+    }
+    .file{
+      color: #30ce84;
+    }
+    checkbox{
+      vertical-align: top;
+      margin-top:-1px;
+    }
+    checkbox .wx-checkbox-input {
+      width: 24rpx;
+      height: 24rpx;
+    }
+    /*checkbox选中后样式  */
+    checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+      background: #30ce84;
+      border-color:#30ce84;
+    }
+    /*checkbox选中后图标样式  */
+    checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+      width: 20rpx;
+      height: 20rpx;
+      line-height: 20rpx;
+      text-align: center;
+      font-size: 16rpx;
+      color: #fff;
+      background: transparent;
+      transform: translate(-50%, -50%) scale(1);
+      -webkit-transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  .needTime{
+    padding: 20px 0 110px 0;
+    font-size:24px;
+    color: #999999;
+    text-align: center;
+  }
+  .submitUp{
+    background:#30CE84;
+    color: #fff;
+    line-height:88px;
+    font-size:30px;
+    text-align: center;
+  }
+}

@@ -8,7 +8,6 @@ import GoldInfo from "@/pages/gold/home/components/goldinfo"
 import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
-
 import {goldPrice,goldTax} from '../api'
 
 

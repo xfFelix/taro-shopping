@@ -4,8 +4,7 @@ import './index.scss'
 import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
 import {backInfoFun} from "@/pages/gold/store/action"
-
-import {goldLog} from '../api'
+import {goldLog,goldPrice} from '../api'
 
 @connect(({gold,user}) => ({
   gold,
@@ -29,31 +28,66 @@ export default class GoldRecord extends Component {
       {id:1,name:"金砂"}
     ],
     this.state = {
-      logsList:[]
+      logsList:[],
+      start:0
     }
   }
 
   selectType(id){
-    this.props.setBackInfo({cardId:id})
+    this.props.setBackInfo({type:id});
+    this.setState({logsList:[],start:0},()=>{
+      this.getLogs();
+    });
   }
 
   componentWillMount() { //将要装载
     this.getLogs();
+    this.getPrice(1)
+    this.getPrice(0)
   }
-
-
+  //黄金价格
+  getPrice = async(type) => {
+    let res= await goldPrice({id: type});
+    if(res.error_code!=0) return dialog.toast({title: res.message})
+    if(type==0){
+      this.props.setBackInfo({barPrice:res.data.goldPrice})
+    }else{
+      this.props.setBackInfo({sandPrice:res.data.goldPrice})
+    }
+  }
+  //黄金记录
   getLogs = async() => {
-    let res= await goldLog({id:this.props.backInfo.cardId.id,start:0,token:this.props.token});
+    let res= await goldLog({id:this.props.backInfo.type,start:this.state.start,token:this.props.token});
     if(res.error_code!=0) return dialog.toast({title: res.message});
-    this.setState({logsList:res.data})
+    res.data.forEach(item=> {    //回购信息显示
+      item.backFlag = false;
+    })
+    this.setState({logsList:this.state.logsList.concat(res.data)});
+    if(res.data.length<10){
+      dialog.toast({title: '没有更多了'})
+    }
   }
 
-  transClick =()=>{
-
+  transClick =(item,index)=>{
+      for (let i=0;i<this.state.logsList.length;i++){
+        if(index == i){
+          this.state.logsList[index].backFlag = !this.state.logsList[index].backFlag;
+          this.setState({logsList:this.state.logsList})
+        }
+      }
   }
+
+  goBuyBack =(item)=>{
+    this.props.setBackInfo({cardId:item.id,cardCode:item.code,weight:item.weight});
+    Taro.navigateTo({url:'/pages/gold/buyBack/index'})
+  }
+
+
 
   onReachBottom(){
-    this.getLogs();
+    this.setState(prevState=>{start:prevState.start++},()=>{
+      this.getLogs();
+    })
   }
 
   render(){
@@ -65,7 +99,7 @@ export default class GoldRecord extends Component {
                 this.selectList.map((item,index)=>{
                   return (
                     <View
-                      className={this.props.backInfo.cardId==index?'selectOne selectActive':'selectOne'}
+                      className={this.props.backInfo.type==index?'selectOne selectActive':'selectOne'}
                       onClick={() => this.selectType(index)}
                       key={index}
                     >
@@ -106,23 +140,28 @@ export default class GoldRecord extends Component {
                       <View className="reInfoW">
                         <View className="reInfo">
                           <View className="infoInner">时间：{item.addDate}</View>
-                          <View className="infoInner">数量：{this.props.backInfo.cardId==0?Math.round(item.weight/10)+'根':Math.round(item.weight/0.2)+'颗'}</View>
-                          <View className="infoInner">{this.props.backInfo.cardId==0?'金条价格':'金砂价格'}：{item.repaymentAmount}</View>
+                          <View className="infoInner">数量：{this.props.backInfo.type==0?Math.round(item.weight/10)+'根':Math.round(item.weight/0.2)+'颗'}</View>
+                          <View className="infoInner">{this.props.backInfo.type==0?'金条价格':'金砂价格'}：{item.repaymentAmount}</View>
                           <View className="infoInner">服务费：{item.serviceFee}</View>
                           <View className="infoInner">税费：{item.taxFee}</View>
                           <View className="total">合计：{item.totalAmount}</View>
                         </View>
-                        {(item.code && (item.buyInfo == null))?<Text className="recover">立即回购</Text>:''}
+                        {(item.code && (item.buyInfo == null))?<View className="recover" onClick={()=>this.goBuyBack(item)}>立即回购</View>:''}
                         {item.buyInfo != null && item.buyInfo?
                           <View>
-                            <View className="gold-bnt-info">
-                              <View>银行卡号：{item.buyInfo.cardNum}</View>
-                              <View>开户行：{item.buyInfo.bank}</View>
+                            <View className="gold-bnt-info" style={item.backFlag?'height:auto':'height:0'}>
+                              <View className="bntInfo bntTop">银行卡号：{item.buyInfo.cardNum}</View>
+                              <View className="bntInfo">开户行：{item.buyInfo.bank}</View>
                               <View className="backMoney">回购金额：{item.buyInfo.goldPrice*item.weight}</View>
-                              <View>姓名：{item.buyInfo.name}</View>
+                              <View className="bntInfo bntBottom">姓名：{item.buyInfo.name}</View>
                             </View>
                             <View className="gold-bnt" onClick={()=> this.transClick(item,index)}>
-                              <Image className="moreIcon" src={'https://mall.cocogc.cn/static/images/logo/jd.png'}></Image>
+                              <Image
+                                className="moreIcon"
+                                src={'https://mall.cocogc.cn/static/images/logo/jd.png'}
+                                style={item.backFlag?'transform:rotate(180deg)':'transform:rotate(360deg)'}
+                                >
+                              </Image>
                             </View>
                           </View>:''
                         }
