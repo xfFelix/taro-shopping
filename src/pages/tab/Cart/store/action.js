@@ -6,7 +6,7 @@ import {
   SET_EMPTY,
   UPDATE_CART,
   YE_YUN,
-  SET_CHANGE_LIST, SET_TOTAL
+  SET_CHANGE_LIST, SET_TOTAL, SET_DEFAULT
 } from './constants'
 import {getDefaultAddress, getCartList, getGuessLike, updateCart, removeCart} from '../api'
 
@@ -116,6 +116,11 @@ export const setTotal = ({total, num, allChecked}) => ({
 
 export const getAddress = (data) => ({
   type: GET_DEFAULT_ADDRESS,
+  data
+})
+
+export const setDefault = (data) => ({
+  type: SET_DEFAULT,
   data
 })
 

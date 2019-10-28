@@ -1,6 +1,6 @@
 import fetch from '@/api/fetch'
 
-// 获取订单列表
+// 获取地址列表
 export const getAddressList = (data) => fetch({
   url: `/api/selectAddresses`,
   method: 'post',
@@ -13,4 +13,19 @@ export const getCity = (data) => fetch({
   method: 'post',
   data
 })
+
+// 保存地址
+export const saveAddress = (data) => fetch({
+  url: `/api/updateAddress`,
+  method: 'post',
+  data
+})
+
+// 删除地址
+export const removeAddress = (data) => fetch({
+  url: `/api/removeAddres`,
+  method: 'post',
+  data
+})
+
 

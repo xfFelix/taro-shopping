@@ -3,11 +3,13 @@ import styles from './index.module.scss'
 import {Button, Image, View} from "@tarojs/components";
 import {connect} from "@tarojs/redux"
 import {loginOut} from "@/actions/user";
+import {action} from "@/pages/address/store";
 
 @connect(() => ({
 
 }), dispatch => ({
-  loginOut: () => dispatch(loginOut())
+  loginOut: () => dispatch(loginOut()),
+  toggleSelect: (data) => dispatch(action.toggleSelect(data))
 }))
 export default class Setting extends PureComponent {
 
@@ -18,9 +20,9 @@ export default class Setting extends PureComponent {
   state = {
     list: [
       { id: 0, title: '地址管理' },
-      { id: 0, title: '实名认证' },
-      { id: 0, title: '修改登录密码' },
-      { id: 0, title: '修改支付密码' },
+      { id: 1, title: '实名认证' },
+      { id: 2, title: '修改登录密码' },
+      { id: 3, title: '修改支付密码' },
     ]
   }
 
@@ -33,6 +35,17 @@ export default class Setting extends PureComponent {
     Taro.redirectTo({url: '/pages/Login/index'})
   }
 
+  goAddressList = () => {
+    this.props.toggleSelect(false)
+    Taro.navigateTo({url: '/pages/address/list/index'})
+  }
+
+  handleClick = (id) => {
+    if (id == 0) {
+      this.goAddressList()
+    }
+  }
+
   render(): any {
     return (
       <View className={styles.wrapper}>
@@ -40,7 +53,7 @@ export default class Setting extends PureComponent {
           {
             this.state.list.map(item => {
               return (
-                <View className={styles.item} key={item.id + ''}>
+                <View className={styles.item} key={item.id + ''} onClick={() => this.handleClick(item.id)}>
                   <Text>{item.title}</Text>
                   <Image src={'https://tmall.cocogc.cn/static/images/me/right.png'} className={styles.right}></Image>
                 </View>

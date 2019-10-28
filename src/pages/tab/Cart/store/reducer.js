@@ -5,8 +5,9 @@ import {
   SET_EMPTY,
   UPDATE_CART,
   SET_CHANGE_LIST,
-  SET_TOTAL
+  SET_TOTAL, SET_DEFAULT
 } from './constants'
+import {setDefault} from "@/pages/tab/Cart/store/action";
 
 const INITIAL_STATE = {
   address: {},
@@ -16,7 +17,8 @@ const INITIAL_STATE = {
   guesslike: [],
   total: 0,
   num: 0,
-  allChecked: false
+  allChecked: false,
+  isDefault: true
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -52,6 +54,10 @@ export default (state=INITIAL_STATE, action) => {
         total: action.total,
         num: action.num,
         allChecked: action.allChecked
+      }
+    case SET_DEFAULT:
+      return {
+        isDefault: action.data
       }
     default:
       return state

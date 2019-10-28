@@ -70,8 +70,17 @@ export const getVillageSync = ({id, list}) => {
   }
 }
 
-export const setEmpty = () => ({
-  type: constant.SET_EMPTY
+export const addAddress = () => ({
+  type: constant.ADD_ADDRESS
+})
+
+export const toggleSelect = (data) => ({
+  type: constant.TOGGLE_SELECT,
+  data
+})
+export const editAddress = (data) => ({
+  type: constant.EDIT_ADDRESS,
+  data
 })
 
 export const getVillage = ({list}) => ({

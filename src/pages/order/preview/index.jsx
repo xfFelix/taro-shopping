@@ -15,7 +15,8 @@ import {saveOrder} from './api'
   list: preview.list,
   total: preview.total,
   haveMoney: preview.haveMoney,
-  errMsg: preview.errMsg
+  errMsg: preview.errMsg,
+  isDefault: cart.isDefault
 }), dispatch => ({
   getDefaultAddress: (data) => dispatch(getAddressSync(data)),
   getPreviewOrder: (data) => dispatch(action.getPreviewOrderSync(data))
@@ -36,7 +37,9 @@ export default class Preview extends Component{
 
   async componentDidMount() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
-    await this.props.getDefaultAddress({token: this.props.token})
+    if (this.props.isDefault) {
+      await this.props.getDefaultAddress({token: this.props.token})
+    }
     this.props.getPreviewOrder({token: this.props.token, id: this.props.address.id})
   }
 
