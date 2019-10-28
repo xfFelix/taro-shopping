@@ -7,7 +7,15 @@ import {action} from '../store'
 
 @connect(({user, address}) => ({
   token: user.token,
+  countryList: address.countryList,
+  villageList: address.villageList,
+  city: address.city,
+  country: address.country,
+  village: address.village
 }), dispatch => ({
+  getCity: (data) => dispatch(action.getCitySync(data)),
+  getCountry: (data) => dispatch(action.getCountrySync(data)),
+  getVillage: (data) => dispatch(action.getVillageSync(data))
 }))
 export default class AddressDetail extends Component{
 
@@ -16,11 +24,12 @@ export default class AddressDetail extends Component{
   }
 
   state = {
-    range: []
+    range: [],
+    indexArr: [0,0,0,0]
   }
 
-  constructor(){
-    super(...arguments)
+  constructor(props){
+    super(props)
     this.city = [
       { id: 1, name: '北京市' },
       { id: 2, name: '上海市' },
@@ -58,22 +67,36 @@ export default class AddressDetail extends Component{
       { id: 52993, name: '港澳地区' },
       { id: 53283, name: '海外' },
     ]
-    console.log(this.city)
   }
 
   onChange = e => {
-    console.log(e)
-    this.setState({
-      selectorChecked: this.state.selector[e.detail.value]
-    })
+    let indexArr = e.detail.value
+    this.setState({indexArr})
+  }
+
+  onhandleColumnChange = e => {
+    let column = e.detail.column
+    let index = e.detail.value
+    if (column === 0) {
+      this.props.getCity({id: this.city[index].id})
+      this.setState(pre => ({ indexArr: [index,0,0,0]}))
+    } else if (column === 1) {
+      this.props.getCountry({id: this.props.city[index].id, countryList: this.props.countryList, villageList: this.props.villageList})
+      this.setState(pre => ({ indexArr: [pre.indexArr[0],index,0,0]}))
+    } else if (column === 2) {
+      this.props.getVillage({id: this.props.country[index].id, list: this.props.villageList})
+      this.setState(pre => ({ indexArr: [pre.indexArr[0],pre.indexArr[1],index,0]}))
+    }
   }
 
   componentDidMount() {
     let token = this.props.token
     if (!token) return Taro.redirectTo({url: `/pages/Login/index`})
+    this.props.getCity({id: this.city[0].id})
   }
 
   render(): any {
+    let arr = [this.city, this.props.city, this.props.country, this.props.village]
     return (
       <View className={styles.wrapper}>
         <View className={styles.container}>
@@ -87,7 +110,7 @@ export default class AddressDetail extends Component{
           </View>
           <View className={styles.item}>
             <Text className={styles.label}>所在地区</Text>
-            <Picker mode={'selector'} range={this.state.range} rangeKey={'name'} onChange={this.onChange}>
+            <Picker mode={'multiSelector'} range={arr} rangeKey={'name'} value={this.state.indexArr} onChange={this.onChange} onColumnChange={this.onhandleColumnChange}>
               <Input className={styles.input} placeholder={'省市区县，乡镇等'}></Input>
             </Picker>
           </View>
