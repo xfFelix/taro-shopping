@@ -2,7 +2,14 @@ import Taro,{ PureComponent } from "@tarojs/taro"
 import styles from './address.module.scss'
 import {Image, Text, View} from "@tarojs/components"
 import {AtIcon} from "taro-ui"
+import {connect} from "@tarojs/redux";
+import {action} from '@/pages/address/store'
 
+@connect(() => ({
+
+}), dispatch => ({
+  toggleSelect: (data) => dispatch(action.toggleSelect(data))
+}))
 export default class Address extends PureComponent{
 
   constructor(){
@@ -13,9 +20,14 @@ export default class Address extends PureComponent{
     address: ''
   }
 
+  goAddressList = () => {
+    this.props.toggleSelect(true)
+    Taro.navigateTo({url: '/pages/address/list/index'})
+  }
+
   render() {
     return (
-      <View className={styles.addressWrapper}>
+      <View className={styles.addressWrapper} onClick={() => this.goAddressList()}>
         {(this.props.address && this.props.address.id) ?
           <View>
             <View className={styles.userContent}>

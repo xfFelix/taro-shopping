@@ -2,7 +2,10 @@ import Taro,{Component} from "@tarojs/taro"
 import styles from './index.module.scss'
 import {Text, View, Button, Input, Textarea, Picker} from "@tarojs/components"
 import {connect} from "@tarojs/redux"
+import { AtSwitch }  from 'taro-ui'
 import {action} from '../store'
+import {saveAddress} from "@/pages/address/api";
+import {dialog} from "@/util/index";
 
 
 @connect(({user, address}) => ({
@@ -11,7 +14,9 @@ import {action} from '../store'
   villageList: address.villageList,
   city: address.city,
   country: address.country,
-  village: address.village
+  village: address.village,
+  isAdd: address.isAdd,
+  address: address.address
 }), dispatch => ({
   getCity: (data) => dispatch(action.getCitySync(data)),
   getCountry: (data) => dispatch(action.getCountrySync(data)),
@@ -21,11 +26,6 @@ export default class AddressDetail extends Component{
 
   config ={
     navigationBarTitleText: '地址'
-  }
-
-  state = {
-    range: [],
-    indexArr: [0,0,0,0]
   }
 
   constructor(props){
@@ -67,11 +67,41 @@ export default class AddressDetail extends Component{
       { id: 52993, name: '港澳地区' },
       { id: 53283, name: '海外' },
     ]
+    this.state = {
+      indexArr: [0,0,0,0],
+      area: '',
+      code: '',
+      name: '',
+      tel: '',
+      address: '',
+      isDefault: false,
+      id: ''
+    }
   }
 
   onChange = e => {
     let indexArr = e.detail.value
-    this.setState({indexArr})
+    let province = this.city[indexArr[0]].name
+    let provinceId = this.city[indexArr[0]].id
+    let city = this.props.city[indexArr[1]].name
+    let cityId = this.props.city[indexArr[1]].id
+    let country = this.props.country[indexArr[2]] ? this.props.country[indexArr[2]].name : ''
+    let countryId = this.props.country[indexArr[2]] ? this.props.country[indexArr[2]].id : 0
+    let village = this.props.village[indexArr[3]] ? this.props.village[indexArr[3]].name : ''
+    let villageId = this.props.village[indexArr[3]] ? this.props.village[indexArr[3]].id : 0
+    let addressArr = []
+    let ids = []
+    addressArr.push(province)
+    addressArr.push(city)
+    if (country) addressArr.push(country)
+    if (village) addressArr.push(village)
+    ids.push(provinceId)
+    ids.push(cityId)
+    ids.push(countryId)
+    ids.push(villageId)
+    let area = addressArr.join(" ")
+    let code = ids.join(',')
+    this.setState({indexArr, area, code})
   }
 
   onhandleColumnChange = e => {
@@ -89,10 +119,30 @@ export default class AddressDetail extends Component{
     }
   }
 
-  componentDidMount() {
+  handleChange = value => {
+    this.setState({isDefault: value})
+  }
+
+  componentWillMount() {
     let token = this.props.token
     if (!token) return Taro.redirectTo({url: `/pages/Login/index`})
     this.props.getCity({id: this.city[0].id})
+    if (!this.props.isAdd) {
+      const {address, area, areaCode, id, name, tel, isDefault } = this.props.address
+      this.setState({address, area, code: areaCode, id, name, tel, isDefault: isDefault? true: false})
+    }
+  }
+
+  _save = async () => {
+    try {
+      const { name, tel, id, isDefault, code, area, address } = this.state
+      let token = this.props.token
+      let params = { name, tel, id, isDefault: isDefault? 1: 0, code, area, address, token }
+      await saveAddress(params)
+      Taro.navigateBack()
+    } catch (e) {
+      await dialog.toast({title: e})
+    }
   }
 
   render(): any {
@@ -102,24 +152,25 @@ export default class AddressDetail extends Component{
         <View className={styles.container}>
           <View className={styles.item}>
             <Text className={styles.label}>收货人</Text>
-            <Input className={styles.input} placeholder={'请填写收货人姓名'}></Input>
+            <Input className={styles.input} placeholder={'请填写收货人姓名'} value={this.state.name} onInput={(e) => this.setState({name: e.target.value})}></Input>
           </View>
           <View className={styles.item}>
             <Text className={styles.label}>手机号码</Text>
-            <Input className={styles.input} placeholder={'请填写收货人手机号'}></Input>
+            <Input className={styles.input} placeholder={'请填写收货人手机号'} value={this.state.tel} onInput={(e) => this.setState({tel: e.target.value})}></Input>
           </View>
           <View className={styles.item}>
             <Text className={styles.label}>所在地区</Text>
-            <Picker mode={'multiSelector'} range={arr} rangeKey={'name'} value={this.state.indexArr} onChange={this.onChange} onColumnChange={this.onhandleColumnChange}>
-              <Input className={styles.input} placeholder={'省市区县，乡镇等'}></Input>
+            <Picker style={'flex: 1'} mode={'multiSelector'} range={arr} rangeKey={'name'} value={this.state.indexArr} onChange={this.onChange} onColumnChange={this.onhandleColumnChange}>
+              <Input className={styles.input} placeholder={'省市区县，乡镇等'} value={this.state.area} style={'width: 100%'}></Input>
             </Picker>
           </View>
           <View className={styles.desc}>
             <Text className={styles.label}>详细地区</Text>
-            <Textarea placeholder={'详细地址'} className={styles.area}></Textarea>
+            <Textarea placeholder={'详细地址'} className={styles.area} value={this.state.address} onInput={(e) => this.setState({address: e.target.value})}></Textarea>
           </View>
         </View>
-        <Button className={styles.add}>保存</Button>
+        <AtSwitch title='设为默认地址' checked={this.state.isDefault} onChange={this.handleChange} />
+        <Button className={styles.add} onClick={this._save}>保存</Button>
       </View>
     )
   }

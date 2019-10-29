@@ -3,13 +3,20 @@ import styles from './index.module.scss'
 import {Image, Text, View, Button} from "@tarojs/components"
 import {connect} from "@tarojs/redux"
 import {action} from '../store'
-
+import { setDefault, getAddress } from '@/pages/tab/Cart/store/action'
+import {removeAddress} from '../api'
+import {dialog} from "@/util/index";
 
 @connect(({user, address}) => ({
   token: user.token,
-  list: address.list
+  list: address.list,
+  isSelect: address.isSelect
 }), dispatch => ({
-  getList: (data) => dispatch(action.getAddressListSync(data))
+  getList: (data) => dispatch(action.getAddressListSync(data)),
+  addAddress: () => dispatch(action.addAddress()),
+  editAddress: (data) => dispatch(action.editAddress(data)),
+  setDefault: (data) => dispatch(setDefault(data)),
+  setAddress: (data) => dispatch(getAddress(data))
 }))
 export default class AddressList extends Component{
 
@@ -21,10 +28,32 @@ export default class AddressList extends Component{
     super(...arguments)
   }
 
-  componentDidMount() {
+  componentDidShow() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index`})
     let token = this.props.token
     this.props.getList({token})
+  }
+
+  addAddress = () => {
+    this.props.addAddress()
+    Taro.navigateTo({url: '/pages/address/detail/index'})
+  }
+
+  editAddress = (item) => {
+    this.props.editAddress(item)
+    Taro.navigateTo({url: '/pages/address/detail/index'})
+  }
+
+  selectAddress = (item) => {
+    if (this.props.isSelect) {
+      this.props.setDefault(false)
+      this.props.setAddress(item)
+      Taro.navigateBack()
+    }
+  }
+
+  deleteAddress = (id) => {
+    console.log(id)
   }
 
   render(): any {
@@ -33,7 +62,7 @@ export default class AddressList extends Component{
         {
           this.props.list.map(item => {
             return (
-              <View className={styles.item} key={item.id}>
+              <View className={styles.item} key={item.id} onClick={() => this.selectAddress(item)}>
                 <View className={styles.top}>
                   <View className={styles.name}>
                     <Text>{item.name}</Text>
@@ -42,11 +71,11 @@ export default class AddressList extends Component{
                   <View className={styles.address}>{item.area}</View>
                 </View>
                 <View className={styles.bottom}>
-                  <View className={styles.btn}>
+                  <View className={styles.btn} onClick={() => this.editAddress(item)}>
                     <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/edit.png'}></Image>
                     <Text>编辑</Text>
                   </View>
-                  <View className={styles.btn}>
+                  <View className={styles.btn} onClick={() => this.deleteAddress(item.id)}>
                     <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/delete.png'}></Image>
                     <Text>删除</Text>
                   </View>
@@ -55,7 +84,7 @@ export default class AddressList extends Component{
             )
           })
         }
-        <Button className={styles.add}>添加新地址</Button>
+        <Button className={styles.add} onClick={() => this.addAddress()}>添加新地址</Button>
       </View>
     )
   }

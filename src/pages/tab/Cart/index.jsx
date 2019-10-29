@@ -26,7 +26,8 @@ import {dialog} from "@/util/index";
   guesslike: cart.guesslike,
   total: cart.total,
   totalNum: cart.num,
-  allChecked: cart.allChecked
+  allChecked: cart.allChecked,
+  isDefault: cart.isDefault
 }), dispatch => ({
   getDefaultAddress: (data) => dispatch(getAddressSync(data)),
   getCartList: (data) => dispatch(getListSync(data)),
@@ -51,7 +52,9 @@ class Cart extends Component {
 
   async componentDidShow() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
-    await this.props.getDefaultAddress({token: this.props.token})
+    if (this.props.isDefault) {
+      await this.props.getDefaultAddress({token: this.props.token})
+    }
     this.props.getCartNum({token: this.props.token})
     this.props.getGuessLike()
     this.props.getCartList({token: this.props.token, addressId: this.props.address.id})

@@ -1,6 +1,7 @@
 
 import Taro from '@tarojs/taro';
 import { MINX_URL } from './config';
+import {dialog} from "@/util/index";
 
 export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
   return new Promise((resolve, reject) => {
@@ -28,6 +29,14 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 } else {
                   Taro.navigateTo({url: '/pages/Login/index'})
                 }
+                break
+              case 3:
+                if (/\/api\/previewOrderByCart/.test(url)) {
+                  Taro.navigateBack().then(res => {
+                    dialog.toast({title: data.message})
+                  })
+                }
+                reject(new Error(data.message))
                 break
               case 7:
                 resolve(data)
