@@ -1,8 +1,8 @@
 Arguments: 
-  H:\nodejs\node.exe H:\nodejs\node_modules\yarn\bin\yarn.js add WxParse --silent --no-progress
+  H:\nodejs\node.exe H:\nodejs\node_modules\yarn\bin\yarn.js add data:image/png;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a%0AHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy%0AMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAoAFoDASIA%0AAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA%0AAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3%0AODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm%0Ap6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA%0AAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx%0ABhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK%0AU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3%0AuLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1qe6h%0AttolfDNnaigszY64UcnHtXNeKy99pTssQjFsyy/O2JCrEqDs7KfU4PykYq9oOrabfb/ssAhuZGLT%0AJxuJ5Oc/xDJP0z0ArRvY1vrW6strhmixkoQvOQMN0JyOgORxnGRWcb05q50K5FpASaxt70STPJLE%0AC5eZmGT1+UnA59AKbca9Y2tpJcyMwRHMajGGkI/ujrjPc4B6jggnP8HTifQmt5BkwyMhU+h5/qaz%0ANSgivvF8djhhb26b3UAvzt3dOc54GKtU1ztPoVYtQ3fiXV4xJZJFZWx+40nJYfUgk/XFS6d/bSzt%0AFf3ajzGKQO3yh2UksoHBzhWIOOgzyKurb3Fussr267dx5WQoxxxnAyADgEAeuSAc1mf8JXLZ37RX%0AltKkBPyNJjOPXgY/LNUrzTUUg8kaWparcWGl3LlcTxr8rEdCSBkj8eo4+nSrGmPJLo9g811IssgV%0AyeCZCcnbyDxj0wcDtWJ4gvbK48MEQvA0hdWIRQvzMSWYDJxk7u5781s2KyWFrbxbVKmNQFBxnA7A%0A8A+3eocV7PzuSnoT3f2n7WghYKhQncz4G4HgAY5yCc5PG0YHJIwdY1m9u72HSNO3Q3Ev+tboV9ge%0A3HOa3f7SsJ73+zzMkkrLv2Hpj6+vesDWLC8s9dg1KyxNcbT+7J+aQAYJx9CB+R+jpWv7yGh3/CFw%0APCskeoTG4bDedkFfqB1P51QaPxVCxiF07BDt3Bgc4+ozV+58aRRxLiynScHlJBhehGM59fbt+I55%0ApdeuXacJdkSneNiHHPPHtW9NVH8dvmNXOo1Lw1HeSSXFlNJDfRyE72XYGJ+YAYA6Agbhnpzkg1DZ%0A69850rxFbqr8DfKoKPzxuHTqOvSujubUXaSwz7WgdVwoBDKwJO4Nngj5SMYIIznpiC/0qDVLUw3q%0Ao7BiUkRdpQZ4xyecYB7E847VgqiatP8A4YDntItYLfxXf2LL+7b99EFYgfTjqMMfyqvdQR2vjcxT%0AcW90mz5vmDBlxg5zkEjHNWtL8OXmneIYZXnEkEatsb5uVwRjoQDkjgnnkjoa0te0IanaJhpGuUf9%0A2+FyAzdD0+UA/XA7nrpzxU991/TA0ZY7lYmAlDqB6EMMc9R1P4f/AF+e1ieKEwQXttEFmPII+bqB%0A0HHcndkHjAHORXmn8Q6eot7nVLOLgAPI4LYJwDjGT9cfyqOxgtUm+2TRanqczEMLiO33RnBGQN3X%0AupyPXGDzURSi7t/cTp1KGs6E1hbma3lY25IJTdkfUHv/ADrq9LvIZNNiLwqIJssAqj7xJLdOp3Ek%0AnGc889ao3sqS4SLTtUaJuWjMDBDlcHPPbJ7EZAI6A1laHeSaTJcWV1GRGWyEmQ/MfT2OCD071bft%0AIa7oL3RuatoIvJPNEjrcqd0csagcfhjJ7/jkelZ88HiSOCCENZ3KKCLcrsBLY425x8wUNjHbOa0L%0AaWIQxwyXzFGxKDHglMMuQMryAOCwx9/PGVxalaKzW8E4eKGUGS4m3tGirtUF1dfuce4OQSO7VmpN%0AWTDXZGJJ4cuhP9pvphd3rMrRoT8j4OWU5Hp0HAPTI6jpP7XthwUlUjqCnSnzESSOtwyCMIR5SyD5%0AzkcnIBBA24wf4znoDUSPMUUnU4AcdNoP9R/KlKfPuF7llnKuB9jZtjFlI29eeRz1wT+fvTHvHjbc%0AbdvICszyMwGOmPbGM8544684KKyvrYNjNOu/aZSunN9okD4MPl546ZDAgBc455/XIsPaapfnFxdi%0A0gPPl23+sPsXPQjjp15ooq5abCjqWbPR9PsCGtrSNHBJDkbmGRjgnJFXaKKzKCiiigDOn0SzlO6H%0AzLOToXtW8skehxx/+oVXtxqOkoY5Y2vrcfdeEAOv/AfqexPTtRRVJ9BWI7DWtPlZYo58xOAPKm4a%0AI46HP3u/TIFaRsFJ/wBdJ+Sn+YooqpabCi7o/9k= --silent --no-progress
 
 PATH: 
-  H:\nvm\v10.14.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;D:\weapp\taro-shopping\node_modules\.bin;H:\nvm\v10.14.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;D:\weapp\taro-shopping\node_modules\.bin;C:\Users\a\bin;H:\cmder\bin;H:\cmder\vendor\bin;H:\cmder\vendor\git-for-windows\bin;H:\cmder\vendor\git-for-windows\mingw64\bin;H:\cmder\vendor\git-for-windows\usr\local\bin;H:\cmder\vendor\git-for-windows\usr\bin;H:\cmder\vendor\git-for-windows\usr\bin;H:\cmder\vendor\git-for-windows\mingw64\bin;H:\cmder\vendor\git-for-windows\usr\bin;C:\Users\a\bin;H:\cmder\vendor\conemu-maximus5\ConEmu\Scripts;H:\cmder\vendor\conemu-maximus5;H:\cmder\vendor\conemu-maximus5\ConEmu;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;H:\Microsoft VS Code\bin;H:\cmder;H:\cygwin64\bin;H:\nvm;H:\nodejs;H:\Git\cmd;H:\Java\jdk1.8.0_221\bin;H:\Java\jdk1.8.0_221\jre\bin;H:\maven\apache-maven-3.6.1-bin\apache-maven-3.6.1\bin;H:\mysql-5.7.27-winx64\bin;H:\flutter\sdk\flutter_windows_v1.7.8+hotfix.4-stable\flutter\bin;H:\Android\SDK\emulator;H:\Android\SDK\platform-tools;H:\Android\SDK\tools;C:\Users\a\AppData\Local\Microsoft\WindowsApps;H:\nvm;H:\nodejs;H:\cmder;H:\cmder\vendor\git-for-windows\usr\bin\vendor_perl;H:\cmder\vendor\git-for-windows\usr\bin\core_perl
+  H:\nvm\v10.14.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;D:\cocogc\wechat_applet\node_modules\.bin;H:\nvm\v10.14.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;D:\cocogc\wechat_applet\node_modules\.bin;C:\Users\a\bin;H:\cmder\bin;H:\cmder\vendor\bin;H:\cmder\vendor\git-for-windows\bin;H:\cmder\vendor\git-for-windows\mingw64\bin;H:\cmder\vendor\git-for-windows\usr\local\bin;H:\cmder\vendor\git-for-windows\usr\bin;H:\cmder\vendor\git-for-windows\usr\bin;H:\cmder\vendor\git-for-windows\mingw64\bin;H:\cmder\vendor\git-for-windows\usr\bin;C:\Users\a\bin;H:\cmder\vendor\conemu-maximus5\ConEmu\Scripts;H:\cmder\vendor\conemu-maximus5;H:\cmder\vendor\conemu-maximus5\ConEmu;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;H:\Microsoft VS Code\bin;H:\cmder;H:\cygwin64\bin;H:\nvm;H:\nodejs;H:\Git\cmd;H:\Java\jdk1.8.0_221\bin;H:\Java\jdk1.8.0_221\jre\bin;H:\maven\apache-maven-3.6.1-bin\apache-maven-3.6.1\bin;H:\mysql-5.7.27-winx64\bin;H:\flutter\sdk\flutter_windows_v1.7.8+hotfix.4-stable\flutter\bin;H:\Android\SDK\emulator;H:\Android\SDK\platform-tools;H:\Android\SDK\tools;C:\Users\a\AppData\Local\Microsoft\WindowsApps;H:\cmder;H:\cmder\vendor\git-for-windows\usr\bin\vendor_perl;H:\cmder\vendor\git-for-windows\usr\bin\core_perl
 
 Yarn version: 
   1.17.3
@@ -14,17 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/WxParse: Not found
-      at Request.params.callback [as _callback] (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:66830:18)
-      at Request.self.callback (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:140464:22)
-      at Request.emit (events.js:182:13)
-      at Request.<anonymous> (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:141436:10)
-      at Request.emit (events.js:182:13)
-      at IncomingMessage.<anonymous> (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:141358:12)
-      at Object.onceWrapper (events.js:273:13)
-      at IncomingMessage.emit (events.js:187:15)
-      at endReadableNT (_stream_readable.js:1094:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: data:image%2fpng;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a%0AHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy%0AMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAoAFoDASIA%0AAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA%0AAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3%0AODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm%0Ap6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA%0AAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx%0ABhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK%0AU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3%0AuLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1qe6h%0AttolfDNnaigszY64UcnHtXNeKy99pTssQjFsyy/O2JCrEqDs7KfU4PykYq9oOrabfb/ssAhuZGLT%0AJxuJ5Oc/xDJP0z0ArRvY1vrW6strhmixkoQvOQMN0JyOgORxnGRWcb05q50K5FpASaxt70STPJLE%0AC5eZmGT1+UnA59AKbca9Y2tpJcyMwRHMajGGkI/ujrjPc4B6jggnP8HTifQmt5BkwyMhU+h5/qaz%0ANSgivvF8djhhb26b3UAvzt3dOc54GKtU1ztPoVYtQ3fiXV4xJZJFZWx+40nJYfUgk/XFS6d/bSzt%0AFf3ajzGKQO3yh2UksoHBzhWIOOgzyKurb3Fussr267dx5WQoxxxnAyADgEAeuSAc1mf8JXLZ37RX%0AltKkBPyNJjOPXgY/LNUrzTUUg8kaWparcWGl3LlcTxr8rEdCSBkj8eo4+nSrGmPJLo9g811IssgV%0AyeCZCcnbyDxj0wcDtWJ4gvbK48MEQvA0hdWIRQvzMSWYDJxk7u5781s2KyWFrbxbVKmNQFBxnA7A%0A8A+3eocV7PzuSnoT3f2n7WghYKhQncz4G4HgAY5yCc5PG0YHJIwdY1m9u72HSNO3Q3Ev+tboV9ge%0A3HOa3f7SsJ73+zzMkkrLv2Hpj6+vesDWLC8s9dg1KyxNcbT+7J+aQAYJx9CB+R+jpWv7yGh3/CFw%0APCskeoTG4bDedkFfqB1P51QaPxVCxiF07BDt3Bgc4+ozV+58aRRxLiynScHlJBhehGM59fbt+I55%0ApdeuXacJdkSneNiHHPPHtW9NVH8dvmNXOo1Lw1HeSSXFlNJDfRyE72XYGJ+YAYA6Agbhnpzkg1DZ%0A69850rxFbqr8DfKoKPzxuHTqOvSujubUXaSwz7WgdVwoBDKwJO4Nngj5SMYIIznpiC/0qDVLUw3q%0Ao7BiUkRdpQZ4xyecYB7E847VgqiatP8A4YDntItYLfxXf2LL+7b99EFYgfTjqMMfyqvdQR2vjcxT%0AcW90mz5vmDBlxg5zkEjHNWtL8OXmneIYZXnEkEatsb5uVwRjoQDkjgnnkjoa0te0IanaJhpGuUf9%0A2+FyAzdD0+UA/XA7nrpzxU991/TA0ZY7lYmAlDqB6EMMc9R1P4f/AF+e1ieKEwQXttEFmPII+bqB%0A0HHcndkHjAHORXmn8Q6eot7nVLOLgAPI4LYJwDjGT9cfyqOxgtUm+2TRanqczEMLiO33RnBGQN3X%0AupyPXGDzURSi7t/cTp1KGs6E1hbma3lY25IJTdkfUHv/ADrq9LvIZNNiLwqIJssAqj7xJLdOp3Ek%0AnGc889ao3sqS4SLTtUaJuWjMDBDlcHPPbJ7EZAI6A1laHeSaTJcWV1GRGWyEmQ/MfT2OCD071bft%0AIa7oL3RuatoIvJPNEjrcqd0csagcfhjJ7/jkelZ88HiSOCCENZ3KKCLcrsBLY425x8wUNjHbOa0L%0AaWIQxwyXzFGxKDHglMMuQMryAOCwx9/PGVxalaKzW8E4eKGUGS4m3tGirtUF1dfuce4OQSO7VmpN%0AWTDXZGJJ4cuhP9pvphd3rMrRoT8j4OWU5Hp0HAPTI6jpP7XthwUlUjqCnSnzESSOtwyCMIR5SyD5%0AzkcnIBBA24wf4znoDUSPMUUnU4AcdNoP9R/KlKfPuF7llnKuB9jZtjFlI29eeRz1wT+fvTHvHjbc%0AbdvICszyMwGOmPbGM8544684KKyvrYNjNOu/aZSunN9okD4MPl546ZDAgBc455/XIsPaapfnFxdi%0A0gPPl23+sPsXPQjjp15ooq5abCjqWbPR9PsCGtrSNHBJDkbmGRjgnJFXaKKzKCiiigDOn0SzlO6H%0AzLOToXtW8skehxx/+oVXtxqOkoY5Y2vrcfdeEAOv/AfqexPTtRRVJ9BWI7DWtPlZYo58xOAPKm4a%0AI46HP3u/TIFaRsFJ/wBdJ+Sn+YooqpabCi7o/9k=: Invalid protocol: data:
+      at Request.module.exports.Request.init (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:140733:31)
+      at new Request (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:140406:8)
+      at request (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:137312:10)
+      at RequestManager.execute (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:66882:15)
+      at RequestManager.shiftQueue (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:66920:10)
+      at H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:66599:13
+      at new Promise (<anonymous>)
+      at new F (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:5296:28)
+      at RequestManager.request (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:66597:19)
+      at NpmRegistry.<anonymous> (H:\nvm\v10.14.0\node_modules\yarn\lib\cli.js:31694:42)
 
 npm manifest: 
   {
@@ -54,7 +54,7 @@ npm manifest:
   	"author": "",
   	"license": "MIT",
   	"dependencies": {
-  		"@tarojs/async-await": "^1.3.18",
+  		"@tarojs/async-await": "^1.3.20",
   		"@tarojs/components": "1.3.18",
   		"@tarojs/redux": "1.3.18",
   		"@tarojs/redux-h5": "1.3.18",
@@ -94,6 +94,7 @@ npm manifest:
   		"eslint-plugin-react": "^7.8.2",
   		"eslint-plugin-react-hooks": "^2.0.1",
   		"eslint-plugin-taro": "1.3.18",
+  		"lodash": "^4.17.15",
   		"stylelint": "9.3.0",
   		"stylelint-config-taro-rn": "1.3.18",
   		"stylelint-taro-rn": "1.3.18"
@@ -222,10 +223,10 @@ Lockfile:
     resolved "https://registry.npm.taobao.org/@nodelib/fs.stat/download/@nodelib/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
     integrity sha1-K1o6s/kYzKSKjHVMCBaOPwPrphs=
   
-  "@tarojs/async-await@^1.3.18":
-    version "1.3.18"
-    resolved "https://registry.npm.taobao.org/@tarojs/async-await/download/@tarojs/async-await-1.3.18.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40tarojs%2Fasync-await%2Fdownload%2F%40tarojs%2Fasync-await-1.3.18.tgz#10c60f68c7d7d165302f917aa4fc60b815ccafb0"
-    integrity sha1-EMYPaMfX0WUwL5F6pPxguBXMr7A=
+  "@tarojs/async-await@^1.3.20":
+    version "1.3.20"
+    resolved "https://registry.npm.taobao.org/@tarojs/async-await/download/@tarojs/async-await-1.3.20.tgz#67ec38f450e7f0c334928a1f31053606ad0002f1"
+    integrity sha1-Z+w49FDn8MM0koofMQU2Bq0AAvE=
     dependencies:
       promise-polyfill "^7.1.2"
       regenerator-runtime "^0.11.1"
@@ -5226,7 +5227,7 @@ Lockfile:
     resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.13.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
     integrity sha1-C9w6atyHPS9ODEusKF35G2T8e5M=
   
-  lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@~4.17.10:
+  lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@~4.17.10:
     version "4.17.15"
     resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.15.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
     integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=

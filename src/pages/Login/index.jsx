@@ -35,15 +35,16 @@ export default class Login extends Component {
     downInfo:'获取验证码'
   }
 
-  componentDidMount(): void {
+  componentWillMount(): void {
     this.getVerifyCode()
   }
 
   getVerifyCode = async () => {
-    // let res = await captcha()
-    // console.log(res)
+    let res = await captcha()
+    let url = 'data:image/png;base64,' + res
+    console.log(url)
     this.setState({
-      verifyCode: `${INFO_URL}/user/captcha?${new Date()}`
+      verifyCode: url
     })
   }
 

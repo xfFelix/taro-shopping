@@ -10,12 +10,14 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
       data: data,
       header: Object.assign({
         'Content-Type': 'application/json',
-        'Cookie': 'JSESSIONID=DD3C718FDEA8F0AA939171424835B629'
       }, header),
       method: method.toUpperCase()
     }).then((res) => {
       const { statusCode, data } = res;
       console.log(res)
+      if (/\/user\/captcha64/.test(url)) {
+        Taro.setStorageSync('cookie', res.header.Cookie)
+      }
       if (statusCode >= 200 && statusCode < 300) {
         try {
           if (data.hasOwnProperty("error_code")){
@@ -41,11 +43,6 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 break
               case 7:
                 resolve(data)
-                break
-              case 1:
-                if (/\/user\/sms/.test(url)) {
-                  // storage.set('cookie', res.cookies)
-                }
                 break
               default:
                 /**
