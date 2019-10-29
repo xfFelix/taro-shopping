@@ -15,6 +15,10 @@ export const sms = (data) => fetch({
   data
 })
 
+export const captcha = (data) => fetch({
+  url:INFO_URL+ '/user/captcha?' + new Date(),
+})
+
 // 个人信息
 export const getInfo = (data) => fetch({
   url: INFO_URL + '/user/info',

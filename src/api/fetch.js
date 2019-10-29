@@ -10,12 +10,13 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
       data: data,
       header: Object.assign({
         'Content-Type': 'application/json',
+        'Cookie': 'JSESSIONID=DD3C718FDEA8F0AA939171424835B629'
       }, header),
       method: method.toUpperCase()
     }).then((res) => {
       const { statusCode, data } = res;
+      console.log(res)
       if (statusCode >= 200 && statusCode < 300) {
-        let code = data.error_code || data.code
         try {
           if (data.hasOwnProperty("error_code")){
             let code = data.error_code
