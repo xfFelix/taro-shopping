@@ -29,7 +29,6 @@ class App extends Component {
       'pages/setting/index',
       'pages/tab/User/index',
       'pages/tab/Classify/index',
-      'pages/tab/Cart/index',
       'pages/tab/ShoppingMall/index',
       'pages/address/detail/index',
       'pages/address/list/index',
