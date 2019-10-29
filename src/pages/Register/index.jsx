@@ -1,11 +1,12 @@
 import Taro, {Component} from '@tarojs/taro'
 import { View, Text, Image, Input, Button } from '@tarojs/components'
 import { INFO_URL } from '@/api/config'
-import { register } from '@/api'
+import { register, captcha } from '@/api'
 import styles from './index.module.scss'
 import { dialog, validate } from '@/util'
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
+import SendCode from "@/components/SendCode";
 @connect(({login}) => ({
   login
 }))
@@ -20,15 +21,21 @@ export default class Register extends Component {
     verify: '',
     code: '',
     pwd: '',
-    verifyCode: `${INFO_URL}/user/captcha?${new Date()}`,
+    verifyCode: '',
     flag: true,
     nameLocationIndex: 0,
     showActionSheet: false
   }
 
-  getVerifyCode = () => {
+  componentWillMount(): void {
+    this.getVerifyCode()
+  }
+
+  getVerifyCode = async () => {
+    let res = await captcha()
+    let url = ('data:image/png;base64,' + res).replace(/[\r\n]/g, "")
     this.setState({
-      verifyCode: `${INFO_URL}/user/captcha?${new Date()}`
+      verifyCode: url
     })
   }
 
@@ -59,7 +66,7 @@ export default class Register extends Component {
               maxLength='4'
               placeholder='请输入图片验证码'
               value={this.state.verify}
-              onChange={(e) => this.setState({verify: e.detail.value})}
+              onInput={(e) => this.setState({verify: e.detail.value})}
             />
             <Image src={this.state.verifyCode} className={styles.verify} onClick={this.getVerifyCode}/>
           </View>
@@ -73,7 +80,7 @@ export default class Register extends Component {
               value={this.state.code}
               onChange={(e) => this.setState({code: e.detail.value})}
             />
-            <Button className={styles.code} plain type='primary'>获取验证码</Button>
+            <SendCode name={this.state.name} verify={this.state.verify} nameLocationIndex={this.state.nameLocationIndex}></SendCode>
           </View>
           <View className={styles.item}>
             <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-password.png'} />
@@ -117,8 +124,16 @@ export default class Register extends Component {
     if (!pwd) return dialog.toast({title: '请输入短信验证码'})
     this.register(name, verify, code, pwd)
   }
+
   register = async (name, verify, code, pwd) => {
-    const { data } = await register({mobile: name, captcha: verify, verify_code: code, passwd: pwd, confirm_passwd: pwd})
-    console.log(data)
+    try {
+      const { data } = await register({mobile: name, captcha: verify, verify_code: code, passwd: pwd, confirm_passwd: pwd})
+      Taro.navigateBack().then(res => {
+        dialog.toast({title: '注册成功'})
+      })
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
   }
+
 }

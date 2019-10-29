@@ -30,6 +30,8 @@
       input{
         font-size: 26px;
         margin-left: 10px;
+        flex: 1;
+        height: 100%;
       }
       .selectLocation{
         display: flex;
@@ -57,23 +59,7 @@
         height: 60px;
         position: absolute;
         right: 0;
-      }
-      .code{
-        font-size: 26px;
-        white-space: nowrap;
-        line-height:normal;
-        margin-right: 0;
-        padding: 10px 20px;
-        border-radius:100px;
-      }
-      .canClick{
-        color: #30ce84;
-        border-color:#30ce84;
-      }
-      .noClick{
-        color: #fff;
-        border-color:#d3d3d3;
-        background: #d3d3d3;
+        z-index: 3;
       }
       .eye{
         width: 40px;

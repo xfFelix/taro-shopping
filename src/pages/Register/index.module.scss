@@ -30,6 +30,8 @@
       input{
         font-size: 26px;
         margin-left: 20px;
+        flex: 1;
+        height: 100%;
       }
       .selectLocation{
         display: flex;
@@ -57,6 +59,7 @@
         height: 60px;
         position: absolute;
         right: 0;
+        z-index: 3;
       }
       .code{
         font-size: 26px;

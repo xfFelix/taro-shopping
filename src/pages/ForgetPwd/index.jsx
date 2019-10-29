@@ -1,10 +1,11 @@
 import Taro, {Component} from '@tarojs/taro'
 import { View, Text, Image, Input, Button } from '@tarojs/components'
-import { register } from '@/api'
+import { forget } from '@/api'
 import styles from './index.module.scss'
 import { dialog, validate } from '@/util';
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
+import SendCode from "@/components/SendCode";
 
 @connect(({login}) => ({
   login
@@ -81,9 +82,9 @@ export default class Register extends Component {
               maxLength='6'
               placeholder='请输入短信验证码'
               value={this.state.code}
-              onChange={(e) => this.setState({code: e.detail.value})}
+              onInput={(e) => this.setState({code: e.detail.value})}
             />
-            <Button className={styles.code} plain type='primary'>获取验证码</Button>
+            <SendCode name={this.state.name} nameLocationIndex={this.state.nameLocationIndex} isPwd></SendCode>
           </View>
         </View>
         <Button className={styles.confirm} onClick={this.validateRegister}>下一步</Button>
@@ -112,8 +113,15 @@ export default class Register extends Component {
     if (!code) return dialog.toast({title: '请输入短信验证码'})
     this.register(name, newPwd, code, pwd)
   }
+
   register = async (name, newPwd, code, pwd) => {
-    const { data } = await register({mobile: name, captcha: newPwd, verify_code: code, passwd: pwd, confirm_passwd: pwd})
-    console.log(data)
+    try {
+      const { data } = await forget({mobile: name, verify_code: code, passwd: pwd, confirm_passwd: newPwd})
+      Taro.navigateBack().then(res => {
+        dialog.toast({title: '密码设置成功'})
+      })
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
   }
 }
