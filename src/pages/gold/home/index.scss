@@ -145,6 +145,53 @@
       -webkit-transform: translate(-50%, -50%) scale(1);
     }
   }
+
+  .moreIcon{
+    display: inline-block;
+    width: 40px;
+    height:40px;
+    transform:rotate(180deg);
+    transition: 0.5s;
+  }
+
+  .goldBnt{
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 88px;
+    text-align: center;
+    font-size: 32px;
+    .goldBnt-left {
+      flex: 2;
+      color: #fff;
+      height: 100%;
+    }
+    .goldBnt-right{
+      height: 100%;
+      color: #4A4A4A;
+      background: #fff;
+      border-top: 1px solid #DEDEDE;
+      width: 35%;
+    }
+    .bntCan{
+      background: #30ce84;
+      border-top: 1px solid #30ce84;
+    }
+    .bntNo{
+      background:#98E7C2;
+      border-top: 1px solid #98E7C2;
+    }
+    .flex{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+
 }
 
 

@@ -82,6 +82,9 @@ export default class GoldRecord extends Component {
     Taro.navigateTo({url:'/pages/gold/buyBack/index'})
   }
 
+  dialogPwd=(item)=>{
+
+  }
 
 
   onReachBottom(){
@@ -120,8 +123,10 @@ export default class GoldRecord extends Component {
                     <View key={index} className="recordLi">
                        <View className="reName flex">
                           {item.code?
-                            (<View>卡密：{item.code.length>14?item.code.substring(item.code.length-14):item.code}</View>):
-                            (<Text>卡密：— —</Text>)
+                            ( <View>卡密：{item.code.length>14?item.code.substring(item.code.length-14):item.code}
+                                <Text className="see" onClick={this.dialogPwd(item.id)}>查看</Text>
+                              </View>):
+                            ( <Text>卡密：— —</Text>)
                           }
                           {item.buyInfo?
                             ( <View>

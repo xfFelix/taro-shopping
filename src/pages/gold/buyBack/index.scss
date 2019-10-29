@@ -90,6 +90,7 @@
     font-size:24px;
     color: #999999;
     text-align: center;
+    margin-bottom: 88px;;
   }
   .submitUp{
     background:#30CE84;
@@ -97,5 +98,8 @@
     line-height:88px;
     font-size:30px;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
   }
 }

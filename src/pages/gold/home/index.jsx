@@ -157,6 +157,10 @@ export default class GoldHome extends Component {
           </checkbox-group>
         </View>
 
+        <View className="goldBnt">
+          <View className="goldBnt-left flex bntNo">立即兑换</View>
+          <View className="goldBnt-right flex">立即回购</View>
+        </View>
         <GoldInfo></GoldInfo>
       </View>
     )

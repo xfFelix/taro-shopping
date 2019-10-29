@@ -21,14 +21,14 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/tab/Cart/index',
-      'pages/setting/index',
-      'pages/address/list/index',
-      'pages/address/detail/index',
       'pages/tab/Home/index',
       'pages/tab/User/index',
       'pages/tab/Classify/index',
+      'pages/tab/Cart/index',
       'pages/tab/ShoppingMall/index',
+      'pages/address/detail/index',
+      'pages/address/list/index',
+      'pages/setting/index',
       'pages/order/list/index',
       'pages/order/preview/index',
       'pages/goods/list/index',
@@ -40,7 +40,7 @@ class App extends Component {
       'pages/gold/protocol/back',
       'pages/gold/buyBack/index',
       'pages/gold/record/index',
-      'pages/gold/home/index',
+      'pages/gold/home/index'
     ],
     window: {
       backgroundTextStyle: 'light',

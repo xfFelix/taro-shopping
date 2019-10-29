@@ -1,6 +1,6 @@
 import Taro,{Component} from "@tarojs/taro"
 import {View, Image, Text, Input} from "@tarojs/components"
-import { AtInput  } from 'taro-ui'
+import { AtInput ,AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui"
 import './index.scss'
 import {connect} from "@tarojs/redux"
 import {dialog ,validate} from "@/util/index";
@@ -29,36 +29,37 @@ export default class GoldBuyBack extends Component {
   constructor(){
     super(...arguments)
     this.state = {
-      mobile:this.props.info.userName,
-      realName:this.props.info.realName,
+      mobile:this.props.info?this.props.info.userName:'',
+      realName:this.props.info?this.props.info.realName:'',
       cardNum:'',
       bank:'',
       subBank:'',
       check:false,
-      verify_code:''
+      verify_code:'',
+      isOpened:false
     }
   }
 
 
   //黄金回购
   buyGold = async() => {
+    const {mobile, realName,cardNum, bank, subBank,verify_code}=this.state;
     let res= await goldbuyback({
-      token: this.getToken,
-      mobile: this.inpInfo.mobile,
-      bank: this.inpInfo.bank,
-      subBank: this.inpInfo.subBank,
-      realName: this.inpInfo.name,
-      cardNum: this.inpInfo.cardNum,
-      id: this.backInfo.type,
-      cardId:this.backInfo.cardId,
-      verify_code: val,
+      token: this.props.token,
+      mobile: mobile,
+      bank: bank,
+      subBank: subBank,
+      realName: realName,
+      cardNum: cardNum,
+      id: this.props.backInfo.type,
+      cardId:this.props.backInfo.cardId,
+      verify_code: verify_code,
     });
     if(res.error_code!=0) return dialog.toast({title: res.message});
   }
 
   submitUp=()=>{
-
-    const{mobile, realName,cardNum, bank, subBank,check}=this.state;
+    const {mobile, realName,cardNum, bank, subBank,check}=this.state;
     console.log(check)
     if (!mobile || !validate.IsMobile(mobile)) return dialog.toast({title: '请输入正确手机号'})
     if (!realName) return dialog.toast({title: '请输入真实姓名！'})
@@ -70,6 +71,7 @@ export default class GoldBuyBack extends Component {
   checkboxChange=(e)=>{
     console.log(e)
   }
+
 
   render(){
     return (
@@ -85,7 +87,7 @@ export default class GoldBuyBack extends Component {
                 }
               </Text>
               <Text className="yuan">元</Text>
-              <Text className="qmark">?</Text>
+              <Text className="qmark" onClick={()=>this.setState({isOpened:true})}>?</Text>
             </View>
           </View>
           <View className="backLi">卡密<Input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled value={this.props.backInfo.cardCode}/></View>
@@ -110,6 +112,14 @@ export default class GoldBuyBack extends Component {
 
         <View className="submitUp" onClick={()=>this.submitUp()} >提交</View>
 
+          {/* <AtModal isOpened={this.state.isOpened} closeOnClickOverlay={false}>
+            <AtModalHeader>回购说明</AtModalHeader>
+            <AtModalContent>
+              <View>本服务由深圳市金宇阳光文化发展有限公司提供。</View>
+              <View>回购价格=基础金价-3元/克，基础金价为上海黄金交易所Au99.99当日开盘价。</View>
+            </AtModalContent>
+            <AtModalAction><Button onClick={()=>this.setState({isOpened:false})}>确定</Button> </AtModalAction>
+          </AtModal> */}
       </View>
     )
   }
