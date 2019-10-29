@@ -41,8 +41,7 @@ export default class Login extends Component {
 
   getVerifyCode = async () => {
     let res = await captcha()
-    let url = 'data:image/png;base64,' + res
-    console.log(url)
+    let url = ('data:image/png;base64,' + res).replace(/[\r\n]/g, "")
     this.setState({
       verifyCode: url
     })

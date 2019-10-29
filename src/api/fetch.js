@@ -14,7 +14,6 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
       method: method.toUpperCase()
     }).then((res) => {
       const { statusCode, data } = res;
-      console.log(res)
       if (/\/user\/captcha64/.test(url)) {
         Taro.setStorageSync('cookie', res.header.Cookie)
       }

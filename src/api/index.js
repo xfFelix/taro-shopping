@@ -14,7 +14,7 @@ export const sms = (data) => fetch({
   url: INFO_URL + '/user/sms',
   method: 'POST',
   data,
-  header: Taro.getStorageSync('cookie')
+  header: {'Cookie': Taro.getStorageSync('cookie')}
 })
 
 export const captcha = () => fetch({
