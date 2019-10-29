@@ -36,9 +36,11 @@ class App extends Component {
       'pages/goods/detail/index',
       'pages/Register/index',
       'pages/ForgetPwd/index',
-      'pages/gold/home/index',
       'pages/gold/protocol/index',
+      'pages/gold/protocol/back',
+      'pages/gold/buyBack/index',
       'pages/gold/record/index',
+      'pages/gold/home/index',
     ],
     window: {
       backgroundTextStyle: 'light',

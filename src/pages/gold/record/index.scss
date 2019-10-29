@@ -65,14 +65,15 @@
       .reInfoW {
           background: #F4F4F4;
           color: rgb(74, 74, 74);
+          border-radius: 0 0 10px 10px;
           .reInfo {
             padding: 0 20px 20px 20px;
             position: relative;
+            border-radius: 0 0 10px 10px;
             .infoInner{
               padding-top:30px;
               font-size: 26px;
             }
-
               .total{
                 position: absolute;
                 bottom: 30px;
@@ -86,7 +87,7 @@
             color: #fff;
             text-align: center;
             line-height: 88px;
-            border-radius:0px 0px 5px 5px; /*no*/
+            border-radius:0px 0px 10px 10px; /*no*/
             font-size: 30px;
             &.recoverNo{
               background: #DEDEDE;
@@ -110,30 +111,33 @@
 
 
 .gold-bnt-info{
-background: #ddd;
-text-align: left;
-padding: 0 14px;
-color: #000;
-font-size: 12px;
-overflow: hidden;
-transition: 0.2s;
-height: 0;
-position: relative;
+  background: #ddd;
+  text-align: left;
+  padding: 0 20px;
+  color: #000;
+  overflow: hidden;
+  transition: 0.5s;
+  position: relative;
+  font-size: 24px;
+  line-height: 40px;
+  .bntInfo{
+    padding: 10px 0;
+  }
+  .bntTop{
+    padding-top: 15px;
+  }
+  .bntBottom{
+    padding-bottom: 15px;
+  }
+
 .backMoney{
   position: absolute;
   bottom: 10px;
   right: 12px;
   font-size: 14px;
+  font-size: 24px;
 }
-p{
-  line-height: 28px;
-  &:first-of-type{
-    margin-top: 8px;
-  }
-  &:last-child{
-    margin-bottom: 8px;
-  }
-}
+
 
 .total{
     position: absolute;
@@ -144,20 +148,18 @@ p{
 }
 .gold-bnt{
   background: #373C48;
-  border-radius: 0 0 5px 5px;
-  font-size: 15px;
-  text-align: center;
+  border-radius: 0 0 10px 10px;
   padding: 0;
-  display: inherit;
   color: #fff;
-  line-height: 44px;
-  padding-top:5px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .moreIcon{
   display: inline-block;
-  transition: 0.1s;
-  width: 20px;
-  height:20px;
+  width: 40px;
+  height:40px;
   transform:rotate(180deg);
-  transition: 0.2s;
+  transition: 0.5s;
 }
