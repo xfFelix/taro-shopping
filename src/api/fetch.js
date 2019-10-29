@@ -9,13 +9,15 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
       url: MINX_URL(url),
       data: data,
       header: Object.assign({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }, header),
       method: method.toUpperCase()
     }).then((res) => {
       const { statusCode, data } = res;
+      if (/\/user\/captcha64/.test(url)) {
+        Taro.setStorageSync('cookie', res.header.Cookie)
+      }
       if (statusCode >= 200 && statusCode < 300) {
-        let code = data.error_code || data.code
         try {
           if (data.hasOwnProperty("error_code")){
             let code = data.error_code

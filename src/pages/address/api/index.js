@@ -23,7 +23,7 @@ export const saveAddress = (data) => fetch({
 
 // 删除地址
 export const removeAddress = (data) => fetch({
-  url: `/api/removeAddres`,
+  url: `/api/removeAddress`,
   method: 'post',
   data
 })

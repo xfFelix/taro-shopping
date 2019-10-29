@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import { dialog, validate } from '@/util'
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
-import { sms } from '@/api'
+import { sms, captcha } from '@/api'
 import {getInfoSync, setTokenAsync} from "@/actions/user"
 
 @connect(({login, user}) => ({
@@ -35,13 +35,15 @@ export default class Login extends Component {
     downInfo:'获取验证码'
   }
 
-  componentDidMount(): void {
+  componentWillMount(): void {
     this.getVerifyCode()
   }
 
-  getVerifyCode = () => {
+  getVerifyCode = async () => {
+    let res = await captcha()
+    let url = ('data:image/png;base64,' + res).replace(/[\r\n]/g, "")
     this.setState({
-      verifyCode: `${INFO_URL}/user/captcha?${new Date()}`
+      verifyCode: url
     })
   }
 

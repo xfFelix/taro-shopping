@@ -1,5 +1,6 @@
 import fetch from './fetch'
 import { INFO_URL, SEARCH_URL, SHOP_URL } from './config'
+import Taro from '@tarojs/taro'
 
 // 登录
 export const login = (data) => fetch({
@@ -12,7 +13,12 @@ export const login = (data) => fetch({
 export const sms = (data) => fetch({
   url: INFO_URL + '/user/sms',
   method: 'POST',
-  data
+  data,
+  header: {'Cookie': Taro.getStorageSync('cookie')}
+})
+
+export const captcha = () => fetch({
+  url:INFO_URL+ '/user/captcha64?' + new Date(),
 })
 
 // 个人信息
