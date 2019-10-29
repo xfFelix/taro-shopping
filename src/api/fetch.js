@@ -9,7 +9,7 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
       url: MINX_URL(url),
       data: data,
       header: Object.assign({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }, header),
       method: method.toUpperCase()
     }).then((res) => {
@@ -40,6 +40,11 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 break
               case 7:
                 resolve(data)
+                break
+              case 1:
+                if (/\/user\/sms/.test(url)) {
+                  // storage.set('cookie', res.cookies)
+                }
                 break
               default:
                 /**

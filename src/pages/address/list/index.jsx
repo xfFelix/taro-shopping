@@ -52,8 +52,18 @@ export default class AddressList extends Component{
     }
   }
 
-  deleteAddress = (id) => {
-    console.log(id)
+  deleteAddress = async (id) => {
+    let res = await dialog.modal({ content: '是否删除？' })
+    try {
+      if (res) {
+        let token = this.props.token
+        const {message} = await removeAddress({id, token})
+        await dialog.toast({title: message})
+        this.props.getList({token})
+      }
+    } catch (e) {
+      await dialog.toast({title: e})
+    }
   }
 
   render(): any {
