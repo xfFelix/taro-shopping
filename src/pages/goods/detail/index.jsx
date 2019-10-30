@@ -9,7 +9,7 @@ import GuessLike from "@/pages/tab/Cart/components/guess_like"
 
 import CartIcon from '@/assets/img/tab/cart.png'
 import {dialog} from "@/util/index"
-import {getGuessLikeSync} from "@/pages/tab/Cart/store/action";
+import {getGuessLikeSync, updateCartSync} from "@/pages/tab/Cart/store/action";
 
 const SET_CART=1
 const SET_BUY=2
@@ -23,7 +23,8 @@ const SET_BUY=2
   getGoodsDetail: (data) => dispatch(getGoodsDetailSync(data)),
   getCartNum: (data) => dispatch(getCartNumSync(data)),
   addCart: (data) => dispatch(addToCartSync(data)),
-  getGuessLike: () => dispatch(getGuessLikeSync())
+  getGuessLike: () => dispatch(getGuessLikeSync()),
+  updateCart: (data) => dispatch(updateCartSync(data))
 }))
 export default class GoodsDetail extends Component{
 
@@ -152,16 +153,26 @@ export default class GoodsDetail extends Component{
     })
   }
 
-  goNext = () => {
+  goNext = (num) => {
     if (this.nextType === SET_CART) {
-      this.addCart()
+      this.addCart(num)
+    } else if (this.nextType == SET_BUY) {
+      this.goPreview(num)
     }
     this.CloseDialog()
   }
 
-  addCart = () => {
-    this.props.addCart({id: this.props.data.id, token: this.props.token})
-    console.log('111')
+  goPreview = async (num) => {
+    let buys = []
+    let obj = {goodsId: this.$router.params.id, nums: num}
+    buys.push(obj)
+    let params = {token: this.props.token, buys}
+    await this.props.updateCart(params)
+    Taro.navigateTo({url: '/pages/order/preview/index'})
+  }
+
+  addCart = (num) => {
+    this.props.addCart({id: this.props.data.id, token: this.props.token, num})
   }
 
 }

@@ -144,7 +144,7 @@ class ShoppingMall extends Component {
               <Swiper
                 circular
                 interval={2000}
-                displayMultipleItems={ 3 }
+                displayMultipleItems={3}
                 autoplay>
                   {
                     hotList.map((item, index) => {

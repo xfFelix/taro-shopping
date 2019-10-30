@@ -85,7 +85,7 @@ export const getGuessLikeSync = () => {
   }
 }
 
-export const updateCartSync = (data = { buys: [], token: ''}, addressId) => {
+export const updateCartSync = (data = { buys: [], token: ''}, addressId='') => {
   return async dispatch => {
     try {
       const { error_code } = await updateCart(data)

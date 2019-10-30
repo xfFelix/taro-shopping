@@ -1,25 +1,28 @@
 import { constant } from './index'
 
 const INITIAL_STATE = {
-  list: [],
-  total: 0,
-  haveMoney: true,
-  errMsg: '系统运行异常~'
+  list: [
+    { imgPath: 'https://mall.cocotc.cn/static/images/home/gold.png', name: '黄金兑换', path: '', id: 1 },
+    { imgPath: 'https://mall.cocotc.cn/static/images/home/recharge.png', name: '话费充值', path: '', id: 2 },
+    { imgPath: 'https://mall.cocotc.cn/static/images/home/oil.png', name: '加油卡充值', path: '', id: 3 },
+    { imgPath: 'https://mall.cocotc.cn/static/images/home/jd.png', name: '小椰商城', path: '', id: 4 }
+  ],
+  title: '提交成功',
+  price: 0,
+  path: {
+    home: '/pages/tab/Home/index',
+    order: '/pages/order/list/index'
+  }
 }
 
 export default (state=INITIAL_STATE, action) => {
   switch (action.type) {
-    case constant.GET_PREVIEW_ORDER:
+    case constant.SET_PARAMS:
       return {
         ...state,
-        list: action.data,
-        total: action.total
-      }
-    case constant.SET_ERROR:
-      return {
-        ...state,
-        haveMoney: action.data,
-        errMsg: action.message
+        title: action.title,
+        price: action.price,
+        path: action.path
       }
     default:
       return state

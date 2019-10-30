@@ -27,7 +27,8 @@ class Integral extends Component{
   componentWillMount() {
     if (this.props.token && this.props.info.score > 0) {
       this.storeName = this.props.list[0].label
-      this.initPrice = this.props.list[0].value + this.props.info.score
+      let price = this.props.info.score.toFixed(0)
+      this.initPrice = this.props.list[0].value + price
     } else {
       this.storeName = this.props.list[1].label
       this.initPrice = this.props.list[1].value
@@ -50,7 +51,12 @@ class Integral extends Component{
 
   toggleList = ({name, item, store}) => {
     this.storeName = name
-    this.props.toggleIntegral(name, item.value, store.offset, store.rows)
+    if (item.name == '0') {
+      let price = this.props.info.score.toFixed(0)
+      this.props.toggleIntegral(name, item.value + price, store.offset, store.rows)
+    } else {
+      this.props.toggleIntegral(name, item.value, store.offset, store.rows)
+    }
   }
 
   render() {

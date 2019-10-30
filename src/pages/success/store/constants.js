@@ -1,2 +1,1 @@
-export const GET_PREVIEW_ORDER='GET_PREVIEW_ORDER'
-export const SET_ERROR = 'SET_ERROR'
+export const SET_PARAMS='SET_PARAMS'

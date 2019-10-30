@@ -23,10 +23,16 @@
         @include border-1px(#dedede, bottom);
       }
     }
+    .tel{
+      padding: 20px 30px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
     .password{
       position: relative;
       height: 100%;
-      padding: 60px 60px 0;
+      padding: 40px 60px 0;
       .main{
         display: flex;
         align-items: center;
