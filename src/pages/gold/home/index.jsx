@@ -9,6 +9,7 @@ import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax} from '../api'
+import { changeCity } from "dist/pages/address/store/action"
 
 
 @connect(({gold,user}) => ({
@@ -47,26 +48,29 @@ export default class GoldHome extends Component {
   }
 
   tabChange=(id)=>{
+    this.setState({inpNum:'',taxList:{}});
     this.props.setGoldId(id);
     this.getPrice();
   }
 
   //输入数量
   handleChange=(value,event)=>{
-    this.setState({
-      value
-    })
-    if (this.timer){
-      clearTimeout(this.timer);
+    // this.setState({value});
+    console.log(event)
+    if(event.type=="input"){
+      this.setState({inpNum:value})
+      if (this.timer){
+        clearTimeout(this.timer);
+      }
+      if(value){
+        this.timer=setTimeout(()=>{
+          this.getTax(value);
+        },500)
+      }else{
+        this.getTax(0);
+      }
+      return value
     }
-    if(value){
-      this.timer=setTimeout(()=>{
-        this.getTax(value);
-      },500)
-    }else{
-      this.getTax(0);
-    }
-    return value
   }
 
   //黄金价格
@@ -86,6 +90,11 @@ export default class GoldHome extends Component {
     this.setState({taxList:res.data})
   }
 
+  buyGold=async()=>{
+    if(this.state.inpNum){
+
+    }
+  }
 
   render(){
     return (
@@ -158,7 +167,7 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="goldBnt">
-          <View className="goldBnt-left flex bntNo">立即兑换</View>
+          <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'} onClick={()=>{this.buyGold()}}>立即兑换</View>
           <View className="goldBnt-right flex">立即回购</View>
         </View>
         <GoldInfo></GoldInfo>

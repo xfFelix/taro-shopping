@@ -21,7 +21,7 @@ class App extends Component {
 
   config = {
     pages: [
-
+      'pages/gold/home/index',
       'pages/Login/index',
       'pages/order/preview/index',
       'pages/tab/Home/index',
@@ -41,7 +41,6 @@ class App extends Component {
       'pages/gold/protocol/back',
       'pages/gold/buyBack/index',
       'pages/gold/record/index',
-      'pages/gold/home/index'
     ],
     window: {
       backgroundTextStyle: 'light',
