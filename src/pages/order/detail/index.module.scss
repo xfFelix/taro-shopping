@@ -1,0 +1,97 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  background: #eef1f6;
+  .status{
+    background: #30ce84;
+    color: #ffffff;
+    font-size: 30px;
+    height: 160px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+    .statusPic{
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+  }
+  .address{
+    padding: 0 30px;
+    margin-top: -60px;
+  }
+  .order{
+    margin-top: 30px;
+    padding: 30px;
+    background: #ffffff;
+    .orderItem{
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      color: #000;
+      font-weight: bold;
+      font-size: 26px;
+      &:first-child{
+        margin-top: 0;
+      }
+      .value{
+        font-weight: 400;
+      }
+    }
+  }
+  .goods{
+    padding: 20px 30px 30px;
+    background: #fff;
+    border: 1px solid #DEDEDE;
+    margin-top: 20px;
+  }
+  .stream{
+    position: relative;
+    background: #ffffff;
+    padding: 20px 30px;
+    font-size: 26px;
+    .goStream{
+      position: absolute;
+      top: 50%;
+      right: 30px;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      .right{
+        width: 30px;
+        height: 40px;
+      }
+    }
+  }
+  .bottom{
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px 30px;
+    .amount{
+      padding-bottom: 20px;
+      border-bottom: 1px solid #DEDEDE;
+      .amountItem{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 26px;
+        font-weight: bold;
+        margin-top: 20px;
+        &:first-child{
+          margin-top: 0;
+        }
+        .value{
+          font-weight: 400;
+        }
+      }
+    }
+    .total{
+      padding-top: 20px;
+      text-align: right;
+      font-size: 28px;
+      font-weight: bold;
+      .price{
+        color: #30ce84;
+      }
+    }
+  }
+}

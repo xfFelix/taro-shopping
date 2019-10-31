@@ -1,0 +1,39 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  background: #eef1f6;
+  .info{
+    padding: 30px;
+    background: #ffffff;
+    .number{
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 28px;
+      .orderId{
+        font-weight: normal;
+      }
+    }
+    .goods{
+      background: #fff;
+      padding: 30px 0;
+      border-bottom: 1px solid #DEDEDE;
+      border-top: 1px solid #DEDEDE;
+      margin-top: 20px;
+    }
+    .vendorId{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  }
+  .stream{
+    padding: 30px;
+    margin-top: 20px;
+    background: #ffffff;
+    color: #30ce84;
+  }
+}

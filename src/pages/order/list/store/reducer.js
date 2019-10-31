@@ -2,7 +2,9 @@ import { constant } from './index'
 
 const INITIAL_STATE = {
   list: [],
-  store: {}
+  store: {},
+  detail: {},
+  stream: ''
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -15,6 +17,16 @@ export default (state=INITIAL_STATE, action) => {
           ...state.store,
           [action.current]: action.store
         }
+      }
+    case constant.GET_ORDER_DETAIL:
+      return {
+        ...state,
+        detail: action.data
+      }
+    case constant.GET_ORDER_STREAM:
+      return {
+        ...state,
+        stream: action.data
       }
     default:
       return state
