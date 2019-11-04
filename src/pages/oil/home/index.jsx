@@ -41,18 +41,23 @@ export default class OrderList extends Component{
       {type: 2, value:
           `1. 本卡密可为中石油/中石化加油卡充值使用，如无加油卡，须办理加油卡并进行首次充值后，方可进行本业务的充值活动（提示：新开卡用户需24小时后才可办理自助充值）；<br/>
         2. 卡密有效期为自发放之日起一年；<br/>
-        3. 此卡密可在中石油/中石化所属售卡充值网点 充值，也可登陆中国石化加油卡网站在线充值<span class="price-color">www.sinopecsales.com</span>以及登陆中国石油加油卡网站在线充值<span class="price-color">www.95504.net</span>或<span class="price-color">www.card.petrochina.com.cn</span><br/>
+        3. 此卡密可在中石油/中石化所属售卡充值网点 充值，也可登陆中国石化加油卡网站在线充值<span style="color: #30ce84">www.sinopecsales.com</span>以及登陆中国石油加油卡网站在线充值<span style="color: #30ce84">www.95504.net</span>或<span style="color: #30ce84">www.card.petrochina.com.cn</span><br/>
         4.  提示：根据中石油/中石化规定，为确保账户资金安全，充值后金额自动存储在“待圈存金额中”，使用时只需到任意中石油/中石化售卡充值网点或自助终端设备上进行加油卡圈存操作，即可充值成功；<br/>
         5. 根据中石油/中石化规定，同一张实名加油卡每天仅支持在一个或多个平台累计充值8次，例如：在中石油充值1次，在某东充值2次，在椰子分充值3次，那么您当日的充值次数仅剩余2次；<br/>
         6. 本业务不支持7天无理由退货退款，请知晓。<br/>`}
     ],
     rechargeType: 1,
     price: 100,
-    showType: false
+    showType: false,
+    type: 1
   }
 
   componentWillMount() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
+  }
+
+  handleClick = (type) => {
+    this.setState({type, showType: false})
   }
 
   render(): any {
@@ -101,10 +106,10 @@ export default class OrderList extends Component{
           <View className={styles.recovery}>回收</View>
         </View>
         <AtActionSheet isOpened={this.state.showType} cancelText='取消' title='选择加油卡类型'>
-          <AtActionSheetItem>
+          <AtActionSheetItem onClick={() => this.handleClick(1)}>
             中石化
           </AtActionSheetItem>
-          <AtActionSheetItem>
+          <AtActionSheetItem onClick={() => this.handleClick(2)}>
             中石油
           </AtActionSheetItem>
         </AtActionSheet>
