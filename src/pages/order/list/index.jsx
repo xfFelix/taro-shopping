@@ -66,6 +66,10 @@ export default class OrderList extends Component{
     Taro.navigateTo({url: `/pages/order/detail/index?id=${id}`})
   }
 
+  goStream = (id) => {
+    Taro.navigateTo({url: `/pages/order/stream/index?id=${id}`})
+  }
+
   render(): any {
     return (
       <View className={styles.wrapper}>
@@ -109,7 +113,7 @@ export default class OrderList extends Component{
                     <View className={styles.allTotal}>合计：<Text className={styles.price}>{item.totalMoney}</Text></View>
                   </View>
                   <View className={styles.btnWrapper}>
-                    <Button className={styles.stream}>查看物流</Button>
+                    <Button className={styles.stream} onClick={() => this.goStream(item.orderId)}>查看物流</Button>
                     <Button className={styles.finished}>确认收货</Button>
                   </View>
                 </View>
