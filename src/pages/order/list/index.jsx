@@ -4,10 +4,12 @@ import {Image, Text, View, Button} from "@tarojs/components"
 import {connect} from "@tarojs/redux"
 import { AtTabBar } from 'taro-ui'
 import { action } from './store'
+import NoData from "@/components/NoData";
 
 @connect(({user, order}) => ({
   token: user.token,
-  store: order.store
+  store: order.store,
+  list: order.list
 }), dispatch => ({
   getOrderList: (data) => dispatch(action.getOrdersSync(data))
 }))
@@ -73,30 +75,44 @@ export default class OrderList extends Component{
           onClick={(value) => this.handleClick(value)}
           current={this.state.current}
         />
-        <View className={styles.order}>
-          <View className={styles.title}>
-            <View className={styles.number}>
-              <Text className={styles.classify}>网易严选</Text>
-              <Text>订单号：16842313574651321685312</Text>
-            </View>
-            <View className={styles.status}>已完成</View>
-          </View>
-          <View className={styles.goods}>
-            <Image src={'https://yanxuan-item.nosdn.127.net/0cf000722ef280de834e9d32095a3668.png'} className={styles.pic}></Image>
-            <View className={styles.info}>
-              <View className={styles.name}>openapi专用勿改1106000 黄色</View>
-              <View className={styles.num}>4</View>
-            </View>
-          </View>
-          <View className={styles.total}>
-            <Text>共1件商品</Text>
-            <View className={styles.allTotal}>合计：<Text className={styles.price}>13.13</Text></View>
-          </View>
-          <View className={styles.btnWrapper}>
-            <Button className={styles.stream}>查看物流</Button>
-            <Button className={styles.finished}>确认收货</Button>
-          </View>
-        </View>
+        {
+          (this.props.list && this.props.list.length) ?
+            this.props.list.map(item => {
+              return(
+                <View className={styles.order} key={item.orderId}>
+                  <View className={styles.title}>
+                    <View className={styles.number}>
+                      <Text className={styles.classify}>{item.vendorId}</Text>
+                      <Text>订单号：{item.orderId}</Text>
+                    </View>
+                    <View className={styles.status}>{item.orderStatus}</View>
+                  </View>
+                  {
+                    item.goodsList.map(i => {
+                      return (
+                        <View className={styles.goods} key={i.id + ''}>
+                          <Image src={i.picUrl} className={styles.pic}></Image>
+                          <View className={styles.info}>
+                            <View className={styles.name}>{i.goodsName}</View>
+                            <View className={styles.num}>{i.buyNum}</View>
+                          </View>
+                        </View>
+                      )
+                    })
+                  }
+                  <View className={styles.total}>
+                    <Text>共{item.goodsList && item.goodsList.length}件商品</Text>
+                    <View className={styles.allTotal}>合计：<Text className={styles.price}>{item.totalMoney}</Text></View>
+                  </View>
+                  <View className={styles.btnWrapper}>
+                    <Button className={styles.stream}>查看物流</Button>
+                    <Button className={styles.finished}>确认收货</Button>
+                  </View>
+                </View>
+              )
+            })
+            : <NoData></NoData>
+        }
 
       </View>
     )

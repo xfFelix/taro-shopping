@@ -1,5 +1,6 @@
 import {GET_GOODS_LIST, GET_GOODS_DETAIL, GET_CART_LIST_NUM, ADD_CART, LOAD_MORE_GOODS_LIST} from './constants'
 import {getList, getDetail, getCartListNum, addCart} from '../api'
+import {dialog} from "@/util/index";
 
 export const getGoodsListSync = ({storeName= '全部', categoryId = '', keyWord = '', offset = 1, price = '0-*', priceRange = '', productTypeId = '', rows = 10, salesVolume = '', timeSort = ''}={}) => {
   return async dispatch => {
@@ -62,7 +63,7 @@ export const addToCartSync = ({id='', num=1, token=''}={}) => {
       dispatch(getCartNumSync({token}))
       dispatch(addToCart())
     } catch (e) {
-      console.error('添加购物车失败')
+      dialog.toast({title: e.message})
     }
   }
 }

@@ -8,6 +8,7 @@ import {action} from './store'
 import PayPassword from "@/components/PayPassword"
 import {dialog} from "@/util/index";
 import {saveOrder} from './api'
+import {setParams} from "@/pages/success/store/action";
 
 @connect(({cart, user, preview}) => ({
   address: cart.address,
@@ -19,7 +20,8 @@ import {saveOrder} from './api'
   isDefault: cart.isDefault
 }), dispatch => ({
   getDefaultAddress: (data) => dispatch(getAddressSync(data)),
-  getPreviewOrder: (data) => dispatch(action.getPreviewOrderSync(data))
+  getPreviewOrder: (data) => dispatch(action.getPreviewOrderSync(data)),
+  setParams: (data) => dispatch(setParams(data))
 }))
 export default class Preview extends Component{
 
@@ -51,9 +53,17 @@ export default class Preview extends Component{
   }
 
   submitOrder = async (value) => {
-    this.setState({ showCode: false})
-    let params = { id: this.props.address.id, token: this.props.token, code: value }
-    const { data } = await saveOrder(params)
+    try{
+      this.setState({ showCode: false})
+      let params = { id: this.props.address.id, token: this.props.token, code: value }
+      const { data } = await saveOrder(params)
+      // 设置成功页面的展示信息
+      let config = {price: data[0].totalMoney, path:{ home: '/pages/tab/Home/index', order: '/pages/order/list/index'}}
+      await this.props.setParams(config)
+      Taro.redirectTo({url: '/pages/success/index'})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
   }
 
   render(): any {

@@ -8,8 +8,8 @@ import GoldInfo from "@/pages/gold/home/components/goldinfo"
 import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
-import {goldPrice,goldTax} from '../api'
-import { changeCity } from "dist/pages/address/store/action"
+import {goldPrice,goldTax,goldBuy} from '../api'
+import PayPassword from "@/components/PayPassword"
 
 
 @connect(({gold,user}) => ({
@@ -39,7 +39,8 @@ export default class GoldHome extends Component {
     this.state = {
       inpNum:'',
       timeInp:null,
-      taxList:{}
+      taxList:{},
+      showCode:false
     }
   }
 
@@ -90,11 +91,13 @@ export default class GoldHome extends Component {
     this.setState({taxList:res.data})
   }
 
-  buyGold=async()=>{
-    if(this.state.inpNum){
-
-    }
+  submitOrder = async(val)=>{
+    let res= await goldBuy({token:this.props.token,amount:this.state.inpNum,verify_code:val,id:this.props.gold.id});
+    if(res.error_code!=0) return dialog.toast({title: res.message});
+    this.setState({inpNum:'',showCode:'',taxList:''});
+    
   }
+
 
   render(){
     return (
@@ -167,10 +170,13 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="goldBnt">
-          <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'} onClick={()=>{this.buyGold()}}>立即兑换</View>
+          <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'}
+                onClick={()=>{this.state.inpNum?this.setState({showCode:true}):''}}>立即兑换
+          </View>
           <View className="goldBnt-right flex">立即回购</View>
         </View>
         <GoldInfo></GoldInfo>
+        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
       </View>
     )
   }

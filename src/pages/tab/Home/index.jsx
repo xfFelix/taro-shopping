@@ -7,17 +7,20 @@ import Navigator from "../../../navigator";
 import Goods from "@/components/goods";
 import { setHomeSwiper, getHomeHot, getHomeNew } from '@/actions/home'
 import './index.scss'
+import {getInfoSync} from "@/actions/user";
 
 @connect(({home, user}) => ({
   list: home.list,
   swiperList: home.swiperList,
   hotList: home.hotList,
   newList: home.newList,
-  info: user.info
+  info: user.info,
+  token: user.token
 }), (dispatch) => ({
   getHomeSwiper: () => dispatch(setHomeSwiper()),
   getHomeHot: () => dispatch(getHomeHot()),
-  getHomeNew: () => dispatch(getHomeNew())
+  getHomeNew: () => dispatch(getHomeNew()),
+  getInfo: (token) => dispatch(getInfoSync(token))
 }))
 class Home extends Component {
 
@@ -30,6 +33,7 @@ class Home extends Component {
   }
 
   componentWillMount () {
+    if (this.props.token) this.props.getInfo(this.props.token)
     // 判断缓存是否存在
     if (!this.props.hotList || !Object.keys(this.props.hotList).length) {
       // 获取热门爆款

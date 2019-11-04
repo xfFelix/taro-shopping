@@ -55,8 +55,16 @@ export const getClassifyDirByFirst = (data) => fetch({
   data
 })
 
+// 注册
 export const register = (data) => fetch({
   url: `${INFO_URL}/user/register`,
+  method: 'post',
+  data
+})
+
+// 忘记密码
+export const forget = (data) => fetch({
+  url: `${INFO_URL}/user/forget`,
   method: 'post',
   data
 })

@@ -1,7 +1,12 @@
 import Taro,{PureComponent} from "@tarojs/taro"
 import styles from './index.module.scss'
 import {View, Input, Text} from "@tarojs/components";
+import SendCode from "@/components/SendCode"
+import {connect} from "@tarojs/redux";
 
+@connect(({user}) => ({
+  info: user.info
+}))
 export default class PayPassword extends PureComponent{
 
   constructor(){
@@ -25,7 +30,11 @@ export default class PayPassword extends PureComponent{
     return(
       <View className={styles.mask}>
         <View className={styles.dialog}>
-          <View className={styles.title}>请输入支付密码</View>
+          <View className={styles.title}>请输入验证码</View>
+          <View className={styles.tel}>
+            <Text>号码：{this.props.info.userName}</Text>
+            <SendCode isPay></SendCode>
+          </View>
           <View className={styles.password}>
             <View className={styles.main}>
               <View className={this.state.value.length == 0 ? `${styles.item} ${styles.active}` : styles.item}><Text className={styles.text}>{this.state.value[0] ? this.state.value[0] : ''}</Text></View>
