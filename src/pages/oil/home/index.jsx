@@ -1,14 +1,24 @@
 import Taro,{Component} from "@tarojs/taro"
 import styles from './index.module.scss'
-import {Image, Text, View, Button, RichText } from "@tarojs/components"
+import {Image, Text, View, Button, RichText, Input } from "@tarojs/components"
 import { AtActionSheet, AtActionSheetItem } from "taro-ui"
 import {connect} from "@tarojs/redux"
 import { action } from '../store'
+import Dialog from "@/components/dialog"
+import ICON from '@/assets/img/tab/supermarket-actived.png'
+import PayPassword from "@/components/PayPassword"
+import {dialog} from "@/util/index";
+import {setParams} from "@/pages/success/store/action";
 
-@connect(({user}) => ({
+@connect(({user, oil}) => ({
   token: user.token,
-  info: user.info
+  info: user.info,
+  costInfo: oil.costInfo,
+  total: oil.price
 }), dispatch => ({
+  getCostInfo: (data) => dispatch(action.getCostInfoSync(data)),
+  submit: (data) => dispatch(action.submitSync(data)),
+  setParams: (data) => dispatch(setParams(data))
 }))
 export default class OrderList extends Component{
 
@@ -46,18 +56,49 @@ export default class OrderList extends Component{
         5. 根据中石油/中石化规定，同一张实名加油卡每天仅支持在一个或多个平台累计充值8次，例如：在中石油充值1次，在某东充值2次，在椰子分充值3次，那么您当日的充值次数仅剩余2次；<br/>
         6. 本业务不支持7天无理由退货退款，请知晓。<br/>`}
     ],
+    showType: false,
+    showNumber: false,
+    showInfo: false,
+    showCode: false,
     rechargeType: 1,
     price: 100,
-    showType: false,
-    type: 1
+    type: 1,
+    number: ''
   }
 
   componentWillMount() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
   }
 
-  handleClick = (type) => {
-    this.setState({type, showType: false})
+  getType = (type) => {
+    this.setState({type})
+    const {rechargeType} = this.state
+    if (rechargeType == 1) {
+      this.onShowNumber()
+    } else {
+      if (type == 2) {
+        return dialog.toast({title: '中石油未开通充值卡'})
+      }
+      this.getInfo()
+    }
+  }
+
+  getInfo = async () => {
+    const {price, rechargeType, type} = this.state
+    let token = this.props.token
+    await this.props.getCostInfo({faceValue: price, type, token, rechargeType})
+    this.onShowInfo()
+  }
+
+  submit = async (code) => {
+    const {rechargeType, type, number, price} = this.state
+    let token = this.props.token
+    let config = {rechargeType, oilCardType: type,cardNum: number, code, faceValue: price, token}
+    await this.props.submit(config)
+    // 设置成功信息
+    let params = {price: this.props.total, path:{ home: '/pages/oil/home/index', order: '/pages/order/list/index'}}
+    await this.props.setParams(params)
+    Taro.redirectTo({url: '/pages/success/index'})
   }
 
   render(): any {
@@ -101,19 +142,103 @@ export default class OrderList extends Component{
         <View className={styles.fixed}>
           <View
             className={styles.exchange}
-            onClick={()=> this.setState({showType: true})}
+            onClick={()=> this.onShowType()}
           >立即兑换</View>
-          <View className={styles.recovery}>回收</View>
+          <View className={styles.recovery}>立即回收</View>
         </View>
-        <AtActionSheet isOpened={this.state.showType} cancelText='取消' title='选择加油卡类型'>
-          <AtActionSheetItem onClick={() => this.handleClick(1)}>
+        {/* type类型选择 1 中石化 2 中石油 */}
+        <AtActionSheet isOpened={this.state.showType} cancelText='取消' title='选择加油卡类型' onClose={this.onClose} onCancel={this.onClose}>
+          <AtActionSheetItem onClick={() => this.getType(1)}>
             中石化
           </AtActionSheetItem>
-          <AtActionSheetItem onClick={() => this.handleClick(2)}>
+          <AtActionSheetItem onClick={() => this.getType(2)}>
             中石油
           </AtActionSheetItem>
         </AtActionSheet>
+        {/*卡号弹窗*/}
+        {
+          this.state.showNumber && <Dialog
+            renderHeader={<View>输入加油卡卡号</View>}
+            renderFooter={<Button className={styles.confirm} onClick={() => this.getInfo()}>确认</Button>}
+            onClose={() => this.onClose()}
+            onBack={() => this.onShowType()}
+          >
+            <View className={styles.code}>
+              <Text className={styles.label}>卡号</Text>
+              <Input className={styles.input} placeholder={'请输入卡号'} value={this.state.number} onInput={(e) => this.setState({number: e.target.value})}></Input>
+            </View>
+          </Dialog>
+        }
+        {
+          this.state.showInfo && <Dialog
+            renderHeader={<View>确认兑换</View>}
+            renderFooter={<Button className={styles.confirm} onClick={() => this.onShowCode()}>确认</Button>}
+            onClose={() => this.onClose()}
+            onBack={() => this.goBack()}
+          >
+            <View className={styles.content}>
+              <View className={styles.total}>
+                <Image src={ICON} className={styles.icon}></Image>
+                <Text>{this.props.costInfo.total}</Text>
+              </View>
+              <View className={styles.flex}>
+                <Text className={styles.name}>产品名称</Text>
+                <Text className={styles.value}>{this.props.costInfo.productName}</Text>
+              </View>
+              {
+                this.state.rechargeType == 1 && <View className={styles.flex}>
+                  <Text className={styles.name}>充值账号</Text>
+                  <Text className={styles.value}>{this.state.number}</Text>
+                </View>
+              }
+              <View className={styles.flex}>
+                <Text className={styles.name}>服务费</Text>
+                <Text className={styles.value}>{this.props.costInfo.service_fee.toFixed(2)}</Text>
+              </View>
+              <View className={styles.flex}>
+                <Text className={styles.name}>应付合计</Text>
+                <Text className={styles.value}>{this.props.costInfo.total}</Text>
+              </View>
+            </View>
+          </Dialog>
+        }
+        {this.state.showCode && <PayPassword isClosed onBack={() => this.onShowInfo()} onConfirm={this.submit}></PayPassword>}
       </View>
     )
+  }
+
+  goBack = () => {
+    const { rechargeType } = this.state
+    if (rechargeType == 1) {
+      this.onShowNumber()
+    } else {
+      this.onShowType()
+    }
+  }
+
+  onShowInfo = () => {
+    this.setState({showNumber: false, showType: false, showInfo: true, showCode: false})
+  }
+
+  onShowType = () => {
+    this.setState({showNumber: false, showInfo: false, showType: true, showCode: false })
+  }
+
+  onShowNumber = () => {
+    this.setState({showType: false, showNumber: true, showInfo: false, showCode: false})
+  }
+
+  onShowCode = () => {
+    this.setState({showType: false, showNumber: false,  showInfo: false, showCode: true})
+  }
+
+  onClose = () => {
+    this.setState({
+      showType: false,
+      showNumber: false,
+      showInfo: false,
+      showCode: false,
+      number: '',
+    })
   }
 }

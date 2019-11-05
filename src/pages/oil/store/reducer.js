@@ -1,32 +1,21 @@
 import { constant } from './index'
 
 const INITIAL_STATE = {
-  list: [],
-  store: {},
-  detail: {},
-  stream: ''
+  costInfo: {},
+  price: 0
 }
 
 export default (state=INITIAL_STATE, action) => {
   switch (action.type) {
-    case constant.GET_ORDER_LIST:
+    case constant.GET_COST_INFO:
       return {
         ...state,
-        list: action.data,
-        store: {
-          ...state.store,
-          [action.current]: action.store
-        }
+        costInfo: action.data
       }
-    case constant.GET_ORDER_DETAIL:
+    case constant.SUBMIT:
       return {
         ...state,
-        detail: action.data
-      }
-    case constant.GET_ORDER_STREAM:
-      return {
-        ...state,
-        stream: action.data
+        price: action.price
       }
     default:
       return state

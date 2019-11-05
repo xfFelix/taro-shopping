@@ -1,3 +1,3 @@
-export const GET_ORDER_LIST='GET_ORDER_LIST'
-export const GET_ORDER_DETAIL='GET_ORDER_DETAIL'
-export const GET_ORDER_STREAM='GET_ORDER_STREAM'
+export const GET_COST_INFO='GET_COST_INFO'
+export const SUBMIT='SUBMIT'
+
