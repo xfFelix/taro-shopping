@@ -17,10 +17,12 @@ export default class Address extends PureComponent{
   }
 
   defaultProps: {
-    address: ''
+    address: '',
+    disabled: false
   }
 
   goAddressList = () => {
+    if (this.props.disabled) return
     this.props.toggleSelect(true)
     Taro.navigateTo({url: '/pages/address/list/index'})
   }

@@ -1,0 +1,26 @@
+.item{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  .pic{
+    flex-basis: 200px;
+    height: 200px;
+    margin-right: 20px;
+  }
+  .info{
+    flex: 1;
+    .name{
+      font-size: 26px;
+      min-height: 160px;
+    }
+    .num{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 26px;
+    }
+  }
+  &:first-child{
+    margin-top: 0;
+  }
+}

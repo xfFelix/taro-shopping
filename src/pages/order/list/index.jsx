@@ -62,6 +62,10 @@ export default class OrderList extends Component{
     console.log(this.props.store)
   }
 
+  goDetail = (id) => {
+    Taro.navigateTo({url: `/pages/order/detail/index?id=${id}`})
+  }
+
   render(): any {
     return (
       <View className={styles.wrapper}>
@@ -90,7 +94,7 @@ export default class OrderList extends Component{
                   {
                     item.goodsList.map(i => {
                       return (
-                        <View className={styles.goods} key={i.id + ''}>
+                        <View className={styles.goods} key={i.id + ''} onClick={() => this.goDetail(item.orderId)}>
                           <Image src={i.picUrl} className={styles.pic}></Image>
                           <View className={styles.info}>
                             <View className={styles.name}>{i.goodsName}</View>

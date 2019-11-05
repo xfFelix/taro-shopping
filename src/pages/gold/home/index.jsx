@@ -9,7 +9,8 @@ import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax,goldBuy} from '../api'
-import PayPassword from "@/components/PayPassword"
+import PayPassword from "@/components/PayPassword";
+import {setParams} from "@/pages/success/store/action";
 
 
 @connect(({gold,user}) => ({
@@ -20,6 +21,7 @@ import PayPassword from "@/components/PayPassword"
   setGoldId: (data) => dispatch(goldTypeFun(data)),
   setBarPrice: (data) => dispatch(barPriceFun(data)),
   setSandPrice: (data) => dispatch(sandPriceFun(data)),
+  setParams: (data) => dispatch(setParams(data))
 }))
 
 
@@ -91,13 +93,20 @@ export default class GoldHome extends Component {
     this.setState({taxList:res.data})
   }
 
-  submitOrder = async(val)=>{
-    let res= await goldBuy({token:this.props.token,amount:this.state.inpNum,verify_code:val,id:this.props.gold.id});
-    if(res.error_code!=0) return dialog.toast({title: res.message});
-    this.setState({inpNum:'',showCode:'',taxList:''});
-    
-  }
 
+  submitOrder = async (val) => {
+    try{
+      this.setState({ showCode: false})
+      let res= await goldBuy({token:this.props.token,amount:this.state.inpNum,verify_code:val,id:this.props.gold.id});
+      if(res.error_code!=0) return dialog.toast({title: res.message});
+      // 设置成功页面的展示信息
+      let config = {price: res.data.totalAmount, path:{ home: '/pages/tab/Home/index', order: '/pages/gold/record/index'}}
+      await this.props.setParams(config)
+      Taro.redirectTo({url: '/pages/success/index'})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
+  }
 
   render(){
     return (
@@ -173,7 +182,7 @@ export default class GoldHome extends Component {
           <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'}
                 onClick={()=>{this.state.inpNum?this.setState({showCode:true}):''}}>立即兑换
           </View>
-          <View className="goldBnt-right flex">立即回购</View>
+          <View className="goldBnt-right flex" onClick={()=>Taro.navigateTo({url:'/pages/gold/record/index'})}>立即回购</View>
         </View>
         <GoldInfo></GoldInfo>
         { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}

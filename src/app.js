@@ -22,9 +22,11 @@ class App extends Component {
   config = {
     pages: [
       'pages/gold/home/index',
+      'pages/order/stream/index',
       'pages/order/list/index',
-      'pages/tab/Home/index',
+      'pages/order/detail/index',
       'pages/order/preview/index',
+      'pages/tab/Home/index',
       'pages/tab/Cart/index',
       'pages/success/index',
       'pages/Login/index',
