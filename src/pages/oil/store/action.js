@@ -1,6 +1,8 @@
 import {constant} from './index'
 import {getCostInfo, submit, getOrderInfo} from '../home/api'
 import { dialog } from '@/util/index'
+import {getOrderList} from "@/pages/oil/order/api";
+import {getRecoveryList} from "@/pages/oil/recovery/api";
 
 export const getCostInfoSync = (params = {faceValue: 100, rechargeType: 1, token: '', type: 1}) => {
   return async dispatch => {
@@ -14,11 +16,11 @@ export const getCostInfoSync = (params = {faceValue: 100, rechargeType: 1, token
   }
 }
 
-export const submitSync = (params = { faceValue: 100, rechargeType: 1, oilCardType: 1, code: '', cardNum: '', token: ''}) => {
+export const submitSync = ({ faceValue= 100, rechargeType= 1, oilCardType= 1, code= '', cardNum= '', token= ''}={}) => {
   return async dispatch => {
     try {
-      const { data } = await submit(params)
-      let res = await getOrderInfo({id: data, token: params.token})
+      const { data } = await submit({ faceValue, rechargeType, oilCardType, code, cardNum, token})
+      let res = await getOrderInfo({id: data, token})
       dispatch(setPrice(res.data.totalAmount))
     } catch (e) {
       await dialog.toast({title: e.message})
@@ -26,6 +28,40 @@ export const submitSync = (params = { faceValue: 100, rechargeType: 1, oilCardTy
     }
   }
 }
+
+export const getOrderListSync = ({ token= '', offset= 1, rows= 10, type= 1}={}) => {
+  return async dispatch => {
+    try {
+      const { data } = await getOrderList({ token, offset, rows, type})
+      dispatch(setOrderList(data))
+    } catch (e) {
+      await dialog.toast({title: e.message})
+      throw new Error(e.message)
+    }
+  }
+}
+
+export const getRecoveryListSync = ({ token= '', offset= 1, rows= 10}={}) => {
+  return async dispatch => {
+    try {
+      const { data } = await getRecoveryList({ token, offset, rows})
+      dispatch(setRecoveryList(data))
+    } catch (e) {
+      await dialog.toast({title: e.message})
+      throw new Error(e.message)
+    }
+  }
+}
+
+export const setRecoveryList = (data) => ({
+  type: constant.GET_RECOVERY_LIST,
+  data
+})
+
+export const setOrderList = (data) => ({
+  type: constant.GET_ORDER_LIST,
+  data
+})
 
 export const setCostInfo = (data) => ({
   type: constant.GET_COST_INFO,

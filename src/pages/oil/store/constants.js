@@ -1,3 +1,4 @@
 export const GET_COST_INFO='GET_COST_INFO'
 export const SUBMIT='SUBMIT'
-
+export const GET_ORDER_LIST='GET_ORDER_LIST'
+export const GET_RECOVERY_LIST='GET_RECOVERY_LIST'

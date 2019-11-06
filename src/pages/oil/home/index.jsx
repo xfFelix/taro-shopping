@@ -117,7 +117,7 @@ export default class OrderList extends Component{
           </View>
           <View className={styles.info}>
             <View>旅游分余额：<Text className={styles.price}>{this.props.info.score}</Text></View>
-            <View>兑换记录&gt;</View>
+            <View onClick={() => Taro.navigateTo({url: '/pages/oil/order/index'})}>兑换记录&gt;</View>
           </View>
         </View>
         <View className={styles.container}>
@@ -147,7 +147,7 @@ export default class OrderList extends Component{
           <View className={styles.recovery}>立即回收</View>
         </View>
         {/* type类型选择 1 中石化 2 中石油 */}
-        <AtActionSheet isOpened={this.state.showType} cancelText='取消' title='选择加油卡类型' onClose={this.onClose} onCancel={this.onClose}>
+        <AtActionSheet isOpened={this.state.showType} cancelText='取消' title='选择加油卡类型' onCancel={() =>this.onClose()}>
           <AtActionSheetItem onClick={() => this.getType(1)}>
             中石化
           </AtActionSheetItem>
