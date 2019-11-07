@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import {View, Input, Text} from "@tarojs/components";
 import SendCode from "@/components/SendCode"
 import {connect} from "@tarojs/redux";
+import {AtIcon} from "taro-ui";
 
 @connect(({user}) => ({
   info: user.info
@@ -13,8 +14,12 @@ export default class PayPassword extends PureComponent{
     super(...arguments)
   }
 
+  defaultProps: {
+    isClosed: false
+  }
+
   state = {
-    value: ''
+    value: '',
   }
 
   handleInput = (value) => {
@@ -26,11 +31,21 @@ export default class PayPassword extends PureComponent{
     }
   }
 
+  initCode = () => {
+    this.setState({value: ''})
+    this.props.onBack()
+  }
+
   render(): any {
     return(
       <View className={styles.mask}>
         <View className={styles.dialog}>
-          <View className={styles.title}>请输入验证码</View>
+          <View className={styles.title}>
+            {this.props.isClosed && <View className={styles.left} onClick={() => this.initCode()}>
+              <AtIcon value='chevron-left' size='24' color='#000'></AtIcon>
+            </View>}
+            请输入验证码
+          </View>
           <View className={styles.tel}>
             <Text>号码：{this.props.info.userName}</Text>
             <SendCode isPay></SendCode>

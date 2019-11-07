@@ -14,6 +14,7 @@ import { reducer as orderReducer } from '@/pages/order/list/store'
 import { reducer as addressReducer } from '@/pages/address/store'
 import { reducer as successReducer } from '@/pages/success/store'
 import { reducer as vipReducer } from '@/pages/vip/store'
+import { reducer as oilReducer } from '@/pages/oil/store'
 
 export default combineReducers({
   classify,
@@ -30,5 +31,6 @@ export default combineReducers({
   order: orderReducer,
   address: addressReducer,
   success: successReducer,
-  vip:vipReducer
+  vip:vipReducer,
+  oil: oilReducer
 })

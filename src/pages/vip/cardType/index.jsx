@@ -34,6 +34,9 @@ export default class VipHome extends Component {
   }
 
   componentWillMount() { //将要装载
+    if(this.props.vip.costType==1){
+
+    }
     this.getList();
   }
 
@@ -70,21 +73,22 @@ export default class VipHome extends Component {
   render(){
     return(
       <View className="vipCard">
-        <View className="headTop">
-          <View className="buy">
-            <Image src={'https://mall.cocogc.cn/static/images/logo/jd.png'} className="logoGreen"></Image>
-            <View className="input-flex">
-              <AtInput
-                name='inpNum'
-                type='number'
-                value={this.state.inpNum}
-                onChange={this.handleChange.bind(this)}
-                border={false}
-              />
+        { this.props.vip.costType==1?
+          (<View className="headTop">
+            <View className="buy">
+              <Image src={'https://mall.cocogc.cn/static/images/logo/jd.png'} className="logoGreen"></Image>
+              <View className="input-flex">
+                <AtInput
+                  name='inpNum'
+                  type='number'
+                  value={this.state.inpNum}
+                  onChange={this.handleChange.bind(this)}
+                  border={false}
+                />
+              </View>
             </View>
-          </View>
-        </View>
-
+          </View>):''
+        }
 
         <View className="selectWrap">
           <View className="yezifen">椰子分余额：<Text className="score">20222</Text></View>
@@ -119,7 +123,6 @@ export default class VipHome extends Component {
               })
             }
           </View>
-
 
           <View  className="tipWrap">
             <View className="tipTitle">温馨提示：</View>

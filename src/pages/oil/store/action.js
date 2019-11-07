@@ -1,58 +1,74 @@
 import {constant} from './index'
-import {getOrders} from '../home/api'
-import {getOrders as getOrderDetail} from '../../detail/api'
-import {dialog} from "@/util/index";
-import {getStream} from "@/pages/order/stream/api";
+import {getCostInfo, submit, getOrderInfo} from '../home/api'
+import { dialog } from '@/util/index'
+import {getOrderList} from "@/pages/oil/order/api";
+import {getRecoveryList} from "@/pages/oil/recovery/api";
 
-export const getOrdersSync = (params = {token: '', status: 0, offset: 1}) => {
+export const getCostInfoSync = (params = {faceValue: 100, rechargeType: 1, token: '', type: 1}) => {
   return async dispatch => {
     try {
-      const {data} = await getOrders(params)
-      let current = params.status == 1 ? 2 : (params.status == 2 ? 1 : params.status)
-      dispatch(setOrders(data, params, current))
+      const {data} = await getCostInfo(params)
+      let obj = data[0]
+      dispatch(setCostInfo(obj))
     } catch (e) {
-      console.error(e)
+      await dialog.toast({title: e.message})
     }
   }
 }
 
-export const getOrderDetailSync = (params = {token: '', code: ''}) => {
+export const submitSync = ({ faceValue= 100, rechargeType= 1, oilCardType= 1, code= '', cardNum= '', token= ''}={}) => {
   return async dispatch => {
     try {
-      const {data} = await getOrderDetail(params)
-      let obj = data
-      obj.address = {name: data.userName, tel: data.userMobile, area: data.userAddress, id: data.addressId}
-      dispatch(setDetail(obj))
+      const { data } = await submit({ faceValue, rechargeType, oilCardType, code, cardNum, token})
+      let res = await getOrderInfo({id: data, token})
+      dispatch(setPrice(res.data.totalAmount))
     } catch (e) {
-      dialog.toast({title: e.message})
+      await dialog.toast({title: e.message})
+      throw new Error(e.message)
     }
   }
 }
 
-export const getStreamSync = ({token='', id = ''}={}) => {
+export const getOrderListSync = ({ token= '', offset= 1, rows= 10, type= 1}={}) => {
   return async dispatch => {
     try {
-      const { message } = await getStream({token, id})
-      dispatch(setStream(message))
+      const { data } = await getOrderList({ token, offset, rows, type})
+      dispatch(setOrderList(data))
     } catch (e) {
-      dialog.toast({title: e.message})
+      await dialog.toast({title: e.message})
+      throw new Error(e.message)
     }
   }
 }
 
-export const setStream = (data) => ({
-  type: constant.GET_ORDER_STREAM,
+export const getRecoveryListSync = ({ token= '', offset= 1, rows= 10}={}) => {
+  return async dispatch => {
+    try {
+      const { data } = await getRecoveryList({ token, offset, rows})
+      dispatch(setRecoveryList(data))
+    } catch (e) {
+      await dialog.toast({title: e.message})
+      throw new Error(e.message)
+    }
+  }
+}
+
+export const setRecoveryList = (data) => ({
+  type: constant.GET_RECOVERY_LIST,
   data
 })
 
-export const setDetail = (data) => ({
-  type: constant.GET_ORDER_DETAIL,
-  data
-})
-
-export const setOrders = (data, store, current) => ({
+export const setOrderList = (data) => ({
   type: constant.GET_ORDER_LIST,
-  data,
-  store,
-  current
+  data
+})
+
+export const setCostInfo = (data) => ({
+  type: constant.GET_COST_INFO,
+  data
+})
+
+export const setPrice = (price) => ({
+  type: constant.SUBMIT,
+  price
 })

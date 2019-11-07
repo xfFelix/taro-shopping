@@ -8,7 +8,7 @@ export const SEARCH_URL = isDev ? 'https://search.cocogc.cn' : 'https://search.c
 
 export const SHOP_URL = isDev ? 'https://shop.cocogc.cn' : 'https://shop.cocogc.cn'
 
-export const MALL_URL = isDev ? 'https://mall.cocogc.cn' : 'https://mall.cocogc.cn'
+export const MALL_URL = isDev ? 'https://mall.cocotc.cn': 'https://mall.cocotc.cn'
 
 export const MINX_URL = (url) => {
   const reg = /(https?:|\/\/)/

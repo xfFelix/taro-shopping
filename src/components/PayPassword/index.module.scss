@@ -22,6 +22,10 @@
       &:after{
         @include border-1px(#dedede, bottom);
       }
+      .left{
+        position: absolute;
+        left: 10px;
+      }
     }
     .tel{
       padding: 20px 30px;

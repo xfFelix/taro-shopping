@@ -1,0 +1,39 @@
+@import '../../styles/mixin/index.scss';
+
+.mask{
+  background: rgba(0,0,0,.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  .dialog{
+    background: #ffffff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    .header{
+      height: 88px;
+      font-size: 28px;
+      color: #4a4a4a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 0 30px;
+      &:after{
+        @include border-1px(#d3d3d3, bottom);
+      }
+      .left{
+        position: absolute;
+        left: 0;
+      }
+    }
+    .body{
+      padding: 0 30px;
+    }
+    .footer{}
+  }
+}
