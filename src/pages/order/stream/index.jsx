@@ -27,7 +27,7 @@ export default class OrderList extends Component{
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index`})
     let token = this.props.token
     let code = this.$router.params.id
-    await this.props.getOrder({code:"1638420191030181021994", token})
+    await this.props.getOrder({code, token})
     this.props.getStream({token, id: this.props.detail.id})
   }
 

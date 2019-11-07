@@ -1,5 +1,5 @@
 import Taro,{Component} from "@tarojs/taro"
-import {View, Image, Text,Input} from "@tarojs/components"
+import {View, Image, Text,Input,Checkbox } from "@tarojs/components"
 import './index.scss'
 import { AtInput  } from 'taro-ui'
 import GoldInfo from "@/pages/gold/home/components/goldinfo"
@@ -11,6 +11,7 @@ import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax,goldBuy} from '../api'
 import PayPassword from "@/components/PayPassword";
 import {setParams} from "@/pages/success/store/action";
+import checked from "dist/pages/tab/Cart/components/checked"
 
 
 @connect(({gold,user}) => ({
@@ -42,7 +43,8 @@ export default class GoldHome extends Component {
       inpNum:'',
       timeInp:null,
       taxList:{},
-      showCode:false
+      showCode:false,
+      checked: false
     }
   }
 
@@ -59,7 +61,6 @@ export default class GoldHome extends Component {
   //输入数量
   handleChange=(value,event)=>{
     // this.setState({value});
-    console.log(event)
     if(event.type=="input"){
       this.setState({inpNum:value})
       if (this.timer){
@@ -106,6 +107,11 @@ export default class GoldHome extends Component {
     } catch (e) {
       dialog.toast({title: e.message})
     }
+  }
+
+  changeNow = ()=>{
+    if (!this.state.checked) return dialog.toast({title: '请阅读并同意协议'});
+    this.state.inpNum&&this.state.checked?this.setState({showCode:true}):'';
   }
 
   render(){
@@ -169,18 +175,17 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="agreeWrap">
-          <checkbox-group>
-            <label className="checkLabel">
-                <checkbox></checkbox>
+            <Label className='checkbox-list__label'>
+              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState({checked:!this.state.checked})}>
                 <Text>我已阅读并同意</Text>
                 <Text onClick={()=>Taro.navigateTo({url:'/pages/gold/protocol/index'})} className="file">《黄金兑换协议》</Text>
-            </label>
-          </checkbox-group>
+              </Checkbox>
+            </Label>
         </View>
 
         <View className="goldBnt">
           <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'}
-                onClick={()=>{this.state.inpNum?this.setState({showCode:true}):''}}>立即兑换
+              onClick = {()=>this.changeNow()}>立即兑换
           </View>
           <View className="goldBnt-right flex" onClick={()=>Taro.navigateTo({url:'/pages/gold/record/index'})}>立即回购</View>
         </View>

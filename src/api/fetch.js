@@ -55,8 +55,9 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
               case 0:
                 resolve(data)
                 break
-              case 1:
-                Taro.navigateTo({url: '/pages/Login/index'})
+              case "1":
+                // Taro.navigateTo({url: '/pages/Login/index'});
+                resolve(data)
                 break
               default:
                 /**
