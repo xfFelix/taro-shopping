@@ -83,12 +83,12 @@ export default class GoldBuyBack extends Component {
               <Text className="qmark" onClick={()=>this.setState({isOpened:true})}>?</Text>
             </View>
           </View>
+          <View className="backLi">卡号<Input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" value={this.state.mobile}  onChange={(e) => this.setState({mobile: e.detail.value})}/></View>
           <View className="backLi">卡密<Input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled value={this.props.backInfo.cardCode}/></View>
-          <View className="backLi">联系电话<Input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" value={this.state.mobile}  onChange={(e) => this.setState({mobile: e.detail.value})}/></View>
           <View className="backLi">姓名<Input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" value={this.state.realName} onChange={(e) => this.setState({realName: e.detail.value})} /></View>
+          <View className="backLi">身份证号码<Input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" value={this.state.cardNum} onChange={(e) => this.setState({cardNum: e.detail.value})}/></View>
           <View className="backLi">银行卡号<Input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" value={this.state.cardNum} onChange={(e) => this.setState({cardNum: e.detail.value})}/></View>
           <View className="backLi">开户行<Input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" value={this.state.bank} onChange={(e) => this.setState({bank: e.detail.value})} /></View>
-          <View className="backLi">开户支行<Input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" value={this.props.info.subBank}  onChange={(e) => this.setState({subBank: e.detail.value})}/></View>
         </View>
 
         <View className="agreeWrap">
