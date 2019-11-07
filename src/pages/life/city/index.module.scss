@@ -1,0 +1,25 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  height: 100vh;
+  .search{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 30px;
+    border: 1px solid #DEDEDE;
+    height: 80px;
+    border-radius: 10px;
+    .searchImg{
+      flex-basis: 80px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .searchInput{
+      flex: 1;
+      height: 100%;
+    }
+  }
+}

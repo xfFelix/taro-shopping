@@ -7,10 +7,11 @@ const INITIAL_STATE = {
 
 export default (state=INITIAL_STATE, action) => {
   switch (action.type) {
-    case constant.GET_COST_INFO:
+    case constant.SET_CONTENT:
       return {
         ...state,
-        costInfo: action.data
+        title: action.title,
+        content: action.content
       }
     default:
       return state

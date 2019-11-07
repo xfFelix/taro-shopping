@@ -1,0 +1,22 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  padding: 0 30px;
+  .item{
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    position: relative;
+    .point{
+      color: #cccccc;
+    }
+    .right{
+      position: absolute;
+      right: 0;
+    }
+  }
+}
