@@ -1,5 +1,5 @@
 import Taro,{Component} from "@tarojs/taro"
-import {View, Image, Text,Input} from "@tarojs/components"
+import {View, Image, Text,Input,Checkbox } from "@tarojs/components"
 import './index.scss'
 import { AtInput  } from 'taro-ui'
 import GoldInfo from "@/pages/gold/home/components/goldinfo"
@@ -8,7 +8,10 @@ import GoldInfo from "@/pages/gold/home/components/goldinfo"
 import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
-import {goldPrice,goldTax} from '../api'
+import {goldPrice,goldTax,goldBuy} from '../api'
+import PayPassword from "@/components/PayPassword";
+import {setParams} from "@/pages/success/store/action";
+import checked from "dist/pages/tab/Cart/components/checked"
 
 
 @connect(({gold,user}) => ({
@@ -19,6 +22,7 @@ import {goldPrice,goldTax} from '../api'
   setGoldId: (data) => dispatch(goldTypeFun(data)),
   setBarPrice: (data) => dispatch(barPriceFun(data)),
   setSandPrice: (data) => dispatch(sandPriceFun(data)),
+  setParams: (data) => dispatch(setParams(data))
 }))
 
 
@@ -38,7 +42,9 @@ export default class GoldHome extends Component {
     this.state = {
       inpNum:'',
       timeInp:null,
-      taxList:{}
+      taxList:{},
+      showCode:false,
+      checked: false
     }
   }
 
@@ -47,26 +53,28 @@ export default class GoldHome extends Component {
   }
 
   tabChange=(id)=>{
+    this.setState({inpNum:'',taxList:{}});
     this.props.setGoldId(id);
     this.getPrice();
   }
 
   //输入数量
   handleChange=(value,event)=>{
-    this.setState({
-      value
-    })
-    if (this.timer){
-      clearTimeout(this.timer);
+    // this.setState({value});
+    if(event.type=="input"){
+      this.setState({inpNum:value})
+      if (this.timer){
+        clearTimeout(this.timer);
+      }
+      if(value){
+        this.timer=setTimeout(()=>{
+          this.getTax(value);
+        },500)
+      }else{
+        this.getTax(0);
+      }
+      return value
     }
-    if(value){
-      this.timer=setTimeout(()=>{
-        this.getTax(value);
-      },500)
-    }else{
-      this.getTax(0);
-    }
-    return value
   }
 
   //黄金价格
@@ -86,6 +94,25 @@ export default class GoldHome extends Component {
     this.setState({taxList:res.data})
   }
 
+
+  submitOrder = async (val) => {
+    try{
+      this.setState({ showCode: false})
+      let res= await goldBuy({token:this.props.token,amount:this.state.inpNum,verify_code:val,id:this.props.gold.id});
+      if(res.error_code!=0) return dialog.toast({title: res.message});
+      // 设置成功页面的展示信息
+      let config = {price: res.data.totalAmount, path:{ home: '/pages/tab/Home/index', order: '/pages/gold/record/index'}}
+      await this.props.setParams(config)
+      Taro.redirectTo({url: '/pages/success/index'})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
+  }
+
+  changeNow = ()=>{
+    if (!this.state.checked) return dialog.toast({title: '请阅读并同意协议'});
+    this.state.inpNum&&this.state.checked?this.setState({showCode:true}):'';
+  }
 
   render(){
     return (
@@ -148,20 +175,22 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="agreeWrap">
-          <checkbox-group>
-            <label className="checkLabel">
-                <checkbox></checkbox>
+            <Label className='checkbox-list__label'>
+              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState({checked:!this.state.checked})}>
                 <Text>我已阅读并同意</Text>
                 <Text onClick={()=>Taro.navigateTo({url:'/pages/gold/protocol/index'})} className="file">《黄金兑换协议》</Text>
-            </label>
-          </checkbox-group>
+              </Checkbox>
+            </Label>
         </View>
 
         <View className="goldBnt">
-          <View className="goldBnt-left flex bntNo">立即兑换</View>
-          <View className="goldBnt-right flex">立即回购</View>
+          <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'}
+              onClick = {()=>this.changeNow()}>立即兑换
+          </View>
+          <View className="goldBnt-right flex" onClick={()=>Taro.navigateTo({url:'/pages/gold/record/index'})}>立即回购</View>
         </View>
         <GoldInfo></GoldInfo>
+        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
       </View>
     )
   }

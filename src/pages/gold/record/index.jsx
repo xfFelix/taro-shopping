@@ -95,7 +95,7 @@ export default class GoldRecord extends Component {
 
   render(){
     return(
-      <View>
+      <View className="goldRecord">
         <View className="headFixed">
             <View className="selectWrap">
               {
@@ -163,7 +163,7 @@ export default class GoldRecord extends Component {
                             <View className="gold-bnt" onClick={()=> this.transClick(item,index)}>
                               <Image
                                 className="moreIcon"
-                                src={'https://mall.cocogc.cn/static/images/logo/jd.png'}
+                                src={'https://tmall.cocogc.cn/static/images/weapp/more.png'}
                                 style={item.backFlag?'transform:rotate(180deg)':'transform:rotate(360deg)'}
                                 >
                               </Image>

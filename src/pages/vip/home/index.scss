@@ -1,0 +1,39 @@
+.vipHome{
+  .flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .infoWrap{
+    font-size: 24px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: #313340;
+    .infoLeft{
+      .score{
+        color: #30ce84;
+        margin-left: 10px;
+      }
+    }
+  }
+  .imgWrap{
+    width: 25%;
+    display: inline-block;
+    text-align:center;
+    margin: 40px 0;
+    font-size: 24px;
+    .imgBg{
+      display:inline-flex;
+      background-repeat:no-repeat;
+      width: 80px;
+      height: 80px;
+      background-size:556px 536px;
+      image{
+        width: 100%;
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@ import { reducer as goldReducer } from '@/pages/gold/store'
 import { reducer as orderReducer } from '@/pages/order/list/store'
 import { reducer as addressReducer } from '@/pages/address/store'
 import { reducer as successReducer } from '@/pages/success/store'
+import { reducer as vipReducer } from '@/pages/vip/store'
 import { reducer as oilReducer } from '@/pages/oil/store'
 import { reducer as protocolReducer } from '@/pages/protocol/store'
 import { reducer as lifeReducer } from '@/pages/life/store'
@@ -32,6 +33,7 @@ export default combineReducers({
   order: orderReducer,
   address: addressReducer,
   success: successReducer,
+  vip:vipReducer,
   oil: oilReducer,
   protocol: protocolReducer,
   life: lifeReducer

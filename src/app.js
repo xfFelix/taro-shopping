@@ -21,20 +21,23 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/vip/home/index',
+      'pages/vip/cardType/index',
+      'pages/vip/record/index',
       'pages/life/account/index',
       'pages/oil/apply/index',
       'pages/life/home/index',
       'pages/life/unit/index',
       'pages/life/city/index',
-      'pages/oil/recovery/index',
       'pages/oil/home/index',
+      'pages/oil/recovery/index',
       'pages/oil/order/index',
       'pages/protocol/index',
-      'pages/tab/Home/index',
       'pages/order/stream/index',
       'pages/order/list/index',
       'pages/order/detail/index',
       'pages/order/preview/index',
+      'pages/tab/Home/index',
       'pages/tab/Cart/index',
       'pages/success/index',
       'pages/Login/index',
@@ -48,11 +51,11 @@ class App extends Component {
       'pages/address/list/index',
       'pages/goods/list/index',
       'pages/goods/detail/index',
+      'pages/gold/home/index',
       'pages/gold/protocol/index',
       'pages/gold/protocol/back',
       'pages/gold/buyBack/index',
       'pages/gold/record/index',
-      'pages/gold/home/index'
     ],
     window: {
       backgroundTextStyle: 'light',

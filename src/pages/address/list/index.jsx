@@ -53,7 +53,7 @@ export default class AddressList extends Component{
   }
 
   deleteAddress = async (id) => {
-    let res = await dialog.modal({ content: '是否删除？' })
+    let res = await dialog.({ content: '是否删除？' })
     try {
       if (res) {
         let token = this.props.token
