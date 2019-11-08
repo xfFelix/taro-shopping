@@ -22,10 +22,10 @@ class App extends Component {
   config = {
     pages: [
       'pages/life/account/index',
+      'pages/oil/apply/index',
+      'pages/life/home/index',
       'pages/life/unit/index',
       'pages/life/city/index',
-      'pages/life/home/index',
-      'pages/oil/apply/index',
       'pages/oil/recovery/index',
       'pages/oil/home/index',
       'pages/oil/order/index',

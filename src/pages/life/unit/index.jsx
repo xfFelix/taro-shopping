@@ -57,7 +57,7 @@ export default class lifeHome extends Component{
 
   goAccount = (item) => {
     this.props.setConfig({productNo: item.code, productName: item.com})
-    Taro.navigateTo({url: '/pages/life/account/index'})
+    Taro.redirectTo({url: '/pages/life/account/index'})
   }
 
   render(): any {
