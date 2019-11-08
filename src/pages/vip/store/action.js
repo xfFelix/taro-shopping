@@ -1,4 +1,4 @@
-import {PRODUCT_TYPE,COST_TYPE} from './constants'
+import {PRODUCT_TYPE,COST_TYPE,PRODUCT_ID} from './constants'
 export const productTypeFun = (data) => {
   return {
    type: PRODUCT_TYPE,
@@ -11,3 +11,12 @@ export const costTypeFun = (data) => {
    data: data
   }
 }
+export const productIdFun = (data) => {
+  return {
+   type: PRODUCT_ID,
+   data: data
+  }
+}
+
+
+

@@ -95,7 +95,7 @@ export default class GoldRecord extends Component {
 
   render(){
     return(
-      <View>
+      <View className="goldRecord">
         <View className="headFixed">
             <View className="selectWrap">
               {

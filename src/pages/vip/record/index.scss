@@ -1,0 +1,68 @@
+.vipRecord{
+  .flex{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+
+  }
+  .recordW {
+    padding: 20px 0;
+    .recordLi {
+        border: 1px solid #DEDEDE;
+        background: #fff;
+        border-radius: 10px;
+        margin: 40px 30px;
+        font-size: 26px;
+        box-sizing: border-box;
+        .reName {
+          background: transparent;
+          line-height: 88px;
+          font-size: 26px;
+          color: rgb(74, 74, 74);
+          padding: 0 20px;
+          .see{
+              color: #30ce84;
+              text-decoration: underline;
+              font-size: 24px;
+          }
+        }
+        .reInfoW {
+            background: #F4F4F4;
+            color: rgb(74, 74, 74);
+            border-radius: 0 0 10px 10px;
+            .reInfo {
+              padding: 0 20px 20px 20px;
+              position: relative;
+              border-radius: 0 0 10px 10px;
+              font-size: 24px;
+              .infoInner{
+                padding-top:30px;
+                font-size: 24px;
+              }
+                .total{
+                  position: absolute;
+                  bottom: 30px;
+                  right: 20px;
+                  font-size: 30px;
+                }
+              .changeCode{
+                word-break: break-all;
+              }
+            }
+            .recover{
+              width: 100%;
+              background: #30CE84;
+              color: #fff;
+              text-align: center;
+              line-height: 88px;
+              border-radius:0px 0px 10px 10px; /*no*/
+              font-size: 30px;
+              &.recoverNo{
+                background: #DEDEDE;
+                color: #4A4A4A;
+              }
+            }
+        }
+    }
+  }
+}
