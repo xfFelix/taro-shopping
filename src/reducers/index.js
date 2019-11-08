@@ -16,6 +16,7 @@ import { reducer as successReducer } from '@/pages/success/store'
 import { reducer as vipReducer } from '@/pages/vip/store'
 import { reducer as oilReducer } from '@/pages/oil/store'
 import { reducer as protocolReducer } from '@/pages/protocol/store'
+import { reducer as lifeReducer } from '@/pages/life/store'
 
 export default combineReducers({
   classify,
@@ -34,5 +35,6 @@ export default combineReducers({
   success: successReducer,
   vip:vipReducer,
   oil: oilReducer,
-  protocol: protocolReducer
+  protocol: protocolReducer,
+  life: lifeReducer
 })

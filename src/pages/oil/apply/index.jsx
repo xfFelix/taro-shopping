@@ -1,14 +1,17 @@
 import Taro,{Component} from "@tarojs/taro"
-import {View, Image, Text, Input} from "@tarojs/components"
+import {View, Image, Text, Input, Label} from "@tarojs/components"
 import { AtInput ,AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui"
 import './index.scss'
 import {connect} from "@tarojs/redux"
 import {dialog ,validate} from "@/util/index";
+import {action} from '@/pages/protocol/store'
 
 @connect(({oil,user}) => ({
   token: user.token,
-  info: user.info
+  info: user.info,
+  protocol: oil.protocol
 }), dispatch => ({
+  setProtocol: (data) => dispatch(action.getContentSync(data))
 }))
 
 
@@ -65,6 +68,10 @@ export default class GoldBuyBack extends Component {
     console.log(e)
   }
 
+  goProcotol = () => {
+    this.props.setProtocol(this.props.protocol)
+    Taro.navigateTo({url: '/pages/protocol/index'})
+  }
 
   render(){
     return (
@@ -93,11 +100,11 @@ export default class GoldBuyBack extends Component {
 
         <View className="agreeWrap">
           {/* <checkbox-group> */}
-            <label className="checkLabel" >
-                <checkbox onChange = {this.setState({check:this.state.check})} checked={this.state.check} > </checkbox>
+            <Label className="checkLabel" >
+                <checkbox onChange={this.setState({check:this.state.check})} checked={this.state.check} > </checkbox>
                 <Text>我已阅读并同意</Text>
-                <Text onClick={()=>Taro.navigateTo({url:'/pages/gold/protocol/back'})} className="file">《黄金回购协议》</Text>
-            </label>
+                <Text onClick={()=> this.goProcotol()} className="file">《加油卡回收协议》</Text>
+            </Label>
           {/* </checkbox-group> */}
         </View>
 
