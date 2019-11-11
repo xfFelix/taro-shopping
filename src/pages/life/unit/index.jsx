@@ -13,7 +13,7 @@ import {getUnitList} from './api'
 }), dispatch => ({
   setConfig: (data)=> dispatch(action.setConfigSync(data))
 }))
-export default class lifeHome extends Component{
+export default class lifeUnit extends Component{
 
   config ={
     navigationBarTitleText: '缴费单元',

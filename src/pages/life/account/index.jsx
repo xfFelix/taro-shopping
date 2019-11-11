@@ -18,7 +18,7 @@ import {getContentSync} from "@/pages/protocol/store/action";
   setConfig: (data)=> dispatch(action.setConfigSync(data)),
   getContent: (data) => dispatch(getContentSync(data))
 }))
-export default class lifeHome extends Component{
+export default class lifeAccount extends Component{
 
   config ={
     navigationBarTitleText: '新增缴费账户',

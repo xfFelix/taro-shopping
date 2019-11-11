@@ -21,10 +21,11 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/life/payment/index',
+      'pages/life/account/index',
       'pages/vip/home/index',
       'pages/vip/cardType/index',
       'pages/vip/record/index',
-      'pages/life/account/index',
       'pages/oil/apply/index',
       'pages/life/home/index',
       'pages/life/unit/index',

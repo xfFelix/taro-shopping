@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   config: {
     type: 13,
     grp: 0,
-    pn:'',
+    pn:'1',
     pr:'',
     productNo: 'D19070512',
     productName: '深圳市电费',
