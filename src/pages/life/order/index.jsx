@@ -3,16 +3,13 @@ import {View, Image, Text,Input} from "@tarojs/components"
 import './index.scss'
 import {connect} from "@tarojs/redux"
 import { dialog } from "@/util/index";
-import {action} from '../store'
 import NoData from "@/components/NoData"
+import {getOrderList} from './api'
 
-@connect(({user, oil}) => ({
+@connect(({user, life}) => ({
   token: user.token,
-  list: oil.list,
-  statusList: oil.statusList
+  typeList: life.typeList
 }), dispatch => ({
-  getOrderList: (data) => dispatch(action.getOrderListSync(data)),
-  loadMoreList: (data) => dispatch(action.loadMoreList((data)))
 }))
 export default class GoldRecord extends Component {
   config ={
@@ -24,50 +21,58 @@ export default class GoldRecord extends Component {
   constructor(){
     super(...arguments)
     this.selectList=[
-      {id: 0, name:"直充", value: 1},
-      {id: 1, name:"充值卡", value: 2}
+      {id: '0', name:"全部", value: ''},
+      {id: '1', name:"电费", value: 13},
+      {id: '2', name:"水费", value: 12},
+      {id: '3', name:"燃煤费", value: 14},
+    ]
+    this.statusList = [
+      {id: '0', name:"兑换中", value: 0},
+      {id: '1', name:"兑换成功", value: 1},
+      {id: '2', name:"兑换失败", value: 2}
     ]
   }
 
   state = {
-    type: 2,
-    offset: 1,
-    size: 10
+    type: '',
+    offset: 0,
+    size: 10,
+    list: [
+    ]
   }
 
   componentWillMount() { //将要装载
     let token = this.props.token
     if (!token) return Taro.redirectTo({url: '/pages/Login/index'})
-    // this.getList()
+    this.getList()
   }
 
-  getList = () => {
+  getList = async () => {
     let token = this.props.token
-    const { type, offset, size } = this.state
-    let config = {token, type, offset, rows: size}
-    this.props.getOrderList(config)
+    const { offset, type } = this.state
+    let config = {token, start: offset}
+    if (type) {
+      config.type = type
+    }
+    const {data} = await getOrderList(config)
+    if (data && data.length) {
+      this.setState(pre => ({list: [...pre.list, ...data]}))
+    }
   }
 
   onReachBottom(){
-    this.setState(prevState=>({offset: prevState.offset + 10}),()=>{
-      let token = this.props.token
-      const { type, offset, size } = this.state
-      let config = {token, type, offset, rows: size}
-      this.props.loadMoreList(config);
+    this.setState(prevState=>({offset:prevState.offset + 10}),()=>{
+      this.getList();
     })
   }
 
   selectType = async (item) => {
-    this.setState({type: item.value},()=> this.getList() )
+    this.setState({type: item.value, list: []}, () => this.getList())
   }
 
   statusFilter = (status) => {
-    const statusOption = this.props.statusList.reduce((pre, cur) => {
-      if (this.state.type == 1) {
-        pre[cur.value] = cur.label
-      } else {
-        pre[cur.value] = cur.label2
-      }
+    const statusOption = this.statusList.reduce((pre, cur) => {
+      pre[cur.value] = cur.name
       return pre
     }, {})
     return statusOption[status]
@@ -98,22 +103,19 @@ export default class GoldRecord extends Component {
         <View className="recordW">
           <View className="recordUl">
             {
-              this.props.list && this.props.list.length ? this.props.list.map((item,index)=>{
+              this.state.list && this.state.list.length ? this.state.list.map((item,index)=>{
                 return(
                   <View key={index} className="recordLi">
                     <View className="reName flex">
-                      <View>产品名称：{item.cardUser}</View>
+                      <View>产品名称：{item.cardBank + '元' + this.findNameByType(item.cardSubBank) + '直充'}</View>
                       <View>{this.statusFilter(item.status)}</View>
                     </View>
 
                     <View className="reInfoW">
                       <View className="reInfo">
-                        <View className="infoInner">订单编号：{item.idUrl}</View>
-                        <View className="infoInner">时间：{item.orderTime}</View>
-                        {this.state.type == 1 && <View className="infoInner">充值账号：{item.cardNum}</View>}
-                        {this.state.type == 2 && <View className="infoInner">卡号：{item.idBackUrl}</View>}
-                        {this.state.type == 2 && <View className="infoInner">卡密：{item.memo}</View>}
-                        <View className="infoInner">服务费：{item.serviceFee.toFixed(2)}</View>
+                        <View className="infoInner">时间：{item.addDate}</View>
+                        <View className="infoInner">充值账号：{item.cardNum}</View>
+                        <View className="infoInner">售价：{(item.repaymentAmount + item.serviceFee).toFixed(2)}</View>
                         <View className="total">合计：{item.totalAmount}</View>
                       </View>
                     </View>
@@ -126,5 +128,13 @@ export default class GoldRecord extends Component {
       </View>
 
     )
+  }
+
+  findNameByType(id) {
+    const filter = this.props.typeList.reduce((pre, cur) => {
+      pre[cur.type] = cur.name
+      return pre
+    }, {})
+    return filter[+id]
   }
 }

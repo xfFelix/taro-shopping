@@ -41,6 +41,18 @@ export const getOrderListSync = ({ token= '', offset= 1, rows= 10, type= 1}={}) 
   }
 }
 
+export const loadMoreList = ({ token= '', offset= 1, rows= 10, type= 1}={}) => {
+  return async dispatch => {
+    try {
+      const { data } = await getOrderList({ token, offset, rows, type})
+      dispatch(loadMore(data))
+    } catch (e) {
+      await dialog.toast({title: e.message})
+      throw new Error(e.message)
+    }
+  }
+}
+
 export const getRecoveryListSync = ({ token= '', offset= 1, rows= 10}={}) => {
   return async dispatch => {
     try {
@@ -60,6 +72,11 @@ export const setRecoveryList = (data) => ({
 
 export const setOrderList = (data) => ({
   type: constant.GET_ORDER_LIST,
+  data
+})
+
+export const loadMore = (data) => ({
+  type: constant.LOAD_MORE_LIST,
   data
 })
 

@@ -84,6 +84,7 @@ export default class lifeAccount extends Component{
 
   goNext = () => {
     this.props.setConfig({pn: this.state.value})
+    Taro.navigateTo({url: '/pages/life/payment/index'})
   }
 
   render(): any {

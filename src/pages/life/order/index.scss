@@ -1,0 +1,165 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.selectWrap {
+  height: 72px;
+  background: #373C48;
+  display: flex;
+  .selectOne{
+      flex: 1;
+      text-align: center;
+      color: #fff;
+      height: 100%;
+      font-size: 30px;
+      display: inline-block;
+      .selectName{
+          height: 68px;
+          line-height: 68px;
+          display: inline-block;
+          text-align: center;
+      }
+      &:nth-of-type(2){
+        &::before{
+          color: #b1b1b1;
+          font-size: 18px;
+          content: '';
+          display: inline-block;
+          width: 1px;
+          height: 22px;
+          background: #fff;
+          float: left;
+        }
+      }
+  }
+  .selectActive {
+    color: #30CE84;
+    .selectName {
+        border-bottom: 4px solid #30CE84;
+    }
+  }
+}
+
+.recordW {
+  padding: 88px 0;
+  .recordLi {
+      border: 1px solid #DEDEDE;
+      background: #fff;
+      border-radius: 10px;
+      margin: 40px 30px;
+      font-size: 26px;
+      box-sizing: border-box;
+      .reName {
+        background: transparent;
+        line-height: 88px;
+        font-size: 30px;
+        color: rgb(74, 74, 74);
+        padding: 0 20px;
+        .see{
+            color: #30ce84;
+            text-decoration: underline;
+            font-size: 24px;
+        }
+      }
+      .reInfoW {
+          background: #F4F4F4;
+          color: rgb(74, 74, 74);
+          border-radius: 0 0 10px 10px;
+          .reInfo {
+            padding: 0 20px 20px 20px;
+            position: relative;
+            border-radius: 0 0 10px 10px;
+            .infoInner{
+              padding-top:30px;
+              font-size: 26px;
+            }
+              .total{
+                position: absolute;
+                bottom: 30px;
+                right: 20px;
+                font-size: 30px;
+              }
+          }
+          .recover{
+            width: 100%;
+            background: #30CE84;
+            color: #fff;
+            text-align: center;
+            line-height: 88px;
+            border-radius:0px 0px 10px 10px; /*no*/
+            font-size: 30px;
+            &.recoverNo{
+              background: #DEDEDE;
+              color: #4A4A4A;
+            }
+          }
+      }
+  }
+}
+
+.headFixed {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  background: #373C48;
+}
+
+
+
+
+
+
+.gold-bnt-info{
+  background: #ddd;
+  text-align: left;
+  padding: 0 20px;
+  color: #000;
+  overflow: hidden;
+  transition: 0.5s;
+  position: relative;
+  font-size: 24px;
+  line-height: 40px;
+  .bntInfo{
+    padding: 10px 0;
+  }
+  .bntTop{
+    padding-top: 15px;
+  }
+  .bntBottom{
+    padding-bottom: 15px;
+  }
+
+.backMoney{
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 14px;
+  font-size: 24px;
+}
+
+
+.total{
+    position: absolute;
+    bottom: 6px;
+    right: 14px;
+    font-size: 15px;
+}
+}
+.gold-bnt{
+  background: #373C48;
+  border-radius: 0 0 10px 10px;
+  padding: 0;
+  color: #fff;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.moreIcon{
+  display: inline-block;
+  width: 40px;
+  height:40px;
+  transform:rotate(180deg);
+  transition: 0.5s;
+}

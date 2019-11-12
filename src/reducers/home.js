@@ -5,11 +5,11 @@ const INITIAL_STATE = {
     [
       { imgPath: 'https://mall.cocotc.cn/static/images/home/gold.png', name: '黄金兑换', path: '', id: 1 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/recharge.png', name: '话费充值', path: '', id: 2 },
-      { imgPath: 'https://mall.cocotc.cn/static/images/home/oil.png', name: '加油卡充值', path: '', id: 3 },
+      { imgPath: 'https://mall.cocotc.cn/static/images/home/oil.png', name: '加油卡充值', path: '/pages/oil/home/index', id: 3 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/jd.png', name: '小椰商城', path: '', id: 4 }
     ],
     [
-      { imgPath: 'https://mall.cocotc.cn/static/images/home/life.png', name: '生活缴费', path: '', id: 5 },
+      { imgPath: 'https://mall.cocotc.cn/static/images/home/life.png', name: '生活缴费', path: '/pages/life/home/index', id: 5 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/vip.png', name: '会员卡券', path: '', id: 6 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/travel.png', name: '海南旅游', path: '', id: 7 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/food.png', name: '海南特产', path: '', id: 8 }

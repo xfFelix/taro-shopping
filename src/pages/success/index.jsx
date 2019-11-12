@@ -23,11 +23,24 @@ export default class Success extends Component{
     super(...arguments)
   }
 
-  goPath = (path) => {
+  goHome = (path) => {
     if (/\/pages\/tab\/Home\/index/.test(path)) {
       return Taro.switchTab({url:path})
     }
-    Taro.navigateTo({url: path})
+    let currentPage = Taro.getCurrentPages().length
+    Taro.navigateBack({delta: currentPage - 2})
+  }
+
+  goOrder = (path) => {
+    if (/\/pages\/order\/list\/index/.test(path)) {
+      return Taro.switchTab({url: '/pages/tab/User/index'}).then(() => {
+        Taro.navigateTo({url: path})
+      })
+    }
+    let currentPage = Taro.getCurrentPages().length
+    Taro.navigateBack({delta: currentPage - 2}).then(() => {
+      Taro.navigateTo({url: path})
+    })
   }
 
   render(): any {
@@ -42,8 +55,8 @@ export default class Success extends Component{
           </View>
         </View>
         <View className={styles.btnWrapper}>
-          <Button className={`${styles.btn} ${styles.home}`} onClick={() => this.goPath(this.props.path.home)}>回到首页</Button>
-          <Button className={`${styles.btn} ${styles.order}`} onClick={() => this.goPath(this.props.path.order)}>查看订单</Button>
+          <Button className={`${styles.btn} ${styles.home}`} onClick={() => this.goHome(this.props.path.home)}>回到首页</Button>
+          <Button className={`${styles.btn} ${styles.order}`} onClick={() => this.goOrder(this.props.path.order)}>查看订单</Button>
         </View>
         <View className={styles.more}>
           <View className={styles.title}>更多兑换</View>

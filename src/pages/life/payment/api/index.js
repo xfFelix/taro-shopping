@@ -8,8 +8,16 @@ export const getBill = (data) => fetch({
   data
 })
 
+// 获取 价格
 export const getTax = (data) => fetch({
   url: `${INFO_URL}/live/tax`,
+  method: 'post',
+  data
+})
+
+// 支付
+export const payment = (data) => fetch({
+  url: `${INFO_URL}/live/pay`,
   method: 'post',
   data
 })

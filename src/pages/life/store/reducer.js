@@ -15,11 +15,11 @@ const INITIAL_STATE = {
   config: {
     type: 13,
     grp: 0,
-    pn:'1',
+    pn:'',
     pr:'',
-    productNo: 'D19070512',
-    productName: '深圳市电费',
-    city: '深圳'
+    productNo: '',
+    productName: '',
+    city: ''
   },
   question: [
     {
