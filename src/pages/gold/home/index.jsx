@@ -3,10 +3,10 @@ import {View, Image, Text,Input,Checkbox } from "@tarojs/components"
 import './index.scss'
 import { AtInput  } from 'taro-ui'
 import GoldInfo from "@/pages/gold/home/components/goldinfo"
+import { dialog, filter } from '@/util'
 
 
 import {connect} from "@tarojs/redux"
-import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax,goldBuy} from '../api'
 import PayPassword from "@/components/PayPassword";
@@ -40,9 +40,14 @@ export default class GoldHome extends Component {
       { id: 1, name: "金砂", show:true }
     ],
     this.state = {
-      inpNum:'',
+      inpNum:0.00,
       timeInp:null,
-      taxList:{},
+      taxList:{
+        amount:0,
+        service_fee:0,
+        tax_total:0,
+        total:0
+      },
       showCode:false,
       checked: false
     }
@@ -168,10 +173,10 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="msg">
-          <View>金条价格<Text>{this.state.taxList.amount}</Text></View>
-          <View>服务费<Text>{this.state.taxList.service_fee}</Text></View>
-          <View>税费<Text>{this.state.taxList.tax_total}</Text></View>
-          <View>合计<Text>{this.state.taxList.total}</Text></View>
+          <View>金条价格<Text>{filter.toDecimal2(this.state.taxList.amount)}</Text></View>
+          <View>服务费<Text>{filter.toDecimal2(this.state.taxList.service_fee)}</Text></View>
+          <View>税费<Text>{filter.toDecimal2(this.state.taxList.tax_total)}</Text></View>
+          <View>合计<Text>{filter.toDecimal2(this.state.taxList.total)}</Text></View>
         </View>
 
         <View className="agreeWrap">

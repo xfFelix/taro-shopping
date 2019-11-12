@@ -21,6 +21,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/gold/home/index',
       'pages/vip/home/index',
       'pages/vip/cardType/index',
       'pages/vip/record/index',
@@ -51,7 +52,6 @@ class App extends Component {
       'pages/address/list/index',
       'pages/goods/list/index',
       'pages/goods/detail/index',
-      'pages/gold/home/index',
       'pages/gold/protocol/index',
       'pages/gold/protocol/back',
       'pages/gold/buyBack/index',
