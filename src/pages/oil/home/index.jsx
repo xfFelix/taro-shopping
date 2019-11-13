@@ -96,7 +96,7 @@ export default class OrderList extends Component{
     let config = {rechargeType, oilCardType: type,cardNum: number, code, faceValue: price, token}
     await this.props.submit(config)
     // 设置成功信息
-    let params = {price: this.props.total, path:{ home: '/pages/oil/home/index', order: '/pages/order/list/index'}}
+    let params = {price: this.props.total, path:{ home: '/pages/oil/home/index', order: '/pages/oil/order/index'}}
     await this.props.setParams(params)
     Taro.redirectTo({url: '/pages/success/index'})
   }
@@ -144,7 +144,7 @@ export default class OrderList extends Component{
             className={styles.exchange}
             onClick={()=> this.onShowType()}
           >立即兑换</View>
-          <View className={styles.recovery}>立即回收</View>
+          <View className={styles.recovery} onClick={() => Taro.navigateTo({url: '/pages/oil/recovery/index'})}>立即回收</View>
         </View>
         {/* type类型选择 1 中石化 2 中石油 */}
         <AtActionSheet isOpened={this.state.showType} cancelText='取消' title='选择加油卡类型' onCancel={() =>this.onClose()}>

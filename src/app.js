@@ -21,8 +21,11 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/oil/order/index',
       'pages/tab/Home/index',
+      'pages/oil/home/index',
+      'pages/oil/apply/index',
+      'pages/oil/recovery/index',
+      'pages/oil/order/index',
       'pages/life/home/index',
       'pages/life/order/index',
       'pages/life/payment/index',
@@ -30,11 +33,8 @@ class App extends Component {
       'pages/vip/home/index',
       'pages/vip/cardType/index',
       'pages/vip/record/index',
-      'pages/oil/apply/index',
       'pages/life/unit/index',
       'pages/life/city/index',
-      'pages/oil/home/index',
-      'pages/oil/recovery/index',
       'pages/protocol/index',
       'pages/order/stream/index',
       'pages/order/list/index',

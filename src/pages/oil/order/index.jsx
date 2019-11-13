@@ -1,5 +1,5 @@
 import Taro,{Component} from "@tarojs/taro"
-import {View, Image, Text,Input} from "@tarojs/components"
+import {View, Text, Button} from "@tarojs/components"
 import './index.scss'
 import {connect} from "@tarojs/redux"
 import { dialog } from "@/util/index";
@@ -30,7 +30,7 @@ export default class GoldRecord extends Component {
   }
 
   state = {
-    type: 2,
+    type: 1,
     offset: 1,
     size: 10
   }
@@ -38,7 +38,7 @@ export default class GoldRecord extends Component {
   componentWillMount() { //将要装载
     let token = this.props.token
     if (!token) return Taro.redirectTo({url: '/pages/Login/index'})
-    // this.getList()
+    this.getList()
   }
 
   getList = () => {
@@ -58,7 +58,7 @@ export default class GoldRecord extends Component {
   }
 
   selectType = async (item) => {
-    this.setState({type: item.value},()=> this.getList() )
+    this.setState({type: item.value, offset: 1},()=> this.getList() )
   }
 
   statusFilter = (status) => {
@@ -71,6 +71,10 @@ export default class GoldRecord extends Component {
       return pre
     }, {})
     return statusOption[status]
+  }
+
+  goApply = (id) => {
+    Taro.navigateTo({url: '/pages/oil/apply/index?id=' + id})
   }
 
   render(){
@@ -105,7 +109,6 @@ export default class GoldRecord extends Component {
                       <View>产品名称：{item.cardUser}</View>
                       <View>{this.statusFilter(item.status)}</View>
                     </View>
-
                     <View className="reInfoW">
                       <View className="reInfo">
                         <View className="infoInner">订单编号：{item.idUrl}</View>
@@ -117,6 +120,7 @@ export default class GoldRecord extends Component {
                         <View className="total">合计：{item.totalAmount}</View>
                       </View>
                     </View>
+                    {this.state.type == 2 && <Button className={'btn-recovery'} disabled={item.status!=0} onClick={() => this.goApply(item.id)}>立即回收</Button>}
                   </View>
                 )
               }) : <NoData></NoData>

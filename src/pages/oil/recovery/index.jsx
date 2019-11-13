@@ -11,7 +11,8 @@ import NoData from "@/components/NoData"
   list: oil.recoveryList,
   statusList: oil.statusList
 }), dispatch => ({
-  getOrderList: (data) => dispatch(action.getRecoveryListSync(data))
+  getOrderList: (data) => dispatch(action.getRecoveryListSync(data)),
+  loadMoreList: (data) => dispatch(action.loadMoreRecoveryListSync(data))
 }))
 export default class GoldRecord extends Component {
   config ={
@@ -43,8 +44,11 @@ export default class GoldRecord extends Component {
   }
 
   onReachBottom(){
-    this.setState(prevState=>{start:prevState.start++},()=>{
-      this.getLogs();
+    this.setState(prevState=>({offset: prevState.offset + prevState.size}),()=>{
+      let token = this.props.token
+      const { type, offset, size } = this.state
+      let config = {token, type, offset, rows: size}
+      this.props.loadMoreList(config)
     })
   }
 
@@ -80,7 +84,7 @@ export default class GoldRecord extends Component {
                         <View className="total">合计：{item.totalAmount}</View>
                       </View>
                     </View>
-                    <Button disabled={item.status==0 ? true : false} className={'recovery'}>立即回收</Button>
+                    <Button className={'recovery'} onClick={() => Taro.navigateTo({url: '/pages/oil/apply/index?id='+item.id})}>立即回收</Button>
                   </View>
                 )
               }) : <NoData></NoData>
