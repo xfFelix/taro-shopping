@@ -21,6 +21,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/travel/home/index',
       'pages/tab/Home/index',
       'pages/oil/home/index',
       'pages/oil/apply/index',
