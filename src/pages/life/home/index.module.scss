@@ -12,6 +12,30 @@
       color: #30ce84;
     }
   }
+  .container{
+    box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
+    border-radius: 10px;
+    .title{
+      padding: 20px 30px;
+      font-size: 28px;
+    }
+    .content{
+      border-top: 1px solid #eef1f6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 20px 40px 40px;
+      image{
+        width: 80px;
+        height: 80px;
+      }
+      .info{
+        font-size: 28px;
+        margin-right: 277px;
+      }
+      .right{}
+    }
+  }
   .payWrap{
     display: flex;
     height: 200px;

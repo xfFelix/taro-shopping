@@ -46,10 +46,20 @@ export default (state=INITIAL_STATE, action) => {
         ...state,
         list: action.data
       }
+    case constant.LOAD_MORE_LIST:
+      return{
+        ...state,
+        list: [...state.list, ...action.data]
+      }
     case constant.GET_RECOVERY_LIST:
       return {
         ...state,
         recoveryList: action.data
+      }
+    case constant.LOAD_MORE_RECOVERY_LIST:
+      return {
+        ...state,
+        recoveryList: [...state.recoveryList, ...action.data]
       }
     default:
       return state

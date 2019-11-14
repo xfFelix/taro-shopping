@@ -5,7 +5,9 @@ import {connect} from "@tarojs/redux"
 import { action } from '../store'
 import { AtActivityIndicator } from 'taro-ui'
 import {dialog} from "@/util/index"
-import {getBill, getTax} from './api'
+import {getBill, getTax, payment} from './api'
+import PayPassword from "@/components/PayPassword"
+import {setParams} from "@/pages/success/store/action";
 
 @connect(({user, life}) => ({
   token: user.token,
@@ -14,6 +16,7 @@ import {getBill, getTax} from './api'
   typeList: life.typeList,
 }), dispatch => ({
   setConfig: (data)=> dispatch(action.setConfigSync(data)),
+  goSuccess: (data) => dispatch(setParams(data))
 }))
 export default class lifePayment extends Component{
 
@@ -30,7 +33,8 @@ export default class lifePayment extends Component{
     arrears: '0.00', // 欠费
     balance: '0.00', // 余额
     sale: 0,
-    amount: 0
+    amount: 0,
+    showCode: false
   }
 
   constructor(){
@@ -101,6 +105,20 @@ export default class lifePayment extends Component{
   recharge = () => {
     let pr = + this.state.value
     if (!pr || pr < 5) return dialog.toast({title: '请输入正确的金额'})
+    this.setState({showCode: true})
+  }
+
+  handlerConfirm = async (val) => {
+    try {
+      const {token, config} = this.props
+      const { grp, type, pn, productNo} = config
+      let params = { token, grp, pn, pr: this.state.value, bt: type, productNo, verify_code: val}
+      const {data} = await payment(params)
+      this.props.goSuccess({price:this.state.amount, path: { home: '/pages/life/home/index', order: '/pages/life/order/index'}})
+      Taro.navigateTo({url: '/pages/success/index'})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
   }
 
   render(): any {
@@ -156,6 +174,11 @@ export default class lifePayment extends Component{
           </View>
           <Button disabled={!this.state.value} className={styles.recharge} onClick={() => this.recharge()}>立即充值</Button>
         </View>
+        {this.state.showCode && <PayPassword
+          isClosed
+          onBack={() => this.setState({showCode: false})}
+          onConfirm={(val) => this.handlerConfirm(val)}>
+        </PayPassword>}
       </View>
     )
   }

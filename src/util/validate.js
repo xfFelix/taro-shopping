@@ -11,7 +11,7 @@ export const IsMobile = mobile => {
  * @param {*} mobile 手机号
  */
 export const IsChinaMobile =  (mobile)=> {
-  var reg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+  var reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
   if (reg.test(mobile)) {
       return true
   } else {

@@ -49,6 +49,12 @@ class Home extends Component {
     }
   }
 
+  goApplication = (path) => {
+    if (path) {
+      Taro.navigateTo({url: path})
+    }
+  }
+
   render() {
     const { list, swiperList, hotList, newList } = this.props
     return (
@@ -89,7 +95,7 @@ class Home extends Component {
                     {
                       items.map((item, i) => {
                         return (
-                          <View key={item.id} className='home-list-column' onClick={() => Taro.navigateTo({url: '/pages/Login/index?redirect=1'})}>
+                          <View key={item.id} className='home-list-column' onClick={() => this.goApplication(item.path)}>
                             <Image src={item.imgPath} className='home-list-column-img'></Image>
                             <Text className='home-list-column-text'>{item.name}</Text>
                           </View>

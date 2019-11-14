@@ -6,8 +6,9 @@
 .selectWrap {
   height: 72px;
   background: #373C48;
+  display: flex;
   .selectOne{
-      width: 50%;
+      flex: 1;
       text-align: center;
       color: #fff;
       height: 100%;
@@ -15,7 +16,6 @@
       display: inline-block;
       .selectName{
           height: 68px;
-          width: 220px;
           line-height: 68px;
           display: inline-block;
           text-align: center;
@@ -95,14 +95,6 @@
             }
           }
       }
-    .btn-recovery{
-      background: #30ce84;
-      color: #ffffff;
-      &[disabled]{
-        color: #4a4a4a;
-        background: #dedede;
-      }
-    }
   }
 }
 
