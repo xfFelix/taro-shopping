@@ -43,6 +43,9 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 }
                 reject(new Error(data.message))
                 break
+                case 4:
+                  resolve(data)
+                  break
               case 7:
                 resolve(data)
                 break

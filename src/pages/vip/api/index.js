@@ -25,8 +25,7 @@ export const vipSubmit= (data) => fetch({
 
 //会员卡券订单列表
 export const vipOrderList= (data) => fetch({
-  // url: `${MALL_URL}/api/ticket/mbscard/getOrderList`,
-  url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/a15507243990475aa3bc.json',
+  url: `${MALL_URL}/api/ticket/mbscard/getOrderList`,
   method: 'POST',
   data
 })

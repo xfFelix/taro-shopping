@@ -17,6 +17,7 @@ import { reducer as vipReducer } from '@/pages/vip/store'
 import { reducer as oilReducer } from '@/pages/oil/store'
 import { reducer as protocolReducer } from '@/pages/protocol/store'
 import { reducer as lifeReducer } from '@/pages/life/store'
+import { reducer as phoneReducer } from '@/pages/phone/store'
 
 export default combineReducers({
   classify,
@@ -36,5 +37,6 @@ export default combineReducers({
   vip:vipReducer,
   oil: oilReducer,
   protocol: protocolReducer,
-  life: lifeReducer
+  life: lifeReducer,
+  phone:phoneReducer
 })

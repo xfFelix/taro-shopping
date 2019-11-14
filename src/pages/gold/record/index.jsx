@@ -2,9 +2,12 @@ import Taro,{Component} from "@tarojs/taro"
 import {View, Image, Text,Input} from "@tarojs/components"
 import './index.scss'
 import {connect} from "@tarojs/redux"
-import {dialog} from "@/util/index";
+import { dialog, filter } from '@/util'
 import {backInfoFun} from "@/pages/gold/store/action"
-import {goldLog,goldPrice} from '../api'
+import {goldLog,goldPrice,goldCode} from '../api'
+import PayPassword from "@/components/PayPassword";
+import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui";
+import NoData from "@/components/NoData"
 
 @connect(({gold,user}) => ({
   gold,
@@ -29,7 +32,12 @@ export default class GoldRecord extends Component {
     ],
     this.state = {
       logsList:[],
-      start:0
+      start:0,
+      showCode:false,
+      isOpened:false,
+      goldChangeVal:'',
+      seeId:'',
+      allLoadFlag:false
     }
   }
 
@@ -64,7 +72,7 @@ export default class GoldRecord extends Component {
     })
     this.setState({logsList:this.state.logsList.concat(res.data)});
     if(res.data.length<10){
-      dialog.toast({title: '没有更多了'})
+      this.setState({allLoadFlag:true})
     }
   }
 
@@ -82,16 +90,27 @@ export default class GoldRecord extends Component {
     Taro.navigateTo({url:'/pages/gold/buyBack/index'})
   }
 
-  dialogPwd=(item)=>{
-
-  }
-
-
   onReachBottom(){
-    this.setState(prevState=>{start:prevState.start++},()=>{
-      this.getLogs();
-    })
+    if(this.state.allLoadFlag==false){
+      this.setState(prevState=>{start:prevState.start++},()=>{
+        this.getLogs();
+      })
+    }else{
+      dialog.toast({title: '没有更多了'})
+    }
   }
+
+
+  //得到黄金兑换码
+  submitOrder=async(val)=>{
+    let res= await goldCode({id: this.state.seeId,token:this.props.token,verify_code:val});
+    this.setState({showCode:false});
+    if(res.error_code!=0){
+      return dialog.toast({title: res.message});
+    }
+    this.setState({isOpened:true,goldChangeVal:res.data})
+  }
+
 
   render(){
     return(
@@ -118,13 +137,13 @@ export default class GoldRecord extends Component {
         <View className="recordW">
             <View className="recordUl">
               {
-                this.state.logsList.map((item,index)=>{
+                this.state.logsList&&this.state.logsList.length?(this.state.logsList.map((item,index)=>{
                   return(
                     <View key={index} className="recordLi">
                        <View className="reName flex">
                           {item.code?
                             ( <View>卡密：{item.code.length>14?item.code.substring(item.code.length-14):item.code}
-                                <Text className="see" onClick={this.dialogPwd(item.id)}>查看</Text>
+                                <Text className="see" onClick={()=>this.setState({showCode:true,seeId:item.id})}>查看</Text>
                               </View>):
                             ( <Text>卡密：— —</Text>)
                           }
@@ -146,10 +165,10 @@ export default class GoldRecord extends Component {
                         <View className="reInfo">
                           <View className="infoInner">时间：{item.addDate}</View>
                           <View className="infoInner">数量：{this.props.backInfo.type==0?Math.round(item.weight/10)+'根':Math.round(item.weight/0.2)+'颗'}</View>
-                          <View className="infoInner">{this.props.backInfo.type==0?'金条价格':'金砂价格'}：{item.repaymentAmount}</View>
-                          <View className="infoInner">服务费：{item.serviceFee}</View>
-                          <View className="infoInner">税费：{item.taxFee}</View>
-                          <View className="total">合计：{item.totalAmount}</View>
+                          <View className="infoInner">{this.props.backInfo.type==0?'金条价格':'金砂价格'}：{filter.toDecimal2(item.repaymentAmount)}</View>
+                          <View className="infoInner">服务费：{filter.toDecimal2(item.serviceFee)}</View>
+                          <View className="infoInner">税费：{filter.toDecimal2(item.taxFee)}</View>
+                          <View className="total">合计：{filter.toDecimal2(item.totalAmount)}</View>
                         </View>
                         {(item.code && (item.buyInfo == null))?<View className="recover" onClick={()=>this.goBuyBack(item)}>立即回购</View>:''}
                         {item.buyInfo != null && item.buyInfo?
@@ -157,7 +176,7 @@ export default class GoldRecord extends Component {
                             <View className="gold-bnt-info" style={item.backFlag?'height:auto':'height:0'}>
                               <View className="bntInfo bntTop">银行卡号：{item.buyInfo.cardNum}</View>
                               <View className="bntInfo">开户行：{item.buyInfo.bank}</View>
-                              <View className="backMoney">回购金额：{item.buyInfo.goldPrice*item.weight}</View>
+                              <View className="backMoney">回购金额：{filter.toDecimal2(item.buyInfo.goldPrice*item.weight)}</View>
                               <View className="bntInfo bntBottom">姓名：{item.buyInfo.name}</View>
                             </View>
                             <View className="gold-bnt" onClick={()=> this.transClick(item,index)}>
@@ -174,9 +193,21 @@ export default class GoldRecord extends Component {
                     </View>
                   )
                 })
+                ): (<Image src={'https://mall.cocotc.cn/static/images/home/nothing.png'} className="notingImg"></Image>)
               }
             </View>
         </View>
+
+        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
+          <AtModal isOpened={this.state.isOpened}>
+            <AtModalContent>
+              <View className="dig-title">您的黄金兑换码是：\n</View>
+              <View className="dig-content">{this.state.goldChangeVal}</View>
+            </AtModalContent>
+            <AtModalAction>
+              <Button onClick={()=>{this.setState({isOpened:false})}}>确定</Button>
+            </AtModalAction>
+          </AtModal>
     </View>
 
     )

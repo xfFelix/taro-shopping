@@ -24,8 +24,8 @@ export const goldBuy = (data) => fetch({
 
 //黄金购买记录
 export const goldLog = (data) => fetch({
-  // url: `${INFO_URL}/user/golds`,
-  url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/d617c90238bff1f9bc08.json',
+  url: `${INFO_URL}/user/golds`,
+  // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/d617c90238bff1f9bc08.json',
   method: 'post',
   data
 })

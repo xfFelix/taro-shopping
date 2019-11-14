@@ -3,10 +3,10 @@ import {View, Image, Text,Input,Checkbox } from "@tarojs/components"
 import './index.scss'
 import { AtInput  } from 'taro-ui'
 import GoldInfo from "@/pages/gold/home/components/goldinfo"
+import { dialog, filter } from '@/util'
 
 
 import {connect} from "@tarojs/redux"
-import {dialog} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax,goldBuy} from '../api'
 import PayPassword from "@/components/PayPassword";
@@ -42,7 +42,12 @@ export default class GoldHome extends Component {
     this.state = {
       inpNum:'',
       timeInp:null,
-      taxList:{},
+      taxList:{
+        amount:0,
+        service_fee:0,
+        tax_total:0,
+        total:0
+      },
       showCode:false,
       checked: false
     }
@@ -60,7 +65,6 @@ export default class GoldHome extends Component {
 
   //输入数量
   handleChange=(value,event)=>{
-    // this.setState({value});
     if(event.type=="input"){
       this.setState({inpNum:value})
       if (this.timer){
@@ -94,7 +98,7 @@ export default class GoldHome extends Component {
     this.setState({taxList:res.data})
   }
 
-
+  //下单
   submitOrder = async (val) => {
     try{
       this.setState({ showCode: false})
@@ -168,15 +172,15 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="msg">
-          <View>金条价格<Text>{this.state.taxList.amount}</Text></View>
-          <View>服务费<Text>{this.state.taxList.service_fee}</Text></View>
-          <View>税费<Text>{this.state.taxList.tax_total}</Text></View>
-          <View>合计<Text>{this.state.taxList.total}</Text></View>
+          <View>金条价格<Text>{filter.toDecimal2(this.state.taxList.amount)}</Text></View>
+          <View>服务费<Text>{filter.toDecimal2(this.state.taxList.service_fee)}</Text></View>
+          <View>税费<Text>{filter.toDecimal2(this.state.taxList.tax_total)}</Text></View>
+          <View>合计<Text>{filter.toDecimal2(this.state.taxList.total)}</Text></View>
         </View>
 
         <View className="agreeWrap">
             <Label className='checkbox-list__label'>
-              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState({checked:!this.state.checked})}>
+              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState(pre => ({checked: !pre.checked}))}>
                 <Text>我已阅读并同意</Text>
                 <Text onClick={()=>Taro.navigateTo({url:'/pages/gold/protocol/index'})} className="file">《黄金兑换协议》</Text>
               </Checkbox>
