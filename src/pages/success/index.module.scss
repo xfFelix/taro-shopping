@@ -38,6 +38,9 @@
     margin: 30px 60px;
     align-items: center;
     justify-content: space-between;
+    &.center{
+      justify-content: center;
+    }
     .btn{
       width: 42%;
       padding: 10px 50px;

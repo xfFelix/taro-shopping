@@ -1,5 +1,5 @@
 import fetch from './fetch'
-import { INFO_URL, SEARCH_URL, SHOP_URL } from './config'
+import { INFO_URL, SEARCH_URL } from './config'
 import Taro from '@tarojs/taro'
 
 // 登录

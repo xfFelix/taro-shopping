@@ -4,7 +4,7 @@ export const INFO_URL = isDev ? 'https://api.cocotc.cn' : 'https://api.cocotc.cn
 
 export const BASE_URL = isDev ? 'https://shop.cocotc.cn' : 'https://shop.cocotc.cn'
 
-export const SEARCH_URL = isDev ? 'https://search.cocogc.cn' : 'https://search.cocogc.cn'
+export const SEARCH_URL = isDev ? 'https://search.cocogc.cn/v' : 'https://search.cocogc.cn/v'
 
 export const SHOP_URL = isDev ? 'https://shop.cocogc.cn' : 'https://shop.cocogc.cn'
 

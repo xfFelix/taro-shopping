@@ -44,24 +44,25 @@ export default class Success extends Component{
   }
 
   render(): any {
+    const { path, price, list, title } = this.props
     return (
       <View className={styles.wrapper}>
         <View className={styles.container}>
           <Image src={'https://tmall.cocogc.cn/static/images/changeSuccess.jpg'} className={styles.banner}></Image>
-          <Text className={styles.text}>{this.props.title}</Text>
+          <Text className={styles.text}>{title}</Text>
           <View className={styles.number}>
             <Image src={ICON} className={styles.icon}></Image>
-            <Text>{this.props.price}</Text>
+            <Text>{price}</Text>
           </View>
         </View>
-        <View className={styles.btnWrapper}>
-          <Button className={`${styles.btn} ${styles.home}`} onClick={() => this.goHome(this.props.path.home)}>回到首页</Button>
-          <Button className={`${styles.btn} ${styles.order}`} onClick={() => this.goOrder(this.props.path.order)}>查看订单</Button>
+        <View className={!path.order ? `${styles.btnWrapper} ${styles.center}`: styles.btnWrapper}>
+          <Button className={`${styles.btn} ${styles.home}`} onClick={() => this.goHome(path.home)}>回到首页</Button>
+          {path.order && <Button className={`${styles.btn} ${styles.order}`} onClick={() => this.goOrder(path.order)}>查看订单</Button>}
         </View>
         <View className={styles.more}>
           <View className={styles.title}>更多兑换</View>
           <View className={styles.content}>
-            {this.props.list.map(item => {
+            {list.map(item => {
               return (
                 <View className={styles.item} key={item.id + ''}>
                   <Image src={item.imgPath} className={styles.img}></Image>

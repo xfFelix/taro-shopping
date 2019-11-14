@@ -1,0 +1,23 @@
+{
+  "id": "1509754",
+  "name": "小程序",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5771110",
+      "name": "我的",
+      "font_class": "My",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "7730887",
+      "name": "商品详情",
+      "font_class": "shangpinxiangqing",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    }
+  ]
+}

@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     [
       { imgPath: 'https://mall.cocotc.cn/static/images/home/life.png', name: '生活缴费', path: '/pages/life/home/index', id: 5 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/vip.png', name: '会员卡券', path: '', id: 6 },
-      { imgPath: 'https://mall.cocotc.cn/static/images/home/travel.png', name: '海南旅游', path: '', id: 7 },
+      { imgPath: 'https://mall.cocotc.cn/static/images/home/travel.png', name: '海南旅游', path: '/pages/travel/home/index', id: 7 },
       { imgPath: 'https://mall.cocotc.cn/static/images/home/food.png', name: '海南特产', path: '', id: 8 }
     ],
     [

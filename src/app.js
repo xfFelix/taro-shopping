@@ -8,6 +8,7 @@ import configStore from './store'
 
 import './app.scss'
 import './custom-variables.scss'
+import './assets/fonts/iconfont.css'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -21,8 +22,10 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/travel/home/index',
       'pages/tab/Home/index',
+      'pages/travel/home/index',
+      'pages/travel/preview/index',
+      'pages/travel/detail/index',
       'pages/oil/home/index',
       'pages/oil/apply/index',
       'pages/oil/recovery/index',

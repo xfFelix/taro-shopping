@@ -1,0 +1,102 @@
+.wrapper{
+  .banner{
+    width: 100%;
+    height: 500px;
+  }
+  .container{
+    margin-top: -50px;
+    position: relative;
+    z-index: 2;
+    border-radius: 25Px 25Px 0 0;
+    background: #f3f4f6;
+    .info{
+      background: #ffffff;
+      padding: 40px 30px 30px;
+      overflow: hidden;
+      border-radius: 25Px 25Px 0 0;
+      .name{
+        font-size: 30px;
+        min-height: 3em;
+      }
+      .time{
+        font-size: 24px;
+        color: #999;
+        margin-top: 20px;
+        .text{
+          color: #000000;
+        }
+      }
+      .priceWrapper{
+        float: right;
+        width: 160px;
+        height: 150px;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .price{
+          color: #fe5a4c;
+          text-decoration: line-through;
+        }
+        .salePrice{
+          color: red;
+          display: block;
+          padding: 5px;
+          border: 1px solid #000;
+          color: #000000;
+          margin-top: 5px;
+          font-size: 24px;
+        }
+      }
+    }
+    .ticketWrapper{
+      margin: 20px 0;
+      padding: 40px 30px 30px;
+      background: #ffffff;
+      .title{
+        font-size: 30px;
+      }
+      .ticket{
+        margin-top: 30px;
+        background: #f3f4f6;
+        height: 480px;
+        .item{
+          height: 160px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 26px;
+          border-bottom: 1px dashed #999999;
+          padding: 0 40px;
+          &:last-child{
+            border-bottom: none;
+          }
+          .ticketName{
+            flex: 1;
+          }
+          .ticketPrice{
+            flex: 1;
+            color: #fe5a4c;
+            text-decoration: line-through;
+          }
+          .makeOrder{
+            flex: 1;
+            overflow: hidden;
+            .btnPreview{
+              float: right;
+              width: 70%;
+              padding: 5px 0;
+              color: #ffffff;
+              background: #30ce84;
+              border-radius: 50px;
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

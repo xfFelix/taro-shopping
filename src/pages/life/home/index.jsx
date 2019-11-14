@@ -63,6 +63,7 @@ export default class lifeHome extends Component{
 
   render(): any {
     const { info, typeList } = this.props
+    const { list } = this.state
     return (
       <View className={styles.wrapper}>
         {
@@ -71,12 +72,12 @@ export default class lifeHome extends Component{
               <Text>我的缴费</Text>
             </View>
             {
-              Object.keys(this.state.list).map(key => {
+              Object.keys(list).map(key => {
                 return (
                   <View className={styles.container} key={key+ ''}>
                     <View className={styles.title}>{this.findNameByGroup(key)}</View>
                     {
-                      this.state.list[key].map((i,index)=> {
+                      list[key].map((i,index)=> {
                         return (
                           <View className={styles.content} key={index + ''} onClick={() => this.goPayment(i)}>
                             <Image src={this.findImgByType(i.bt)}></Image>

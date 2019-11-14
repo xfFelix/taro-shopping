@@ -1,5 +1,5 @@
 import fetch from '@/api/fetch'
-import { SEARCH_URL, SHOP_URL } from '@/api/config'
+import { SEARCH_URL } from '@/api/config'
 
 // 获取商品列表
 export const getList = (data) => fetch({
