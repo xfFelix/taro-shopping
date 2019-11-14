@@ -21,7 +21,8 @@ export default class VipHome extends Component {
     super(...arguments)
     this.state={
       recordList:[],
-      offset:1
+      offset:1,
+      allLoadFlag:false
     }
   }
 
@@ -35,14 +36,18 @@ export default class VipHome extends Component {
     if(res.code!=1) return dialog.toast({title: res.message});
     this.setState({recordList:this.state.recordList.concat(res.data)});
     if(res.data.length<10){
-      dialog.toast({title: '没有更多了'})
+      this.setState({allLoadFlag:true})
     }
   }
 
   onReachBottom(){
-    this.setState(prevState=>{offset:prevState.offset+=10},()=>{
-      this.getRecord();
-    })
+    if(this.state.allLoadFlag==false){
+      this.setState(prevState=>{offset:prevState.offset+=10},()=>{
+        this.getRecord();
+      })
+    }else{
+      dialog.toast({title: '没有更多了'})
+    }
   }
 
   stateType=(val)=>{
@@ -78,6 +83,7 @@ export default class VipHome extends Component {
          <View className="recordW">
             <View className="recordUl">
               {
+                this.state.recordList&&this.state.recordList.length>1?(
                 this.state.recordList.map((item,index)=>{
                     return(
                       <View className="recordLi" key={index} >
@@ -102,7 +108,7 @@ export default class VipHome extends Component {
                         </View>
                     </View>
                     )
-                })
+                })):(<Image src={'https://mall.cocotc.cn/static/images/home/nothing.png'} className="notingImg"></Image>)
               }
             </View>
         </View>

@@ -4,13 +4,12 @@ import styles from './index.module.scss'
 import {connect} from "@tarojs/redux";
 
 @connect(({protocol}) => ({
-  title: protocol.title,
-  content: protocol.content
+  list: protocol.list,
 }))
 export default class Protocol extends PureComponent {
 
   config = {
-    navigationBarTitleText: '协议'
+    navigationBarTitleText: 'question'
   }
 
   constructor(){
@@ -20,10 +19,18 @@ export default class Protocol extends PureComponent {
   render(){
     return(
         <View className={styles.agreeContentW}>
-            <View className={styles.title}>《{this.props.title}》</View>
-            <Text className={styles.agreeContent}>
-              {this.props.content}
-            </Text>
+          {
+            this.props.list.map((item, index) => {
+              return (
+                <View key={index}>
+                  <View className={styles.title}>《{item.title}》</View>
+                  <Text className={styles.agreeContent}>
+                    {item.content}
+                  </Text>
+                </View>
+              )
+            })
+          }
         </View>
     )}
 }

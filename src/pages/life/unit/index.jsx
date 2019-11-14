@@ -13,7 +13,7 @@ import {getUnitList} from './api'
 }), dispatch => ({
   setConfig: (data)=> dispatch(action.setConfigSync(data))
 }))
-export default class lifeHome extends Component{
+export default class lifeUnit extends Component{
 
   config ={
     navigationBarTitleText: '缴费单元',
@@ -57,7 +57,7 @@ export default class lifeHome extends Component{
 
   goAccount = (item) => {
     this.props.setConfig({productNo: item.code, productName: item.com})
-    Taro.navigateTo({url: '/pages/life/account/index'})
+    Taro.redirectTo({url: '/pages/life/account/index'})
   }
 
   render(): any {

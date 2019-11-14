@@ -30,6 +30,7 @@ export default class lifeHome extends Component{
 
   goUnit = (type) => {
     this.props.setConfig({type})
+    Taro.navigateTo({url: '/pages/life/unit/index'})
   }
 
   render(): any {

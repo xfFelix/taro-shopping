@@ -1,0 +1,92 @@
+@import "../../../styles/mixin/index.scss";
+
+.wrapper{
+  height: 100vh;
+  background: #eef1f6;
+  .item{
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    position: relative;
+    background: #ffffff;
+    &:last-child{
+      border-bottom: none;
+    }
+    .name{
+      display: flex;
+      align-items: center;
+      image{
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .flex{
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .price{
+        color: #30ce84;
+        font-size: 22px;
+        margin-left: 8px;
+      }
+    }
+    input{
+      text-align: right;
+      height: 100%;
+    }
+
+  }
+  .content{
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 20px 30px;
+    .box{
+      position: relative;
+      &:after{
+        @include border-1px(#dedede, bottom);
+      }
+      .line{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0;
+      }
+      .input{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 88px;
+        border: 1px solid #DEDEDE;
+        border-radius: 10px;
+        margin: 30px 30px 10px;
+        box-sizing: border-box;
+        .previous{
+          flex-basis: 163px;
+          height: 100%;
+          color: #cccccc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        input{
+          flex: 1;
+          height: 100%;
+        }
+      }
+    }
+    .recharge{
+      margin: 40px 0;
+      background: #30ce84;
+      color: #ffffff;
+      &:disabled{
+        background: #cccccc;
+        color: rgba(0,0,0,.5);
+      }
+    }
+  }
+}

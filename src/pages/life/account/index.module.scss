@@ -1,22 +1,65 @@
 @import "../../../styles/mixin/index.scss";
 
 .wrapper{
-  padding: 0 30px;
+  height: 100vh;
+  background: #eef1f6;
   .item{
     height: 120px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-right: 50px;
     box-sizing: border-box;
     border-bottom: 1px solid #cccccc;
     position: relative;
-    .point{
-      color: #cccccc;
+    background: #ffffff;
+    &:last-child{
+      border-bottom: none;
     }
-    .right{
-      position: absolute;
-      right: 0;
+    .name{
+      display: flex;
+      align-items: center;
+      image{
+        width: 50px;
+        height: 50px;
+      }
     }
+    .flex{
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .price{
+        color: #30ce84;
+        font-size: 22px;
+        margin-left: 8px;
+      }
+    }
+    input{
+      text-align: right;
+      height: 100%;
+    }
+
+  }
+  .content{
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 0 30px;
+  }
+  .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 24px;
+    .protocol{
+      color: #30ce84;
+    }
+  }
+  .next{
+    background: #30ce84;
+    color: #ffffff;
+    margin: 0 30px;
+    box-sizing: border-box;
   }
 }

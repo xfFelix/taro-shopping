@@ -20,6 +20,9 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
       if (statusCode >= 200 && statusCode < 300) {
         try {
           if (data.hasOwnProperty("error_code")){
+            if (/\/live\/bill/.test(url)) {
+              return resolve(data)
+            }
             let code = data.error_code
             switch (code) {
               case 0:
@@ -40,6 +43,9 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 }
                 reject(new Error(data.message))
                 break
+                case 4:
+                  resolve(data)
+                  break
               case 7:
                 resolve(data)
                 break

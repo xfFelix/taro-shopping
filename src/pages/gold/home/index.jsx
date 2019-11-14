@@ -40,7 +40,7 @@ export default class GoldHome extends Component {
       { id: 1, name: "金砂", show:true }
     ],
     this.state = {
-      inpNum:0.00,
+      inpNum:'',
       timeInp:null,
       taxList:{
         amount:0,
@@ -65,7 +65,6 @@ export default class GoldHome extends Component {
 
   //输入数量
   handleChange=(value,event)=>{
-    // this.setState({value});
     if(event.type=="input"){
       this.setState({inpNum:value})
       if (this.timer){
@@ -99,7 +98,7 @@ export default class GoldHome extends Component {
     this.setState({taxList:res.data})
   }
 
-
+  //下单
   submitOrder = async (val) => {
     try{
       this.setState({ showCode: false})
@@ -181,7 +180,7 @@ export default class GoldHome extends Component {
 
         <View className="agreeWrap">
             <Label className='checkbox-list__label'>
-              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState({checked:!this.state.checked})}>
+              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState(pre => ({checked: !pre.checked}))}>
                 <Text>我已阅读并同意</Text>
                 <Text onClick={()=>Taro.navigateTo({url:'/pages/gold/protocol/index'})} className="file">《黄金兑换协议》</Text>
               </Checkbox>

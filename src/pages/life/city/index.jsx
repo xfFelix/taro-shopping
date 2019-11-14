@@ -60,7 +60,7 @@ export default class lifeCity extends Component{
 
   goUnit = (item) => {
     this.props.setConfig({city: item.name})
-    Taro.navigateBack()
+    Taro.redirectTo({url: '/pages/life/unit/index'})
   }
 
   render(): any {

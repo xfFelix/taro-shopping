@@ -7,7 +7,7 @@ import {backInfoFun} from "@/pages/gold/store/action"
 import {goldLog,goldPrice,goldCode} from '../api'
 import PayPassword from "@/components/PayPassword";
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui";
-import copy from 'copy-to-clipboard';
+import NoData from "@/components/NoData"
 
 @connect(({gold,user}) => ({
   gold,
@@ -37,7 +37,7 @@ export default class GoldRecord extends Component {
       isOpened:false,
       goldChangeVal:'',
       seeId:'',
-      copied: false
+      allLoadFlag:false
     }
   }
 
@@ -72,7 +72,7 @@ export default class GoldRecord extends Component {
     })
     this.setState({logsList:this.state.logsList.concat(res.data)});
     if(res.data.length<10){
-      dialog.toast({title: '没有更多了'})
+      this.setState({allLoadFlag:true})
     }
   }
 
@@ -91,28 +91,26 @@ export default class GoldRecord extends Component {
   }
 
   onReachBottom(){
-    this.setState(prevState=>{start:prevState.start++},()=>{
-      this.getLogs();
-    })
+    if(this.state.allLoadFlag==false){
+      this.setState(prevState=>{start:prevState.start++},()=>{
+        this.getLogs();
+      })
+    }else{
+      dialog.toast({title: '没有更多了'})
+    }
   }
 
 
   //得到黄金兑换码
   submitOrder=async(val)=>{
-    // let res= await goldCode({id: this.state.seeId,token:this.props.token,verify_code:val});
-    // if(res.error_code!=0){
-    //   this.setState({showCode:false});
-    //   dialog.toast({title: res.message});
-    //   return false;
-    // }
-    this.setState({isOpened:true,goldChangeVal:val})
+    let res= await goldCode({id: this.state.seeId,token:this.props.token,verify_code:val});
+    this.setState({showCode:false});
+    if(res.error_code!=0){
+      return dialog.toast({title: res.message});
+    }
+    this.setState({isOpened:true,goldChangeVal:res.data})
   }
 
-
-  handleCopy = () => {
-    const text = '2222';
-    copy(text);
-  }
 
   render(){
     return(
@@ -139,10 +137,9 @@ export default class GoldRecord extends Component {
         <View className="recordW">
             <View className="recordUl">
               {
-                this.state.logsList.map((item,index)=>{
+                this.state.logsList&&this.state.logsList.length?(this.state.logsList.map((item,index)=>{
                   return(
                     <View key={index} className="recordLi">
-                      <Button onClick={()=>{this.handleCopy()}}>复制</Button>
                        <View className="reName flex">
                           {item.code?
                             ( <View>卡密：{item.code.length>14?item.code.substring(item.code.length-14):item.code}
@@ -196,20 +193,21 @@ export default class GoldRecord extends Component {
                     </View>
                   )
                 })
+                ): (<Image src={'https://mall.cocotc.cn/static/images/home/nothing.png'} className="notingImg"></Image>)
               }
             </View>
         </View>
 
         { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
           <AtModal isOpened={this.state.isOpened}>
-            <AtModalHeader>您的黄金兑换码是：</AtModalHeader>
-            <AtModalContent>{this.state.goldChangeVal}</AtModalContent>
+            <AtModalContent>
+              <View className="dig-title">您的黄金兑换码是：\n</View>
+              <View className="dig-content">{this.state.goldChangeVal}</View>
+            </AtModalContent>
             <AtModalAction>
-              <Button onClick={()=>{this.setState({isOpened:false})}}>取消</Button>
-
+              <Button onClick={()=>{this.setState({isOpened:false})}}>确定</Button>
             </AtModalAction>
           </AtModal>
-
     </View>
 
     )

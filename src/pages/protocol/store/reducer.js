@@ -1,8 +1,7 @@
 import { constant } from './index'
 
 const INITIAL_STATE = {
-  title: '',
-  content: ''
+  list: []
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -10,8 +9,7 @@ export default (state=INITIAL_STATE, action) => {
     case constant.SET_CONTENT:
       return {
         ...state,
-        title: action.title,
-        content: action.content
+        list: action.list
       }
     default:
       return state
