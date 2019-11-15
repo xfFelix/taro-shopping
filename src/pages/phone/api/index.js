@@ -24,8 +24,8 @@ export const phoneCharge = (data) => fetch({
 
 //直充记录
 export const phoneLogs = (data) => fetch({
-  // url: `${INFO_URL}/user/phoneLogs`,
-  url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/b3e52d8e6da379ca28ef.json',//直充
+  url: `${INFO_URL}/user/phoneLogs`,
+  // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/b3e52d8e6da379ca28ef.json',//直充
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/13a92b133fe6d2987bcf.json', //卡充
   method: 'POST',
   data

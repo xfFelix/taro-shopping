@@ -9,8 +9,7 @@ import PayPassword from "@/components/PayPassword";
 import NoData from "@/components/NoData"
 
 @connect(({phone,user}) => ({
-  phone,
-  info: user.info,
+  phoneType:phone.phoneType,
   token: user.token,
 }), dispatch => ({
 
@@ -46,6 +45,7 @@ export default class phoneRecord extends Component {
   }
 
   componentWillMount() { //将要装载
+    this.setState({typeId:this.props.phoneType})
     this.getLogs();
   }
 
@@ -143,7 +143,7 @@ export default class phoneRecord extends Component {
                   return(
                     <View key={index} className="recordLi">
                       <View className="reName flex">
-                        <View>产品名称：{item.cardNum==0?item.cardBank+'元话费直充':item.cardBank+'元话费充值卡'}</View>
+                        <View>产品名称：{this.state.typeId==0?item.cardBank+'元话费直充':item.cardBank+'元话费充值卡'}</View>
                         <View>{this.statusInfo(item.status)}</View>
                       </View>
                       <View className="reInfoW">
