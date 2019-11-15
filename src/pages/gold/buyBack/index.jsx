@@ -3,7 +3,7 @@ import {View, Image, Text, Input} from "@tarojs/components"
 import { AtInput ,AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui"
 import './index.scss'
 import {connect} from "@tarojs/redux"
-import {dialog ,validate} from "@/util/index";
+import {dialog ,validate ,filter} from "@/util/index";
 import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldbuyback} from '../api';
 import PayPassword from "@/components/PayPassword";
@@ -35,7 +35,7 @@ export default class GoldBuyBack extends Component {
       cardNum:'',
       bank:'',
       subBank:'',
-      check:false,
+      checked: false,
       isOpened:false,
       showCode:false
     }
@@ -79,13 +79,9 @@ export default class GoldBuyBack extends Component {
     if (!cardNum) return dialog.toast({title: '请输入有效的银行账号！'})
     if (!bank) return dialog.toast({title: '请输入开卡银行！'})
     if (!subBank) return dialog.toast({title: '请输入分行信息！'});
+    if (!this.state.checked) return dialog.toast({title: '请阅读并同意协议'});
     this.setState({showCode:true})
   }
-
-  checkboxChange=(e)=>{
-    console.log(e)
-  }
-
 
   render(){
     return (
@@ -96,8 +92,8 @@ export default class GoldBuyBack extends Component {
             <View className="money-inner">
               <Text className="money">
                 {this.props.backInfo.type==0?
-                  ((this.props.backInfo.barPrice-20)*this.props.backInfo.weight):
-                  ((this.props.backInfo.sandPrice-21)*this.props.backInfo.weight)
+                  filter.toDecimal2((this.props.backInfo.barPrice-20)*this.props.backInfo.weight):
+                  filter.toDecimal2((this.props.backInfo.sandPrice-21)*this.props.backInfo.weight)
                 }
               </Text>
               <Text className="yuan">元</Text>
@@ -113,13 +109,12 @@ export default class GoldBuyBack extends Component {
         </View>
 
         <View className="agreeWrap">
-          {/* <checkbox-group> */}
-            <label className="checkLabel" >
-                <checkbox onChange = {this.setState({check:this.state.check})} checked={this.state.check} > </checkbox>
+          <Label className='checkbox-list__label'>
+              <Checkbox className='checkbox-list__checkbox' checked={this.state.checked} onClick={()=>this.setState(pre => ({checked: !pre.checked}))}>
                 <Text>我已阅读并同意</Text>
                 <Text onClick={()=>Taro.navigateTo({url:'/pages/gold/protocol/back'})} className="file">《黄金回购协议》</Text>
-            </label>
-          {/* </checkbox-group> */}
+              </Checkbox>
+            </Label>
         </View>
 
         <View class="needTime">1-3个工作日内到账，请耐心等待</View>

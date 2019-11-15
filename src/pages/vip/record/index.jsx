@@ -2,7 +2,7 @@ import Taro,{Component} from "@tarojs/taro"
 import {View, Image, Text,Input} from "@tarojs/components"
 import './index.scss'
 import {connect} from "@tarojs/redux"
-import {dialog} from "@/util/index";
+import {dialog,filter} from "@/util/index";
 import { vipOrderList } from '../api';
 
 
@@ -101,9 +101,9 @@ export default class VipHome extends Component {
                             {(item.idUrl.length==30 && item.memo && item.memo!='兑换卡券成功')&& <View className="infoInner changeCode">兑换码：<a href={item.memo}>{item.memo}</a></View>}
                             {(item.idUrl.length==32 && item.cardNum)&& <View className="infoInner">充值账号：{item.cardNum} </View>}
                             {(item.idUrl.length==32 && item.cardBank )&& <View className="infoInner">类型：{this.timeType(item.cardBank)} </View>}
-                            <View className="infoInner">售价：{item.repaymentAmount}</View>
-                            <View className="infoInner">税费：{item.taxFee}</View>
-                            <View className="total">合计：{item.totalAmount}</View>
+                            <View className="infoInner">售价：{filter.toDecimal2(item.repaymentAmount)}</View>
+                            <View className="infoInner">税费：{filter.toDecimal2(item.taxFee)}</View>
+                            <View className="total">合计：{filter.toDecimal2(item.totalAmount)}</View>
                           </View>
                         </View>
                     </View>
@@ -112,7 +112,6 @@ export default class VipHome extends Component {
               }
             </View>
         </View>
-
       </View>
     )
   }

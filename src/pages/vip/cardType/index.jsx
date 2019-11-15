@@ -2,7 +2,7 @@ import Taro,{Component} from "@tarojs/taro"
 import {View, Image, Text,Input,RichText} from "@tarojs/components"
 import './index.scss'
 import {connect} from "@tarojs/redux"
-import {dialog} from "@/util/index";
+import {dialog,filter} from "@/util/index";
 import { getVipList,vipCostInfo,vipSubmit} from '../api';
 import { AtInput} from 'taro-ui';
 import Dialog from "@/components/dialog";
@@ -210,15 +210,15 @@ export default class VipHome extends Component {
               </View>
               <View className="flex">
                 <Text className="name">售价</Text>
-                <Text className="value">{this.state.selectInfo.sellingPrice.toFixed(2)}</Text>
+                <Text className="value">{filter.toDecimal2(this.state.selectInfo.sellingPrice)}</Text>
               </View>
               <View className="flex">
                 <Text className="name">税费</Text>
-                <Text className="value">{this.state.selectInfo.tax_total.toFixed(2)}</Text>
+                <Text className="value">{filter.toDecimal2(this.state.selectInfo.tax_total)}</Text>
               </View>
               <View className="flex">
                 <Text className="name">应付合计</Text>
-                <Text className="value">{this.state.selectInfo.total}</Text>
+                <Text className="value">{filter.toDecimal2(this.state.selectInfo.total)}</Text>
               </View>
             </View>
           </Dialog>

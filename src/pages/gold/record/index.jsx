@@ -49,6 +49,7 @@ export default class GoldRecord extends Component {
   }
 
   componentWillMount() { //将要装载
+    this.props.setBackInfo({type:this.props.gold.id});
     this.getLogs();
     this.getPrice(1)
     this.getPrice(0)

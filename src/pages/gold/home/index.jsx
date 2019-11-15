@@ -11,7 +11,6 @@ import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax,goldBuy} from '../api'
 import PayPassword from "@/components/PayPassword";
 import {setParams} from "@/pages/success/store/action";
-import checked from "dist/pages/tab/Cart/components/checked"
 
 
 @connect(({gold,user}) => ({

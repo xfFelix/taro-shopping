@@ -7,6 +7,8 @@ import {dialog,filter,validate} from "@/util/index";
 import Dialog from "@/components/dialog";
 import {phoneTypeFun,dirPriceFun,cardPriceFun} from "@/pages/phone/store/action";
 import {directQuery,cardQuery,phoneCharge,phoneTax} from '../api';
+import PayPassword from "@/components/PayPassword";
+import {setParams} from "@/pages/success/store/action";
 
 import ICON from '@/assets/img/tab/supermarket-actived.png'
 
@@ -20,6 +22,7 @@ import ICON from '@/assets/img/tab/supermarket-actived.png'
   setType:(data)=>dispatch(phoneTypeFun(data)),
   setDirPrice:(data)=>dispatch(dirPriceFun(data)),
   setCardPrice:(data)=>dispatch(cardPriceFun(data)),
+  setParams: (data) => dispatch(setParams(data))
 }))
 
 
@@ -72,10 +75,27 @@ export default class PhoneHome extends Component {
   }
 
 
-  // charge=async()=>{
-  //   let res = await phoneCharge({token:this.getToken,amount:amount,verify_code:val,type:this.phoneConfig.type+'',mobile:mobile});
-  //   if(res.error_code!=0) return dialog.toast({title: res.message})
-  // }
+  submitOrder = async (val) => {
+    try{
+      let res = await phoneCharge({
+        token:this.props.token,
+        amount:this.props.phoneType==0?this.props.dirPrice.realPrice:this.props.cardPrice.realPrice,
+        verify_code:val,type:this.state.typeId,
+        mobile:this.props.phoneType==0?this.state.inpNum:'',
+        type:this.props.phoneType,
+      });
+      this.onClose();
+      if(res.error_code!=0){ return dialog.toast({title: res.message})}
+      // 设置成功页面的展示信息
+      let config = {price: 5, path:{ home: '/pages/tab/Home/index', order: '/pages/phone/record/index'}}
+      await this.props.setParams(config)
+      Taro.redirectTo({url: '/pages/success/index'})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
+  }
+
+
 
   priceTax=async()=>{
     let res = await phoneTax({amount:this.props.phoneType==0?this.props.dirPrice.realPrice:this.props.cardPrice.realPrice, token: this.props.token});
@@ -117,23 +137,13 @@ export default class PhoneHome extends Component {
   }
 
   changeNow=()=>{
-    console.log("changeNow0")
     if( this.props.phoneType==0 ){
-      console.log("changeNow1")
-      console.log(this.state.phoneCan )
-      console.log(this.state.inpNum )
-
       if(this.state.phoneCan && this.state.inpNum){
-        console.log("changeNow2")
         this.priceTax();
         this.onShowInfo();
       }
     }
-
-    console.log(this.props.phoneType)
-    console.log(this.state.phoneCan)
     if(this.props.phoneType==1 && this.state.phoneCan){
-      console.log("changeNow3")
       this.priceTax();
       this.onShowInfo();
     }
@@ -308,6 +318,7 @@ export default class PhoneHome extends Component {
     onShowCode = () => {
       this.setState({showInfo: false, showCode: true})
     }
+
 
     onClose = () => {
       this.setState({

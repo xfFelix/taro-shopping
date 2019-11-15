@@ -59,7 +59,7 @@ export default class VipHome extends Component {
     return(
       <View className="vipHome">
         <View className="infoWrap">
-          <View className="infoLeft"><Text className="name">椰子分约</Text><Text className="score">{this.props.info.score}</Text></View>
+          <View className="infoLeft"><Text className="name">椰子分余额</Text><Text className="score">{this.props.info.score}</Text></View>
           <View className="infoRight" onClick={()=>Taro.navigateTo({url:'/pages/vip/record/index'})}>兑换记录 ></View>
         </View>
         <View>
