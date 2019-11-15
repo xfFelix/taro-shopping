@@ -117,6 +117,7 @@ export default class VipHome extends Component {
   }
 
   render(){
+    const {selectList, selectType, typeIndex, showCode, inpNum} = this.state
     return(
       <View className="vipCard">
         { this.props.vip.costType==1?
@@ -127,7 +128,7 @@ export default class VipHome extends Component {
                 <AtInput
                   name='inpNum'
                   type='number'
-                  value={this.state.inpNum}
+                  value={inpNum}
                   placeholder="请输入账号"
                   onChange={this.handleChange.bind(this)}
                   border={false}
@@ -142,11 +143,11 @@ export default class VipHome extends Component {
           <View className="typeWrap">
             <View className="typeTitle">种类：</View>
               {
-                this.state.selectList.map((items,indexs)=>{
+                selectList.map((items,indexs)=>{
                   return(
                     <View
                       key={indexs}
-                      className={this.state.selectType==indexs?'select isSelect':'select noSelect'}
+                      className={selectType==indexs?'select isSelect':'select noSelect'}
                       onClick={() =>this.typeType(items,indexs)}
                     >{items[0]}</View>
                   )
@@ -157,10 +158,10 @@ export default class VipHome extends Component {
           <View  className="faceWrap">
             <View className="faceTitle">面值：</View>
             {
-              this.state.selectList[this.state.selectType] && this.state.selectList[this.state.selectType][1].map((item,index)=>{
+              selectList[selectType] && selectList[selectType][1].map((item,index)=>{
                 return(
                   <View key={index} className="faceInfo"  onClick={()=>this.faceType(item,index)}>
-                      <View className={this.state.typeIndex==index?"faceOne isSelect":'faceOne noSelect'}>
+                      <View className={typeIndex==index?"faceOne isSelect":'faceOne noSelect'}>
                         <View className="faceType">{this.timeType(item.productType)}</View>
                         <View className="faceValue">售价：{item.sellingPrice}</View>
                       </View>
@@ -177,18 +178,19 @@ export default class VipHome extends Component {
           </View>
         </View>
 
-          <View className={(this.props.vip.costType==2||(this.props.vip.costType==1&&this.state.inpNum!=''))?'vipBnt bntCan':'vipBnt bntNo'}
-              onClick = {()=>this.changeNow()}>立即兑换
+          <View
+            className={(this.props.vip.costType==2||(this.props.vip.costType==1&& inpNum!=''))?'vipBnt bntCan':'vipBnt bntNo'}
+            onClick={()=>this.changeNow()}>立即兑换
           </View>
 
 
          {
            this.state.showInfo && <Dialog
-            renderHeader={<View>确认兑换</View>}
-            renderFooter={<Button className="confirm" onClick={() => this.onShowCode()}>确认</Button>}
-            onClose={() => this.onClose()}
-            onBack={() => this.onClose()}
-          >
+             renderHeader={<View>确认兑换</View>}
+             renderFooter={<Button className="confirm" onClick={() => this.onShowCode()}>确认</Button>}
+             onClose={() => this.onClose()}
+             onBack={() => this.onClose()}
+           >
             <View className="content">
               <View className="total">
                 <Image src={ICON} className="icon"></Image>
@@ -223,7 +225,7 @@ export default class VipHome extends Component {
             </View>
           </Dialog>
         }
-        { this.state.showCode && <PayPassword isClosed onBack={() => this.onShowInfo()} onConfirm={(val)=>this.submitOrder(val)}></PayPassword>}
+        { showCode && <PayPassword isClosed onBack={() => this.onShowInfo()} onConfirm={(val)=>this.submitOrder(val)}></PayPassword>}
       </View>
     )
   }

@@ -1,9 +1,10 @@
 import Taro, {Component} from '@tarojs/taro'
+import {WebView} from '@tarojs/components'
 
 export default class Web extends Component {
   render () {
     return (
-      <web-view src='https://tmall.cocogc.cn'></web-view>
+      <WebView src='https://mp.weixin.qq.com/s/YjTWs8Ep1lpIYeSXJTH03Q'/>
     )
   }
 }

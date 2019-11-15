@@ -23,6 +23,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/tab/User/index',
+      'pages/help/index',
       'pages/order/list/index',
       'pages/travel/order/detail/index',
       'pages/travel/order/list/index',
