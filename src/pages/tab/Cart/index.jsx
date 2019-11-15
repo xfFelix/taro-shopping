@@ -197,7 +197,7 @@ class Cart extends Component {
   }
 
   allChecked = (i) => {
-    i.check = !i.check
+    i.check = !this.props.allChecked
   }
 
   removeCart = async () => {

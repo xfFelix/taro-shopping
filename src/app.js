@@ -22,6 +22,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/tab/Cart/index',
       'pages/gold/home/index',
       'pages/gold/protocol/index',
       'pages/gold/protocol/back',
@@ -62,7 +63,6 @@ class App extends Component {
       'pages/ForgetPwd/index',
       'pages/Register/index',
       'pages/setting/index',
-      'pages/tab/Cart/index',
       'pages/tab/Classify/index',
       'pages/tab/ShoppingMall/index',
       'pages/address/detail/index',
