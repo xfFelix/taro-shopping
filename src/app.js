@@ -22,10 +22,14 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/tab/User/index',
+      'pages/order/list/index',
+      'pages/travel/order/detail/index',
+      'pages/travel/order/list/index',
+      'pages/tab/Home/index',
       'pages/phone/home/index',
       'pages/phone/record/index',
       'pages/travel/home/index',
-      'pages/tab/Home/index',
       'pages/travel/preview/index',
       'pages/travel/detail/index',
       'pages/oil/home/index',
@@ -43,7 +47,6 @@ class App extends Component {
       'pages/life/city/index',
       'pages/protocol/index',
       'pages/order/stream/index',
-      'pages/order/list/index',
       'pages/order/detail/index',
       'pages/order/preview/index',
       'pages/tab/Cart/index',
@@ -52,7 +55,6 @@ class App extends Component {
       'pages/ForgetPwd/index',
       'pages/Register/index',
       'pages/setting/index',
-      'pages/tab/User/index',
       'pages/tab/Classify/index',
       'pages/tab/ShoppingMall/index',
       'pages/address/detail/index',

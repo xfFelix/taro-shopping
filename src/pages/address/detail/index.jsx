@@ -73,6 +73,7 @@ export default class AddressDetail extends Component{
       code: '',
       name: '',
       tel: '',
+      // eslint-disable-next-line taro/duplicate-name-of-state-and-props
       address: '',
       isDefault: false,
       id: ''

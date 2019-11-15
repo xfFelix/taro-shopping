@@ -18,6 +18,7 @@ import { reducer as oilReducer } from '@/pages/oil/store'
 import { reducer as protocolReducer } from '@/pages/protocol/store'
 import { reducer as lifeReducer } from '@/pages/life/store'
 import { reducer as phoneReducer } from '@/pages/phone/store'
+import { reducer as TravelReducer } from '@/pages/travel/order/store'
 
 export default combineReducers({
   classify,
@@ -38,5 +39,6 @@ export default combineReducers({
   oil: oilReducer,
   protocol: protocolReducer,
   life: lifeReducer,
-  phone:phoneReducer
+  phone:phoneReducer,
+  travel: TravelReducer
 })

@@ -1,17 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Swiper, SwiperItem, Image } from '@tarojs/components'
+import {AtIcon} from 'taro-ui'
 import styles from './index.module.scss'
 import {connect} from "@tarojs/redux"
 import { action } from './store'
 
 @connect(({user, me}) => ({
   token: user.token,
-  bannerList: me.bannerList,
   info: user.info,
-  bottomSwiper: me.bottomList
+  bannerList: me.bannerList,
 }), dispatch => ({
   getBannerList: () => dispatch(action.getTopSwiperSync()),
-  getBottomList: () => dispatch(action.getBottomSwiperSync())
 }))
 class User extends Component {
 
@@ -25,12 +24,15 @@ class User extends Component {
 
   componentDidShow() {
     if (!this.props.token) return Taro.redirectTo({url: '/pages/Login/index?redirect=/pages/tab/User/index'})
-    this.props.getBottomList()
     this.props.getBannerList()
   }
 
   goOrders = (status) => {
     Taro.navigateTo({url: `/pages/order/list/index?status=${status}`})
+  }
+
+  goPath = (path) => {
+    Taro.navigateTo({url: path})
   }
 
   render() {
@@ -40,19 +42,20 @@ class User extends Component {
       { id: '2', text: '已完成', icon: 'https://tmall.cocogc.cn/static/images/personal/order-3.png', status: 1 },
       { id: '3', text: '已退货', icon: 'https://tmall.cocogc.cn/static/images/personal/order-4.png', status: 3 },
     ]
+    const appList = [
+      { id: '0', text: '黄金兑换', icon: 'https://tmall.cocogc.cn/static/images/personal/gold.png', path: '/pages/gold/record/index'},
+      { id: '1', text: '话费充值', icon: 'https://tmall.cocogc.cn/static/images/personal/phone.png', path: '/pages/phone/record/index'},
+      { id: '2', text: '加油卡充值', icon: 'https://tmall.cocogc.cn/static/images/personal/oil.png', path: '/pages/oil/order/index'},
+      { id: '3', text: '生活缴费', icon: 'https://tmall.cocogc.cn/static/images/personal/life.png', path: '/pages/life/order/index'},
+      { id: '4', text: '会员卡券', icon: 'https://tmall.cocogc.cn/static/images/personal/vipCard.png', path: '/pages/vip/record/index'},
+      { id: '5', text: '海南旅游', icon: 'https://tmall.cocogc.cn/static/images/personal/travel.png', path: '/pages/travel/order/list/index'},
+    ]
     const list = [
-      [
-        { id: '0', title: '我的椰子分', icon: 'yezi'},
-        { id: '1', title: '话费充值', icon: 'mobile'},
-        { id: '2', title: '门票兑换记录', icon: 'ticket'},
-        { id: '7', title: '设置', icon: 'ticket'}
-      ],
-      [
-        { id: '3', title: '卡密充值', icon: 'ticket'},
-        { id: '4', title: '帮助中心', icon: 'question'},
-        { id: '5', title: '联系客服', icon: 'listen'},
-        { id: '6', title: '商务合作', icon: 'card'},
-      ]
+      { id: '0', text: '积分日志', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: ''},
+      { id: '1', text: '卡密充值', icon: 'https://tmall.cocogc.cn/static/images/personal/kami.png', path: ''},
+      { id: '2', text: '帮助中心', icon: 'https://tmall.cocogc.cn/static/images/personal/help.png', path: ''},
+      { id: '3', text: '联系我们', icon: 'https://tmall.cocogc.cn/static/images/personal/contact.png', path: ''},
+      { id: '4', text: '设置', icon: 'https://tmall.cocogc.cn/static/images/personal/setUp.png', path: '/pages/setting/index'},
     ]
     return (
       <View className={styles.wrapper}>
@@ -105,42 +108,35 @@ class User extends Component {
         </View>
         {/*order all waiting finished back end*/}
         <View className={styles.container}>
+          <View className={styles.title}>兑换服务订单</View>
+          <View className={styles.appList}>
+            {
+              appList.map(item => {
+                return (
+                  <View className={styles.item} key={item.id} onClick={() => this.goPath(item.path)}>
+                    <Image src={item.icon}></Image>
+                    <View className={styles.appText}>{item.text}</View>
+                  </View>
+                )
+              })
+            }
+          </View>
+        </View>
+        <View className={styles.container}>
           {
-            list.map((items, index) => {
+            list.map(item => {
               return (
-                <View key={index} className={styles.content}>
-                  {
-                    items.map((item) => {
-                      return(
-                        <View key={item.id} className={styles.item}>
-                          <Image src={`https://tmall.cocogc.cn/static/images/me/${item.icon}.png`} className={styles.icon}></Image>
-                          <View className={styles.title}>
-                            <Text>{item.title}</Text>
-                            {
-                              item.id === '0' && <Text>旅游分：{this.props.info.score}</Text>
-                            }
-                          </View>
-                          <Image src={'https://tmall.cocogc.cn/static/images/me/right.png'} className={styles.right}></Image>
-                        </View>
-                      )
-                    })
-                  }
+                <View className={styles.line} key={item.id} onClick={() => this.goPath(item.path)}>
+                  <Image src={item.icon}></Image>
+                  <View className={styles.text}>{item.text}</View>
+                  <View className={styles.right}>
+                    <AtIcon value='chevron-right' size='30' color='#ccc'></AtIcon>
+                  </View>
                 </View>
               )
             })
           }
         </View>
-        <Swiper className={styles.bottomSwiper}>
-          {
-            this.props.bottomSwiper.map((item, index) => {
-              return (
-                <SwiperItem key={index}>
-                  <Image src={item.src} className={styles.bannerImg}></Image>
-                </SwiperItem>
-              )
-            })
-          }
-        </Swiper>
       </View>
     )
   }

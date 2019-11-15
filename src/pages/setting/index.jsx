@@ -19,10 +19,10 @@ export default class Setting extends PureComponent {
 
   state = {
     list: [
-      { id: 0, title: '地址管理' },
-      { id: 1, title: '实名认证' },
-      { id: 2, title: '修改登录密码' },
-      { id: 3, title: '修改支付密码' },
+      { id: 0, title: '地址管理', path: '/pages/address/list/index' },
+      // { id: 1, title: '实名认证' },
+      { id: 2, title: '修改登录密码', path: '/pages/ForgetPwd/index' },
+      // { id: 3, title: '修改支付密码' },
     ]
   }
 
@@ -35,14 +35,16 @@ export default class Setting extends PureComponent {
     Taro.redirectTo({url: '/pages/Login/index'})
   }
 
-  goAddressList = () => {
+  goAddressList = (path) => {
     this.props.toggleSelect(false)
-    Taro.navigateTo({url: '/pages/address/list/index'})
+    Taro.navigateTo({url: path})
   }
 
-  handleClick = (id) => {
-    if (id == 0) {
-      this.goAddressList()
+  handleClick = (item) => {
+    if (item.id == 0) {
+      this.goAddressList(item.path)
+    } else {
+      Taro.navigateTo({url: item.path})
     }
   }
 
@@ -53,7 +55,7 @@ export default class Setting extends PureComponent {
           {
             this.state.list.map(item => {
               return (
-                <View className={styles.item} key={item.id + ''} onClick={() => this.handleClick(item.id)}>
+                <View className={styles.item} key={item.id + ''} onClick={() => this.handleClick(item)}>
                   <Text>{item.title}</Text>
                   <Image src={'https://tmall.cocogc.cn/static/images/me/right.png'} className={styles.right}></Image>
                 </View>
