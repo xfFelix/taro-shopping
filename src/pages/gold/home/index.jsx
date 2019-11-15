@@ -192,6 +192,7 @@ export default class GoldHome extends Component {
           </View>
           <View className="goldBnt-right flex" onClick={()=>Taro.navigateTo({url:'/pages/gold/record/index'})}>立即回购</View>
         </View>
+        <Image src="https://tmall.cocogc.cn/static/images/goTop.png" className="goTop" onClick={()=>Taro.pageScrollTo({scrollTop:0})}></Image>
         <GoldInfo></GoldInfo>
         { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
       </View>

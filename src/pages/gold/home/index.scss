@@ -164,6 +164,7 @@
     height: 88px;
     text-align: center;
     font-size: 32px;
+    z-index: 1;
     .goldBnt-left {
       flex: 2;
       color: #fff;
@@ -190,8 +191,16 @@
       justify-content: center;
     }
   }
-
-
+  .goTop{
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
 }
 
 
