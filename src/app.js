@@ -22,18 +22,18 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/gold/home/index',
+      'pages/gold/protocol/index',
+      'pages/gold/protocol/back',
+      'pages/gold/buyBack/index',
+      'pages/gold/record/index',
       'pages/phone/home/index',
       'pages/phone/record/index',
       'pages/vip/home/index',
       'pages/vip/cardType/index',
       'pages/vip/record/index',
-      'pages/gold/home/index',
       'pages/goods/list/index',
       'pages/goods/detail/index',
-      'pages/gold/protocol/index',
-      'pages/gold/protocol/back',
-      'pages/gold/buyBack/index',
-      'pages/gold/record/index',
       'pages/travel/home/index',
       'pages/tab/Home/index',
       'pages/travel/preview/index',
