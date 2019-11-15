@@ -51,7 +51,11 @@ class Home extends Component {
 
   goApplication = (path) => {
     if (path) {
-      Taro.navigateTo({url: path})
+      if (/\/pages\/tab\/ShoppingMall\/index/.test(path)) {
+        Taro.switchTab({url: '/pages/tab/ShoppingMall/index'})
+      } else {
+        Taro.navigateTo({url: path})
+      }
     }
   }
 

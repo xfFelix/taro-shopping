@@ -67,7 +67,7 @@ export default class GoldRecord extends Component {
   }
 
   selectType = async (item) => {
-    this.setState({type: item.value, list: []}, () => this.getList())
+    this.setState({type: item.value, list: [], offset: 0}, () => this.getList())
   }
 
   statusFilter = (status) => {
