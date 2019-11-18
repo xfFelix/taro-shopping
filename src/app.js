@@ -22,6 +22,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/history/index',
       'pages/tab/Cart/index',
       'pages/gold/home/index',
       'pages/gold/protocol/index',

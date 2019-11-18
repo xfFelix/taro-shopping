@@ -13,6 +13,13 @@
       "unicode_decimal": 58901
     },
     {
+      "icon_id": "7351140",
+      "name": "time",
+      "font_class": "time",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
       "icon_id": "7730887",
       "name": "商品详情",
       "font_class": "shangpinxiangqing",
