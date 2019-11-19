@@ -4,10 +4,12 @@ import './index.scss'
 import {connect} from "@tarojs/redux"
 import {dialog,filter} from "@/util/index";
 import { vipOrderList } from '../api';
-
+import { exchangeFun } from "@/pages/vip/store/action"
 
 @connect(({user,vip}) => ({
   token: user.token,
+}), dispatch => ({
+  setExchange: (data) => dispatch(exchangeFun(data))
 }))
 
 export default class VipHome extends Component {
@@ -76,6 +78,15 @@ export default class VipHome extends Component {
     }
   }
 
+  copyClip=(val)=>{
+    this.setState({isOpened:false})
+    Taro.setClipboardData({data: val}).then(()=>{});
+  }
+
+  urlView=(memo)=>{
+    this.props.setExchange(memo)
+    Taro.navigateTo({url:'/pages/vip/urlView/index'});
+  }
 
   render(){
     return(
@@ -95,10 +106,10 @@ export default class VipHome extends Component {
                           <View className="reInfo">
                             <View className="infoInner">订单编号:{item.idUrl}</View>
                             <View className="infoInner">时间：{item.orderTime}</View>
-                            {(item.idUrl.length==30 && item.orderNum)&& <View className="infoInner">卡密：{item.orderNum} </View>}
+                            {(item.idUrl.length==30 && item.orderNum)&& <View className="infoInner">卡密：{item.orderNum} <Text className="copyClip" onClick={()=>this.copyClip(item.orderNum)}>复制</Text></View>}
                             {(item.idUrl.length==30 && item.idBackUrl)&& <View className="infoInner">卡号：{item.idBackUrl} </View>}
                             {(item.idUrl.length==30 && item.cardNum)&& <View className="infoInner">有效日期：{item.cardNum} </View>}
-                            {(item.idUrl.length==30 && item.memo && item.memo!='兑换卡券成功')&& <View className="infoInner changeCode">兑换码：<a href={item.memo}>{item.memo}</a></View>}
+                            {(item.idUrl.length==30 && item.memo && item.memo!='兑换卡券成功')&& <View className="infoInner changeCode">兑换码：<Text onClick={()=>this.urlView(item.memo)} className="memo">{item.memo}</Text></View>}
                             {(item.idUrl.length==32 && item.cardNum)&& <View className="infoInner">充值账号：{item.cardNum} </View>}
                             {(item.idUrl.length==32 && item.cardBank )&& <View className="infoInner">类型：{this.timeType(item.cardBank)} </View>}
                             <View className="infoInner">售价：{filter.toDecimal2(item.repaymentAmount)}</View>

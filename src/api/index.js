@@ -68,3 +68,10 @@ export const forget = (data) => fetch({
   method: 'post',
   data
 })
+
+// 椰子分充值
+export const charge = (data) => fetch({
+  url: `${INFO_URL}/user/charge`,
+  method: 'post',
+  data
+})
