@@ -20,10 +20,15 @@ export default function counter (state = INITIAL_STATE, action) {
         swiperList: action.swiperList
       }
     case GET_GOODS_BY_INTEGRAL:
+      let name = state[action.name]
+      let list = []
+      if (name) {
+        list = state[action.name].list
+      }
       return {
         ...state,
         [action.name]: {
-          list: action.list,
+          list: [...list, ...action.list],
           offset: action.offset,
           rows: action.rows
         }

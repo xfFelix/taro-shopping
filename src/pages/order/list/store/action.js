@@ -8,10 +8,20 @@ export const getOrdersSync = (params = {token: '', status: 0, offset: 1}) => {
   return async dispatch => {
     try {
       const {data} = await getOrders(params)
-      let current = params.status == 1 ? 2 : (params.status == 2 ? 1 : params.status)
-      dispatch(setOrders(data, params, current))
+      dispatch(setOrders(data))
     } catch (e) {
       console.error(e)
+    }
+  }
+}
+
+export const loadMoreSync = ({token= '', status= 0, offset= 1} = {}) => {
+  return async dispatch => {
+    try {
+      const {data} = await getOrders({token, status, offset})
+      dispatch(loadMore(data))
+    } catch (e) {
+      dialog.toast({title: e.message})
     }
   }
 }
@@ -50,9 +60,12 @@ export const setDetail = (data) => ({
   data
 })
 
-export const setOrders = (data, store, current) => ({
+export const setOrders = (data) => ({
   type: constant.GET_ORDER_LIST,
-  data,
-  store,
-  current
+  data
+})
+
+export const loadMore = (data) => ({
+  type: constant.LOAD_MORE_LIST,
+  data
 })

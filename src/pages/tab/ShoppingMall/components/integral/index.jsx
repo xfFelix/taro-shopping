@@ -1,6 +1,6 @@
 import Taro,{Component} from "@tarojs/taro"
 import styles from './index.module.scss'
-import {Text, View} from "@tarojs/components"
+import {ScrollView, Text, View} from "@tarojs/components"
 import {AtIcon, AtTag} from "taro-ui"
 import {connect} from "@tarojs/redux"
 import { toggleIntegral} from "@/actions/shopping"
@@ -49,14 +49,22 @@ class Integral extends Component{
     return store
   }
 
-  toggleList = ({name, item, store}) => {
+  toggleList = ({name, item}) => {
     this.storeName = name
+    let store = this._store()
     if (item.name == '0') {
       let price = this.props.info.score.toFixed(0)
+      this.initPrice = item.value + price
       this.props.toggleIntegral(name, item.value + price, store.offset, store.rows)
     } else {
+      this.initPrice = item.value
       this.props.toggleIntegral(name, item.value, store.offset, store.rows)
     }
+  }
+
+  onScrollBottom(): void {
+    let store = this._store()
+    this.props.toggleIntegral(this.storeName, this.initPrice, store.offset + store.rows, store.rows)
   }
 
   render() {
@@ -74,7 +82,7 @@ class Integral extends Component{
                     name={item.label}
                     type='primary'
                     active={item.label === this.storeName}
-                    onClick={({name}) => this.toggleList({name, item, store})}
+                    onClick={({name}) => this.toggleList({name, item})}
                     circle
                     key={index}>{item.label}
                   </AtTag>
@@ -87,7 +95,7 @@ class Integral extends Component{
               </View>
             </View>
           </View>
-          <View className={styles.goodsContainer}>
+          <ScrollView className={styles.goodsContainer} scrollY onScrollToLower={() => this.onScrollBottom()}>
             {
               store.list.map((item, i) => {
                 return (
@@ -97,7 +105,7 @@ class Integral extends Component{
                 )
               })
             }
-          </View>
+          </ScrollView>
         </View>
       </View>
     )

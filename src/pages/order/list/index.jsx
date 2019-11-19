@@ -5,13 +5,15 @@ import {connect} from "@tarojs/redux"
 import { AtTabBar } from 'taro-ui'
 import { action } from './store'
 import NoData from "@/components/NoData";
+import {confirmOrder} from "@/pages/order/list/api";
+import {dialog} from "@/util/index";
 
 @connect(({user, order}) => ({
   token: user.token,
-  store: order.store,
   list: order.list
 }), dispatch => ({
-  getOrderList: (data) => dispatch(action.getOrdersSync(data))
+  getOrderList: (data) => dispatch(action.getOrdersSync(data)),
+  loadMoreList: (data) => dispatch(action.loadMoreSync(data))
 }))
 export default class OrderList extends Component{
 
@@ -21,45 +23,51 @@ export default class OrderList extends Component{
 
   constructor(){
     super(...arguments)
+    this.statusList = [
+      { title: '全部', status: 0},
+      { title: '未完成', status: 2},
+      { title: '已完成', status: 1},
+      { title: '已退货', status: 3}
+    ]
     this.state = {
-      current: 0
+      current: 0,
+      offset: 1,
     }
   }
 
   componentDidMount() {
     if (!this.props.token) return Taro.redirectTo({url: `/pages/Login/index?redirect=/pages/tab/Cart/index`})
     let status = Number(this.$router.params.status) || 0
-    let store = this._store()
     let current = status == 1 ? 2 : (status == 2 ? 1 : status )
-    this.setState({current})
-    this.getOrders({...store, status})
+    this.setState({current }, () => {
+      this.getOrders()
+    })
   }
 
-  _store = () => {
-    let token = this.props.token
-    let store = this.props.store[this.state.current]
-    if (!store){
-      store = {
-        offset: 1,
-        token,
-        status: 0
-      }
-    }
-    return store
-  }
-
-  getOrders = (data) => {
-    this.props.getOrderList(data)
+  getOrders = () => {
+    const { offset, current } = this.state
+    const { token } = this.props
+    let status = this.statusList[current].status
+    this.props.getOrderList({ offset, status, token})
   }
 
   handleClick (value) {
-    let status = value == 1 ? 2 : (value == 2 ? 1 : value )
-    let store = this._store()
-    this.getOrders({...store, status})
-    this.setState({
-      current: value
+    this.setState({current: value, offset: 1}, () => {
+      this.getOrders()
     })
-    console.log(this.props.store)
+  }
+
+  loadMoreList = () => {
+    const { offset, current } = this.state
+    const { token } = this.props
+    let status = this.statusList[current].status
+    this.props.loadMoreList({ offset, status, token})
+  }
+
+  onReachBottom(): void {
+    this.setState(pre => ({offset: pre.offset + 10}), () => {
+      this.loadMoreList()
+    })
   }
 
   goDetail = (id) => {
@@ -70,16 +78,23 @@ export default class OrderList extends Component{
     Taro.navigateTo({url: `/pages/order/stream/index?id=${id}`})
   }
 
+  confirmOrder = async (id) => {
+    let res = await Taro.showModal({title: '提示', content: '确认收货？'})
+    if (res.confirm) {
+      try {
+        const { data } = await confirmOrder({token: this.props.token, id})
+        this.setState({offset: 0}, () => this.getOrders())
+      } catch (e) {
+        dialog.toast({title: e.message})
+      }
+    }
+  }
+
   render(): any {
     return (
       <View className={styles.wrapper}>
         <AtTabBar
-          tabList={[
-            { title: '全部', status: 0},
-            { title: '未完成', status: 2},
-            { title: '已完成', status: 1},
-            { title: '已退货', status: 3}
-          ]}
+          tabList={this.statusList}
           onClick={(value) => this.handleClick(value)}
           current={this.state.current}
         />
@@ -114,7 +129,7 @@ export default class OrderList extends Component{
                   </View>
                   <View className={styles.btnWrapper}>
                     <Button className={styles.stream} onClick={() => this.goStream(item.orderId)}>查看物流</Button>
-                    <Button className={styles.finished}>确认收货</Button>
+                    {item.orderStatus === '已确认' && <Button className={styles.finished} onClick={() => this.confirmOrder(item.id)}>确认收货</Button>}
                   </View>
                 </View>
               )

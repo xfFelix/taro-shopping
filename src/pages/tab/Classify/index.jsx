@@ -20,7 +20,7 @@ class Classify extends Component {
 
   state = {
     value: '',
-    storeName: '手机/配件'
+    storeName: '天涯严选'
   }
 
   constructor(props) {

@@ -41,6 +41,8 @@
       }
     }
     .goodsContainer{
+      overflow: hidden;
+      height: 900px;
       .item{
         float: left;
         width: 50%;
