@@ -9,7 +9,6 @@ import {
   removeCartSync,
   updateCartSync
 } from "@/pages/tab/Cart/store/action"
-import _ from 'lodash'
 import { action } from '@/pages/goods/store'
 import GuessLike from "@/pages/tab/Cart/components/guess_like"
 import NoData from "@/components/NoData"
@@ -162,7 +161,7 @@ class Cart extends Component {
   }
 
   compute = (item, flag) => {
-    let list = _.cloneDeep(this.props.defaultList)
+    let list = JSON.parse(JSON.stringify(this.props.defaultList))
     let arr = []
     let res = /add|drop|toggle/.test(flag)
     for (let i of list) {
@@ -201,7 +200,7 @@ class Cart extends Component {
   }
 
   removeCart = async () => {
-    let list = _.cloneDeep(this.props.defaultList)
+    let list = JSON.parse(JSON.stringify(this.props.defaultList))
     let ids = []
     for (let i of list) {
       if (i.check) {
