@@ -75,7 +75,7 @@ export default class cardCharge extends Component {
         <View className="charge-content">
 
             <View className="chargeBanner">
-              <Image src="https://mall.cocogc.cn/ticket/static/img/charge.3eca7cf8.png" alt="椰子积分" />
+              <Image src="https://api.cocotc.cn/images/charge.png" alt="椰子积分" />
             </View>
 
             <View className="chargeInfo" >
