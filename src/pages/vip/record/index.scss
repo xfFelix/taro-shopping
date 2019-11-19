@@ -48,6 +48,9 @@
               .changeCode{
                 word-break: break-all;
               }
+              .memo{
+                color: blue;
+              }
             }
             .recover{
               width: 100%;
@@ -70,5 +73,13 @@
     height: 262px;
     margin: auto;
     display: block;
+  }
+  .copyClip{
+    position: absolute;
+    right: 20px;
+    border: 1px solid #999;
+    border-radius: 50px;
+    padding: 0 20px;
+    display: inline-block;
   }
 }

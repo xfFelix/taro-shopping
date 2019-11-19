@@ -112,6 +112,10 @@ export default class GoldRecord extends Component {
     this.setState({isOpened:true,goldChangeVal:res.data})
   }
 
+  copyClip=()=>{
+    this.setState({isOpened:false})
+    Taro.setClipboardData({data: this.state.goldChangeVal}).then(()=>{})
+  }
 
   render(){
     return(
@@ -202,11 +206,11 @@ export default class GoldRecord extends Component {
         { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
           <AtModal isOpened={this.state.isOpened}>
             <AtModalContent>
-              <View className="dig-title">您的黄金兑换码是：\n</View>
+              <View className="dig-title">您的黄金兑换码是：</View>
               <View className="dig-content">{this.state.goldChangeVal}</View>
             </AtModalContent>
             <AtModalAction>
-              <Button onClick={()=>{this.setState({isOpened:false})}}>确定</Button>
+              <Button onClick={()=>this.copyClip()}>复制</Button>
             </AtModalAction>
           </AtModal>
     </View>

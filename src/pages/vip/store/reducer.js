@@ -2,7 +2,8 @@ import { constant } from './index'
 const INITIAL_STATE={
   productType:'',
   costType:'',
-  productId:''
+  productId:'',
+  exchangeUrl:''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,6 +22,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         productId: action.data
+      }
+    case constant.EXCHANGE_URL:
+      return {
+        ...state,
+        exchangeUrl: action.data
       }
     default:
       return state

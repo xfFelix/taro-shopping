@@ -11,7 +11,6 @@ import SendCode from "@/components/SendCode";
   login
 }))
 export default class Register extends Component {
-
   config ={
     navigationBarTitleText: '忘记密码'
   }
