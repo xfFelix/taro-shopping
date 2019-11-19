@@ -22,8 +22,10 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/history/index',
+      'pages/order/list/index',
       'pages/tab/Cart/index',
+      'pages/link/index',
+      'pages/history/index',
       'pages/gold/home/index',
       'pages/gold/protocol/index',
       'pages/gold/protocol/back',
@@ -31,7 +33,6 @@ class App extends Component {
       'pages/gold/record/index',
       'pages/tab/User/index',
       'pages/help/index',
-      'pages/order/list/index',
       'pages/travel/order/detail/index',
       'pages/travel/order/list/index',
       'pages/tab/Home/index',

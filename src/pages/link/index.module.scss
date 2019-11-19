@@ -1,0 +1,42 @@
+@import "../../styles/mixin/index.scss";
+
+.wrapper{
+  background: #eef1f6;
+  height: 100vh;
+  overflow: hidden;
+  .image{
+    margin: 20px;
+    box-sizing: border-box;
+    image{
+      width: 100%;
+      height: 240px;
+    }
+  }
+  .container{
+    padding: 0 40px;
+    margin-top: 20px;
+    background: #ffffff;
+    .item{
+      display: flex;
+      height: 112px;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      font-size: 26px;
+      &:after{
+        @include border-1px(#DEDEDE, top);
+      }
+      &:first-child{
+        border-top: 0;
+      }
+      .name{
+        margin-left: 10px;
+      }
+      .value{
+        color: #8e8e93;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

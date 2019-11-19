@@ -6,3 +6,10 @@ export const getOrders = (data) => fetch({
   method: 'post',
   data
 })
+
+// 确认收货
+export const confirmOrder = (data) => fetch({
+  url: `/api/confirmReceived`,
+  method: 'post',
+  data
+})
