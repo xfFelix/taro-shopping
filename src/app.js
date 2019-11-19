@@ -22,8 +22,6 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/vip/home/index',
-      'pages/vip/urlView/index',
       'pages/cardCharge/index',
       'pages/history/index',
       'pages/tab/Cart/index',
@@ -40,6 +38,8 @@ class App extends Component {
       'pages/tab/Home/index',
       'pages/phone/home/index',
       'pages/phone/record/index',
+      'pages/vip/home/index',
+      'pages/vip/urlView/index',
       'pages/vip/cardType/index',
       'pages/vip/record/index',
       'pages/goods/list/index',
