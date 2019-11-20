@@ -59,6 +59,11 @@ class Classify extends Component {
     Taro.navigateTo({url: `/pages/goods/list/index?id=${id}`})
   }
 
+  onActionClick = () => {
+    const { value } = this.state
+    Taro.navigateTo({url: '/pages/goods/list/index?name=' + value})
+  }
+
   render() {
     const { firstDir, swiperList } = this.props.classify
     let secoundDir = this._store()
@@ -68,6 +73,7 @@ class Classify extends Component {
           <AtSearchBar
             value={this.state.value}
             onChange={this.onChange.bind(this)}
+            onActionClick={() => this.onActionClick()}
           />
         </View>
         <View className={styles.container}>

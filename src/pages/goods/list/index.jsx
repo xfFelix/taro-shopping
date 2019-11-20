@@ -54,8 +54,8 @@ export default class GoodsList extends PureComponent {
   }
 
   componentWillMount() {
-    let categoryId = this.$router.params.id
-    this.props.getGoodsList({categoryId})
+    const { id, name } = this.$router.params
+    this.props.getGoodsList({categoryId: id, keyWord: name})
   }
 
   toggleStore = (item, store) => {
@@ -120,6 +120,11 @@ export default class GoodsList extends PureComponent {
     return store
   }
 
+  onActionClick = () => {
+    const  { value } = this.state
+    this.props.getGoodsList({keyWord: value})
+  }
+
   render() {
     const store = this._store()
     return (
@@ -128,6 +133,7 @@ export default class GoodsList extends PureComponent {
           <AtSearchBar
             value={this.state.value}
             onChange={this.onChange.bind(this)}
+            onActionClick={() => this.onActionClick()}
           />
         </View>
         <View className={styles.tabWapper}>

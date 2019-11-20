@@ -54,9 +54,12 @@ class ShoppingMall extends Component {
   }
 
   onChange = (value) => {
-    this.setState({
-      value: value
-    })
+    this.setState({value: value})
+  }
+
+  onActionClick = () => {
+    const { value } = this.state
+    Taro.navigateTo({url: '/pages/goods/list/index?name=' + value})
   }
 
   render() {
@@ -87,7 +90,8 @@ class ShoppingMall extends Component {
           <View className={styles.searchWrapper}>
             <AtSearchBar
               value={this.state.value}
-              onChange={this.onChange}
+              onChange={this.onChange.bind(this)}
+              onActionClick={this.onActionClick.bind(this)}
             />
           </View>
           {/* 走马灯 */}
