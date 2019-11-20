@@ -54,8 +54,8 @@ export default class GoodsList extends PureComponent {
   }
 
   componentWillMount() {
-    const { id, name } = this.$router.params
-    this.props.getGoodsList({categoryId: id, keyWord: name})
+    const { id, name, productId } = this.$router.params
+    this.props.getGoodsList({categoryId: id, keyWord: name, productTypeId: productId})
   }
 
   toggleStore = (item, store) => {

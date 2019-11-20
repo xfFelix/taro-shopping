@@ -62,6 +62,10 @@ class ShoppingMall extends Component {
     Taro.navigateTo({url: '/pages/goods/list/index?name=' + value})
   }
 
+  onHandlerClick = (item, index) => {
+    Taro.navigateTo({url: '/pages/goods/list/index?productId=' + item.id})
+  }
+
   render() {
     const { swiperList, newList, hotList } = this.props
     return (
@@ -122,22 +126,26 @@ class ShoppingMall extends Component {
             [
               {
                 image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
-                value: '日用超市'
+                value: '日用超市',
+                id: '1620'
               },
               {
                 image: 'https://img20.360buyimg.com/jdphoto/s72x72_jfs/t15151/308/1012305375/2300/536ee6ef/5a411466N040a074b.png',
-                value: '手机数码'
+                value: '手机数码',
+                id: '9987'
               },
               {
                 image: 'https://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png',
-                value: '家用电器'
+                value: '家用电器',
+                id: '737'
               },
               {
                 image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png',
-                value: '美妆护肤'
+                value: '美妆护肤',
+                id: '1316'
               }
             ]
-          } columnNum={4} hasBorder={false}/>
+          } columnNum={4} hasBorder={false} onClick={this.onHandlerClick}/>
         </View>
         {/* 热门爆款 hot */}
         <View className={styles.hotBg}>
