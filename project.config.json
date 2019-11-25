@@ -2,7 +2,7 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "weapp",
 	"description": "商城微信小程序",
-	"appid": "wxcc680029b987f5ba",
+	"appid": "wxbbb3aefdcfb33061",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
