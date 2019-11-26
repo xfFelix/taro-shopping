@@ -163,9 +163,9 @@ export default class VipHome extends Component {
                   <View key={index} className="faceInfo"  onClick={()=>this.faceType(item,index)}>
                       <View className={typeIndex==index?"faceOne isSelect":'faceOne noSelect'}>
                         <View className="faceType">{this.timeType(item.productType)}</View>
-                        <View className="faceValue">售价：{item.sellingPrice}</View>
+                        <View className="faceValue">售价：{filter.toDecimal2(item.sellingPrice)}</View>
                       </View>
-                      <View className="faceMarket">刊例价：{item.marketPrice}</View>
+                      <View className="faceMarket">刊例价：{filter.toDecimal2(item.marketPrice)}</View>
                     </View>
                 )
               })
@@ -194,7 +194,7 @@ export default class VipHome extends Component {
             <View className="content">
               <View className="total">
                 <Image src={ICON} className="icon"></Image>
-                <Text>{this.state.selectInfo.total}</Text>
+                <Text>{filter.toDecimal2(this.state.selectInfo.total)}</Text>
               </View>
               <View className="flex">
                 <Text className="name">产品名称</Text>

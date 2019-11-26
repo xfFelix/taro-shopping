@@ -194,7 +194,7 @@ export default class GoldHome extends Component {
         </View>
         <Image src="https://tmall.cocogc.cn/static/images/goTop.png" className="goTop" onClick={()=>Taro.pageScrollTo({scrollTop:0})}></Image>
         <GoldInfo></GoldInfo>
-        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
+        { this.state.showCode && <PayPassword isClosed onBack={() => this.setState({showCode:false})} onConfirm={(val)=>this.submitOrder(val)}></PayPassword>}
       </View>
     )
   }
