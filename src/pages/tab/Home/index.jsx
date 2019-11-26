@@ -54,13 +54,17 @@ class Home extends Component {
       if (/\/pages\/tab\/ShoppingMall\/index/.test(path)) {
         Taro.switchTab({url: '/pages/tab/ShoppingMall/index'})
       } else {
-        Taro.navigateTo({url: path})
+        if (this.props.token) {
+          Taro.navigateTo({url: path})
+        } else {
+          Taro.showModal({title: '提示', content: '请先登录', success: res => Taro.redirectTo({url: '/pages/Login/index'}) })
+        }
       }
     }
   }
 
   render() {
-    const { list, swiperList, hotList, newList } = this.props
+    const { list, swiperList, hotList, newList, token, info } = this.props
     return (
       <View className={'home-wrapper'}>
         <View className={'home'}>
@@ -69,7 +73,7 @@ class Home extends Component {
             <View className={'icon-listen'}>
               <AtIcon value='volume-plus' size='16' color='#fff'></AtIcon>
             </View>
-            <View className={'notice-view'}><Text className={'notice-text'}>椰子分公告:</Text></View>
+            <View className={'notice-view'}><Text className={'notice-text'}>积分公告:</Text></View>
             <View className={'notice'}>
               <AtNoticebar marquee className={'home-notice-bar'}>
                 {
@@ -85,9 +89,15 @@ class Home extends Component {
               <AtIcon value='chevron-right' size='17' color='#fff'></AtIcon>
             </View>
           </View>
-          <View className={'userinfo'}>
-            <View><Text className={'font name'}>{this.props.info ? this.props.info.score : '登录'}</Text></View>
-            <View><Text className={'font'}>积分余额</Text></View>
+          <View className={token ? 'userinfo' : 'login'}>
+            <View>
+              {
+                token ?
+                  <Text className={'font name'}>{info.score}</Text> :
+                  <Text className={'font name'} onClick={()=> Taro.redirectTo({url: '/pages/Login/index'})}>登录</Text>
+              }
+            </View>
+            {token && <View><Text className={'font'}>积分余额</Text></View>}
           </View>
         </View>
         <View className={'home-content'}>

@@ -129,7 +129,7 @@ export default class Register extends Component {
     try {
       const { data } = await register({mobile: name, captcha: verify, verify_code: code, passwd: pwd, confirm_passwd: pwd})
       Taro.navigateBack().then(res => {
-        dialog.toast({title: '注册成功'})
+        Taro.showToast({title: '注册成功'})
       })
     } catch (e) {
       dialog.toast({title: e.message})

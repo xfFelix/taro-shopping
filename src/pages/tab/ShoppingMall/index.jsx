@@ -103,7 +103,7 @@ class ShoppingMall extends Component {
             <View className={styles.iconListen}>
               <AtIcon value='volume-plus' size='18' color='#333'></AtIcon>
             </View>
-            <Text className={styles.noticeText}>椰子分公告:</Text>
+            <Text className={styles.noticeText}>积分公告:</Text>
             <View className={styles.noticeContainer}>
               <AtNoticebar marquee className={'home-notice-bar'}>
                 {

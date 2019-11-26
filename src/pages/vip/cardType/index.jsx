@@ -139,7 +139,7 @@ export default class VipHome extends Component {
         }
 
         <View className="selectWrap">
-          <View className="yezifen">椰子分余额：<Text className="score">{this.props.info.score}</Text></View>
+          <View className="yezifen">积分余额：<Text className="score">{this.props.info.score}</Text></View>
           <View className="typeWrap">
             <View className="typeTitle">种类：</View>
               {

@@ -165,7 +165,7 @@ export default class GoldHome extends Component {
 
         <View className="recodeWrap">
           <View className="score">
-            <Text>椰子分余额：</Text> <Text className="score">{this.props.info.score}</Text>
+            <Text>积分余额：</Text> <Text className="score">{this.props.info.score}</Text>
           </View>
           <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/gold/record/index'})}>兑换记录 ></Text>
         </View>

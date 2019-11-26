@@ -1,6 +1,7 @@
 import {GET_GOODS_LIST, GET_GOODS_DETAIL, GET_CART_LIST_NUM, ADD_CART, LOAD_MORE_GOODS_LIST} from './constants'
 import {getList, getDetail, getCartListNum, addCart} from '../api'
 import {dialog} from "@/util/index";
+import Taro from '@tarojs/taro'
 
 export const getGoodsListSync = ({storeName= '全部', categoryId = '', keyWord = '', offset = 1, price = '0-*', priceRange = '', productTypeId = '', rows = 10, salesVolume = '', timeSort = ''}={}) => {
   return async dispatch => {
@@ -34,7 +35,11 @@ export const getGoodsDetailSync = ({id = '33771'}={}) => {
       const { data } = await getDetail({id: id + ''})
       dispatch(getGoodsDetail(data))
     } catch (e) {
-      console.error('商品详情获取失败')
+      dialog.toast({title: e.message}).then(res => {
+        setTimeout(() => {
+          Taro.navigateBack()
+        }, 1000)
+      })
     }
   }
 }

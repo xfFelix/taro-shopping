@@ -41,25 +41,29 @@ class SendCode extends Component{
     } else {
       params.token = this.props.token
     }
-    let res= await sms(params);
-    if(res.error_code===0){
-      let timeInit = 120;
-      let countDown = setInterval(()=>{
-        let i = 1;
-        timeInit = timeInit - i;
-        if (timeInit > 0) {
-          this.setState({
-            downInfo: timeInit + 's 重新获取',
-            disabled:true
-          })
-        } else {
-          this.setState({
-            downInfo:'重新获取',
-            disabled:false
-          })
-          clearInterval(countDown)
-        }
-      }, 1000)
+    try {
+      let res= await sms(params);
+      if(res.error_code===0){
+        let timeInit = 120;
+        let countDown = setInterval(()=>{
+          let i = 1;
+          timeInit = timeInit - i;
+          if (timeInit > 0) {
+            this.setState({
+              downInfo: timeInit + 's 重新获取',
+              disabled:true
+            })
+          } else {
+            this.setState({
+              downInfo:'重新获取',
+              disabled:false
+            })
+            clearInterval(countDown)
+          }
+        }, 1000)
+      }
+    } catch (e) {
+      dialog.toast({title: e.message})
     }
   }
 

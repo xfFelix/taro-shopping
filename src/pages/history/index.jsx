@@ -4,6 +4,7 @@ import {View, Text} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {dialog} from "@/util/index"
 import {getList} from './api'
+import NoData from "@/components/NoData";
 
 @connect(({user}) => ({
   token: user.token
@@ -43,7 +44,7 @@ export default class History extends Component{
     return (
       <View className={styles.wrapper}>
         {
-          list.map(item => {
+          list.length ? list.map(item => {
             return (
               <View className={styles.item} key={item.id}>
                 <View className={styles.line}>
@@ -59,7 +60,7 @@ export default class History extends Component{
                 </View>
               </View>
             )
-          })
+          }) : <NoData></NoData>
         }
       </View>
     )

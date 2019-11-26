@@ -4,6 +4,7 @@ import {AtIcon} from 'taro-ui'
 import styles from './index.module.scss'
 import {connect} from "@tarojs/redux"
 import { action } from './store'
+import {dialog} from "@/util/index";
 
 @connect(({user, me}) => ({
   token: user.token,
@@ -31,7 +32,13 @@ class User extends Component {
     Taro.navigateTo({url: `/pages/order/list/index?status=${status}`})
   }
 
-  goPath = (path) => {
+  goPath = (item) => {
+    const { id, path} = item
+    if (id === '888') {
+      return Taro.scanCode({success(res) {
+          console.log(res.result)
+        }})
+    }
     Taro.navigateTo({url: path})
   }
 
@@ -51,6 +58,7 @@ class User extends Component {
       { id: '5', text: '海南旅游', icon: 'https://tmall.cocogc.cn/static/images/personal/travel.png', path: '/pages/travel/order/list/index'},
     ]
     const list = [
+      { id: '888', text: '扫一扫', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: '/pages/history/index'},
       { id: '0', text: '积分日志', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: '/pages/history/index'},
       { id: '1', text: '卡密充值', icon: 'https://tmall.cocogc.cn/static/images/personal/kami.png', path: '/pages/cardCharge/index'},
       { id: '2', text: '帮助中心', icon: 'https://tmall.cocogc.cn/static/images/personal/help.png', path: '/pages/help/index'},
@@ -113,7 +121,7 @@ class User extends Component {
             {
               appList.map(item => {
                 return (
-                  <View className={styles.item} key={item.id} onClick={() => this.goPath(item.path)}>
+                  <View className={styles.item} key={item.id} onClick={() => this.goPath(item)}>
                     <Image src={item.icon}></Image>
                     <View className={styles.appText}>{item.text}</View>
                   </View>
@@ -126,7 +134,7 @@ class User extends Component {
           {
             list.map(item => {
               return (
-                <View className={styles.line} key={item.id} onClick={() => this.goPath(item.path)}>
+                <View className={styles.line} key={item.id} onClick={() => this.goPath(item)}>
                   <Image src={item.icon}></Image>
                   <View className={styles.text}>{item.text}</View>
                   <View className={styles.right}>

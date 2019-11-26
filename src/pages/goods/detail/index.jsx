@@ -93,6 +93,9 @@ export default class GoodsDetail extends Component{
         <View className={styles.balingWrapper}>
           <View className={styles.balingContent}>
             <View className={styles.title}>规格与包装</View>
+            <View>
+              <RichText nodes={this.props.data.brief}></RichText>
+            </View>
           </View>
         </View>
         <View className={styles.balingWrapper}>

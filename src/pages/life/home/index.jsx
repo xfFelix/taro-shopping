@@ -100,7 +100,7 @@ export default class lifeHome extends Component{
         }
         <View className={styles.addPay}>
           <Text>新增缴费</Text>
-          <View>椰子分余额：
+          <View>积分余额：
             <Text className={styles.price}>{info.score}</Text>
           </View>
         </View>

@@ -185,7 +185,7 @@ export default class PhoneHome extends Component {
           {this.props.phoneType==1&&(
             <View className="recodeWrap score-card">
               <View className="score">
-                <Text className="score-name">椰子分余额：</Text> <Text className="score">{this.props.info.score}</Text>
+                <Text className="score-name">积分余额：</Text> <Text className="score">{this.props.info.score}</Text>
               </View>
               <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>兑换记录 ></Text>
             </View>
@@ -195,7 +195,7 @@ export default class PhoneHome extends Component {
         {this.props.phoneType==0&&(
           <View className="recodeWrap score-dir">
             <View className="score">
-              <Text className="score-name">椰子分余额：</Text> <Text className="score">{this.props.info.score}</Text>
+              <Text className="score-name">积分余额：</Text> <Text className="score">{this.props.info.score}</Text>
             </View>
             <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>兑换记录 ></Text>
           </View>
