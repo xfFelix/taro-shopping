@@ -129,7 +129,7 @@ export default class lifePayment extends Component{
             <Image src={this.findIconByType(this.props.config.type)} className={styles.iconImg}></Image>
             <Text>{this.findNameByType(this.props.config.type)}</Text>
           </View>
-          <View>旅游分余额：<Text className={styles.price}>{this.props.info.score}</Text></View>
+          <View>积分余额：<Text className={styles.price}>{this.props.info.score}</Text></View>
         </View>
         <View className={styles.content}>
           <View className={styles.box}>

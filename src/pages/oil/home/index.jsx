@@ -116,7 +116,7 @@ export default class OrderList extends Component{
             >充值卡</View>
           </View>
           <View className={styles.info}>
-            <View>旅游分余额：<Text className={styles.price}>{this.props.info.score}</Text></View>
+            <View>积分余额：<Text className={styles.price}>{this.props.info.score}</Text></View>
             <View onClick={() => Taro.navigateTo({url: '/pages/oil/order/index'})}>兑换记录&gt;</View>
           </View>
         </View>

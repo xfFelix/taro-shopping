@@ -21,7 +21,16 @@ const store = configStore()
 class App extends Component {
 
   config = {
+    // subPackages: [
+    //   {
+    //     root: "app",
+    //     pages: [
+    //       "pages/payment/index",
+    //     ]
+    //   }
+    // ],
     pages: [
+      'app/pages/payment/index',
       'pages/tab/Home/index',
       'pages/order/preview/index',
       'pages/tab/Cart/index',
@@ -36,7 +45,7 @@ class App extends Component {
       'pages/gold/buyBack/index',
       'pages/gold/record/index',
       'pages/tab/User/index',
-      'pages/help/index',
+      'pages/web/index',
       'pages/travel/order/detail/index',
       'pages/travel/order/list/index',
       'pages/phone/home/index',

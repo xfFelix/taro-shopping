@@ -36,7 +36,16 @@ class User extends Component {
     const { id, path} = item
     if (id === '888') {
       return Taro.scanCode({success(res) {
-          console.log(res.result)
+          let result = res.result
+          if (result.indexOf('cocotc') >= 0) {
+            console.log(result)
+            let arr = result.split(":")
+            let code = arr[1]
+            console.log(code)
+            Taro.navigateTo({url: '/app/pages/payment/index?id=' + code})
+          } else {
+            dialog.toast({title: '此二维码无效'})
+          }
         }})
     }
     Taro.navigateTo({url: path})
@@ -61,7 +70,7 @@ class User extends Component {
       { id: '888', text: '扫一扫', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: '/pages/history/index'},
       { id: '0', text: '积分日志', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: '/pages/history/index'},
       { id: '1', text: '卡密充值', icon: 'https://tmall.cocogc.cn/static/images/personal/kami.png', path: '/pages/cardCharge/index'},
-      { id: '2', text: '帮助中心', icon: 'https://tmall.cocogc.cn/static/images/personal/help.png', path: '/pages/help/index'},
+      { id: '2', text: '帮助中心', icon: 'https://tmall.cocogc.cn/static/images/personal/help.png', path: '/pages/web/index?url=https://mp.weixin.qq.com/s/dGr3g0voUelWYBxfrTHrxg'},
       { id: '3', text: '联系我们', icon: 'https://tmall.cocogc.cn/static/images/personal/contact.png', path: '/pages/link/index'},
       { id: '4', text: '设置', icon: 'https://tmall.cocogc.cn/static/images/personal/setUp.png', path: '/pages/setting/index'},
     ]
