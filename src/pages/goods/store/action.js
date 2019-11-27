@@ -92,4 +92,3 @@ export const getCartNum = (data) => ({
   type: GET_CART_LIST_NUM,
   data
 })
-

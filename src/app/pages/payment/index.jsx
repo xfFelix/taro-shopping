@@ -26,12 +26,13 @@ export default class Payment extends Component{
       amount: '0'
     },
     value: '',
-    showCode: false
+    showCode: false,
+    company: ''
   }
 
   componentWillMount(): void {
-    const { id } = this.$router.params
-    this.setState({id})
+    const { id, company } = this.$router.params
+    this.setState({id, company})
   }
 
   getPrice = (e) => {
@@ -53,10 +54,10 @@ export default class Payment extends Component{
   payment = async(code) => {
     Taro.showLoading({mask: true})
     const {token} = this.props
-    const {value, id} = this.state
+    const {value, id, company} = this.state
     try {
-      const { data } = await paymentByScan({token, amount: value, verifyCode: code, vendorUserId: id})
-      Taro.showToast({title: '支付成功'})
+      const { data } = await paymentByScan({token, amount: value, verifyCode: code, vendorUserId: id, mchName: company})
+      Taro.navigateTo({url: `/app/pages/payment/success/index?company=${company}&time=${data.addDate}&price=${data.totalAmount}`})
     } catch (e) {
       dialog.toast({title: e.message})
     } finally {
@@ -69,7 +70,7 @@ export default class Payment extends Component{
   }
 
   render(): any {
-    const { data, value, showCode } = this.state
+    const { data, value, showCode, company } = this.state
     const { info } = this.props
     return (
       <View className={styles.wrapper}>
@@ -89,6 +90,10 @@ export default class Payment extends Component{
           </View>
           <View className={styles.box}>
             <View className={styles.item}>
+              <View className={styles.label}>商户名称</View>
+              <View className={styles.value}>{company}</View>
+            </View>
+            <View className={styles.item}>
               <View className={styles.label}>服务费</View>
               <View className={styles.value}>{data.service_fee}</View>
             </View>
@@ -98,7 +103,7 @@ export default class Payment extends Component{
             </View>
           </View>
         </View>
-        <Button className={styles.btn} onClick={() => this.setState({showCode: true})}>立即兑换</Button>
+        <Button className={styles.btn} onClick={() => this.setState({showCode: true})}>立即支付</Button>
         {showCode && <PayPassword
           isClosed
           onBack={() => this.setState({showCode: false})}

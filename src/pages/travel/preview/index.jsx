@@ -107,7 +107,7 @@ export default class TravelHome extends Component{
 
   render(): any {
     const {data, preview, ticketList, num, current, name, mobile, idCard, showCode} = this.state
-    const {info} = this.props
+    const { info } = this.props
     return (
       <View className={styles.wrapper}>
         <View className={styles.ticket}>
@@ -186,7 +186,7 @@ export default class TravelHome extends Component{
           </View>
           <View className={styles.line}>
             <View className={styles.name}>余额</View>
-            <View className={styles.value}>{(+info.score).toFixed(2)}</View>
+            <View className={styles.value}>{info && (+info.score).toFixed(2)}</View>
           </View>
         </View>
         <View className={styles.fixed}>

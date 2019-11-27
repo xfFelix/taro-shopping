@@ -1,0 +1,93 @@
+@import "../../../../styles/mixin/index.scss";
+
+.wrapper{
+  padding: 30px;
+  .container{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
+    padding: 80px 0 70px;
+    .banner{
+      width: 80px;
+      height: 80px;
+    }
+    .text{
+      font-size: 30px;
+      margin-top: 25px;
+    }
+    .number{
+      font-size: 44px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      .icon{
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+      }
+    }
+  }
+  .btnWrapper{
+    display: flex;
+    box-sizing: border-box;
+    margin: 30px 60px;
+    align-items: center;
+    justify-content: space-between;
+    &.center{
+      justify-content: center;
+    }
+    .btn{
+      width: 42%;
+      padding: 10px 50px;
+      color: #30ce84;
+      border: 1px solid #30ce84;
+      font-size: 30px;
+      margin: 0;
+      background: #fff;
+    }
+    .order{
+      background: #30ce84;
+      color: #ffffff;
+    }
+  }
+  .more{
+    .title{
+      font-size: 30px;
+      font-weight: bold;
+      position: relative;
+      &:before{
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 100%;
+        top: 0;
+        left: -15px;
+        background: #30ce84;
+      }
+    }
+    .content{
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      .item{
+        flex: 1;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        .img{
+          width: 90px;
+          height: 90px;
+          margin-bottom: 6px;
+        }
+      }
+    }
+  }
+}

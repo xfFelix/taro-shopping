@@ -5,8 +5,8 @@ import styles from './index.module.scss'
 import { dialog, validate } from '@/util'
 import { connect } from '@tarojs/redux'
 import SelectLocation from '@/components/SelectLocation'
-import { sms, captcha } from '@/api'
-import {getInfoSync, setTokenAsync} from "@/actions/user"
+import { sms, captcha, loginByWechat } from '@/api'
+import {getInfoSync, setTokenAsync, setToken} from "@/actions/user"
 import SendCode from "@/components/SendCode"
 
 @connect(({login, user}) => ({
@@ -14,6 +14,7 @@ import SendCode from "@/components/SendCode"
   user
 }), dispatch => ({
   setToken: (data) => dispatch(setTokenAsync(data)),
+  setTokenSync: (data) => dispatch(setToken(data)),
   getInfo: (token) => dispatch(getInfoSync(token))
 }))
 export default class Login extends Component {
@@ -46,10 +47,41 @@ export default class Login extends Component {
     })
   }
 
+  getWxLogin = () => {
+    const { getInfo, setTokenSync } = this.props
+    Taro.login({success(res) {
+        if (res.code) {
+          Taro.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wxb8cbf5cc78c7ddd2&secret=4f918e61b5aaa491be59f2cab6ed2532&js_code=' + res.code + '&grant_type=authorization_code',
+            success: res => {
+              let id = res.data.openid
+              loginByWechat({wxOpenId: id}).then(({error_code, data}) => {
+                if (+error_code === 12) {
+                  Taro.redirectTo({url: '/pages/bindTel/index?id=' + id})
+                } else {
+                  Promise.all([
+                    setTokenSync(data.token),
+                    getInfo(data.token)
+                  ]).then(res => {
+                    Taro.switchTab({url: '/pages/tab/Home/index'})
+                  })
+                }
+              }).catch(e => {
+                dialog.toast({title: e.message})
+              })
+            }
+          })
+        } else {
+          dialog.toast({title: '登录失败！' + res.errMsg})
+        }
+      }
+    })
+  }
+
   render() {
     return (
       <View className={styles.wrapper}>
-        <Text className={styles.register} onClick={() => Taro.navigateTo({url: '../Register/index'})}>注册</Text>
+        {/*<Text className={styles.register} onClick={() => Taro.navigateTo({url: '../Register/index'})}>注册</Text>*/}
         <Image src='https://mall.cocotc.cn/static/images/regist.png' className={styles.banner} />
         <View className={styles.container}>
           <View className={styles.item}>
@@ -107,16 +139,20 @@ export default class Login extends Component {
               {
                 this.state.pwd && <Image src={this.state.showPassword ? 'https://tmall.cocogc.cn/static/images/eye-open.png' : 'https://tmall.cocogc.cn/static/images/eye-close.png'} className={styles.eye} onClick={() => this.setState(preState => ({ showPassword: !preState.showPassword }))}/>
               }
+              <Text className={styles.text} onClick={() => Taro.navigateTo({url: '../ForgetPwd/index'})}>忘记密码?</Text>
             </View>)
           }
         </View>
         <Button className={styles.confirm} onClick={this.validateRegister}>登录</Button>
         {
           this.state.flag ?
-            <Text className={styles.login} onClick={() => this.setState(preState => ({flag: !preState.flag}))}>使用密码登录</Text> :
+            <View className={styles.passwordType}>
+              <Text className={styles.text} onClick={() => this.setState(preState => ({flag: !preState.flag}))}>使用密码登录</Text>
+              <Text className={styles.text} onClick={() => this.getWxLogin()}>使用微信登录</Text>
+            </View> :
             <View className={styles.passwordType}>
               <Text className={styles.text} onClick={() => this.setState(preState => ({flag: !preState.flag}))}>使用短信登录</Text>
-              <Text className={styles.text} onClick={() => Taro.navigateTo({url: '../ForgetPwd/index'})}>忘记密码?</Text>
+              <Text className={styles.text} onClick={() => this.getWxLogin()}>使用微信登录</Text>
             </View>
         }
         <SelectLocation

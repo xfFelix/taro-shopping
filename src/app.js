@@ -27,14 +27,17 @@ class App extends Component {
         pages: [
           "pages/payment/index",
           "pages/payment/order/index",
+          "pages/payment/success/index",
         ]
       }
     ],
     pages: [
       'pages/tab/Home/index',
+      'pages/success/index',
+      'pages/Login/index',
+      'pages/bindTel/index',
       'pages/order/preview/index',
       'pages/tab/Cart/index',
-      'pages/Login/index',
       'pages/order/list/index',
       'pages/cardCharge/index',
       'pages/link/index',
@@ -72,7 +75,6 @@ class App extends Component {
       'pages/protocol/index',
       'pages/order/stream/index',
       'pages/order/detail/index',
-      'pages/success/index',
       'pages/ForgetPwd/index',
       'pages/Register/index',
       'pages/setting/index',

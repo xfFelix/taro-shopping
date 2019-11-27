@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Text, Image, Swiper, SwiperItem, Button } from '@tarojs/components'
 import { AtNoticebar, AtIcon } from 'taro-ui'
 import {connect} from '@tarojs/redux'
 import Navigator from "../../../navigator";
@@ -8,6 +8,7 @@ import Goods from "@/components/goods";
 import { setHomeSwiper, getHomeHot, getHomeNew } from '@/actions/home'
 import './index.scss'
 import {getInfoSync} from "@/actions/user";
+import {dialog} from "@/util/index";
 
 @connect(({home, user}) => ({
   list: home.list,
@@ -63,10 +64,15 @@ class Home extends Component {
     }
   }
 
+  getUserInfo = (e) => {
+    console.log(e)
+  }
+
   render() {
     const { list, swiperList, hotList, newList, token, info } = this.props
     return (
       <View className={'home-wrapper'}>
+        {/*<Button openType={"getUserInfo"} onGetUserInfo={(e) => this.getUserInfo(e)}>获取用户信息</Button>*/}
         <View className={'home'}>
           <Image src={'https://mall.cocotc.cn/static/images/home/bg.png'} className={'index-bg'} mode={'widthFix'}></Image>
           <View className={'notice-bar'}>
@@ -133,7 +139,7 @@ class Home extends Component {
                 swiperList.map((item, index) => {
                   return (
                     <SwiperItem key={index}>
-                      <Image src={item.src} mode='widthFix' style="width: 100%"></Image>
+                      <Image src={item.src} style="width: 100%;height:100%"></Image>
                     </SwiperItem>
                   )
                 })

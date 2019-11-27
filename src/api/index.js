@@ -17,6 +17,13 @@ export const sms = (data) => fetch({
   header: {'Cookie': Taro.getStorageSync('cookie')}
 })
 
+// 微信授权注册、登录
+export const loginByWechat = (data) => fetch({
+  url: `${INFO_URL}/user/wechatLogin`,
+  method: 'post',
+  data
+})
+
 export const captcha = () => fetch({
   url:INFO_URL+ '/user/captcha64?' + new Date(),
 })

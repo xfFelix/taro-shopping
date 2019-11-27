@@ -1,6 +1,6 @@
 const isDev = process.env.NODE_ENV === 'development'
 
-export const INFO_URL = isDev ? 'https://api.cocotc.cn' : 'https://api.cocotc.cn'
+export const INFO_URL = isDev ? 'http://192.168.0.175:8099' : 'https://api.cocotc.cn'
 
 export const BASE_URL = isDev ? 'https://shop.cocotc.cn' : 'https://shop.cocotc.cn'
 

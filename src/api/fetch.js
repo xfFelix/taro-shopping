@@ -43,6 +43,13 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 }
                 reject(new Error(data.message))
                 break
+              case 12:
+                if (/\/user\/wechatLogin/.test(url)) {
+                  resolve(data)
+                }else {
+                  reject(new Error(data.message))
+                }
+                break
               default:
                 /**
                  * -1: token error; 1: token is null

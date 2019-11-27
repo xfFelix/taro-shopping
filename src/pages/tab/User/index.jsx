@@ -38,11 +38,10 @@ class User extends Component {
       return Taro.scanCode({success(res) {
           let result = res.result
           if (result.indexOf('cocotc') >= 0) {
-            console.log(result)
             let arr = result.split(":")
             let code = arr[1]
-            console.log(code)
-            Taro.navigateTo({url: '/app/pages/payment/index?id=' + code})
+            let company = arr[2]
+            Taro.navigateTo({url: `/app/pages/payment/index?id=${code}&company=${company}`})
           } else {
             dialog.toast({title: '此二维码无效'})
           }
