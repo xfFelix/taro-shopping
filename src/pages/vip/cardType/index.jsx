@@ -215,10 +215,6 @@ export default class VipHome extends Component {
                 <Text className="value">{filter.toDecimal2(this.state.selectInfo.sellingPrice)}</Text>
               </View>
               <View className="flex">
-                <Text className="name">税费</Text>
-                <Text className="value">{filter.toDecimal2(this.state.selectInfo.tax_total)}</Text>
-              </View>
-              <View className="flex">
                 <Text className="name">应付合计</Text>
                 <Text className="value">{filter.toDecimal2(this.state.selectInfo.total)}</Text>
               </View>

@@ -113,7 +113,6 @@ export default class VipHome extends Component {
                             {(item.idUrl.length==32 && item.cardNum)&& <View className="infoInner">充值账号：{item.cardNum} </View>}
                             {(item.idUrl.length==32 && item.cardBank )&& <View className="infoInner">类型：{this.timeType(item.cardBank)} </View>}
                             <View className="infoInner">售价：{filter.toDecimal2(item.repaymentAmount)}</View>
-                            <View className="infoInner">税费：{filter.toDecimal2(item.taxFee)}</View>
                             <View className="total">合计：{filter.toDecimal2(item.totalAmount)}</View>
                           </View>
                         </View>

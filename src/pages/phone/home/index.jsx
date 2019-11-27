@@ -80,7 +80,8 @@ export default class PhoneHome extends Component {
       let res = await phoneCharge({
         token:this.props.token,
         amount:this.props.phoneType==0?this.props.dirPrice.realPrice:this.props.cardPrice.realPrice,
-        verify_code:val,type:this.state.typeId,
+        verify_code:val,
+        // type:this.state.typeId,
         mobile:this.props.phoneType==0?this.state.inpNum:'',
         type:this.props.phoneType,
       });
@@ -158,9 +159,9 @@ export default class PhoneHome extends Component {
               this.state.tabList.map((item,index)=>{
                 return(
                   <Text
-                  onClick={() => this.tabChange(item.id)}
-                  key={item.id}
-                  className={this.props.phoneType==index?"active tab":'tab'}
+                    onClick={() => this.tabChange(item.id)}
+                    key={item.id}
+                    className={this.props.phoneType==index?"active tab":'tab'}
                   >
                   {item.name}</Text>
                 )
@@ -211,9 +212,9 @@ export default class PhoneHome extends Component {
                   Object.keys(this.state.dirList).map((obj, key)=>{
                     return(
                       <View
-                          key={key}
-                          onClick={()=>{this.dirClick(obj, key)}}
-                          className={this.state.dirIndex==key?'phoneBill-typeL price_actived':'phoneBill-typeL'}>
+                        key={key}
+                        onClick={()=>{this.dirClick(obj, key)}}
+                        className={this.state.dirIndex==key?'phoneBill-typeL price_actived':'phoneBill-typeL'}>
                           <View className="pB-tMWrap">
                             <Text className="phoneBill-tMoney">{obj}</Text>
                             <Text className="phoneBill-tYuan">元</Text>
@@ -232,9 +233,9 @@ export default class PhoneHome extends Component {
                   Object.keys(this.state.cardList).map((obj, key)=>{
                     return(
                       <View
-                          key={key}
-                          onClick={()=>{this.cardClick(obj, key)}}
-                          className={this.state.noGoods.includes(obj)?'phoneBill-typeL price_gray':(this.state.cardIndex==key?'phoneBill-typeL price_actived':'phoneBill-typeL')}>
+                        key={key}
+                        onClick={()=>{this.cardClick(obj, key)}}
+                        className={this.state.noGoods.includes(obj)?'phoneBill-typeL price_gray':(this.state.cardIndex==key?'phoneBill-typeL price_actived':'phoneBill-typeL')}>
                           {
                             this.state.noGoods.includes(obj)&&<Text class="lack" >缺货</Text>
                           }
@@ -256,12 +257,12 @@ export default class PhoneHome extends Component {
           (
             <View className="phoneBnt">
               <View className={this.state.phoneCan?'phoneBnt-left bntCan':'phoneBnt-left bntNo'}
-                onClick = {()=>this.changeNow()}>立即兑换
+                onClick={()=>this.changeNow()}>立即兑换
               </View>
             </View>
           ):
           (<View className="phoneBnt">
-            <View className="phoneBnt-left flex bntCan" onClick = {()=>this.changeNow()}>立即兑换</View>
+            <View className="phoneBnt-left flex bntCan" onClick={()=>this.changeNow()}>立即兑换</View>
             <View className="phoneBnt-right flex" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>立即回购</View>
           </View>)
         }
@@ -269,10 +270,10 @@ export default class PhoneHome extends Component {
 
         {
            this.state.showInfo && <Dialog
-            renderHeader={<View>确认兑换</View>}
-            renderFooter={<Button className="confirm" onClick={() => this.onShowCode()}>确认</Button>}
-            onClose={() => this.onClose()}
-            onBack={() => this.onClose()}
+             renderHeader={<View>确认兑换</View>}
+             renderFooter={<Button className="confirm" onClick={() => this.onShowCode()}>确认</Button>}
+             onClose={() => this.onClose()}
+             onBack={() => this.onClose()}
           >
             <View className="content">
               <View className="total">
@@ -292,10 +293,6 @@ export default class PhoneHome extends Component {
               <View className="flex">
                 <Text className="name">服务费</Text>
                 <Text className="value">{filter.toDecimal2(this.state.taxInfo.total-this.state.taxInfo.amount-this.state.taxInfo.tax_total)}</Text>
-              </View>
-              <View className="flex">
-                <Text className="name">税费</Text>
-                <Text className="value">{filter.toDecimal2(this.state.taxInfo.tax_total)}</Text>
               </View>
               <View className="flex">
                 <Text className="name">应付合计</Text>

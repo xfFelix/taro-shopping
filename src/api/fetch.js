@@ -35,9 +35,6 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                   Taro.navigateTo({url: '/pages/Login/index'})
                 }
                 break
-              case 2:
-                resolve(data)
-                break
               case 3:
                 if (/\/api\/previewOrderByCart/.test(url)) {
                   Taro.navigateBack().then(res => {
@@ -45,12 +42,6 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                   })
                 }
                 reject(new Error(data.message))
-                break
-                case 4:
-                  resolve(data)
-                  break
-              case 7:
-                resolve(data)
                 break
               default:
                 /**

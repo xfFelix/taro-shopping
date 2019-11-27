@@ -172,7 +172,6 @@ export default class GoldRecord extends Component {
                           <View className="infoInner">数量：{this.props.backInfo.type==0?Math.round(item.weight/10)+'根':Math.round(item.weight/0.2)+'颗'}</View>
                           <View className="infoInner">{this.props.backInfo.type==0?'金条价格':'金砂价格'}：{filter.toDecimal2(item.repaymentAmount)}</View>
                           <View className="infoInner">服务费：{filter.toDecimal2(item.serviceFee)}</View>
-                          <View className="infoInner">税费：{filter.toDecimal2(item.taxFee)}</View>
                           <View className="total">合计：{filter.toDecimal2(item.totalAmount)}</View>
                         </View>
                         {(item.code && (item.buyInfo == null))?<View className="recover" onClick={()=>this.goBuyBack(item)}>立即回购</View>:''}

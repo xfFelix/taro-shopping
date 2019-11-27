@@ -153,7 +153,6 @@ export default class phoneRecord extends Component {
                           { this.state.typeId==1 &&<View className="infoInner">卡号：{item.number?item.number:'— —'}</View> }
                           { this.state.typeId==1 &&<View className="infoInner">卡密：{item.number?item.password:'— —'}</View>}
                           <View className="infoInner">服务费：{filter.toDecimal2((item.totalAmount-item.cardBank-item.taxFee))}</View>
-                          <View className="infoInner">税费：{filter.toDecimal2(item.taxFee)}</View>
                           <View className="total">合计：{filter.toDecimal2(item.totalAmount)}</View>
                         </View>
 

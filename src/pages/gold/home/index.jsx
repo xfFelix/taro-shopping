@@ -173,7 +173,6 @@ export default class GoldHome extends Component {
         <View className="msg">
           <View>金条价格<Text>{filter.toDecimal2(this.state.taxList.amount)}</Text></View>
           <View>服务费<Text>{filter.toDecimal2(this.state.taxList.service_fee)}</Text></View>
-          <View>税费<Text>{filter.toDecimal2(this.state.taxList.tax_total)}</Text></View>
           <View>合计<Text>{filter.toDecimal2(this.state.taxList.total)}</Text></View>
         </View>
 
