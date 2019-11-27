@@ -123,7 +123,7 @@ export default class VipHome extends Component {
         { this.props.vip.costType==1?
           (<View className="headTop">
             <View className="buy">
-              <Image src={'https://mall.cocogc.cn/static/images/logo/jd.png'} className="logoGreen"></Image>
+              <Image src={ICON} className="logoGreen"></Image>
               <View className="input-flex">
                 <AtInput
                   name='inpNum'

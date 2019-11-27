@@ -170,7 +170,7 @@ export default class PhoneHome extends Component {
           </View>
 
           {this.props.phoneType==0&&(<View className="buy">
-          <Image src={'https://mall.cocogc.cn/static/images/logo/jd.png'} className="logoGreen"></Image>
+          <Image src={ICON} className="logoGreen"></Image>
             <View className="input-flex">
               <AtInput
                 name='inpNum'

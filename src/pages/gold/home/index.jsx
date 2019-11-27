@@ -11,6 +11,7 @@ import {goldTypeFun,barPriceFun,sandPriceFun} from "@/pages/gold/store/action"
 import {goldPrice,goldTax,goldBuy} from '../api'
 import PayPassword from "@/components/PayPassword";
 import {setParams} from "@/pages/success/store/action";
+import ICON from '@/assets/img/tab/supermarket-actived.png'
 
 
 @connect(({gold,user}) => ({
@@ -147,7 +148,7 @@ export default class GoldHome extends Component {
           </View>
 
           <View className="buy">
-          <Image src={'https://mall.cocogc.cn/static/images/logo/jd.png'} className="logoGreen"></Image>
+          <Image src={ICON} className="logoGreen"></Image>
             <View className="input-flex">
               <AtInput
                 name='inpNum'

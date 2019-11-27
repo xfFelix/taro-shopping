@@ -67,7 +67,7 @@ class User extends Component {
       { id: '5', text: '海南旅游', icon: 'https://tmall.cocogc.cn/static/images/personal/travel.png', path: '/pages/travel/order/list/index'},
     ]
     const list = [
-      { id: '888', text: '扫一扫', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: '/pages/history/index'},
+      { id: '888', text: '扫一扫', icon: 'https://tmall.cocogc.cn/static/images/weapp/scan.png', path: '/pages/history/index'},
       { id: '0', text: '积分日志', icon: 'https://mall.cocotc.cn/static/images/home/supermarket-actived.png', path: '/pages/history/index'},
       { id: '1', text: '卡密充值', icon: 'https://tmall.cocogc.cn/static/images/personal/kami.png', path: '/pages/cardCharge/index'},
       { id: '2', text: '帮助中心', icon: 'https://tmall.cocogc.cn/static/images/personal/help.png', path: '/pages/web/index?url=https://mp.weixin.qq.com/s/dGr3g0voUelWYBxfrTHrxg'},
