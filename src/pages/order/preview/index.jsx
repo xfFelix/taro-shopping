@@ -54,9 +54,11 @@ export default class Preview extends Component{
 
   submitOrder = async (value) => {
     try{
+      Taro.showLoading({mask:true})
       this.setState({ showCode: false})
       let params = { id: this.props.address.id, token: this.props.token, code: value }
       const { data } = await saveOrder(params)
+      Taro.hideLoading()
       // 设置成功页面的展示信息
       let config = {price: data[0].totalMoney, path:{ home: '/pages/tab/Home/index', order: '/pages/order/list/index'}}
       await this.props.setParams(config)

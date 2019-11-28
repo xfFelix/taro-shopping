@@ -37,7 +37,7 @@ export default class GoldRecord extends Component {
     try {
       const { token } = this.props
       const { offset, size } = this.state
-      let config = {token: '1caec9d6f84c0ae8891711ce9cd2bcb6', start: offset, num: size}
+      let config = {token, start: offset, num: size}
       const {data} = await getLogsByScan(config)
       if (data && data.length) {
         this.setState(pre => ({list: [...pre.list, ...data]}))

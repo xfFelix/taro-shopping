@@ -138,6 +138,12 @@ export default class PhoneHome extends Component {
   }
 
   changeNow=()=>{
+    const {info, dirPrice, phoneType, cardPrice} = this.props
+    if (phoneType == 0) {
+      if (info.score < dirPrice.realPrice) return dialog.toast({title: '积分余额不足'})
+    } else {
+      if (info.score < cardPrice.realPrice) return dialog.toast({title: '积分余额不足'})
+    }
     if( this.props.phoneType==0 ){
       if(this.state.phoneCan && this.state.inpNum){
         this.priceTax();
@@ -188,7 +194,7 @@ export default class PhoneHome extends Component {
               <View className="score">
                 <Text className="score-name">积分余额：</Text> <Text className="score">{this.props.info.score}</Text>
               </View>
-              <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>兑换记录 ></Text>
+              <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>兑换记录 &gt;</Text>
             </View>
           )}
         </View>
@@ -198,7 +204,7 @@ export default class PhoneHome extends Component {
             <View className="score">
               <Text className="score-name">积分余额：</Text> <Text className="score">{this.props.info.score}</Text>
             </View>
-            <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>兑换记录 ></Text>
+            <Text className="goRecode" onClick={()=>Taro.navigateTo({url:'/pages/phone/record/index'})}>兑换记录 &gt;</Text>
           </View>
         )}
 

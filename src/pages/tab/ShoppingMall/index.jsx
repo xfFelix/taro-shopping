@@ -66,6 +66,10 @@ class ShoppingMall extends Component {
     Taro.navigateTo({url: '/pages/goods/list/index?productId=' + item.id})
   }
 
+  goPath = (url) => {
+    Taro.navigateTo({url: '/pages/web/index?url='+ url})
+  }
+
   render() {
     const { swiperList, newList, hotList } = this.props
     return (
@@ -84,7 +88,7 @@ class ShoppingMall extends Component {
               swiperList.map((item, index) => {
                 return (
                   <SwiperItem key={index}>
-                    <Image src={item.src}></Image>
+                    <Image src={item.src} onClick={() => this.goPath(item.url)}></Image>
                   </SwiperItem>
                 )
               })

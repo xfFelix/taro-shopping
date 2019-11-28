@@ -64,6 +64,10 @@ class Classify extends Component {
     Taro.navigateTo({url: '/pages/goods/list/index?name=' + value})
   }
 
+  goPath = (url) => {
+    Taro.navigateTo({url: '/pages/web/index?url='+ url})
+  }
+
   render() {
     const { firstDir, swiperList } = this.props.classify
     let secoundDir = this._store()
@@ -108,7 +112,7 @@ class Classify extends Component {
                   swiperList.map((item, index) => {
                     return (
                       <SwiperItem key={index}>
-                        <Image className={styles.image} src={item.src} />
+                        <Image className={styles.image} src={item.src} onClick={() => this.goPath(item.url)}/>
                       </SwiperItem>
                     )
                   })

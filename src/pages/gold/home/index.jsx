@@ -114,7 +114,10 @@ export default class GoldHome extends Component {
   }
 
   changeNow = ()=>{
-    if (!this.state.checked) return dialog.toast({title: '请阅读并同意协议'});
+    const {taxList} = this.state
+    const { info } = this.props
+    if (!this.state.checked) return dialog.toast({title: '请阅读并同意协议'})
+    if (info.score < taxList.total) return dialog.toast({title: '积分余额不足'})
     this.state.inpNum&&this.state.checked?this.setState({showCode:true}):'';
   }
 
@@ -127,9 +130,9 @@ export default class GoldHome extends Component {
               this.tabList.map((item,index)=>{
                 return(
                   <Text
-                  onClick={() => this.tabChange(item.id)}
-                  key={item.id}
-                  className={this.props.gold.id==index?"active tab":'tab'}
+                    onClick={() => this.tabChange(item.id)}
+                    key={item.id}
+                    className={this.props.gold.id==index?"active tab":'tab'}
                   >
                   {item.name}</Text>
                 )
@@ -187,8 +190,9 @@ export default class GoldHome extends Component {
         </View>
 
         <View className="goldBnt">
-          <View className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'}
-              onClick = {()=>this.changeNow()}>立即兑换
+          <View
+            className={this.state.inpNum?'goldBnt-left flex bntCan':'goldBnt-left flex bntNo'}
+            onClick={()=>this.changeNow()}>立即兑换
           </View>
           <View className="goldBnt-right flex" onClick={()=>Taro.navigateTo({url:'/pages/gold/record/index'})}>立即回购</View>
         </View>

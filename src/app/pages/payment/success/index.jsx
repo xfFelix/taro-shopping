@@ -28,12 +28,14 @@ export default class PaymentSuccess extends Component{
     this.setState({price, time, company})
   }
 
-  goHome = (path) => {
-
+  goHome = () => {
+    Taro.navigateBack()
   }
 
-  goOrder = (path) => {
-
+  goOrder = () => {
+    Taro.navigateBack().then((res) => {
+      Taro.navigateTo({url: '/app/pages/payment/order/index'})
+    })
   }
 
   render(): any {
@@ -47,6 +49,12 @@ export default class PaymentSuccess extends Component{
           <View className={styles.number}>
             <Image src={ICON} className={styles.icon}></Image>
             <Text>{price}</Text>
+          </View>
+          <View className={styles.number}>
+            <Text style={'font-size: 16px'}>{time}</Text>
+          </View>
+          <View className={styles.number}>
+            <Text style={'font-size: 16px'}>{company}</Text>
           </View>
         </View>
         <View className={styles.btnWrapper}>

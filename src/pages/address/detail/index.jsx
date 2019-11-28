@@ -162,7 +162,7 @@ export default class AddressDetail extends Component{
           <View className={styles.item}>
             <Text className={styles.label}>所在地区</Text>
             <Picker style={'flex: 1'} mode={'multiSelector'} range={arr} rangeKey={'name'} value={this.state.indexArr} onChange={this.onChange} onColumnChange={this.onhandleColumnChange}>
-              <Input className={styles.input} placeholder={'省市区县，乡镇等'} value={this.state.area} style={'width: 100%'}></Input>
+              <Input className={styles.input} placeholder={'省市区县，乡镇等'} value={this.state.area} style={'width: 100%'} disabled></Input>
             </Picker>
           </View>
           <View className={styles.desc}>

@@ -35,7 +35,12 @@
     margin-right: 4%;
     border-radius:10px;
     border: 1px solid #30ce84;
-    padding: 32px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 32px 0px;
+    box-sizing: border-box;
+    font-size: 28px;
     display: inline-block;
   }
   .isSelect{

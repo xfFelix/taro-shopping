@@ -1,24 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Swiper, SwiperItem, Button } from '@tarojs/components'
-import { AtNoticebar, AtIcon } from 'taro-ui'
+import { View, Text, Image } from '@tarojs/components'
+import { AtNoticebar, AtIcon, AtButton } from 'taro-ui'
 import {connect} from '@tarojs/redux'
-import Navigator from "../../../navigator";
-
 import Goods from "@/components/goods";
-import { setHomeSwiper, getHomeHot, getHomeNew } from '@/actions/home'
+import { getHomeHot, getHomeNew } from '@/actions/home'
 import './index.scss'
 import {getInfoSync} from "@/actions/user";
 import {dialog} from "@/util/index";
 
 @connect(({home, user}) => ({
   list: home.list,
-  swiperList: home.swiperList,
   hotList: home.hotList,
   newList: home.newList,
   info: user.info,
   token: user.token
 }), (dispatch) => ({
-  getHomeSwiper: () => dispatch(setHomeSwiper()),
   getHomeHot: () => dispatch(getHomeHot()),
   getHomeNew: () => dispatch(getHomeNew()),
   getInfo: (token) => dispatch(getInfoSync(token))
@@ -26,15 +22,20 @@ import {dialog} from "@/util/index";
 class Home extends Component {
 
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '首页',
+    enablePullDownRefresh: true
   }
 
   constructor(props) {
     super(props)
   }
 
-  componentWillMount () {
+  onPullDownRefresh(): void {
     if (this.props.token) this.props.getInfo(this.props.token)
+    Taro.stopPullDownRefresh()
+  }
+
+  componentWillMount () {
     // 判断缓存是否存在
     if (!this.props.hotList || !Object.keys(this.props.hotList).length) {
       // 获取热门爆款
@@ -43,10 +44,6 @@ class Home extends Component {
     if (!this.props.newList || !Object.keys(this.props.newList).length) {
       // 获取走马灯 - 消息
       this.props.getHomeNew()
-    }
-    if (!this.props.swiperList || !Object.keys(this.props.swiperList).length) {
-      // 获取轮播图
-      this.props.getHomeSwiper()
     }
   }
 
@@ -64,12 +61,25 @@ class Home extends Component {
     }
   }
 
-  getUserInfo = (e) => {
-    console.log(e)
+  goPaymentByScan = () => {
+    const {token} = this.props
+    if (!token) return dialog.toast({title: '请先登录'})
+    Taro.scanCode({success(res) {
+        let result = res.result
+        if (result.indexOf('cocotc') >= 0) {
+          let arr = result.split(":")
+          let code = arr[1]
+          let company = arr[2]
+          Taro.navigateTo({url: `/app/pages/payment/index?id=${code}&company=${company}`})
+        } else {
+          dialog.toast({title: '此二维码无效'})
+        }
+      }
+    })
   }
 
   render() {
-    const { list, swiperList, hotList, newList, token, info } = this.props
+    const { list, hotList, newList, token, info } = this.props
     return (
       <View className={'home-wrapper'}>
         {/*<Button openType={"getUserInfo"} onGetUserInfo={(e) => this.getUserInfo(e)}>获取用户信息</Button>*/}
@@ -128,23 +138,7 @@ class Home extends Component {
             }
           </View>
           <View className='home-swiper-wrapper'>
-            <Swiper
-              className='home-swiper'
-              indicatorColor='#999'
-              indicatorActiveColor='#333'
-              circular
-              indicatorDots
-              autoplay>
-              {
-                swiperList.map((item, index) => {
-                  return (
-                    <SwiperItem key={index}>
-                      <Image src={item.src} style="width: 100%;height:100%"></Image>
-                    </SwiperItem>
-                  )
-                })
-              }
-            </Swiper>
+            <AtButton type={"primary"} circle onClick={() => this.goPaymentByScan()}>扫码支付</AtButton>
           </View>
         </View>
         <View className='home-hot-wrapper'>

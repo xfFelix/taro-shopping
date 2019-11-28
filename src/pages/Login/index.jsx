@@ -49,33 +49,33 @@ export default class Login extends Component {
 
   getWxLogin = () => {
     const { getInfo, setTokenSync } = this.props
-    Taro.login({success(res) {
-        if (res.code) {
-          Taro.request({
-            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wxb8cbf5cc78c7ddd2&secret=4f918e61b5aaa491be59f2cab6ed2532&js_code=' + res.code + '&grant_type=authorization_code',
-            success: res => {
-              let id = res.data.openid
-              loginByWechat({wxOpenId: id}).then(({error_code, data}) => {
-                if (+error_code === 12) {
-                  Taro.redirectTo({url: '/pages/bindTel/index?id=' + id})
-                } else {
-                  Promise.all([
-                    setTokenSync(data.token),
-                    getInfo(data.token)
-                  ]).then(res => {
-                    Taro.switchTab({url: '/pages/tab/Home/index'})
-                  })
-                }
-              }).catch(e => {
-                dialog.toast({title: e.message})
-              })
-            }
-          })
-        } else {
-          dialog.toast({title: '登录失败！' + res.errMsg})
-        }
-      }
-    })
+    try {
+      Taro.login({
+        success(res) {
+          let code = res.code
+          if (code) {
+            loginByWechat({jsCode: code}).then(({error_code, data}) => {
+              if (+error_code === 12) {
+                Taro.redirectTo({url: '/pages/bindTel/index?id=' + data.openId})
+              } else {
+                Promise.all([
+                  setTokenSync(data.token),
+                  getInfo(data.token)
+                ]).then(r => {
+                  Taro.switchTab({url: '/pages/tab/Home/index'})
+                })
+              }
+            }).catch(e => {
+              dialog.toast({title: e.message})
+            })
+          } else {
+            dialog.toast({title: '登录失败！' + res.errMsg})
+          }
+        },
+      })
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
   }
 
   render() {

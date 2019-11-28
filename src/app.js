@@ -33,6 +33,7 @@ class App extends Component {
     ],
     pages: [
       'pages/tab/Home/index',
+      'pages/gold/home/index',
       'pages/success/index',
       'pages/Login/index',
       'pages/bindTel/index',
@@ -42,7 +43,6 @@ class App extends Component {
       'pages/cardCharge/index',
       'pages/link/index',
       'pages/history/index',
-      'pages/gold/home/index',
       'pages/gold/protocol/index',
       'pages/gold/protocol/back',
       'pages/gold/buyBack/index',

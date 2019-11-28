@@ -19,6 +19,7 @@ import {dialog} from "@/util/index";
 @connect(({cart, user, goods}) => ({
   address: cart.address,
   token: user.token,
+  info: user.info,
   list: cart.changeList,
   defaultList: cart.list,
   isEmpty: cart.isEmpty,
@@ -56,7 +57,7 @@ class Cart extends Component {
     }
     this.props.getCartNum({token: this.props.token})
     this.props.getGuessLike()
-    this.props.getCartList({token: this.props.token, addressId: this.props.address.id})
+    this.props.getCartList({token: this.props.token, addressId: this.props.address?this.props.address.id: ''})
   }
 
   goGoodsDetail = (id) => {
@@ -70,12 +71,14 @@ class Cart extends Component {
   }
 
   goPreview = () => {
-    console.log('111')
+    const {address, total, info} = this.props
+    if (!address) return dialog.toast({title: '请填写收货地址'})
+    if (info.score < total) return dialog.toast({title: '积分余额不足'})
     Taro.navigateTo({url: '/pages/order/preview/index'})
   }
 
   render() {
-    this.props.totalNum && Taro.setTabBarBadge({index: 3, text: this.props.totalNum + ''})
+    this.props.defaultList ? Taro.setTabBarBadge({index: 3, text: this.props.defaultList.length + ''}) : Taro.setTabBarBadge({index: 3, text: '0'})
     return (
       <View className={styles.wrapper}>
         <View className={styles.header}>
@@ -93,7 +96,7 @@ class Cart extends Component {
                   <View className={styles.title}>
                     <Image src={'https://mall.cocotc.cn/static/images/cart/supermarket.png'} className={styles.supermarket}></Image>
                     <Text className={styles.storeName}>{store.title}</Text>
-                    <Text className={styles.mail}>({store.mail})</Text>
+                    {store.mail && <Text className={styles.mail}>({store.mail})</Text>}
                   </View>
                   {
                     store.data.map((item) => {

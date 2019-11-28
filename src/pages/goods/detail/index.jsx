@@ -90,14 +90,14 @@ export default class GoodsDetail extends Component{
             <View className={styles.numberContent}><Text className={styles.label}>服务</Text><Text className={styles.value}>{this.props.data.services}</Text></View>
           </View>
         </View>
-        <View className={styles.balingWrapper}>
+        {this.props.data.brief && <View className={styles.balingWrapper}>
           <View className={styles.balingContent}>
             <View className={styles.title}>规格与包装</View>
             <View>
               <RichText nodes={this.props.data.brief}></RichText>
             </View>
           </View>
-        </View>
+        </View>}
         <View className={styles.balingWrapper}>
           <View className={styles.balingContent}>
             <View className={styles.title}>商品详情</View>
@@ -176,6 +176,7 @@ export default class GoodsDetail extends Component{
 
   addCart = (num) => {
     this.props.addCart({id: this.props.data.id, token: this.props.token, num})
+    dialog.toast({title: '加入购物车成功~'})
   }
 
 }

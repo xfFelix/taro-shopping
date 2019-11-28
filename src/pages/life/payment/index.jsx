@@ -57,11 +57,12 @@ export default class lifePayment extends Component{
         if (error_code !== 3) {
           if (+error_code) {
             this.setState({showProgress: false})
+          } else {
+            if (data) {
+              this.setState({arrears: data.totalamount,balance: data.wecbalance,showArrears: true})
+            }
           }
           clearInterval(this.interval)
-          if (data) {
-            this.setState({arrears: data.totalamount,balance: data.wecbalance,showArrears: true})
-          }
         }
         if (this.time <= 0) {
           clearInterval(this.interval)
@@ -103,8 +104,11 @@ export default class lifePayment extends Component{
   }
 
   recharge = () => {
-    let pr = + this.state.value
+    const {info} = this.props
+    let amount = +this.state.amount
+    let pr = +this.state.value
     if (!pr || pr < 5) return dialog.toast({title: '请输入正确的金额'})
+    if (amount > info.score) return dialog.toast({title: '积分余额不足'})
     this.setState({showCode: true})
   }
 

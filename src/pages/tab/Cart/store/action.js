@@ -37,7 +37,7 @@ export const changeList = (list) => {
   return async dispatch => {
     try {
       let yeyun = { title: '小椰直营', mail: '一件包邮', data: [] }
-      let jd = { title: '京东商城', mail: '99包邮', data: [] }
+      let jd = { title: '京东商城', mail:'', data: [] }
       let total = 0
       let num = 0
       let allChecked = false

@@ -84,10 +84,12 @@ export default class TravelHome extends Component{
   }
 
   validate = () => {
-    const { name, mobile, idCard } = this.state
+    const { name, mobile, idCard, preview } = this.state
+    const { info } = this.props
     if (!name) return dialog.toast({title: '请输入姓名'})
     if (!mobile || !validate.IsMobile(mobile)) return dialog.toast({title: '请输入正确的手机号'})
     if (!idCard) return dialog.toast({title: '请输入身份证'})
+    if (info.score < preview.total) return dialog.toast({title: '积分余额不足'})
     this.setState({showCode: true})
   }
 

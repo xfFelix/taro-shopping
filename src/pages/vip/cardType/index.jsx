@@ -20,7 +20,6 @@ import {setParams} from "@/pages/success/store/action";
   setProductType: (data) => dispatch(productTypeFun(data)),
   setCostType:(data)=> dispatch(costTypeFun(data)),
   setProductId:(data)=> dispatch(productIdFun(data)),
-  submit: (data) => dispatch(action.submitSync(data)),
   setParams: (data) => dispatch(setParams(data))
 }))
 
@@ -66,6 +65,9 @@ export default class VipHome extends Component {
 
   //立即兑换
   changeNow=async()=>{
+    const { selectList, selectType, typeIndex } = this.state
+    const { info } = this.props
+    if (info.score < selectList[selectType][1][typeIndex].sellingPrice) return dialog.toast({title: '积分余额不足'})
     if(this.props.vip.costType==1&&this.state.inpNum=='') return;
     let res= await vipCostInfo({productId:this.props.vip.productId,token:this.props.token});
     if(res.code!=1) return dialog.toast({title: res.message});
