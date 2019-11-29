@@ -32,10 +32,12 @@ class Home extends Component {
 
   onPullDownRefresh(): void {
     if (this.props.token) this.props.getInfo(this.props.token)
+    this.props.getHomeHot()
     Taro.stopPullDownRefresh()
   }
 
   componentWillMount () {
+    this.props.getInfo(this.props.token)
     // 判断缓存是否存在
     if (!this.props.hotList || !Object.keys(this.props.hotList).length) {
       // 获取热门爆款
@@ -119,19 +121,11 @@ class Home extends Component {
         <View className={'home-content'}>
           <View className='home-list-wrapper'>
             {
-              list.map((items, index, arr) => {
+              list.map((item) => {
                 return (
-                  <View key={index} className='home-list-row'>
-                    {
-                      items.map((item, i) => {
-                        return (
-                          <View key={item.id} className='home-list-column' onClick={() => this.goApplication(item.path)}>
-                            <Image src={item.imgPath} className='home-list-column-img'></Image>
-                            <Text className='home-list-column-text'>{item.name}</Text>
-                          </View>
-                        )
-                      })
-                    }
+                  !(info.showPhone == 1 && item.id == 2) && <View key={item.id} className='home-list-column' onClick={() => this.goApplication(item.path)}>
+                    <Image src={item.imgPath} className='home-list-column-img'></Image>
+                    <Text className='home-list-column-text'>{item.name}</Text>
                   </View>
                 )
               })

@@ -14,8 +14,12 @@ export const setTokenAsync = (params) => {
 
 export const getInfoSync = (token) => {
   return async dispatch => {
-    const { data } = await getInfo({token})
-    dispatch(getUserInfo(data))
+    const { data, status } = await getInfo({token})
+    let config = {showPhone: status}
+    if (data) {
+      config = Object.assign(config, data)
+    }
+    dispatch(getUserInfo(config))
   }
 }
 

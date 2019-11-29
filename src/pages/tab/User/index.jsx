@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import {connect} from "@tarojs/redux"
 import { action } from './store'
 import {dialog} from "@/util/index";
+import {getInfoSync} from "@/actions/user";
 
 @connect(({user, me}) => ({
   token: user.token,
@@ -12,15 +13,22 @@ import {dialog} from "@/util/index";
   bannerList: me.bannerList,
 }), dispatch => ({
   getBannerList: () => dispatch(action.getTopSwiperSync()),
+  getInfo: (token) => dispatch(getInfoSync(token))
 }))
 class User extends Component {
 
   config = {
-    navigationBarTitleText: '我的'
+    navigationBarTitleText: '我的',
+    enablePullDownRefresh: true
   }
 
   constructor(props) {
     super(props)
+  }
+
+  onPullDownRefresh(): void {
+    if (this.props.token) this.props.getInfo(this.props.token)
+    Taro.stopPullDownRefresh()
   }
 
   componentDidShow() {
@@ -73,6 +81,7 @@ class User extends Component {
       { id: '3', text: '联系我们', icon: 'https://tmall.cocogc.cn/static/images/personal/contact.png', path: '/pages/link/index'},
       { id: '4', text: '设置', icon: 'https://tmall.cocogc.cn/static/images/personal/setUp.png', path: '/pages/setting/index'},
     ]
+    const {info} = this.props
     return (
       <View className={styles.wrapper}>
         {/*banner wrapper start*/}
@@ -129,6 +138,7 @@ class User extends Component {
             {
               appList.map(item => {
                 return (
+                  !(info.showPhone == 1 && item.id == '1') &&
                   <View className={styles.item} key={item.id} onClick={() => this.goPath(item)}>
                     <Image src={item.icon}></Image>
                     <View className={styles.appText}>{item.text}</View>
