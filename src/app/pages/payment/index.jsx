@@ -6,10 +6,13 @@ import {getPriceByScan, paymentByScan} from './api'
 import {dialog} from "@/util/index";
 import PayPassword from "@/components/PayPassword"
 import {connect} from "@tarojs/redux";
+import {getInfoSync} from "@/actions/user";
 
 @connect(({user}) => ({
   token: user.token,
   info: user.info
+}), dispatch => ({
+  getInfo: (token) => dispatch(getInfoSync(token))
 }))
 export default class Payment extends Component{
 
@@ -23,7 +26,7 @@ export default class Payment extends Component{
     id: '',
     data: {
       service_fee: '0',
-      amount: '0'
+      total: '0'
     },
     value: '',
     showCode: false,
@@ -38,17 +41,21 @@ export default class Payment extends Component{
   getPrice = (e) => {
     const {token} = this.props
     let value = e.detail.value
-    this.setState({value}, () => {
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(async() => {
-        try{
-          const {data} = await getPriceByScan({token, amount: value})
-          this.setState({data})
-        } catch (e) {
-          dialog.toast({title: e.message})
-        }
-      }, 1000)
-    })
+    if (value) {
+      this.setState({value}, () => {
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(async() => {
+          try{
+            const {data} = await getPriceByScan({token, amount: value})
+            this.setState({data})
+          } catch (e) {
+            dialog.toast({title: e.message})
+          }
+        }, 1000)
+      })
+    } else {
+      this.setState({value,data: {service_fee: '0', total: '0'}})
+    }
   }
 
   payment = async(code) => {
@@ -58,15 +65,25 @@ export default class Payment extends Component{
     try {
       const { data } = await paymentByScan({token, amount: value, verifyCode: code, vendorUserId: id, mchName: company})
       Taro.navigateTo({url: `/app/pages/payment/success/index?company=${company}&time=${data.addDate}&price=${data.totalAmount}`})
-    } catch (e) {
-      dialog.toast({title: e.message})
-    } finally {
       this.setState({showCode: false}, () => {Taro.hideLoading()})
+      this.props.getInfo(token)
+    } catch (e) {
+      this.setState({showCode: false}, () => {
+        dialog.toast({title: e.message})
+      })
     }
   }
 
   goOrder = () => {
     Taro.navigateTo({url: '/app/pages/payment/order/index'})
+  }
+
+  onHandlerPayment = () => {
+    const { value, data } = this.state
+    const { info } = this.props
+    if (!value || +value < 0.1) return dialog.toast({title: '请输入0.1~100w之间金额'})
+    if (info.score < data.total) return dialog.toast({title: '积分余额不足'})
+    this.setState({showCode: true})
   }
 
   render(): any {
@@ -79,7 +96,7 @@ export default class Payment extends Component{
           <View className={styles.image}>
             <Image src={ICON}></Image>
           </View>
-          <Input placeholder={'请输入金额'} value={value} onInput={this.getPrice}></Input>
+          <Input type='digit' placeholder={'请输入金额'} value={value} onInput={this.getPrice}></Input>
         </View>
         <View className={styles.container}>
           <View className={styles.box}>
@@ -99,11 +116,11 @@ export default class Payment extends Component{
             </View>
             <View className={styles.item}>
               <View className={styles.label}>合计</View>
-              <View className={styles.value}>{data.amount}</View>
+              <View className={styles.value}>{data.total}</View>
             </View>
           </View>
         </View>
-        <Button className={styles.btn} onClick={() => this.setState({showCode: true})}>立即支付</Button>
+        <Button className={styles.btn} onClick={() => this.onHandlerPayment()}>立即支付</Button>
         {showCode && <PayPassword
           isClosed
           onBack={() => this.setState({showCode: false})}

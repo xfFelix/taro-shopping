@@ -31,6 +31,16 @@
         margin-right: 10px;
       }
     }
+    .params{
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      font-size: 28px;
+      width: 100%;
+      padding:0 80px;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
   }
   .btnWrapper{
     display: flex;

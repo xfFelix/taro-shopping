@@ -42,6 +42,7 @@ export default class GoodsDetail extends Component{
 
   componentWillMount() {
     this.props.getGoodsDetail({id: this.$router.params.id})
+    this.props.getGuessLike()
     if (this.props.token){
       this.props.getCartNum({token: this.props.token})
     }
@@ -78,7 +79,7 @@ export default class GoodsDetail extends Component{
           <View className={styles.nameWrapper}>
             <View className={styles.nameContent}>
               <Text className={styles.name}>{this.props.data.name}</Text>
-              <Text className={styles.oldPrice}>{this.props.data.costPrice}</Text>
+              <Text className={styles.oldPrice}>{this.props.data.marketPrice}</Text>
             </View>
             <View className={styles.priceWrapper}>
               <Text className={styles.price}>{this.props.data.currentPrice}</Text>
@@ -98,22 +99,24 @@ export default class GoodsDetail extends Component{
             </View>
           </View>
         </View>}
-        <View className={styles.balingWrapper}>
-          <View className={styles.balingContent}>
-            <View className={styles.title}>商品详情</View>
-            <View>
-              <import src='../../../components/wxParse/wxParse.wxml' />
-              {/* eslint-disable-next-line react/forbid-elements */}
-              <template is='wxParse' data='{{wxParseData:article.nodes}}'/>
+        {
+          this.props.data.detail && <View className={styles.balingWrapper}>
+            <View className={styles.balingContent}>
+              <View className={styles.title}>商品详情</View>
+              <View>
+                <import src='../../../components/wxParse/wxParse.wxml' />
+                {/* eslint-disable-next-line react/forbid-elements */}
+                <template is='wxParse' data='{{wxParseData:article.nodes}}'/>
+              </View>
             </View>
           </View>
-        </View>
+        }
         <GuessLike list={this.props.guesslike}></GuessLike>
         {/*fixed bottom start*/}
         <View className={styles.buyWrapper}>
           <View className={styles.priceTotal}>
             <Text className={styles.currentPrice}>{this.props.data.currentPrice}</Text>
-            <Text className={styles.costPrice}>{this.props.data.costPrice}</Text>
+            <Text className={styles.costPrice}>{this.props.data.marketPrice}</Text>
           </View>
           <View className={styles.btnWrapper}>
             <View className={styles.cartWrapper} onClick={() => this.goCart()}>

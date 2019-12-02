@@ -50,20 +50,23 @@ export default class Login extends Component {
   getWxLogin = () => {
     const { getInfo, setTokenSync } = this.props
     try {
+      Taro.showLoading({mask: true})
       Taro.login({
         success(res) {
           let code = res.code
           if (code) {
-            loginByWechat({jsCode: code}).then(({error_code, data}) => {
+            loginByWechat({jsCode: code}).then(({error_code, data, message}) => {
               if (+error_code === 12) {
                 Taro.redirectTo({url: '/pages/bindTel/index?id=' + data.openId})
-              } else {
+              } else if(+error_code === 0) {
                 Promise.all([
                   setTokenSync(data.token),
                   getInfo(data.token)
                 ]).then(r => {
                   Taro.switchTab({url: '/pages/tab/Home/index'})
                 })
+              } else {
+                dialog.toast({title: message})
               }
             }).catch(e => {
               dialog.toast({title: e.message})
@@ -72,6 +75,9 @@ export default class Login extends Component {
             dialog.toast({title: '登录失败！' + res.errMsg})
           }
         },
+        complete() {
+          Taro.hideLoading()
+        }
       })
     } catch (e) {
       dialog.toast({title: e.message})

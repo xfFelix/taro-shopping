@@ -71,7 +71,7 @@ export default class GoldRecord extends Component {
                         <View className="infoInner">时间：{item.addDate}</View>
                         <View className="infoInner">售价：{(item.repaymentAmount).toFixed(2)}</View>
                         <View className="infoInner">服务费：{(item.serviceFee).toFixed(2)}</View>
-                        <View className="infoInner">姓名：{item.name}</View>
+                        <View className="infoInner">商户名：{item.address}</View>
                         <View className="infoInner">号码：{item.mobile}</View>
                         <View className="total">合计：{item.totalAmount}</View>
                       </View>

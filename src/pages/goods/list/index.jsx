@@ -18,7 +18,8 @@ import {dialog} from "@/util/index";
 export default class GoodsList extends PureComponent {
 
   config ={
-    navigationBarTitleText: '商品列表'
+    navigationBarTitleText: '商品列表',
+    enablePullDownRefresh: true
   }
 
   state = {
@@ -26,6 +27,13 @@ export default class GoodsList extends PureComponent {
     storeName: '全部',
     integralFlag: false,
     integralActive: 1
+  }
+
+  onPullDownRefresh(): void {
+    Taro.stopPullDownRefresh()
+    this.setState({storeName: '全部'})
+    const { id, name, productId } = this.$router.params
+    this.props.getGoodsList({categoryId: id, keyWord: name, productTypeId: productId})
   }
 
   constructor(){

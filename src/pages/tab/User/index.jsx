@@ -108,10 +108,9 @@ class User extends Component {
             <Image src={'https://mall.cocotc.cn/static/images/home/jd.png'} className={styles.logoImg}></Image>
             <View className={styles.infoContainer}>
               <Text className={styles.mobile}>{this.props.info.userName}</Text>
-              <View className={styles.hint}>
-                <Image src={'https://tmall.cocogc.cn/static/images/me/hands.png'} className={styles.handIcon}></Image>
-                <Text className={styles.hintText}>专业选手</Text>
-              </View>
+              <Text className={styles.hint}>
+                积分余额： {this.props.info.score}
+              </Text>
             </View>
           </View>
         </View>

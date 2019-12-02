@@ -43,23 +43,12 @@
         }
         .hint{
           color: #fff;
-          padding: 8px 0;
-          width: 184px;
+          padding: 8px 30px;
           border-radius: 50Px;
           background: linear-gradient(90deg,#ebc99d,#d5b587);
-          display: flex;
-          justify-content: center;
-          align-items: center;
           margin-top: 10px;
-          .handIcon{
-            width: 28px;
-            height: 28px;
-            display: inline-block;
-          }
-          .hintText{
-            margin-left: 10px;
-            font-size: 26px;
-          }
+          font-size: 24px;
+          white-space: nowrap;
         }
       }
     }
