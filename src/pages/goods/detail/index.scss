@@ -1,0 +1,26 @@
+.wxParse-table{
+  margin: 0 30px 20px;
+  box-sizing: border-box;
+  border: 1px solid #dadada;
+  .wxParse-tr{
+    display: flex;
+    border-bottom: 1px solid #dadada;
+    &:last-child{
+      border-bottom: none;
+    }
+    .wxParse-td, .wxParse-th{
+      font-size: 28px;
+      flex: 1;
+      padding: 8px 20px;
+      box-sizing: border-box;
+      border-left: 1px solid #dadada;
+      &:first-child{
+        border-left: 0;
+      }
+    }
+    .wxParse-th{
+      font-weight: bold;
+    }
+  }
+}
+

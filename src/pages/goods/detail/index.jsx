@@ -3,6 +3,7 @@ import {Image, Swiper, SwiperItem, View, RichText, Text, ScrollView, Button } fr
 import {connect} from "@tarojs/redux";
 import {addToCartSync, getCartNumSync, getGoodsDetailSync} from "@/pages/goods/store/action"
 import styles from './index.module.scss'
+import './index.scss'
 import BuyDialog from "@/pages/goods/detail/components/buy_dialog"
 import WxParse from '@/components/wxParse/wxParse'
 import GuessLike from "@/pages/tab/Cart/components/guess_like"
@@ -29,7 +30,11 @@ const SET_BUY=2
 export default class GoodsDetail extends Component{
 
   config = {
-    navigationBarTitleText: '商品详情'
+    navigationBarTitleText: '商品详情',
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   state = {
@@ -55,6 +60,7 @@ export default class GoodsDetail extends Component{
   render(){
     const swiperList = this.props.data && this.props.data.gallery && this.props.data.gallery.split('|')
     this.props.data.detail && WxParse.wxParse('article', 'html', this.props.data.detail, this.$scope, 0)
+    this.props.data.brief && WxParse.wxParse('brief', 'html', this.props.data.brief, this.$scope, 0)
     // this.props.data.vendorId && this.areaResize('desc', this.props.data.vendorId)
     return (
       <View className={styles.wrapper}>
@@ -91,14 +97,18 @@ export default class GoodsDetail extends Component{
             <View className={styles.numberContent}><Text className={styles.label}>服务</Text><Text className={styles.value}>{this.props.data.services}</Text></View>
           </View>
         </View>
-        {this.props.data.brief && <View className={styles.balingWrapper}>
-          <View className={styles.balingContent}>
-            <View className={styles.title}>规格与包装</View>
-            <View>
-              <RichText nodes={this.props.data.brief}></RichText>
+        {
+          this.props.data.brief && <View className={styles.balingWrapper}>
+            <View className={styles.balingContent}>
+              <View className={styles.title}>规格与包装</View>
+              <View>
+                <import src='../../../components/wxParse/wxParse.wxml' />
+                {/* eslint-disable-next-line react/forbid-elements */}
+                <template is='wxParse' data='{{wxParseData:brief.nodes}}'/>
+              </View>
             </View>
           </View>
-        </View>}
+        }
         {
           this.props.data.detail && <View className={styles.balingWrapper}>
             <View className={styles.balingContent}>
