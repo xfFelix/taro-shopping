@@ -30,13 +30,14 @@ class Home extends Component {
     super(props)
   }
 
-  onPullDownRefresh(): void {
+  onPullDownRefresh() {
     if (this.props.token) this.props.getInfo(this.props.token)
     this.props.getHomeHot()
     Taro.stopPullDownRefresh()
   }
 
   componentWillMount () {
+    Taro.showShareMenu()
     this.props.getInfo(this.props.token)
     // 判断缓存是否存在
     if (!this.props.hotList || !Object.keys(this.props.hotList).length) {
@@ -57,7 +58,11 @@ class Home extends Component {
         if (this.props.token) {
           Taro.navigateTo({url: path})
         } else {
-          Taro.showModal({title: '提示', content: '请先登录', success: res => Taro.redirectTo({url: '/pages/Login/index'}) })
+          Taro.showModal({title: '提示', content: '请先登录', success: res => {
+            if (res.confirm) {
+              Taro.redirectTo({url: '/pages/Login/index'})
+            }
+          }})
         }
       }
     }
@@ -65,7 +70,11 @@ class Home extends Component {
 
   goPaymentByScan = () => {
     const {token} = this.props
-    if (!token) return dialog.toast({title: '请先登录'})
+    if (!token) return Taro.showModal({title: '提示', content: '请先登录', success: res => {
+      if (res.confirm) {
+        Taro.redirectTo({url: '/pages/Login/index'})
+      }
+    }})
     Taro.scanCode({success(res) {
         let result = res.result
         if (result.indexOf('cocotc') >= 0) {
