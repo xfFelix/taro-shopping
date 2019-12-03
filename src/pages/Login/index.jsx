@@ -35,7 +35,7 @@ export default class Login extends Component {
     showPassword: true,
   }
 
-  componentWillMount(): void {
+  componentWillMount() {
     this.getVerifyCode()
   }
 
@@ -193,6 +193,7 @@ export default class Login extends Component {
   }
 
   login = async (name, code, pwd) => {
+    Taro.showLoading({mask: true})
     try {
       const { setToken, getInfo } = this.props
       await setToken({mobile: name, verify_code: code, passwd: pwd})
@@ -207,6 +208,8 @@ export default class Login extends Component {
       }
     } catch (e) {
       dialog.toast({title: e.message})
+    } finally{
+      Taro.hideLoading()
     }
   }
 }

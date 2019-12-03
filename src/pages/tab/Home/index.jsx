@@ -31,23 +31,21 @@ class Home extends Component {
   }
 
   onPullDownRefresh() {
+    Taro.stopPullDownRefresh()
     if (this.props.token) this.props.getInfo(this.props.token)
     this.props.getHomeHot()
-    Taro.stopPullDownRefresh()
   }
 
   componentWillMount () {
     Taro.showShareMenu()
+  }
+
+  componentDidShow () {
     this.props.getInfo(this.props.token)
-    // 判断缓存是否存在
-    if (!this.props.hotList || !Object.keys(this.props.hotList).length) {
-      // 获取热门爆款
-      this.props.getHomeHot()
-    }
-    if (!this.props.newList || !Object.keys(this.props.newList).length) {
-      // 获取走马灯 - 消息
-      this.props.getHomeNew()
-    }
+    // 获取热门爆款
+    this.props.getHomeHot()
+    // 获取走马灯 - 消息
+    this.props.getHomeNew()
   }
 
   goApplication = (path) => {
