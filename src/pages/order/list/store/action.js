@@ -42,8 +42,15 @@ export const getOrderDetailSync = (params = {token: '', code: ''}) => {
 export const getStreamSync = ({token='', id = ''}={}) => {
   return async dispatch => {
     try {
-      const { message } = await getStream({token, id})
-      dispatch(setStream(message))
+      const { message, data } = await getStream({token, id})
+      let arr = []
+      if (data) {
+        for (let item of data) {
+          let obj = {title: item.content, content: [item.msgTime], icon: 'clock'}
+          arr.unshift(obj)
+        }
+      }
+      dispatch(setStream(arr))
     } catch (e) {
       dialog.toast({title: e.message})
     }

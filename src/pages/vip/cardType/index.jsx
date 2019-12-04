@@ -76,13 +76,18 @@ export default class VipHome extends Component {
 
   //下单
   submitOrder=async(value)=>{
-    let res= await vipSubmit({accountNo:this.state.inpNum, code:value, productId:this.props.vip.productId, token:this.props.token});
-    if(res.code!=1) return dialog.toast({title: res.message});
-    this.onClose();
-    // 设置成功信息
-    let params = {price: this.state.selectInfo.total, path:{ home: '/pages/vip/home/index', order: '/pages/vip/record/index'}}
-    await this.props.setParams(params)
-    Taro.redirectTo({url: '/pages/success/index'})
+    try{
+      let res= await vipSubmit({accountNo:this.state.inpNum, code:value, productId:this.props.vip.productId, token:this.props.token});
+      if(res.code!=1) return dialog.toast({title: res.message});
+      // 设置成功信息
+      let params = {price: this.state.selectInfo.total, path:{ home: '/pages/vip/home/index', order: '/pages/vip/record/index'}}
+      await this.props.setParams(params)
+      Taro.redirectTo({url: '/pages/success/index'})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    } finally{
+      this.onClose();
+    }
   }
 
   timeType=(val)=>{

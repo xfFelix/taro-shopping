@@ -156,9 +156,9 @@ export default class GoldRecord extends Component {
                           }
                           {item.buyInfo?
                             ( <View>
-                                {item.buyInfo.status==0?<Text>回收中</Text>:''}
-                                {item.buyInfo.status==1?<Text>回收成功</Text>:''}
-                                {item.buyInfo.status==2?<Text>回收取消</Text>:''}
+                                {item.buyInfo.status==0?<Text>回购中</Text>:''}
+                                {item.buyInfo.status==1?<Text>回购成功</Text>:''}
+                                {item.buyInfo.status==2?<Text>回购取消</Text>:''}
                              </View>):(
                              <View >
                               {item.status==0?<Text>兑换中</Text>:''}
