@@ -80,7 +80,7 @@ export default class VipHome extends Component {
     if(res.code!=1) return dialog.toast({title: res.message});
     this.onClose();
     // 设置成功信息
-    let params = {price: this.state.selectList.total, path:{ home: '/pages/vip/home/index', order: '/pages/vip/record/index'}}
+    let params = {price: this.state.selectInfo.total, path:{ home: '/pages/vip/home/index', order: '/pages/vip/record/index'}}
     await this.props.setParams(params)
     Taro.redirectTo({url: '/pages/success/index'})
   }
