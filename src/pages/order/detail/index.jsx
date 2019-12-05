@@ -35,7 +35,7 @@ export default class OrderList extends Component{
       <View className={styles.wrapper}>
         <View className={styles.status}>
           <Image className={styles.statusPic} src={'https://mall.cocotc.cn/static/images/cart/supermarket.png'}></Image>
-          <Text>待确认</Text>
+          <Text>{detail.orderStatus}</Text>
         </View>
         <View className={styles.address}>
           <Address address={detail.address} disabled></Address>
@@ -59,7 +59,7 @@ export default class OrderList extends Component{
             })
           }
         </View>
-        <View className={styles.stream}>
+        <View className={styles.stream} onClick={() => Taro.navigateTo({url: '/pages/order/stream/index?id=' + detail.orderId})}>
           <View className={styles.vendorId}>{detail.vendorId}</View>
           <View className={styles.vendorId}>{detail.orderId}</View>
           <View className={styles.goStream}><Text>查看物流</Text><Image className={styles.right} src={'https://tmall.cocogc.cn/static/images/me/right.png'}></Image></View>

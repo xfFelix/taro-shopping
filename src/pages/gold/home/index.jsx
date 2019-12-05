@@ -28,7 +28,9 @@ import ICON from '@/assets/img/tab/supermarket-actived.png'
 
 export default class GoldHome extends Component {
   config ={
-    navigationBarTitleText: '黄金兑换'
+    navigationBarTitleText: '黄金兑换',
+    navigationBarBackgroundColor: '#313340',
+    navigationBarTextStyle: 'white'
   }
 
   constructor(){
@@ -103,11 +105,12 @@ export default class GoldHome extends Component {
     try{
       this.setState({ showCode: false})
       let res= await goldBuy({token:this.props.token,amount:this.state.inpNum,verify_code:val,id:this.props.gold.id});
+      this.setState({showCode: false})
       if(res.error_code!=0) return dialog.toast({title: res.message});
       // 设置成功页面的展示信息
-      let config = {price: res.data.totalAmount, path:{ home: '/pages/tab/Home/index', order: '/pages/gold/record/index'}}
+      let config = {price: res.data.totalAmount, path:{ home: '/pages/gold/home/index', order: '/pages/gold/record/index'}}
       await this.props.setParams(config)
-      Taro.redirectTo({url: '/pages/success/index'})
+      Taro.navigateTo({url: '/pages/success/index'})
     } catch (e) {
       dialog.toast({title: e.message})
     }

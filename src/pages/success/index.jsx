@@ -39,11 +39,13 @@ export default class Success extends Component{
     }
     let currentPage = Taro.getCurrentPages().length
     Taro.navigateBack({delta: currentPage - 2}).then(() => {
-      Taro.navigateTo({url: path})
+      setTimeout(() => {
+        Taro.navigateTo({url: path})
+      }, 500)
     })
   }
 
-  render(): any {
+  render() {
     const { path, price, list, title } = this.props
     return (
       <View className={styles.wrapper}>
@@ -59,7 +61,7 @@ export default class Success extends Component{
           <Button className={`${styles.btn} ${styles.home}`} onClick={() => this.goHome(path.home)}>回到首页</Button>
           {path.order && <Button className={`${styles.btn} ${styles.order}`} onClick={() => this.goOrder(path.order)}>查看订单</Button>}
         </View>
-        <View className={styles.more}>
+        {/* <View className={styles.more}>
           <View className={styles.title}>更多兑换</View>
           <View className={styles.content}>
             {list.map(item => {
@@ -71,7 +73,7 @@ export default class Success extends Component{
               )
             })}
           </View>
-        </View>
+        </View> */}
       </View>
     )
   }

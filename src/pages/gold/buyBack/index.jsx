@@ -60,7 +60,8 @@ export default class GoldBuyBack extends Component {
       dialog.modal({content:res.message,showCancel:false}).then(
         res => {
           if(res){
-            Taro.navigateTo({url:'/pages/gold/record/index'})
+            let currentPage = Taro.getCurrentPages().length
+            Taro.navigateBack({delta: currentPage - 2})
           }
         }
       );
@@ -71,9 +72,9 @@ export default class GoldBuyBack extends Component {
 
 
   submitUp=()=>{
-    const {mobile, realName,cardNum, bank, subBank,check}=this.state;
+    const {mobile, realName,cardNum, bank, subBank,checked}=this.state;
     console.log(this.state);
-    console.log(mobile, realName,cardNum, bank, subBank,check)
+    console.log(mobile, realName,cardNum, bank, subBank,checked)
     if (!mobile || !validate.IsMobile(mobile)) return dialog.toast({title: '请输入正确手机号'})
     if (!realName) return dialog.toast({title: '请输入真实姓名！'})
     if (!cardNum) return dialog.toast({title: '请输入有效的银行账号！'})
@@ -101,11 +102,11 @@ export default class GoldBuyBack extends Component {
             </View>
           </View>
           <View className="backLi">卡密<Input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled value={this.props.backInfo.cardCode}/></View>
-          <View className="backLi">联系电话<Input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" value={this.state.mobile}  onChange={(e) => this.setState({mobile: e.detail.value})}/></View>
-          <View className="backLi">姓名<Input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" value={this.state.realName} onChange={(e) => this.setState({realName: e.detail.value})} /></View>
-          <View className="backLi">银行卡号<Input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" value={this.state.cardNum} onChange={(e) => this.setState({cardNum: e.detail.value})}/></View>
-          <View className="backLi">开户行<Input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" value={this.state.bank} onChange={(e) => this.setState({bank: e.detail.value})} /></View>
-          <View className="backLi">开户支行<Input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" value={this.state.subBank}  onChange={(e) => this.setState({subBank: e.detail.value})}/></View>
+          <View className="backLi">联系电话<Input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" value={this.state.mobile}  onInput={(e) => this.setState({mobile: e.detail.value})}/></View>
+          <View className="backLi">姓名<Input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" value={this.state.realName} onInput={(e) => this.setState({realName: e.detail.value})} /></View>
+          <View className="backLi">银行卡号<Input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" value={this.state.cardNum} onInput={(e) => this.setState({cardNum: e.detail.value})}/></View>
+          <View className="backLi">开户行<Input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" value={this.state.bank} onInput={(e) => this.setState({bank: e.detail.value})} /></View>
+          <View className="backLi">开户支行<Input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" value={this.state.subBank}  onInput={(e) => this.setState({subBank: e.detail.value})}/></View>
         </View>
 
         <View className="agreeWrap">
@@ -119,7 +120,7 @@ export default class GoldBuyBack extends Component {
 
         <View class="needTime">1-3个工作日内到账，请耐心等待</View>
         <View className="submitUp" onClick={()=>this.submitUp()} >提交</View>
-        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
+        { this.state.showCode && <PayPassword isClosed onBack={() => this.setState({showCode: false})} onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
            <AtModal isOpened={this.state.isOpened} closeOnClickOverlay={false}>
             <AtModalHeader>回购说明</AtModalHeader>
             <AtModalContent>

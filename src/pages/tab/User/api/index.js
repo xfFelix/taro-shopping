@@ -6,3 +6,10 @@ export const getDefaultAddress = (data) => fetch({
   method: 'post',
   data
 })
+
+// 获取未完成数量
+export const getOrderNum = (data) => fetch({
+  url: `/api/selectOrderTotals`,
+  method: 'post',
+  data
+})

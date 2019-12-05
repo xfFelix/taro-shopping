@@ -1,11 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Swiper, SwiperItem, Image } from '@tarojs/components'
-import {AtIcon} from 'taro-ui'
+import {AtIcon, AtBadge } from 'taro-ui'
 import styles from './index.module.scss'
 import {connect} from "@tarojs/redux"
 import { action } from './store'
-import {dialog} from "@/util/index";
-import {getInfoSync} from "@/actions/user";
+import {dialog} from "@/util/index"
+import {getInfoSync} from "@/actions/user"
+import {getOrderNum} from './api'
 
 @connect(({user, me}) => ({
   token: user.token,
@@ -22,6 +23,10 @@ class User extends Component {
     enablePullDownRefresh: true
   }
 
+  state = {
+    num: 0
+  }
+
   constructor(props) {
     super(props)
   }
@@ -34,6 +39,17 @@ class User extends Component {
   componentDidShow() {
     if (!this.props.token) return Taro.redirectTo({url: '/pages/Login/index?redirect=/pages/tab/User/index'})
     this.props.getBannerList()
+    this.getNum()
+  }
+
+  getNum = async () => {
+    try{
+      const { token } = this.props
+      const { data } = await getOrderNum({token})
+      this.setState({num: data['2']})
+    } catch (e) {
+      dialog.toast({title: e.message})
+    }
   }
 
   goOrders = (status) => {
@@ -82,6 +98,7 @@ class User extends Component {
       { id: '4', text: '设置', icon: 'https://tmall.cocogc.cn/static/images/personal/setUp.png', path: '/pages/setting/index'},
     ]
     const {info} = this.props
+    const { num } = this.state
     return (
       <View className={styles.wrapper}>
         {/*banner wrapper start*/}
@@ -122,7 +139,11 @@ class User extends Component {
               orderList.map((item) => {
                 return (
                   <View key={item.id} className={styles.orderItem} onClick={() => this.goOrders(item.status)}>
-                    <Image src={item.icon} className={styles.orderIcon}></Image>
+                    {
+                      (item.id == '1' && num) ? <AtBadge value={num}>
+                        <Image src={item.icon} className={styles.orderIcon}></Image>
+                      </AtBadge> : <Image src={item.icon} className={styles.orderIcon}></Image>
+                    }
                     <Text className={styles.orderText}>{item.text}</Text>
                   </View>
                 )

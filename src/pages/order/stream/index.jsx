@@ -3,7 +3,8 @@ import styles from './index.module.scss'
 import {Image, Text, View, Button} from "@tarojs/components"
 import {connect} from "@tarojs/redux"
 import { action } from '../list/store'
-import Goods from "@/pages/order/detail/components/goods";
+import Goods from "@/pages/order/detail/components/goods"
+import { AtTimeline } from 'taro-ui'
 
 @connect(({user, order}) => ({
   token: user.token,
@@ -55,7 +56,9 @@ export default class OrderList extends Component{
           </View>
         </View>
         <View className={styles.stream}>
-          <Text>{stream}</Text>
+          {
+            (stream && stream.length !== 0) ? <AtTimeline items={stream}></AtTimeline> : <Text>暂无物流信息</Text>
+          }
         </View>
       </View>
     )

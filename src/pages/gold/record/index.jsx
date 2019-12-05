@@ -21,6 +21,8 @@ import NoData from "@/components/NoData"
 
 export default class GoldRecord extends Component {
   config ={
+    navigationBarBackgroundColor: '#373C48',
+    navigationBarTextStyle: 'white',
     navigationBarTitleText: '兑换记录'
   }
 
@@ -154,9 +156,9 @@ export default class GoldRecord extends Component {
                           }
                           {item.buyInfo?
                             ( <View>
-                                {item.buyInfo.status==0?<Text>回收中</Text>:''}
-                                {item.buyInfo.status==1?<Text>回收成功</Text>:''}
-                                {item.buyInfo.status==2?<Text>回收取消</Text>:''}
+                                {item.buyInfo.status==0?<Text>回购中</Text>:''}
+                                {item.buyInfo.status==1?<Text>回购成功</Text>:''}
+                                {item.buyInfo.status==2?<Text>回购取消</Text>:''}
                              </View>):(
                              <View >
                               {item.status==0?<Text>兑换中</Text>:''}
@@ -202,7 +204,7 @@ export default class GoldRecord extends Component {
             </View>
         </View>
 
-        { this.state.showCode && <PayPassword onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
+        { this.state.showCode && <PayPassword isClosed onBack={() => this.setState({showCode: false})} onConfirm={(value) => this.submitOrder(value)}></PayPassword>}
           <AtModal isOpened={this.state.isOpened}>
             <AtModalContent>
               <View className="dig-title">您的黄金兑换码是：</View>
