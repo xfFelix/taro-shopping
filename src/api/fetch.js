@@ -42,6 +42,13 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                   reject(new Error(data.message))
                 }
                 break
+              case 2:
+                if (/(\/user\/charge)/.test(url)) {
+                  resolve(data)
+                } else{
+                  reject(new Error(data.message))
+                }
+              break
               case 3:
                 if (/\/api\/previewOrderByCart/.test(url)) {
                   Taro.navigateBack().then(res => {
