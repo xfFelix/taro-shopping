@@ -48,11 +48,12 @@ export default class cardCharge extends Component {
     try{
       Taro.showLoading({mask: true})
       let res = await charge({token:this.props.token,passwd:this.state.passWord,captcha:this.state.code});
+      Taro.hideLoading()
       if(res.error_code==0){
         dialog.modal({content:'卡密充值成功！',showCancel:false}).then(
           info => {
             if(info){
-              Taro.navigateTo({url:'/pages/tab/Home/index'})
+              Taro.switchTab({url:'/pages/tab/Home/index'})
             }
           }
         );
@@ -67,8 +68,6 @@ export default class cardCharge extends Component {
       }
     } catch (e) {
       dialog.toast({title: e.message})
-    } finally {
-      Taro.hideLoading()
     }
   }
 
