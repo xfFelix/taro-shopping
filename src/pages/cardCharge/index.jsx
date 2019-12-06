@@ -52,7 +52,7 @@ export default class cardCharge extends Component {
         dialog.modal({content:'卡密充值成功！',showCancel:false}).then(
           info => {
             if(info){
-              Taro.navigateTo({url:'pages/tab/Home/index'})
+              Taro.navigateTo({url:'/pages/tab/Home/index'})
             }
           }
         );
