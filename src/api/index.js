@@ -80,5 +80,6 @@ export const forget = (data) => fetch({
 export const charge = (data) => fetch({
   url: `${INFO_URL}/user/charge`,
   method: 'post',
-  data
+  data,
+  header: {'Cookie': Taro.getStorageSync('cookie')}
 })
