@@ -15,7 +15,9 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
     }).then((res) => {
       const { statusCode, data } = res;
       if (/\/user\/captcha64/.test(url)) {
-        Taro.setStorageSync('cookie', res.header.Cookie)
+        let cookie = res.header.Cookie || res.header.cookie
+        console.log(cookie)
+        Taro.setStorageSync('cookie', cookie)
       }
       if (statusCode >= 200 && statusCode < 300) {
         try {

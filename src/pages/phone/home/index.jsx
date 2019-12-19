@@ -129,21 +129,27 @@ export default class PhoneHome extends Component {
   }
 
   handleChange=(value,event)=>{
-    this.setState({inpNum:value})
-    if(validate.IsMobile(value)){
-      this.setState({phoneCan:true})
-    }else{
-      this.setState({phoneCan:false});
-    }
+    this.setState({inpNum:value}, async () => {
+      if(validate.IsMobile(value)){
+        try {
+          const { data } = await directQuery({token:this.props.token, mobile: value});
+          this.setState({phoneCan:true, dirList: data})
+        } catch (e) {
+          dialog.toast({title: e.message})
+        }
+      }else{
+        this.setState({phoneCan:false});
+      }
+    })
   }
 
   changeNow=()=>{
     const {info, dirPrice, phoneType, cardPrice} = this.props
-    if (phoneType == 0) {
-      if (info.score < dirPrice.realPrice) return dialog.toast({title: '积分余额不足'})
-    } else {
-      if (info.score < cardPrice.realPrice) return dialog.toast({title: '积分余额不足'})
-    }
+    // if (phoneType == 0) {
+    //   if (info.score < dirPrice.realPrice) return dialog.toast({title: '积分余额不足'})
+    // } else {
+    //   if (info.score < cardPrice.realPrice) return dialog.toast({title: '积分余额不足'})
+    // }
     if( this.props.phoneType==0 ){
       if(this.state.phoneCan && this.state.inpNum){
         this.priceTax();
@@ -298,7 +304,7 @@ export default class PhoneHome extends Component {
               }
               <View className="flex">
                 <Text className="name">服务费</Text>
-                <Text className="value">{filter.toDecimal2(this.state.taxInfo.total-this.state.taxInfo.amount-this.state.taxInfo.tax_total)}</Text>
+                <Text className="value">{filter.toDecimal2(this.state.taxInfo.total-Number(this.props.phoneType==0 ? this.props.dirPrice.facePrice : this.props.cardPrice.facePrice))}</Text>
               </View>
               <View className="flex">
                 <Text className="name">应付合计</Text>

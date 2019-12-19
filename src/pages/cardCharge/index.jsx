@@ -45,24 +45,29 @@ export default class cardCharge extends Component {
     if(!this.state.code){
       return dialog.toast({title: '请输入图片验证码!'});
     }
-    console.log(this.props.token,this.state.passWord,this.state.code)
-    let res = await charge({token:this.props.token,passwd:this.state.passWord,captcha:this.state.code});
-    if(res.error_code==0){
-      dialog.modal({content:'卡密充值成功！',showCancel:false}).then(
-        info => {
-          if(info){
-            Taro.navigateTo({url:'pages/tab/Home/index'})
+    try{
+      Taro.showLoading({mask: true})
+      let res = await charge({token:this.props.token,passwd:this.state.passWord,captcha:this.state.code});
+      Taro.hideLoading()
+      if(res.error_code==0){
+        dialog.modal({content:'卡密充值成功！',showCancel:false}).then(
+          info => {
+            if(info){
+              Taro.switchTab({url:'/pages/tab/Home/index'})
+            }
           }
-        }
-      );
-    }else{
-      dialog.modal({content:res.message,showCancel:false}).then(
-        info => {
-          if(info && res.error_code==2){
-            this.getVerifyCode()
+        );
+      }else{
+        dialog.modal({content:res.message,showCancel:false}).then(
+          info => {
+            if(info && res.error_code==2){
+              this.getVerifyCode()
+            }
           }
-        }
-      );
+        );
+      }
+    } catch (e) {
+      dialog.toast({title: e.message})
     }
   }
 

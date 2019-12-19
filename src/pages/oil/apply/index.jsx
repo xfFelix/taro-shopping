@@ -71,7 +71,7 @@ export default class GoldBuyBack extends Component {
     try {
       const {data} = await getOrderInfo({id: this.state.id, token: this.props.token})
       let res = await getPrice({faceValue: data.orderNum})
-      let config = {price: res.data.discount_price, idCard: data.idNum, name: data.name, number: data.idBackUrl, pwd: data.memo, faceValue: data.orderNum, orderNo: data.idUrl}
+      let config = {price: res.data.discount_price.toFixed(2), idCard: data.idNum, name: data.name, number: data.idBackUrl, pwd: data.memo, faceValue: data.orderNum, orderNo: data.idUrl}
       this.setState(config)
     } catch (e) {
       dialog.toast({title: e.message})
@@ -108,7 +108,9 @@ export default class GoldBuyBack extends Component {
       if (data) {
         await Taro.showToast({title: '成功',icon: 'success', duration: 2000})
         let currentPage = Taro.getCurrentPages().length
-        Taro.navigateBack({delta: currentPage - 2})
+        setTimeout(() => {
+          Taro.navigateBack({delta: currentPage - 2})
+        }, 2000)
       }
     } catch (e) {
       await Taro.hideLoading()
