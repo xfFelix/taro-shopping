@@ -101,7 +101,9 @@ export default class PhoneHome extends Component {
   priceTax=async()=>{
     let res = await phoneTax({amount:this.props.phoneType==0?this.props.dirPrice.realPrice:this.props.cardPrice.realPrice, token: this.props.token});
     if(res.error_code!=0) return dialog.toast({title: res.message});
-    this.setState({taxInfo:res.data});
+    this.setState({taxInfo:res.data}, () => {
+      this.onShowInfo();
+    });
   }
 
 
@@ -154,12 +156,10 @@ export default class PhoneHome extends Component {
     if( this.props.phoneType==0 ){
       if(this.state.phoneCan && this.state.inpNum){
         this.priceTax();
-        this.onShowInfo();
       }
     }
     if(this.props.phoneType==1 && this.state.phoneCan){
       this.priceTax();
-      this.onShowInfo();
     }
   }
 
