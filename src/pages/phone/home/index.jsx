@@ -101,7 +101,7 @@ export default class PhoneHome extends Component {
   priceTax=async()=>{
     let res = await phoneTax({amount:this.props.phoneType==0?this.props.dirPrice.realPrice:this.props.cardPrice.realPrice, token: this.props.token});
     if(res.error_code!=0) return dialog.toast({title: res.message});
-    this.setState({taxInfo:res.data})
+    this.setState({taxInfo:res.data});
   }
 
 
@@ -133,7 +133,8 @@ export default class PhoneHome extends Component {
       if(validate.IsMobile(value)){
         try {
           const { data } = await directQuery({token:this.props.token, mobile: value});
-          this.setState({phoneCan:true, dirList: data})
+          this.setState({phoneCan:true, dirList: data});
+          this.props.setDirPrice({facePrice:Object.keys(data)[0],realPrice:Object.values(data)[0]})
         } catch (e) {
           dialog.toast({title: e.message})
         }
@@ -144,12 +145,12 @@ export default class PhoneHome extends Component {
   }
 
   changeNow=()=>{
-    const {info, dirPrice, phoneType, cardPrice} = this.props
-    // if (phoneType == 0) {
-    //   if (info.score < dirPrice.realPrice) return dialog.toast({title: '积分余额不足'})
-    // } else {
-    //   if (info.score < cardPrice.realPrice) return dialog.toast({title: '积分余额不足'})
-    // }
+    const {info, dirPrice, phoneType, cardPrice} = this.props;
+    if (phoneType == 0) {
+      if (info.score < dirPrice.realPrice) return dialog.toast({title: '积分余额不足'})
+    } else {
+      if (info.score < cardPrice.realPrice) return dialog.toast({title: '积分余额不足'})
+    }
     if( this.props.phoneType==0 ){
       if(this.state.phoneCan && this.state.inpNum){
         this.priceTax();
