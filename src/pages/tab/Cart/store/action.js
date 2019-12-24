@@ -50,10 +50,10 @@ export const changeList = (list) => {
           } else {
             allChecked = false
           }
-          if (item.goods.vendorId === YE_YUN) {
-            yeyun.data.push(item)
-          } else if (item.goods.vendorId === JING_DONG) {
+          if (item.goods.vendorId === JING_DONG) {
             jd.data.push(item)
+          } else {
+            yeyun.data.push(item)
           }
         }
       }

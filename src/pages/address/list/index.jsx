@@ -53,9 +53,9 @@ export default class AddressList extends Component{
   }
 
   deleteAddress = async (id) => {
-    let res = await dialog.toast({ content: '是否删除？' })
+    let res = await Taro.showModal({content: '是否删除'})
     try {
-      if (res) {
+      if (res.confirm) {
         let token = this.props.token
         const {message} = await removeAddress({id, token})
         await dialog.toast({title: message})
@@ -81,13 +81,13 @@ export default class AddressList extends Component{
                   <View className={styles.address}>{item.area}</View>
                 </View>
                 <View className={styles.bottom}>
-                  <View className={styles.btn} onClick={() => this.editAddress(item)}>
-                    <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/edit.png'}></Image>
-                    <Text>编辑</Text>
+                  <View className={styles.btn} onClick={(e) => e.stopPropagation()}>
+                    <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/edit.png'} onClick={() => this.editAddress(item)}></Image>
+                    <Text onClick={() => this.editAddress(item)}>编辑</Text>
                   </View>
-                  <View className={styles.btn} onClick={() => this.deleteAddress(item.id)}>
-                    <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/delete.png'}></Image>
-                    <Text>删除</Text>
+                  <View className={styles.btn} onClick={(e) => e.stopPropagation()}>
+                    <Image className={styles.pic} src={'https://tmall.cocogc.cn/static/images/delete.png'} onClick={() => this.deleteAddress(item.id)}></Image>
+                    <Text onClick={() => this.deleteAddress(item.id)}>删除</Text>
                   </View>
                 </View>
               </View>
