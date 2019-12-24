@@ -34,7 +34,9 @@ export default class Success extends Component{
   goOrder = (path) => {
     if (/\/pages\/order\/list\/index/.test(path)) {
       return Taro.switchTab({url: '/pages/tab/User/index'}).then(() => {
-        Taro.navigateTo({url: path})
+        setTimeout(() => {
+          Taro.navigateTo({url: path})
+        }, 500)
       })
     }
     let currentPage = Taro.getCurrentPages().length
