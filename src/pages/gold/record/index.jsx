@@ -182,7 +182,7 @@ export default class GoldRecord extends Component {
                             <View className="gold-bnt-info" style={item.backFlag?'height:auto':'height:0'}>
                               <View className="bntInfo bntTop">银行卡号：{item.buyInfo.cardNum}</View>
                               <View className="bntInfo">开户行：{item.buyInfo.bank}</View>
-                              <View className="backMoney">回购金额：{filter.toDecimal2(item.buyInfo.goldPrice*item.weight)}</View>
+                              <View className="backMoney">回购金额：{filter.toDecimal2(item.buyInfo.buyMoney)}</View>
                               <View className="bntInfo bntBottom">姓名：{item.buyInfo.name}</View>
                             </View>
                             <View className="gold-bnt" onClick={()=> this.transClick(item,index)}>
