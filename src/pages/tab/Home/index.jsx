@@ -139,7 +139,8 @@ class Home extends Component {
             }
           </View>
           <View className='home-swiper-wrapper'>
-            <AtButton type={"primary"} circle onClick={() => this.goPaymentByScan()}>扫码支付</AtButton>
+            <Image src={'https://tmall.cocogc.cn/static/images/scan.png'} onClick={() => this.goPaymentByScan()}></Image>
+            {/*<AtButton type={"primary"} circle onClick={() => this.goPaymentByScan()}>扫码支付</AtButton>*/}
           </View>
         </View>
         <View className='home-hot-wrapper'>
