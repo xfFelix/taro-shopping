@@ -96,9 +96,9 @@ class Home extends Component {
           <Image src={'https://mall.cocotc.cn/static/images/home/bg.png'} className={'index-bg'} mode={'widthFix'}></Image>
           <View className={'notice-bar'}>
             <View className={'icon-listen'}>
-              <AtIcon value='volume-plus' size='16' color='#fff'></AtIcon>
+              <AtIcon value='volume-plus' size='18' color='#fff'></AtIcon>
             </View>
-            <View className={'notice-view'}><Text className={'notice-text'}>积分公告:</Text></View>
+            {/* <View className={'notice-view'}><Text className={'notice-text'}>积分公告:</Text></View> */}
             <View className={'notice'}>
               <AtNoticebar marquee className={'home-notice-bar'}>
                 {
