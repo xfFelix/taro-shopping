@@ -93,7 +93,7 @@ class Home extends Component {
       <View className={'home-wrapper'}>
         {/*<Button openType={"getUserInfo"} onGetUserInfo={(e) => this.getUserInfo(e)}>获取用户信息</Button>*/}
         <View className={'home'}>
-          <Image src={'https://mall.cocotc.cn/static/images/home/bg.png'} className={'index-bg'} mode={'widthFix'}></Image>
+          <Image src={'https://tmall.cocogc.cn/static/images/weapp/home_bg.png'} className={'index-bg'} mode={'widthFix'}></Image>
           <View className={'notice-bar'}>
             <View className={'icon-listen'}>
               <AtIcon value='volume-plus' size='18' color='#fff'></AtIcon>

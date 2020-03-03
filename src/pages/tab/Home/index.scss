@@ -60,17 +60,14 @@
     }
   }
   .home-content{
-    margin-top: -240px;
     .home-list-wrapper{
-      margin: 0 30px;
-      padding:0 10px 25px;
+      padding:0 40px 25px;
       overflow: hidden;
       position: relative;
       z-index: 1;
       background: #ffffff;
-      border-radius:25px 25px 0px 0px;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
       .home-list-column{
         display: flex;
         flex-direction: column;
@@ -78,8 +75,8 @@
         align-items: center;
         margin-top: 30px;
         .home-list-column-img{
-          width: 80px;
-          height: 80px;
+          width: 90px;
+          height: 90px;
         }
         .home-list-column-text{
           font-size: 24px;
@@ -90,8 +87,8 @@
 
     }
     .home-swiper-wrapper{
-      padding: 20px 40px;
-      margin: 0 30px;
+      padding: 20px 0;
+      margin: 0 32px;
       border-radius:20px;
       image{
         width: 100%;
@@ -102,7 +99,8 @@
   .home-hot-wrapper{
     padding: 20px;
     .home-hot-title{
-      font-size: 28px;
+      font-size: 30px;
+      font-weight: bold;
     }
     .home-hot-container{
       overflow: hidden;

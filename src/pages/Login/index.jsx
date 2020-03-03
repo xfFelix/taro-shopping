@@ -88,13 +88,15 @@ export default class Login extends Component {
     return (
       <View className={styles.wrapper}>
         {/*<Text className={styles.register} onClick={() => Taro.navigateTo({url: '../Register/index'})}>注册</Text>*/}
-        <Image src='https://mall.cocotc.cn/static/images/regist.png' className={styles.banner} />
+        <View className={styles.bannerWrapper}>
+          <Image src='https://tmall.cocogc.cn/static/images/weapp/login_bg.png' className={styles.banner} />
+          <Text className={styles.bannerText}>登录旅游积分平台</Text>
+        </View>
         <View className={styles.container}>
           <View className={styles.item}>
-            <Image className={`${styles.image} ${styles.tel}`} src={'https://mall.cocotc.cn/static/images/login-tel.png'} />
             <View className={styles.selectLocation} onClick={() => this.setState(preState => ({showActionSheet: !preState.showActionSheet}))}>
               <Text className={styles.locationName}>{this.props.login.locations[this.state.nameLocationIndex].label}</Text>
-              <Image src={'https://tmall.cocogc.cn/static/images/select.png'} className={!this.state.showActionSheet ? styles.locationImage : styles.selecting}/>
+              <Image src={'https://tmall.cocogc.cn/static/images/weapp/select.png'} className={!this.state.showActionSheet ? styles.locationImage : styles.selecting}/>
             </View>
             <Input
               name='name'
@@ -108,7 +110,6 @@ export default class Login extends Component {
             this.state.flag ?
             (<View>
               <View className={styles.item}>
-                <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-vail.png'} />
                 <Input
                   name='verify'
                   type='text'
@@ -120,7 +121,6 @@ export default class Login extends Component {
                 <Image src={this.state.verifyCode} className={styles.verify} onClick={() => this.getVerifyCode()}/>
               </View>
               <View className={styles.item}>
-                <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-msg.png'} />
                 <Input
                   name='code'
                   type='number'
@@ -133,7 +133,6 @@ export default class Login extends Component {
               </View>
             </View>) :
             (<View className={styles.item}>
-              <Image className={styles.image} src={'https://mall.cocotc.cn/static/images/login-password.png'} />
               <Input
                 name='pwd'
                 type='text'
