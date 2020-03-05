@@ -1,112 +1,115 @@
-.home-wrapper{
-  .home{
-    position: relative;
-    .index-bg{
-      width: 100%;
-    }
-    .notice-bar{
-      position: absolute;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, .15);
-      box-sizing: border-box;
-      display: flex;
-      .icon-listen{
-        flex: 0 0 60px;
-        text-align: center;
+page{
+  padding-bottom: 100px;
+  .home-wrapper{
+    .home{
+      position: relative;
+      .index-bg{
+        width: 100%;
+      }
+      .notice-bar{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, .15);
+        box-sizing: border-box;
         display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        margin-bottom: 2px;
-        at-icon{
-          margin-bottom: 3px;
+        .icon-listen{
+          flex: 0 0 60px;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          margin-bottom: 2px;
+          at-icon{
+            margin-bottom: 3px;
+          }
+        }
+        .notice-view{
+          white-space: nowrap;
+          flex: 0 0 130px;
+          display: flex;
+          align-items: center;
+          .notice-text{
+            font-size: 24px;
+            color: #fff;
+          }
+        }
+        .notice{
+          flex: 1;
+          width: 430px;
         }
       }
-      .notice-view{
-        white-space: nowrap;
-        flex: 0 0 130px;
-        display: flex;
-        align-items: center;
-        .notice-text{
+      .userinfo{
+        position: absolute;
+        top: 150px;
+        left: 130px;
+        color: #fff;
+        .font{
           font-size: 24px;
-          color: #fff;
+        }
+        .name{
+          font-size: 48px;
+          font-weight: bold;
         }
       }
-      .notice{
-        flex: 1;
-        width: 430px;
-      }
-    }
-    .userinfo{
-      position: absolute;
-      top: 150px;
-      left: 130px;
-      color: #fff;
-      .font{
-        font-size: 24px;
-      }
-      .name{
+      .login {
+        position: absolute;
+        top: 170px;
+        left: 130px;
+        color: #fff;
         font-size: 48px;
         font-weight: bold;
       }
     }
-    .login {
-      position: absolute;
-      top: 170px;
-      left: 130px;
-      color: #fff;
-      font-size: 48px;
-      font-weight: bold;
-    }
-  }
-  .home-content{
-    .home-list-wrapper{
-      padding:0 40px 25px;
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
-      background: #ffffff;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      .home-list-column{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 30px;
-        .home-list-column-img{
-          width: 90px;
-          height: 90px;
+    .home-content{
+      .home-list-wrapper{
+        padding:0 40px 25px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        background: #ffffff;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        .home-list-column{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-top: 30px;
+          .home-list-column-img{
+            width: 90px;
+            height: 90px;
+          }
+          .home-list-column-text{
+            font-size: 24px;
+            color: #000;
+            margin-top: 15px;
+          }
         }
-        .home-list-column-text{
-          font-size: 24px;
-          color: #000;
-          margin-top: 15px;
-        }
-      }
 
-    }
-    .home-swiper-wrapper{
-      padding: 20px 0;
-      margin: 0 32px;
-      border-radius:20px;
-      image{
-        width: 100%;
-        height: 104px;
+      }
+      .home-swiper-wrapper{
+        padding: 20px 0;
+        margin: 0 32px;
+        border-radius:20px;
+        image{
+          width: 100%;
+          height: 104px;
+        }
       }
     }
-  }
-  .home-hot-wrapper{
-    padding: 20px;
-    .home-hot-title{
-      font-size: 30px;
-      font-weight: bold;
-    }
-    .home-hot-container{
-      overflow: hidden;
-      .home-hot-item{
-        width: 33.3%;
-        float: left;
+    .home-hot-wrapper{
+      padding: 20px;
+      .home-hot-title{
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .home-hot-container{
+        overflow: hidden;
+        .home-hot-item{
+          width: 33.3%;
+          float: left;
+        }
       }
     }
   }

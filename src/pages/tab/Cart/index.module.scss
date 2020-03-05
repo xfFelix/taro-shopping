@@ -1,139 +1,141 @@
 @import "../../../styles/mixin/index.scss";
 
-.wrapper{
-  .header{
-    position: relative;
-    height: 92Px;
-    background: #30ce84;
-    color: #fff;
-    text-align: center;
-    padding-top: 40px;
-    .editor{
-      position: absolute;
-      right: 20px;
-      margin-top: 10px;
-      font-size: 28px;
+page{
+  .wrapper{
+    .header{
+      position: relative;
+      height: 92Px;
+      background: #30ce84;
+      color: #fff;
+      text-align: center;
+      padding-top: 40px;
+      .editor{
+        position: absolute;
+        right: 20px;
+        margin-top: 10px;
+        font-size: 28px;
+      }
     }
-  }
-  .address{
-    margin: -90px 30px 0;
-  }
-  .content{
-    background: #f3f4f6;
-    box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
-    border-radius: 0 0 50px 50px;
-    .store{
-      background: #fff;
-      padding: 40px 0 20px;
-      &:last-child{
-        margin-top: 20px;
-        box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
-        border-radius: 0 0 50px 50px;
-      }
-      .title{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 0 30px;
-        .supermarket{
-          width: 34px;
-          height: 34px;
-        }
-        .storeName{
-          font-weight: bold;
-          font-size: 30px;
-          color: #000;
-          margin-left: 20px;
-        }
-        .mail{
-          font-weight: bold;
-          font-size: 30px;
-          color: #E5AA61;
-        }
-      }
-      .goods{
-        padding: 30px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: relative;
-        &:after{
-          @include border-1px(#e6e6e6, bottom);
-        }
+    .address{
+      margin: -90px 30px 0;
+    }
+    .content{
+      background: #f3f4f6;
+      box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
+      border-radius: 0 0 50px 50px;
+      .store{
+        background: #fff;
+        padding: 40px 0 20px;
         &:last-child{
-          &:after{
-            content: none;
+          margin-top: 20px;
+          box-shadow:0px 18px 35px 0px rgba(123,123,123,0.09);
+          border-radius: 0 0 50px 50px;
+        }
+        .title{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0 30px;
+          .supermarket{
+            width: 34px;
+            height: 34px;
           }
-        }
-        .image{
-          width: 105Px;
-          height: 200px;
-          margin-left: 25px;
-        }
-        .info{
-          margin-left: 12.5Px;
-          flex: 1;
-          .name{
+          .storeName{
+            font-weight: bold;
             font-size: 30px;
             color: #000;
-            word-break: break-all;
-            word-wrap: break-word;
-            position: relative;
-            height: 3em;
-            line-height: 1.5em;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin-left: 20px;
           }
-          .select{
-            color: #999;
-            word-break: break-all;
-            word-wrap: break-word;
-            height: 3em;
-            line-height: 1.5em;
-            font-size: 24px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+          .mail{
+            font-weight: bold;
+            font-size: 30px;
+            color: #E5AA61;
           }
-          .priceWrapper{
-            position: relative;
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            .logo{
-              width: 32px;
-              height: 32px;
+        }
+        .goods{
+          padding: 30px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          position: relative;
+          &:after{
+            @include border-1px(#e6e6e6, bottom);
+          }
+          &:last-child{
+            &:after{
+              content: none;
             }
-            .price{
-              margin-left: 10px;
-              font-size: 26px;
+          }
+          .image{
+            width: 105Px;
+            height: 200px;
+            margin-left: 25px;
+          }
+          .info{
+            margin-left: 12.5Px;
+            flex: 1;
+            .name{
+              font-size: 30px;
+              color: #000;
+              word-break: break-all;
+              word-wrap: break-word;
+              position: relative;
+              height: 3em;
+              line-height: 1.5em;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
-            .numWrapper{
-              position: absolute;
-              right: 0;
+            .select{
+              color: #999;
+              word-break: break-all;
+              word-wrap: break-word;
+              height: 3em;
+              line-height: 1.5em;
+              font-size: 24px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .priceWrapper{
+              position: relative;
               display: flex;
               align-items: center;
-              width: 172px;
-              height: 50px;
-              &:after{
-                @include all-border-1px(#dfdfdf, 0);
+              flex-direction: row;
+              .logo{
+                width: 32px;
+                height: 32px;
               }
-              .num{
-                flex: 1;
-                height: 100%;
+              .price{
+                margin-left: 10px;
+                font-size: 26px;
+              }
+              .numWrapper{
+                position: absolute;
+                right: 0;
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                font-size: 24px;
-                position: relative;
+                width: 172px;
+                height: 50px;
                 &:after{
-                  @include border-1px(#dfdfdf, left);
+                  @include all-border-1px(#dfdfdf, 0);
                 }
-                &:nth-child(even){
-                  flex: 0 0 71px;
-                }
-                .compute{
-                  width: 26px;
-                  height: 26px;
+                .num{
+                  flex: 1;
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 24px;
+                  position: relative;
+                  &:after{
+                    @include border-1px(#dfdfdf, left);
+                  }
+                  &:nth-child(even){
+                    flex: 0 0 71px;
+                  }
+                  .compute{
+                    width: 26px;
+                    height: 26px;
+                  }
                 }
               }
             }
@@ -141,89 +143,89 @@
         }
       }
     }
-  }
-  .bannerWrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 111px;
-    background:rgba(243,244,246,1);
-    padding-bottom: 93px;
-    .bannerImg{
-      width: 232px;
-      height: 50px;
-    }
-  }
-  .accountWrapper{
-    display: flex;
-    overflow: hidden;
-    height: 93px;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: #ffffff;
-    .allChecked{
+    .bannerWrapper{
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin-left: 25px;
-      .checkedText{
-        font-size: 24px;
+      height: 111px;
+      background:rgba(243,244,246,1);
+      padding-bottom: 93px;
+      .bannerImg{
+        width: 232px;
+        height: 50px;
+      }
+    }
+    .accountWrapper{
+      display: flex;
+      overflow: hidden;
+      height: 93px;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      box-sizing: border-box;
+      background: #ffffff;
+      .allChecked{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 25px;
+        .checkedText{
+          font-size: 24px;
+          font-weight: 400;
+          color: #000;
+        }
+      }
+      .total{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: right;
+        margin-left: 237px;
+        .totalText{
+          font-size: 24px;
+          font-weight:bold;
+          color:rgba(51,51,51,1);
+        }
+        .totalPrice{
+          font-size: 34px;
+          font-weight: bold;
+          color: rgba(251,92,92,1);
+        }
+      }
+      .confirm{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        float: right;
+        background: #30CE84;
+        color: #fff;
+        border: none;
+        font-size:28px;
         font-weight: 400;
-        color: #000;
+        margin: 0;
+        height: 100%;
+        border-radius: 0;
       }
-    }
-    .total{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      float: right;
-      margin-left: 237px;
-      .totalText{
-        font-size: 24px;
-        font-weight:bold;
-        color:rgba(51,51,51,1);
+      .delete{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        float: right;
+        background: #fb5c5c;
+        color: #fff;
+        border: none;
+        font-size:28px;
+        font-weight: 400;
+        margin: 0;
+        height: 100%;
+        border-radius: 0;
       }
-      .totalPrice{
-        font-size: 34px;
-        font-weight: bold;
-        color: rgba(251,92,92,1);
-      }
-    }
-    .confirm{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 200px;
-      float: right;
-      background: #30CE84;
-      color: #fff;
-      border: none;
-      font-size:28px;
-      font-weight: 400;
-      margin: 0;
-      height: 100%;
-      border-radius: 0;
-    }
-    .delete{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 200px;
-      float: right;
-      background: #fb5c5c;
-      color: #fff;
-      border: none;
-      font-size:28px;
-      font-weight: 400;
-      margin: 0;
-      height: 100%;
-      border-radius: 0;
     }
   }
 }

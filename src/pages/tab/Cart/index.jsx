@@ -55,9 +55,19 @@ class Cart extends Component {
     if (this.props.isDefault) {
       await this.props.getDefaultAddress({token: this.props.token})
     }
+    this.setSelect()
     this.props.getCartNum({token: this.props.token})
     this.props.getGuessLike()
     this.props.getCartList({token: this.props.token, addressId: this.props.address?this.props.address.id: ''})
+  }
+
+  setSelect () {
+    if (typeof this.$scope.getTabBar === 'function' &&
+      this.$scope.getTabBar()) {
+      this.$scope.getTabBar().$component.setState({
+        select: '3'
+      })
+    }
   }
 
   goGoodsDetail = (id) => {
@@ -78,7 +88,6 @@ class Cart extends Component {
   }
 
   render() {
-    this.props.defaultList ? Taro.setTabBarBadge({index: 3, text: this.props.defaultList.length + ''}) : Taro.setTabBarBadge({index: 3, text: '0'})
     return (
       <View className={styles.wrapper}>
         <View className={styles.header}>

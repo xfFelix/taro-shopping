@@ -38,8 +38,19 @@ class User extends Component {
 
   componentDidShow() {
     if (!this.props.token) return Taro.redirectTo({url: '/pages/Login/index?redirect=/pages/tab/User/index'})
+    // 自定义tabbar组件需要设置这个
+    this.setSelect()
     this.props.getBannerList()
     this.getNum()
+  }
+
+  setSelect () {
+    if (typeof this.$scope.getTabBar === 'function' &&
+      this.$scope.getTabBar()) {
+      this.$scope.getTabBar().$component.setState({
+        select: '4'
+      })
+    }
   }
 
   getNum = async () => {

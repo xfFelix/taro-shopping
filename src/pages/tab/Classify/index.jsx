@@ -27,6 +27,15 @@ class Classify extends Component {
     super(props)
   }
 
+  componentDidShow () {
+    if (typeof this.$scope.getTabBar === 'function' &&
+      this.$scope.getTabBar()) {
+      this.$scope.getTabBar().$component.setState({
+        select: '1'
+      })
+    }
+  }
+
   componentWillMount() {
     this.props.getDirByFirstAsync()
     if (!this.props.classify.swiperList || !Object.keys(this.props.classify.swiperList).length) {

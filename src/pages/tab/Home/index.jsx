@@ -41,11 +41,21 @@ class Home extends Component {
   }
 
   componentDidShow () {
+    this.setSelect()
     this.props.getInfo(this.props.token)
     // 获取热门爆款
     this.props.getHomeHot()
     // 获取走马灯 - 消息
     this.props.getHomeNew()
+  }
+
+  setSelect () {
+    if (typeof this.$scope.getTabBar === 'function' &&
+      this.$scope.getTabBar()) {
+      this.$scope.getTabBar().$component.setState({
+        select: '0'
+      })
+    }
   }
 
   goApplication = (path) => {

@@ -90,6 +90,7 @@ class App extends Component {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
+      custom: true,
       color: '#000',
       selectedColor: '#30ce84',
       backgroundColor: '#fff',
@@ -101,7 +102,8 @@ class App extends Component {
         { pagePath: 'pages/tab/Cart/index', text: '购物车', iconPath: 'assets/img/tab/cart.png', selectedIconPath: 'assets/img/tab/cart-actived.png' },
         { pagePath: 'pages/tab/User/index', text: '我的', iconPath: 'assets/img/tab/mine.png', selectedIconPath: 'assets/img/tab/mine-actived.png' },
       ]
-    }
+    },
+    usingComponents: {}
   }
 
   componentDidMount () {}
