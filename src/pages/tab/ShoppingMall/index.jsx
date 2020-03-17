@@ -160,12 +160,12 @@ class ShoppingMall extends Component {
               <Swiper
                 circular
                 interval={2000}
-                displayMultipleItems={3}
+                displayMultipleItems={hotList.length > 3 ? 3: hotList.length}
                 autoplay>
                   {
                     hotList.map((item, index) => {
                       return (
-                        <SwiperItem key={index}>
+                        <SwiperItem key={index + ''}>
                           <Goods item={item}></Goods>
                         </SwiperItem>
                       )

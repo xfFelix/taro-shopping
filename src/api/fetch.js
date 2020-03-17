@@ -59,6 +59,12 @@ export default ({ url = '', method = 'GET', data = {}, header = {} } = {}) => {
                 }
                 reject(new Error(data.message))
                 break
+              case 7:
+                if (/\/api\/previewOrderByCart/.test(url)) {
+                  resolve(data)
+                } else {
+                  reject(new Error(data.message))
+                }
               case 12:
                 if (/\/user\/wechatLogin/.test(url)) {
                   resolve(data)
