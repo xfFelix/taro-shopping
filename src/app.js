@@ -96,11 +96,11 @@ class App extends Component {
       backgroundColor: '#fff',
       borderStyle: 'black',
       list: [
-        { pagePath: 'pages/tab/Home/index', text: '首页', iconPath: 'assets/img/tab/home.png', selectedIconPath: 'assets/img/tab/home-actived.png' },
-        { pagePath: 'pages/tab/ShoppingMall/index', text: '商城', iconPath: 'assets/img/tab/supermarket.png', selectedIconPath: 'assets/img/tab/supermarket-actived.png' },
-        { pagePath: 'pages/tab/Classify/index', text: '分类', iconPath: 'assets/img/tab/classify.png', selectedIconPath: 'assets/img/tab/classify-actived.png' },
-        { pagePath: 'pages/tab/Cart/index', text: '购物车', iconPath: 'assets/img/tab/cart.png', selectedIconPath: 'assets/img/tab/cart-actived.png' },
-        { pagePath: 'pages/tab/User/index', text: '我的', iconPath: 'assets/img/tab/mine.png', selectedIconPath: 'assets/img/tab/mine-actived.png' },
+        { pagePath: 'pages/tab/Home/index', text: '首页' },
+        { pagePath: 'pages/tab/ShoppingMall/index', text: '商城' },
+        { pagePath: 'pages/tab/Classify/index', text: '分类' },
+        { pagePath: 'pages/tab/Cart/index', text: '购物车' },
+        { pagePath: 'pages/tab/User/index', text: '我的' },
       ]
     },
     usingComponents: {}

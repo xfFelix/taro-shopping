@@ -6,7 +6,6 @@ import {dialog,filter} from "@/util/index";
 import { getVipList,vipCostInfo,vipSubmit} from '../api';
 import { AtInput} from 'taro-ui';
 import Dialog from "@/components/dialog";
-import ICON from '@/assets/img/tab/supermarket-actived.png'
 import {productTypeFun,costTypeFun,productIdFun} from  "@/pages/vip/store/action"
 import PayPassword from "@/components/PayPassword"
 import {setParams} from "@/pages/success/store/action";
@@ -130,7 +129,7 @@ export default class VipHome extends Component {
         { this.props.vip.costType==1?
           (<View className="headTop">
             <View className="buy">
-              <Image src={ICON} className="logoGreen"></Image>
+              <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className="logoGreen"></Image>
               <View className="input-flex">
                 <AtInput
                   name='inpNum'
@@ -200,7 +199,7 @@ export default class VipHome extends Component {
            >
             <View className="content">
               <View className="total">
-                <Image src={ICON} className="icon"></Image>
+                <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className="icon"></Image>
                 <Text>{filter.toDecimal2(this.state.selectInfo.total)}</Text>
               </View>
               <View className="flex">

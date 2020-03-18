@@ -1,7 +1,6 @@
 import Taro,{Component} from '@tarojs/taro'
 import styles from './index.module.scss'
 import {View, Image, Text, Input, Button} from "@tarojs/components"
-import ICON from '@/assets/img/tab/supermarket-actived.png'
 import {getPriceByScan, paymentByScan} from './api'
 import {dialog} from "@/util/index";
 import PayPassword from "@/components/PayPassword"
@@ -94,7 +93,7 @@ export default class Payment extends Component{
         <View className={styles.header}></View>
         <View className={styles.input}>
           <View className={styles.image}>
-            <Image src={ICON}></Image>
+            <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'}></Image>
           </View>
           <Input type='digit' placeholder={'请输入金额'} value={value} onInput={this.getPrice}></Input>
         </View>

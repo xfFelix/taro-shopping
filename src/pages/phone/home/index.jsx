@@ -10,8 +10,6 @@ import {directQuery,cardQuery,phoneCharge,phoneTax} from '../api';
 import PayPassword from "@/components/PayPassword";
 import {setParams} from "@/pages/success/store/action";
 
-import ICON from '@/assets/img/tab/supermarket-actived.png'
-
 @connect(({phone,user}) => ({
   phoneType:phone.phoneType,
   dirPrice:phone.dirPrice,
@@ -183,7 +181,7 @@ export default class PhoneHome extends Component {
           </View>
 
           {this.props.phoneType==0&&(<View className="buy">
-          <Image src={ICON} className="logoGreen"></Image>
+          <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className="logoGreen"></Image>
             <View className="input-flex">
               <AtInput
                 name='inpNum'
@@ -290,7 +288,7 @@ export default class PhoneHome extends Component {
           >
             <View className="content">
               <View className="total">
-                <Image src={ICON} className="icon"></Image>
+                <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className="icon"></Image>
                 <Text>{this.state.taxInfo.total}</Text>
               </View>
               <View className="flex">

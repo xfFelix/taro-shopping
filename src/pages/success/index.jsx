@@ -3,7 +3,6 @@ import styles from './index.module.scss'
 import {Image, Text, View, Button} from "@tarojs/components"
 import {connect} from "@tarojs/redux"
 import {dialog} from "@/util/index";
-import ICON from '../../assets/img/tab/supermarket-actived.png'
 
 @connect(({success}) => ({
   list: success.list,
@@ -55,7 +54,7 @@ export default class Success extends Component{
           <Image src={'https://tmall.cocogc.cn/static/images/changeSuccess.jpg'} className={styles.banner}></Image>
           <Text className={styles.text}>{title}</Text>
           <View className={styles.number}>
-            <Image src={ICON} className={styles.icon}></Image>
+            <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className={styles.icon}></Image>
             <Text>{price}</Text>
           </View>
         </View>

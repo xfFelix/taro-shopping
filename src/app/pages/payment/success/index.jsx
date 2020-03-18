@@ -1,7 +1,6 @@
 import Taro,{Component} from "@tarojs/taro"
 import styles from './index.module.scss'
 import {Image, Text, View, Button} from "@tarojs/components"
-import ICON from '@/assets/img/tab/supermarket-actived.png'
 
 export default class PaymentSuccess extends Component{
 
@@ -44,7 +43,7 @@ export default class PaymentSuccess extends Component{
           <Image src={'https://tmall.cocogc.cn/static/images/changeSuccess.jpg'} className={styles.banner}></Image>
           <Text className={styles.text}>支付成功</Text>
           <View className={styles.number}>
-            <Image src={ICON} className={styles.icon}></Image>
+            <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className={styles.icon}></Image>
             <Text>{price}</Text>
           </View>
           <View className={styles.params}>

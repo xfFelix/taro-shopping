@@ -5,7 +5,6 @@ import { AtActionSheet, AtActionSheetItem } from "taro-ui"
 import {connect} from "@tarojs/redux"
 import { action } from '../store'
 import Dialog from "@/components/dialog"
-import ICON from '@/assets/img/tab/supermarket-actived.png'
 import PayPassword from "@/components/PayPassword"
 import {dialog} from "@/util/index";
 import {setParams} from "@/pages/success/store/action";
@@ -178,7 +177,7 @@ export default class OrderList extends Component{
           >
             <View className={styles.content}>
               <View className={styles.total}>
-                <Image src={ICON} className={styles.icon}></Image>
+                <Image src={'https://mall.cocotc.cn/static/images/cart/icon.png'} className={styles.icon}></Image>
                 <Text>{this.props.costInfo.total}</Text>
               </View>
               <View className={styles.flex}>

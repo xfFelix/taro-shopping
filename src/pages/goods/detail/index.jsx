@@ -8,7 +8,6 @@ import BuyDialog from "@/pages/goods/detail/components/buy_dialog"
 import WxParse from '@/components/wxParse/wxParse'
 import GuessLike from "@/pages/tab/Cart/components/guess_like"
 
-import CartIcon from '@/assets/img/tab/cart.png'
 import {dialog} from "@/util/index"
 import {getGuessLikeSync, updateCartSync} from "@/pages/tab/Cart/store/action";
 
@@ -131,7 +130,7 @@ export default class GoodsDetail extends Component{
           <View className={styles.btnWrapper}>
             <View className={styles.cartWrapper} onClick={() => this.goCart()}>
               <View className={styles.cartIcon}>
-                <Image src={CartIcon} className={styles.cartImg}></Image>
+                <Image src={'https://mall.cocotc.cn/static/images/home/cart.png'} className={styles.cartImg}></Image>
                 <Text className={styles.cartNum}>{this.props.num}</Text>
               </View>
               <Text className={styles.cartText}>购物车</Text>
