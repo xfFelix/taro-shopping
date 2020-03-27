@@ -25,6 +25,9 @@ class App extends Component {
       {
         root: "app",
         pages: [
+          "pages/fruit/home/index",
+          "pages/fruit/buyBack/index",
+          "pages/fruit/record/index",
           "pages/payment/index",
           "pages/payment/order/index",
           "pages/payment/success/index",
@@ -32,6 +35,10 @@ class App extends Component {
       }
     ],
     pages: [
+      // "app/pages/fruit/buyBack/index",
+      // "app/pages/fruit/home/index",
+      // "app/pages/fruit/record/index",
+
       'pages/tab/Home/index',
       'pages/gold/home/index',
       'pages/success/index',

@@ -1,0 +1,27 @@
+
+.goldInfo{
+  width: 100%;
+  padding-bottom: 89px;
+  box-sizing: border-box;
+  .selectWrap{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    box-sizing: border-box;
+    background: #f4f4f4;
+    .select {
+      line-height: 48px;
+      color: #000;
+      padding: 16px 0;
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .active {
+      border-bottom: 4px solid #32cf85;
+    }
+  }
+  image{
+    width: 100%;
+    display: block;
+  }
+}

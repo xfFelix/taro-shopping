@@ -1,0 +1,190 @@
+
+.goldHome{
+  .goldBanner {
+    position: relative;
+    .goldSelect {
+      width: 88%;
+      display: flex;
+      margin: 0 auto;
+      color: #fff;
+      border: 1px solid #30ce84;
+      margin-top: 80px;
+      border-radius: 80px;
+      .tab {
+        width: 50%;
+        text-align: center;
+        font-size: 30px;
+        color: #30ce84;
+        border-radius: 80px;
+        padding: 20px 0;
+      }
+      .active {
+        background: #30ce84;
+        color: #fff;
+      }
+    }
+  }
+  .compare {
+    .fruit_home_banner{
+      width: 100%;
+      height: 280px;
+      display: block;
+    }
+  }
+  .buy {
+    width: 92%;
+    margin: -50px auto 0;
+    height: 120px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    display: flex;
+    line-height: 120px;
+    border-radius: 10px;
+    padding: 0 26px;
+    align-items: center;
+    box-sizing: border-box;
+    .at-input{
+      margin: 0 0 0 10px;
+    }
+    .logoGreen{
+      width: 50px;
+      height: 50px;
+    }
+    .unit{
+      font-size: 32px;
+    }
+    .explain{
+      transform: scale(0.8);
+      color: #999999;
+      margin-top: 10px;
+    }
+    .input-flex{
+      flex:1;
+    }
+  }
+  .recodeWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 32px 0 32px;
+    padding-bottom: 46px;
+    color: #4a4a4a;
+    font-size: 28px;
+    .goRecode {
+      color: #666;
+    }
+    .score{
+      color:#30ce84;
+    }
+  }
+  .msg {
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    margin: 2px 2px 0 2px;
+    view {
+      display: flex;
+      justify-content: space-between;
+      line-height: 70px;
+      padding: 0 10px;
+      margin: 0 20px;
+      color: #4a4a4a;
+      font-size: 28px;
+    }
+  }
+  .agreeWrap{
+    font-size: 24rpx;
+    color: #666;
+    margin:36rpx;
+    .checkLabel{
+      display: flex;
+      align-items: center;;
+    }
+    .file{
+      color: #30ce84;
+    }
+    checkbox .wx-checkbox-input {
+      width: 24rpx;
+      height: 24rpx;
+    }
+    /*checkbox选中后样式  */
+    checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+      background: #30ce84;
+      border-color:#30ce84;
+    }
+    /*checkbox选中后图标样式  */
+    checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+      width: 20rpx;
+      height: 20rpx;
+      line-height: 20rpx;
+      text-align: center;
+      font-size: 16rpx;
+      color: #fff;
+      background: transparent;
+      transform: translate(-50%, -50%) scale(1);
+      -webkit-transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .moreIcon{
+    display: inline-block;
+    width: 40px;
+    height:40px;
+    transform:rotate(180deg);
+    transition: 0.5s;
+  }
+
+  .goldBnt{
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 88px;
+    text-align: center;
+    font-size: 32px;
+    z-index: 1;
+    .goldBnt-left {
+      flex: 2;
+      color: #fff;
+      height: 100%;
+    }
+    .goldBnt-right{
+      height: 100%;
+      color: #4A4A4A;
+      background: #fff;
+      border-top: 1px solid #DEDEDE;
+      width: 35%;
+    }
+    .bntCan{
+      background: #30ce84;
+      border-top: 1px solid #30ce84;
+    }
+    .bntNo{
+      background:#98E7C2;
+      border-top: 1px solid #98E7C2;
+    }
+    .flex{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .goTop{
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+}
+
+
+
+
+
+
+

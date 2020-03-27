@@ -34,6 +34,7 @@ const config = {
     '@/actions': path.resolve(__dirname, '..', 'src/actions'),
     '@/reducers': path.resolve(__dirname, '..', 'src/reducers'),
     '@/pages': path.resolve(__dirname, '..', 'src/pages'),
+    '@/app': path.resolve(__dirname, '..', 'src/app'),
     '@/api': path.resolve(__dirname, '..', 'src/api'),
     '@/components': path.resolve(__dirname, '..', 'src/components'),
     '@/util': path.resolve(__dirname, '..', 'src/util'),

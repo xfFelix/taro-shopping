@@ -9,7 +9,7 @@ import {connect} from "@tarojs/redux";
 export default class Protocol extends PureComponent {
 
   config = {
-    navigationBarTitleText: 'question'
+    navigationBarTitleText: '协议'
   }
 
   constructor(){

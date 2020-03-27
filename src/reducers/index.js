@@ -19,6 +19,7 @@ import { reducer as protocolReducer } from '@/pages/protocol/store'
 import { reducer as lifeReducer } from '@/pages/life/store'
 import { reducer as phoneReducer } from '@/pages/phone/store'
 import { reducer as TravelReducer } from '@/pages/travel/order/store'
+import fruit from './fruit'
 
 export default combineReducers({
   classify,
@@ -40,5 +41,6 @@ export default combineReducers({
   protocol: protocolReducer,
   life: lifeReducer,
   phone:phoneReducer,
-  travel: TravelReducer
+  travel: TravelReducer,
+  fruit
 })
