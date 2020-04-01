@@ -99,6 +99,7 @@ class User extends Component {
       { id: '3', text: '生活缴费', icon: 'https://tmall.cocogc.cn/static/images/personal/life.png', path: '/pages/life/order/index'},
       { id: '4', text: '会员卡券', icon: 'https://tmall.cocogc.cn/static/images/personal/vipCard.png', path: '/pages/vip/record/index'},
       { id: '5', text: '海南旅游', icon: 'https://tmall.cocogc.cn/static/images/personal/travel.png', path: '/pages/travel/order/list/index'},
+      { id: '6', text: '水果兑换', icon: 'https://mall.cocotc.cn/static/images/personal/fruit.png', path: '/app/pages/fruit/record/index'},
     ]
     const list = [
       { id: '888', text: '扫一扫', icon: 'https://tmall.cocogc.cn/static/images/weapp/scan.png', path: '/pages/history/index'},
