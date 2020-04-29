@@ -2,6 +2,7 @@ import { GET_HOME_SWIPER, GET_HOME_HOT, GET_HOME_NEW } from '@/constants/tab'
 
 const INITIAL_STATE = {
   list: [
+    { imgPath: 'https://mall.cocotc.cn/static/images/home/litchi.png', name: '妃子荔枝', path: '/pages/goods/list/index?id=1000019', id: 15 },
     { imgPath: 'https://mall.cocotc.cn/static/images/home/premiere.png', name: '景区门票', path: '/pages/goods/list/index?id=1000013', id: 14 },
     { imgPath: 'https://tmall.cocogc.cn/static/images/weapp/gold.png', name: '黄金兑换', path: '/pages/gold/home/index', id: 1 },
     { imgPath: 'https://mall.cocotc.cn/static/images/home/recharge.png', name: '话费充值', path: '/pages/phone/home/index', id: 2 },
@@ -15,7 +16,7 @@ const INITIAL_STATE = {
     { imgPath: 'https://mall.cocotc.cn/static/images/home/air-disabled.png', name: '机票酒店', path: '', id: 9 },
     { imgPath: 'https://mall.cocotc.cn/static/images/home/zdf-disabled.png', name: '周大福金饰', path: '', id: 10 },
     // { imgPath: 'https://mall.cocotc.cn/static/images/home/game-disabled.png', name: '游戏周边', path: '', id: 11 },
-    { imgPath: 'https://tmall.cocogc.cn/static/images/weapp/wangyi.png', name: '网易严选', path: '', id: 12 }
+    // { imgPath: 'https://tmall.cocogc.cn/static/images/weapp/wangyi.png', name: '网易严选', path: '', id: 12 }
   ],
   swiperList: [],
   hotList: [],
